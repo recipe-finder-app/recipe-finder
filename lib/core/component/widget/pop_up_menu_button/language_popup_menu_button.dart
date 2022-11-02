@@ -1,24 +1,50 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/supported_languages_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 
 import '../../../constant/design/border_constant.dart';
 import '../../../init/language/language_manager.dart';
 
-class LanguagePopupMenu extends StatelessWidget {
-  final ValueChanged<int?> onChanged;
-  final String? selectedValue;
-  final int? initialValue;
-  final AlignmentGeometry? align;
+class LanguagePopupMenuButton extends StatefulWidget {
   final Color? color;
-  const LanguagePopupMenu(
-      {Key? key,
-      required this.onChanged,
-      this.initialValue,
-      this.align,
-      this.selectedValue,
-      this.color})
-      : super(key: key);
+  const LanguagePopupMenuButton({Key? key, this.color}) : super(key: key);
+
+  @override
+  State<LanguagePopupMenuButton> createState() =>
+      _LanguagePopupMenuButtonState();
+}
+
+class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
+  String? selectedLanguage;
+  int selectedLanguageId = 1;
+  void changeSelectedLanguage(int? selectedValue) {
+    switch (selectedValue) {
+      case 1:
+        context.setLocale(LanguageManager.instance.enLocale);
+        setState(() {
+          selectedLanguage = SupportedLanguages.EN.name;
+          selectedLanguageId = selectedValue ?? SupportedLanguages.EN.id;
+        });
+        break;
+      case 2:
+        context.setLocale(LanguageManager.instance.trLocale);
+        setState(() {
+          selectedLanguage = SupportedLanguages.TR.name;
+          selectedLanguageId = selectedValue ?? SupportedLanguages.TR.id;
+        });
+        break;
+      default:
+        context.setLocale(LanguageManager.instance.enLocale);
+        setState(() {
+          selectedLanguage = SupportedLanguages.EN.name;
+          selectedLanguageId = selectedValue ?? SupportedLanguages.EN.id;
+        });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,42 +56,41 @@ class LanguagePopupMenu extends StatelessWidget {
       shape: OutlineInputBorder(
           borderRadius: BorderConstant.instance.radiusAllCircularMin),
       color: Colors.white.withOpacity(0.8),
-      initialValue: initialValue,
+      initialValue: selectedLanguageId,
       itemBuilder: (context) => [
-        const PopupMenuItem(
+        PopupMenuItem(
+            textStyle: TextStyle(
+                color: selectedLanguageId == SupportedLanguages.EN.id
+                    ? ColorConstants.instance.oriolesOrange
+                    : Colors.black),
             value: 1,
-            child: Text(
+            child: const Text(
               'EN',
             )),
-        const PopupMenuItem(
+        PopupMenuItem(
+            textStyle: TextStyle(
+                color: selectedLanguageId == SupportedLanguages.TR.id
+                    ? ColorConstants.instance.oriolesOrange
+                    : Colors.black),
             value: 2,
-            child: Text(
+            child: const Text(
               'TR',
             )),
       ],
       onSelected: (int? value) {
-        switch (value) {
-          case 1:
-            context.setLocale(LanguageManager.instance.enLocale);
-            break;
-          case 2:
-            context.setLocale(LanguageManager.instance.trLocale);
-            break;
-          default:
-            context.setLocale(LanguageManager.instance.enLocale);
-        }
-        onChanged(value);
+        changeSelectedLanguage(value);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
-            selectedValue ?? 'Language',
-            style: TextStyle(color: color ?? Colors.white),
+            selectedLanguage ?? LocaleKeys.language.locale,
+            style: TextStyle(
+                color: widget.color ?? ColorConstants.instance.oriolesOrange),
           ),
           Icon(
             Icons.language,
-            color: color ?? Colors.white,
+            color: widget.color ?? ColorConstants.instance.oriolesOrange,
           )
         ],
       ),

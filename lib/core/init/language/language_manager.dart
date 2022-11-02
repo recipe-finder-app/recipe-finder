@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../constant/enum/supported_languages_enum.dart';
+
 class LanguageManager {
   static LanguageManager? _instance;
   static LanguageManager get instance {
@@ -9,9 +11,11 @@ class LanguageManager {
 
   LanguageManager._init();
 
-  final enLocale = Locale('en', 'US');
-  final trLocale = Locale('tr', 'TR');
-  final gerLocale = Locale('de', 'DE');
-  List<Locale> get supportedLocalesList => [enLocale, trLocale,gerLocale];
-  List<String> languageList = ["EN","TR","DE"];
+  final enLocale = const Locale('en', 'US');
+  final trLocale = const Locale('tr', 'TR');
+  List<Locale> get supportedLocalesList => [enLocale, trLocale];
+  List<String> languageList = [
+    SupportedLanguages.EN.name,
+    SupportedLanguages.TR.name
+  ];
 }

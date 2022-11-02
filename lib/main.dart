@@ -1,12 +1,15 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'core/component/widget/alert_dialog/alert_dialog_no_connection.dart';
+import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/constant/navigation/navigation_constants.dart';
+import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
@@ -16,7 +19,11 @@ import 'core/init/notifier/bloc_list.dart';
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   await _init();
-  runApp(const MyApp());
+  runApp(EasyLocalization(
+      path: ApplicationConstants.LANGUAGE_ASSET_PATH,
+      supportedLocales: LanguageManager.instance.supportedLocalesList,
+      startLocale: LanguageManager.instance.enLocale,
+      child: const MyApp()));
 }
 
 Future<void> _init() async {
@@ -24,7 +31,7 @@ Future<void> _init() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-
+  await EasyLocalization.ensureInitialized();
   final result = await networkChange.checkNetworkInitial();
   if (result == NetworkResult.off) {
     NoNetworkAlertDialog();
@@ -40,9 +47,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [...ApplicationBloc.instance.dependItems],
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'Poppins'),
-        builder: MainBuild.build,
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'Poppins'),
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        localizationsDelegates: context.localizationDelegates,
+        builder: MainBuild.build,
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         // initialRoute: NavigationRoute.instance.initialRoute(),

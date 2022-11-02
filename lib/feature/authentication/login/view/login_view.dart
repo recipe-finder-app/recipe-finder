@@ -3,14 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/component/widget/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/core/component/widget/pop_up_menu_button/language_popup_menu_button.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/component/widget/button/authenticate_circular_button.dart';
 import '../../../../core/component/widget/button/login_button.dart';
-import '../../../../core/component/widget/text/bold_text.dart';
+import '../../../../core/component/widget/text/locale_bold_text.dart';
+import '../../../../core/component/widget/text/locale_text.dart';
 import '../../../../core/constant/design/color_constant.dart';
+import '../../../../core/init/language/locale_keys.g.dart';
 import '../../../../product/component/widget/text_field/email_text_formfield.dart';
 import '../../../../product/component/widget/text_field/password_text_formfield.dart';
 import '../../../../product/component/widget/text_field/user_text_formfield.dart';
@@ -18,27 +22,6 @@ import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
-  final String createAccountText = 'Create New Account';
-  final String loginText = 'Login';
-  final String laterText = 'Later';
-  final String recipeText = 'Recipes for your have home ingredients';
-  final String userNameText = 'Username';
-  final String emailText = 'Email';
-  final String emailAddressText = 'Email Address';
-  final String sendEmailText = 'Send Email';
-  final String passwordText = 'Password';
-  final String forgotPasswordText = 'Forgot password?';
-  final String orContinueWith = 'or continue with';
-  final String loginGoogleText = 'Login with Google';
-  final String loginFacebookText = 'Login with Facebook';
-  final String registerGoogleText = 'Register with Google';
-  final String registerFacebookText = 'Register with Facebook';
-  final String dontHaveAccountText = 'Dont have any account?';
-  final String alreadyHaveAccountText = 'Already have any account?';
-  final String signUpText = 'Sign Up';
-  final String signInText = 'Sign In';
-  final String loremText =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ';
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +36,13 @@ class LoginView extends StatelessWidget {
             padding: context.paddingLowEdges,
             child: Column(
               children: [
-                Flexible(
-                  flex: 1,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: TextButton(
-                      child: Text(
-                        laterText,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const LanguagePopupMenuButton(),
+                    TextButton(
+                      child: LocaleText(
+                        text: LocaleKeys.later,
                         style: TextStyle(
                             color: ColorConstants.instance.oriolesOrange,
                             fontWeight: FontWeight.w600,
@@ -67,7 +50,7 @@ class LoginView extends StatelessWidget {
                       ),
                       onPressed: () {},
                     ),
-                  ),
+                  ],
                 ),
                 Flexible(
                   flex: 5,
@@ -80,7 +63,8 @@ class LoginView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text(recipeText,
+                      LocaleText(
+                          text: LocaleKeys.recipeIngredients,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -90,7 +74,7 @@ class LoginView extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24)),
                       LoginButton(
-                        text: loginText,
+                        text: LocaleKeys.login.locale,
                         onPressed: () {
                           signInBottomSheet(context);
                         },
@@ -99,7 +83,8 @@ class LoginView extends StatelessWidget {
                         onPressed: () {
                           signUpBottomSheet(context);
                         },
-                        child: Text(createAccountText,
+                        child: LocaleText(
+                            text: LocaleKeys.createNewAccount,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
@@ -130,26 +115,26 @@ class LoginView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Align(
+                const Align(
                     alignment: Alignment.centerLeft,
-                    child: BoldText(text: userNameText)),
+                    child: LocaleBoldText(text: LocaleKeys.userName)),
                 const UserTextFormField(),
-                Align(
+                const Align(
                     alignment: Alignment.centerLeft,
-                    child: BoldText(text: passwordText)),
+                    child: LocaleBoldText(text: LocaleKeys.password)),
                 const PasswordTextFormField(),
                 Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      child: BoldText(
-                        text: forgotPasswordText,
+                      child: const LocaleBoldText(
+                        text: LocaleKeys.forgotPassword,
                       ),
                       onPressed: () {
                         Navigator.pop(context);
                         forgotPasswordBottomSheet(context);
                       },
                     )),
-                LoginButton(text: loginText),
+                const LoginButton(text: LocaleKeys.login),
               ],
             ),
           ),
@@ -159,28 +144,31 @@ class LoginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(orContinueWith),
+                const LocaleText(
+                  text: LocaleKeys.orContinueWith,
+                ),
                 Column(
                   children: [
                     AuthenticateCircularButton(
                       borderColor: Colors.black,
                       textColor: Colors.black,
-                      text: loginGoogleText,
+                      text: LocaleKeys.loginWithGoogle.locale,
                     ),
                     context.lowSizedBox,
                     AuthenticateCircularButton(
                       borderColor: Colors.black,
                       textColor: ColorConstants.instance.brightNavyBlue,
-                      text: loginFacebookText,
+                      text: LocaleKeys.loginWithFacebook.locale,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BoldText(text: dontHaveAccountText),
+                    const LocaleBoldText(text: LocaleKeys.dontHaveAnyAccount),
                     TextButton(
-                      child: Text(signUpText,
+                      child: LocaleText(
+                          text: LocaleKeys.signUp,
                           style: TextStyle(
                             color: ColorConstants.instance.oriolesOrange,
                           )),
@@ -212,17 +200,17 @@ class LoginView extends StatelessWidget {
               children: [
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: BoldText(text: userNameText)),
-                const UserTextFormField(),
+                    child: LocaleBoldText(text: LocaleKeys.userName.locale)),
+                UserTextFormField(),
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: BoldText(text: emailText)),
-                const EmailTextFormField(),
+                    child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                EmailTextFormField(),
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: BoldText(text: passwordText)),
-                const PasswordTextFormField(),
-                LoginButton(text: createAccountText),
+                    child: LocaleBoldText(text: LocaleKeys.password.locale)),
+                PasswordTextFormField(),
+                LoginButton(text: LocaleKeys.createNewAccount.locale),
               ],
             ),
           ),
@@ -232,28 +220,30 @@ class LoginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(orContinueWith),
+                LocaleText(text: LocaleKeys.orContinueWith.locale),
                 Column(
                   children: [
                     AuthenticateCircularButton(
                       borderColor: Colors.black,
                       textColor: Colors.black,
-                      text: registerGoogleText,
+                      text: LocaleKeys.registerWithGoogle.locale,
                     ),
                     context.lowSizedBox,
                     AuthenticateCircularButton(
                       borderColor: Colors.black,
                       textColor: ColorConstants.instance.brightNavyBlue,
-                      text: registerFacebookText,
+                      text: LocaleKeys.registerWithFacebook.locale,
                     ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    BoldText(text: alreadyHaveAccountText),
+                    LocaleBoldText(
+                        text: LocaleKeys.alreadyHaveAnyAccount.locale),
                     TextButton(
-                      child: Text(signInText,
+                      child: LocaleText(
+                          text: LocaleKeys.signIn.locale,
                           style: TextStyle(
                             color: ColorConstants.instance.oriolesOrange,
                           )),
@@ -286,13 +276,13 @@ class LoginView extends StatelessWidget {
             children: [
               Align(
                   alignment: Alignment.centerLeft,
-                  child: BoldText(
-                    text: forgotPasswordText,
+                  child: LocaleBoldText(
+                    text: LocaleKeys.forgotPassword.locale,
                     fontSize: 20,
                   )),
               context.lowSizedBox,
               Text(
-                loremText,
+                'loremText',
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
@@ -301,13 +291,13 @@ class LoginView extends StatelessWidget {
             children: [
               Align(
                   alignment: Alignment.centerLeft,
-                  child: BoldText(text: emailAddressText)),
+                  child: LocaleBoldText(text: LocaleKeys.emailAddress.locale)),
               context.lowSizedBox,
               const EmailTextFormField(),
             ],
           ),
           context.veryLowSizedBox,
-          LoginButton(text: sendEmailText),
+          LoginButton(text: LocaleKeys.sendEmail.locale),
         ],
       ),
     );
