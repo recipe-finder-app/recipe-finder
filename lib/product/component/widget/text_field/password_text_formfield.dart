@@ -22,6 +22,8 @@ class PasswordTextFormField extends StatefulWidget {
 
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   bool showPassword = false;
+  bool? isValid;
+
   @override
   Widget build(BuildContext context) {
     return StandardTextFormField(
@@ -29,10 +31,16 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       maxLines: 1,
       keyboardType: TextInputType.visiblePassword,
       height: context.screenHeight < DeviceSizeEnum.inch_5.size
-          ? 40
-          : context.screenHeight > DeviceSizeEnum.inch_9.size
+          ? isValid == false
               ? 70
-              : 50,
+              : 40
+          : context.screenHeight > DeviceSizeEnum.inch_9.size
+              ? isValid == false
+                  ? 100
+                  : 70
+              : isValid == false
+                  ? 80
+                  : 50,
       width: context.screenWidth / 1.2,
       obscureText: !showPassword,
       prefixIcon: ImageSvg(
@@ -52,9 +60,15 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       ),
       validator: (tfInput) {
         if (tfInput!.isEmpty) {
+          setState(() {
+            isValid = false;
+          });
           return "Bu Alanı Boş Bırakmayınız!";
+        } else {
+          setState(() {
+            isValid = true;
+          });
         }
-        return null;
       },
     );
   }

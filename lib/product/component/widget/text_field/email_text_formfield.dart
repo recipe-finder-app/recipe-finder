@@ -7,7 +7,63 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import '../../../../core/constant/enum/device_size_enum.dart';
 import '../../../../core/constant/enum/image_path_enum.dart';
 
-class EmailTextFormField extends StatelessWidget {
+class EmailTextFormField extends StatefulWidget {
+  final bool? validator;
+  const EmailTextFormField({Key? key, this.validator}) : super(key: key);
+
+  @override
+  State<EmailTextFormField> createState() => _EmailTextFormFieldState();
+}
+
+class _EmailTextFormFieldState extends State<EmailTextFormField> {
+  bool? isValid;
+
+  @override
+  Widget build(BuildContext context) {
+    return StandardTextFormField(
+      height: context.screenHeight < DeviceSizeEnum.inch_5.size
+          ? isValid == false
+              ? 70
+              : 40
+          : context.screenHeight > DeviceSizeEnum.inch_9.size
+              ? isValid == false
+                  ? 100
+                  : 70
+              : isValid == false
+                  ? 80
+                  : 50,
+      width: context.screenWidth / 1.2,
+      hintText: 'Enter Email Address',
+      maxLines: 1,
+      prefixIcon: ImageSvg(
+        path: ImagePath.email.path,
+      ),
+      validator: (tfInput) {
+        if (tfInput!.isEmpty) {
+          if (widget.validator == true) {
+            setState(() {
+              isValid = false;
+            });
+            return "Bu alanı boş bırakmayınız!";
+          } else {
+            return null;
+          }
+        } else if (EmailValidator.validate(tfInput) == false) {
+          setState(() {
+            isValid = false;
+          });
+          return "Geçerli bir email girin!";
+        } else {
+          setState(() {
+            isValid = true;
+          });
+        }
+      },
+    );
+  }
+}
+
+/*class EmailTextFormField extends StatelessWidget {
   final bool? validator;
   const EmailTextFormField({Key? key, this.validator}) : super(key: key);
 
@@ -27,7 +83,7 @@ class EmailTextFormField extends StatelessWidget {
       validator: (tfInput) {
         if (tfInput!.isEmpty) {
           if (validator == true) {
-            return "Bu alanı boş bırakmayın";
+            return "Bu alanı boş bırakmayınız!";
           } else {
             return null;
           }
@@ -38,4 +94,4 @@ class EmailTextFormField extends StatelessWidget {
       },
     );
   }
-}
+}*/

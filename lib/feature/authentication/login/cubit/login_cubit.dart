@@ -6,24 +6,42 @@ import '../service/login_service.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
-  late GlobalKey<FormState> formKey;
+  late GlobalKey<FormState> loginFormKey;
+  late GlobalKey<FormState> createAccountFormKey;
+  late GlobalKey<FormState> forgotPasswordFormKey;
   ILoginService? service;
 
   LoginCubit() : super(LoginInit());
 
   @override
   void init() {
-    formKey = GlobalKey<FormState>();
+    loginFormKey = GlobalKey<FormState>();
+    createAccountFormKey = GlobalKey<FormState>();
+    forgotPasswordFormKey = GlobalKey<FormState>();
 
     service = LoginService();
   }
 
   @override
   BuildContext? context;
+
   @override
   void setContext(BuildContext context) => this.context = context;
+
   @override
   void dispose() {
     // TODO: implement dispose
+  }
+
+  void login() {
+    if (loginFormKey.currentState!.validate()) {}
+  }
+
+  void createAccount() {
+    if (createAccountFormKey.currentState!.validate()) {}
+  }
+
+  void forgotPassword() {
+    if (forgotPasswordFormKey.currentState!.validate()) {}
   }
 }

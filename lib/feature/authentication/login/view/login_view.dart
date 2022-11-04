@@ -81,12 +81,12 @@ class LoginView extends StatelessWidget {
                       LoginButton(
                         text: LocaleKeys.login.locale,
                         onPressed: () {
-                          signInBottomSheet(context);
+                          signInBottomSheet(context, cubitRead);
                         },
                       ),
                       TextButton(
                         onPressed: () {
-                          signUpBottomSheet(context);
+                          signUpBottomSheet(context, cubitRead);
                         },
                         child: LocaleText(
                             text: LocaleKeys.createNewAccount,
@@ -110,202 +110,237 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Future<void> signInBottomSheet(BuildContext context) {
+  Future<void> signInBottomSheet(
+    BuildContext context,
+    LoginCubit cubitRead,
+  ) {
     return CircularBottomSheet.instance.show(
       context,
-      child: Column(
-        children: [
-          Flexible(
-            flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(text: LocaleKeys.userName)),
-                const UserTextFormField(),
-                const Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(text: LocaleKeys.password)),
-                const PasswordTextFormField(),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      child: const LocaleBoldText(
-                        text: LocaleKeys.forgotPassword,
+      child: Form(
+        key: cubitRead.loginFormKey,
+        child: Column(
+          children: [
+            Flexible(
+              flex: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(text: LocaleKeys.userName)),
+                  const UserTextFormField(),
+                  const Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(text: LocaleKeys.password)),
+                  const PasswordTextFormField(),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        child: const LocaleBoldText(
+                          text: LocaleKeys.forgotPassword,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          forgotPasswordBottomSheet(context, cubitRead);
+                        },
+                      )),
+                  LoginButton(
+                    text: LocaleKeys.login.locale,
+                    onPressed: () {
+                      cubitRead.login();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const LocaleText(
+                    text: LocaleKeys.orContinueWith,
+                  ),
+                  Column(
+                    children: [
+                      AuthenticateCircularButton(
+                        borderColor: Colors.black,
+                        textColor: Colors.black,
+                        text: LocaleKeys.loginWithGoogle.locale,
                       ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        forgotPasswordBottomSheet(context);
-                      },
-                    )),
-                const LoginButton(text: LocaleKeys.login),
-              ],
+                      context.lowSizedBox,
+                      AuthenticateCircularButton(
+                        borderColor: Colors.black,
+                        textColor: ColorConstants.instance.brightNavyBlue,
+                        text: LocaleKeys.loginWithFacebook.locale,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const LocaleBoldText(text: LocaleKeys.dontHaveAnyAccount),
+                      TextButton(
+                        child: LocaleText(
+                            text: LocaleKeys.signUp,
+                            style: TextStyle(
+                              color: ColorConstants.instance.oriolesOrange,
+                            )),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          signUpBottomSheet(context, cubitRead);
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const LocaleText(
-                  text: LocaleKeys.orContinueWith,
-                ),
-                Column(
-                  children: [
-                    AuthenticateCircularButton(
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      text: LocaleKeys.loginWithGoogle.locale,
-                    ),
-                    context.lowSizedBox,
-                    AuthenticateCircularButton(
-                      borderColor: Colors.black,
-                      textColor: ColorConstants.instance.brightNavyBlue,
-                      text: LocaleKeys.loginWithFacebook.locale,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const LocaleBoldText(text: LocaleKeys.dontHaveAnyAccount),
-                    TextButton(
-                      child: LocaleText(
-                          text: LocaleKeys.signUp,
-                          style: TextStyle(
-                            color: ColorConstants.instance.oriolesOrange,
-                          )),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        signUpBottomSheet(context);
-                      },
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  Future<void> signUpBottomSheet(BuildContext context) {
+  Future<void> signUpBottomSheet(
+    BuildContext context,
+    LoginCubit cubitRead,
+  ) {
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.high,
-      child: Column(
-        children: [
-          Flexible(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(text: LocaleKeys.userName.locale)),
-                UserTextFormField(),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(text: LocaleKeys.email.locale)),
-                EmailTextFormField(),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(text: LocaleKeys.password.locale)),
-                PasswordTextFormField(),
-                LoginButton(text: LocaleKeys.createNewAccount.locale),
-              ],
+      child: Form(
+        key: cubitRead.createAccountFormKey,
+        child: Column(
+          children: [
+            Flexible(
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(text: LocaleKeys.userName.locale)),
+                  UserTextFormField(),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                  EmailTextFormField(
+                    validator: true,
+                  ),
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(text: LocaleKeys.password.locale)),
+                  PasswordTextFormField(),
+                  LoginButton(
+                    text: LocaleKeys.createNewAccount.locale,
+                    onPressed: () {
+                      cubitRead.createAccount();
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          Flexible(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                LocaleText(text: LocaleKeys.orContinueWith.locale),
-                Column(
-                  children: [
-                    AuthenticateCircularButton(
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      text: LocaleKeys.registerWithGoogle.locale,
-                    ),
-                    context.lowSizedBox,
-                    AuthenticateCircularButton(
-                      borderColor: Colors.black,
-                      textColor: ColorConstants.instance.brightNavyBlue,
-                      text: LocaleKeys.registerWithFacebook.locale,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LocaleBoldText(
-                        text: LocaleKeys.alreadyHaveAnyAccount.locale),
-                    TextButton(
-                      child: LocaleText(
-                          text: LocaleKeys.signIn.locale,
-                          style: TextStyle(
-                            color: ColorConstants.instance.oriolesOrange,
-                          )),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        signInBottomSheet(context);
-                      },
-                    ),
-                  ],
-                )
-              ],
+            Flexible(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  LocaleText(text: LocaleKeys.orContinueWith.locale),
+                  Column(
+                    children: [
+                      AuthenticateCircularButton(
+                        borderColor: Colors.black,
+                        textColor: Colors.black,
+                        text: LocaleKeys.registerWithGoogle.locale,
+                      ),
+                      context.lowSizedBox,
+                      AuthenticateCircularButton(
+                        borderColor: Colors.black,
+                        textColor: ColorConstants.instance.brightNavyBlue,
+                        text: LocaleKeys.registerWithFacebook.locale,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LocaleBoldText(
+                          text: LocaleKeys.alreadyHaveAnyAccount.locale),
+                      TextButton(
+                        child: LocaleText(
+                            text: LocaleKeys.signIn.locale,
+                            style: TextStyle(
+                              color: ColorConstants.instance.oriolesOrange,
+                            )),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          signInBottomSheet(context, cubitRead);
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Future<void> forgotPasswordBottomSheet(
     BuildContext context,
+    LoginCubit cubitRead,
   ) {
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.short,
       resizeToAvoidBottomInset: true,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: LocaleBoldText(
-                    text: LocaleKeys.forgotPassword.locale,
-                    fontSize: 20,
-                  )),
-              context.lowSizedBox,
-              Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                style: const TextStyle(color: Colors.grey),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: LocaleBoldText(
-                    text: LocaleKeys.emailAddress.locale,
-                  )),
-              context.lowSizedBox,
-              const EmailTextFormField(),
-            ],
-          ),
-          context.veryLowSizedBox,
-          LoginButton(text: LocaleKeys.sendEmail.locale),
-        ],
+      child: Form(
+        key: cubitRead.forgotPasswordFormKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: LocaleBoldText(
+                      text: LocaleKeys.forgotPassword.locale,
+                      fontSize: 20,
+                    )),
+                context.lowSizedBox,
+                Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                  style: const TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: LocaleBoldText(
+                      text: LocaleKeys.emailAddress.locale,
+                    )),
+                context.lowSizedBox,
+                const EmailTextFormField(
+                  validator: true,
+                ),
+              ],
+            ),
+            context.veryLowSizedBox,
+            LoginButton(
+              text: LocaleKeys.sendEmail.locale,
+              onPressed: () {
+                cubitRead.forgotPassword();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
