@@ -62,6 +62,7 @@ flutter:
 
   assets:
     - asset/image/
+    - asset/image/navigation_bar_icon/
     - asset/language/
     - asset/font/
   uses-material-design: true

@@ -1,16 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/component/widget/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/core/component/widget/pop_up_menu_button/language_popup_menu_button.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 
 import '../../../../core/base/view/base_view.dart';
 import '../../../../core/component/widget/button/authenticate_circular_button.dart';
 import '../../../../core/component/widget/button/login_button.dart';
+import '../../../../core/component/widget/svg_picture/image_svg.dart';
 import '../../../../core/component/widget/text/locale_bold_text.dart';
 import '../../../../core/component/widget/text/locale_text.dart';
 import '../../../../core/constant/design/color_constant.dart';
@@ -48,14 +50,17 @@ class LoginView extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             fontSize: 16),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        NavigationService.instance.navigateToPage(
+                            path: NavigationConstants.NAV_CONTROLLER);
+                      },
                     ),
                   ],
                 ),
                 Flexible(
                   flex: 5,
-                  child: SvgPicture.asset(
-                    ImagePath.group5357.path,
+                  child: ImageSvg(
+                    path: ImagePath.group5357.path,
                   ),
                 ),
                 Flexible(
@@ -282,7 +287,7 @@ class LoginView extends StatelessWidget {
                   )),
               context.lowSizedBox,
               Text(
-                'loremText',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                 style: const TextStyle(color: Colors.grey),
               ),
             ],
@@ -291,7 +296,9 @@ class LoginView extends StatelessWidget {
             children: [
               Align(
                   alignment: Alignment.centerLeft,
-                  child: LocaleBoldText(text: LocaleKeys.emailAddress.locale)),
+                  child: LocaleBoldText(
+                    text: LocaleKeys.emailAddress.locale,
+                  )),
               context.lowSizedBox,
               const EmailTextFormField(),
             ],

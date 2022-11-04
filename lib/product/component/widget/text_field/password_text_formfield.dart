@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recipe_finder/core/component/widget/svg_picture/image_svg.dart';
 import 'package:recipe_finder/core/component/widget/text_field/standard_text_formfield.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
+import '../../../../core/constant/enum/device_size_enum.dart';
 import '../../../../core/constant/enum/image_path_enum.dart';
 
 class PasswordTextFormField extends StatefulWidget {
@@ -27,14 +28,15 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       hintText: 'Enter Password',
       maxLines: 1,
       keyboardType: TextInputType.visiblePassword,
-      height: 55,
+      height: context.screenHeight < DeviceSizeEnum.inch_5.size
+          ? 40
+          : context.screenHeight > DeviceSizeEnum.inch_9.size
+              ? 70
+              : 50,
       width: context.screenWidth / 1.2,
       obscureText: !showPassword,
-      prefixIcon: SvgPicture.asset(
-        ImagePath.password.path,
-        height: 5,
-        width: 5,
-        fit: BoxFit.none,
+      prefixIcon: ImageSvg(
+        path: ImagePath.password.path,
       ),
       suffixIcon: GestureDetector(
         onTap: () {

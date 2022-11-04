@@ -6,7 +6,7 @@ class BorderConstant {
   BorderConstant._init();
 
   final radiusAllCircularMin = BorderRadius.circular(10.0);
-  final radiusAllCircularMedium = BorderRadius.circular(20.0);
+  final radiusAllCircularMedium = BorderRadius.circular(15.0);
   final radiusAllCircularHigh = BorderRadius.circular(35.0);
   final radiusAllCircularVeryHigh = BorderRadius.circular(50.0);
 }

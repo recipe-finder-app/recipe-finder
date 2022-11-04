@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'core/component/widget/alert_dialog/alert_dialog_no_connection.dart';
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
-import 'core/constant/navigation/navigation_constants.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/navigation/navigation_route.dart';
@@ -29,7 +29,10 @@ Future<void> main() async {
 Future<void> _init() async {
   INetworkChangeManager networkChange = NetworkChangeManager();
   WidgetsFlutterBinding.ensureInitialized();
-
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Hive.initFlutter();
   await EasyLocalization.ensureInitialized();
   final result = await networkChange.checkNetworkInitial();
@@ -55,8 +58,8 @@ class MyApp extends StatelessWidget {
         builder: MainBuild.build,
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
-        // initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.LOGIN,
+        initialRoute: NavigationRoute.instance.initialRoute(),
+        //initialRoute: NavigationConstants.LOGIN,
       ),
     );
   }

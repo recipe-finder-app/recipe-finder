@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../constant/design/border_constant.dart';
@@ -21,7 +22,11 @@ class AuthenticateCircularButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: context.screenHeight < DeviceSizeEnum.inch_5.size
+          ? 40
+          : context.screenHeight > DeviceSizeEnum.inch_9.size
+              ? 70
+              : 50,
       width: context.screenWidth / 1.2,
       child: ElevatedButton(
           style: ButtonStyle(

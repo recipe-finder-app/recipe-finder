@@ -1,4 +1,4 @@
-enum DeviceSize {
+enum DeviceSizeEnum {
   inch_4(533.3333333333334),
   inch_4dot7(592), //667
   inch_5(683.4285714285714),
@@ -8,6 +8,6 @@ enum DeviceSize {
   inch_9(976),
   inch_10(1232.0);
 
-  const DeviceSize(this.size);
+  const DeviceSizeEnum(this.size);
   final num size;
 }
