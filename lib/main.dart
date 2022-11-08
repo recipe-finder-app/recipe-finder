@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-
-import 'core/component/widget/alert_dialog/alert_dialog_no_connection.dart';
+import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
+import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/product/widget/button_navbar/navigation_custom.dart';
+import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
-import 'core/init/navigation/navigation_route.dart';
-import 'core/init/navigation/navigation_service.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
 import 'core/init/notifier/bloc_list.dart';
 
@@ -43,7 +43,7 @@ Future<void> _init() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget with NavigatorCustom {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,26 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'Poppins'),
+        // theme: ThemeManager.craeteTheme(AppThemeLight()),
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
         builder: MainBuild.build,
+
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         initialRoute: NavigationRoute.instance.initialRoute(),
         //initialRoute: NavigationConstants.LOGIN,
+
+        /**
+     * 
+         initialRoute: '/',
+        routes: {
+          "/": (context) => const HomeView(),
+        },
+        onGenerateRoute: onGenerateRoute
+      
+     */
       ),
     );
   }

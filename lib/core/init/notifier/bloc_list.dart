@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/feature/home/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
+import 'package:recipe_finder/product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
 
-import '../../../feature/authentication/login/cubit/login_cubit.dart';
+import '../../../feature/login_page/cubit/login_cubit.dart';
 
 class ApplicationBloc {
   static ApplicationBloc? _instance;

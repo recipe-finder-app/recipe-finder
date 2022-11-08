@@ -14,6 +14,7 @@ extension MediaQueryExtension on BuildContext {
   double get lowValue => screenHeight * 0.01;
   double get normalValue => screenHeight * 0.02;
   double get mediumValue => screenHeight * 0.04;
+  double get maxValue => screenHeight * 0.07;
   double get highValue => screenHeight * 0.1;
 }
 
@@ -29,14 +30,17 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingMediumAll => EdgeInsets.all(mediumValue);
   EdgeInsets get paddingHighAll => EdgeInsets.all(highValue);
 
+  EdgeInsets get paddingLowLeft => EdgeInsets.only(left: normalValue);
   EdgeInsets get paddingLowEdges =>
       EdgeInsets.only(left: lowValue, right: lowValue);
-  EdgeInsets get paddingNormalEdges =>
-      EdgeInsets.only(left: normalValue, right: normalValue);
+  EdgeInsets get paddingNormalEdges => EdgeInsets.only(
+        left: normalValue,
+        right: normalValue,
+        top: normalValue,
+      );
   EdgeInsets get paddingMediumEdges =>
       EdgeInsets.only(left: mediumValue, right: mediumValue);
-  EdgeInsets get paddingHighEdges =>
-      EdgeInsets.only(left: highValue, right: highValue);
+  EdgeInsets get paddingHighEdges => EdgeInsets.only(left: mediumValue);
 
   EdgeInsets get paddingLowTopBottom =>
       EdgeInsets.only(top: lowValue, bottom: lowValue);
@@ -97,4 +101,16 @@ extension ScreenOrientationExtension on BuildContext {
   Future<void> get portraitUpView => SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
       ]);
+}
+
+extension BorderExtension on BuildContext {
+  BorderRadius get radiusAllCircularMin => BorderRadius.circular(10.0);
+  BorderRadius get radiusAllCircularMedium => BorderRadius.circular(15.0);
+  BorderRadius get radiusAllCircularHigh => BorderRadius.circular(35.0);
+  BorderRadius get radiusAllCircularVeryHigh => BorderRadius.circular(50.0);
+
+  BorderRadius get radiusAllCircula => const BorderRadius.only(
+        topLeft: Radius.circular(35),
+        topRight: Radius.circular(35),
+      );
 }

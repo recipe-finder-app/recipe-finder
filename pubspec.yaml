@@ -26,6 +26,8 @@ dependencies:
   email_validator: ^2.0.1
   easy_localization: ^3.0.1
   dropdown_search: ^5.0.3
+  kartal: ^2.5.1
+  page_transition: ^2.0.9
 
 
 
@@ -61,10 +63,13 @@ flutter:
           weight: 400
 
   assets:
-    - asset/image/
-    - asset/image/navigation_bar_icon/
+    
+    - asset/navigation_bar_icon/
     - asset/language/
     - asset/font/
+    - asset/png/
+    - asset/svg/
+    - asset/lotties/
   uses-material-design: true
 
 
