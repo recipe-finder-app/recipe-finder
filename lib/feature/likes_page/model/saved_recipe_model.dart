@@ -14,7 +14,9 @@ class SavedRecipeItems {
     items = [
       SavedRecipeModel(
         imagePath: ImagePath.imageSample1.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
+        title:
+            'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+            'uzun text deneme',
       ),
       SavedRecipeModel(
         imagePath: ImagePath.imageSample2.path,
