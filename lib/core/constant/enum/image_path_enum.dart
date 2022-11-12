@@ -34,7 +34,9 @@ enum ImagePath {
   breakfast('asset/png/breakfast.png'),
   desserts('asset/png/desserts.png'),
   lunch('asset/png/lunch.png'),
-  drinks('asset/png/drinks.png');
+  drinks('asset/png/drinks.png'),
+  refrigerator('asset/png/refrigerator.png'),
+  login('asset/svg/login.svg');
 
   const ImagePath(this.path);
   final String path;

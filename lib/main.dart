@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/feature/home_page/view/home_view.dart';
 import 'package:recipe_finder/product/widget/button_navbar/navigation_custom.dart';
 import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
 import 'core/constant/app/app_constants.dart';
@@ -70,7 +71,6 @@ class MyApp extends StatelessWidget with NavigatorCustom {
           "/": (context) => const HomeView(),
         },
         onGenerateRoute: onGenerateRoute
-      
      */
       ),
     );

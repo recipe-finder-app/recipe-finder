@@ -9,13 +9,8 @@ class DiscoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /**
-       *  bottomNavigationBar: const BottomNavbar(
-        pageid: 1,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: const MyFAB(),
-       */
+     
+     
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

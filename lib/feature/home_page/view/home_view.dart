@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+import 'package:recipe_finder/product/component/image_format/image_png.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
@@ -10,6 +13,7 @@ import 'package:recipe_finder/feature/home_page/model/search_model.dart';
 import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/component/card/search_by_meal_card.dart';
 
 class HomeView extends StatelessWidget {
@@ -20,43 +24,54 @@ class HomeView extends StatelessWidget {
     late final List<SearchModel> searchItem = SearchItems().items;
     late final List<CategoryModel> catItem = CategoryItems().items;
     return Scaffold(
-      /**
-      *  bottomNavigationBar: const BottomNavbar(
-        pageid: 0,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: const MyFAB(),
-      */
       body: SafeArea(
         child: Padding(
           padding: context.paddingNormalEdges,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _appBarRow(context),
-            SizedBox(
-              height: context.mediumValue,
-            ),
-            const SearchWidget(),
-            SizedBox(
-              height: context.mediumValue,
-            ),
-            const LocaleText(
-              style: TextStyle(fontSize: 25),
-              text: LocaleKeys.category,
-            ),
-            SizedBox(
-              height: context.mediumValue,
-            ),
-            _categoryListView(catItem),
-            const LocaleText(
-              style: TextStyle(fontSize: 25),
-              text: LocaleKeys.searchbymeal,
-            ),
-            SizedBox(
-              height: context.mediumValue,
-            ),
-            _searchByGridView(searchItem)
-          ]),
+          child: SingleChildScrollView(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              _appBarRow(context),
+              SizedBox(
+                height: context.mediumValue,
+              ),
+              const Center(child: SearchWidget()),
+              SizedBox(
+                height: context.mediumValue,
+              ),
+              SizedBox(
+                height: context.screenHeight / 4.4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const LocaleText(
+                      style: TextStyle(fontSize: 25),
+                      text: LocaleKeys.category,
+                    ),
+                    SizedBox(
+                      height: context.lowValue,
+                    ),
+                    _categoryListView(context, catItem),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: context.screenHeight / 2.5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const LocaleText(
+                      style: TextStyle(fontSize: 25),
+                      text: LocaleKeys.searchbymeal,
+                    ),
+                    SizedBox(
+                      height: context.lowValue,
+                    ),
+                    _searchByGridView(context, searchItem)
+                  ],
+                ),
+              ),
+            ]),
+          ),
         ),
       ),
     );
@@ -78,13 +93,13 @@ class HomeView extends StatelessWidget {
               height: context.maxValue,
               child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeView()),
-                    );
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.NAV_CONTROLLER);
                     refrigeratorBottomSheet(context);
                   },
-                  child: Image.asset('asset/png/refrigerator.png'))),
+                  child: ImagePng(
+                    path: ImagePath.refrigerator.path,
+                  ))),
           Padding(
             padding: context.paddingHighEdges,
             child: const CircleAvatar(
@@ -97,9 +112,9 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Expanded _searchByGridView(List<SearchModel> searchItem) {
-    return Expanded(
-      flex: 2,
+  Widget _searchByGridView(BuildContext context, List<SearchModel> searchItem) {
+    return SizedBox(
+      height: context.screenHeight / 3,
       child: GridView.builder(
           itemCount: searchItem.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -117,8 +132,9 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Flexible _categoryListView(List<CategoryModel> catItem) {
-    return Flexible(
+  Widget _categoryListView(BuildContext context, List<CategoryModel> catItem) {
+    return SizedBox(
+      height: context.screenHeight / 8.2,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: catItem.length,

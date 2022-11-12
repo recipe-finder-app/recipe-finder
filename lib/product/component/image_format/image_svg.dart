@@ -17,7 +17,8 @@ class ImageSvg extends StatelessWidget {
       height: height,
       width: width,
       fit: BoxFit.none,
-      theme: SvgTheme(currentColor: color ?? Colors.white),
+      
+       theme: SvgTheme(currentColor: color ?? Colors.white),
     );
   }
 }

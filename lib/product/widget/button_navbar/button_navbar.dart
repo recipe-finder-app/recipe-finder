@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/feature/home_page/view/home_view.dart';
 
 import 'fab_widget.dart';
-
-import 'package:kartal/kartal.dart';
 
 class BottomNavbar extends StatefulWidget {
   final int pageid;
@@ -18,14 +17,14 @@ class _BottomNavbarState extends State<BottomNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.width,
-      height: context.height * 0.10,
-      padding: EdgeInsets.only(top: context.height / 100),
+      width: context.screenWidth,
+      height: context.screenHeight * 0.10,
+      padding: EdgeInsets.only(top: context.screenHeight / 100),
       color: Colors.white,
       child: Row(
         children: [
           SizedBox(
-            width: context.width * 0.08,
+            width: context.screenWidth * 0.08,
           ),
           item(
             icon: 'home',
@@ -34,7 +33,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             id: 0,
           ),
           SizedBox(
-            width: context.width * 0.08,
+            width: context.screenWidth * 0.08,
           ),
           item(
             icon: 'world',
@@ -43,7 +42,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             id: 1,
           ),
           SizedBox(
-            width: context.width * 0.25,
+            width: context.screenWidth * 0.25,
           ),
           item(
             icon: 'heart',
@@ -52,7 +51,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             id: 2,
           ),
           SizedBox(
-            width: context.width * 0.10,
+            width: context.screenWidth * 0.10,
           ),
           item(
             icon: 'shopping_bag',
@@ -61,7 +60,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
             id: 3,
           ),
           SizedBox(
-            width: context.width * 0.08,
+            width: context.screenWidth * 0.08,
           ),
         ],
       ),
@@ -90,7 +89,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
       },
       child: Column(
         children: [
-          SvgPicture.asset('asset/image/navigation_bar_icon/$icon.svg',
+          SvgPicture.asset('asset/navigation_bar_icon/$icon.svg',
               height: 25,
               color:
                   widget.pageid == id ? const Color(0xff1F1346) : Colors.grey),

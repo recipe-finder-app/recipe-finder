@@ -16,7 +16,7 @@ mixin NavigatorCustom<T extends MyApp> on Widget {
           child: const HomeView(),
           type: PageTransitionType.fade,
           settings: routeSettings,
-          //   reverseDuration: DurationItems.durationSmall(),
+          reverseDuration: const Duration(seconds: 0),
         );
 
       case 'discoverView':
@@ -24,14 +24,14 @@ mixin NavigatorCustom<T extends MyApp> on Widget {
           child: const DiscoverView(),
           type: PageTransitionType.fade,
           settings: routeSettings,
-          reverseDuration:const Duration(seconds: 0),
+          reverseDuration: const Duration(seconds: 0),
         );
       case 'likesView':
         return PageTransition(
           child: const LikesView(),
           type: PageTransitionType.fade,
           settings: routeSettings,
-          reverseDuration:const Duration(seconds: 0),
+          reverseDuration: const Duration(seconds: 0),
         );
 
       case 'basketView':
@@ -39,14 +39,14 @@ mixin NavigatorCustom<T extends MyApp> on Widget {
           child: const BasketView(),
           type: PageTransitionType.fade,
           settings: routeSettings,
-          // reverseDuration: DurationItems.durationSmall(),
+          reverseDuration: const Duration(seconds: 0),
         );
       case 'finderView':
         return PageTransition(
           child: const FinderView(),
           type: PageTransitionType.fade,
           settings: routeSettings,
-          // reverseDuration: DurationItems.durationSmall(),
+          reverseDuration: const Duration(seconds: 0),
         );
     }
     return null;

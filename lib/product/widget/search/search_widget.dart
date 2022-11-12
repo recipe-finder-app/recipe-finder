@@ -7,7 +7,7 @@ class SearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.screenWidth,
+      width: context.maxValueWidth,
       decoration: BoxDecoration(
         //  color: Theme.of(context).colorScheme.onSecondary,
         color: Colors.white,
@@ -15,8 +15,9 @@ class SearchWidget extends StatelessWidget {
             color: Colors.grey, width: 2.0, style: BorderStyle.solid),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: TextField(
+      child: TextFormField(
         decoration: InputDecoration(
+        
             border: InputBorder.none,
             prefixIcon: const Icon(Icons.search_sharp, color: Colors.black),
             hintText: 'Search',

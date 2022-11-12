@@ -16,9 +16,6 @@ class ImagePng extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset(
       path,
-      height: height,
-      width: width,
-      fit: BoxFit.none,
     );
   }
 }

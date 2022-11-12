@@ -17,7 +17,7 @@ class _MyFABState extends State<MyFAB> {
     var size = MediaQuery.of(context).size;
     return Stack(
       clipBehavior: Clip.none,
-      alignment: const FractionalOffset(.5, 1.0),
+      //alignment: const FractionalOffset(.5, 1.0),
       children: [
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -34,8 +34,9 @@ class _MyFABState extends State<MyFAB> {
                       MaterialPageRoute(
                           builder: (context) => const FinderView()));
                 },
-                child: SvgPicture.asset(
-                    'asset/image/navigation_bar_icon/search.svg')),
+                child:
+                    SvgPicture.asset('asset/navigation_bar_icon/search.svg')
+                    ,),
             SizedBox(
               height: size.height * .03,
             ),

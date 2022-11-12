@@ -16,20 +16,30 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  connectivity_plus:
+
+  #State management
   flutter_bloc:
-  change_app_package_name:
+
+  #Localization
+  easy_localization: ^3.0.1
+
+  #Cache
+  hive_flutter: ^1.1.0
+
+  #Network
   dio: ^4.0.6
   vexana: ^3.0.1
-  hive_flutter: ^1.1.0
+
+  #Google
+  connectivity_plus:
+  change_app_package_name:
   intl:
   email_validator: ^2.0.1
-  easy_localization: ^3.0.1
   dropdown_search: ^5.0.3
-  kartal: ^2.5.1
   page_transition: ^2.0.9
 
-
+  #Animation
+  flutter_svg: ^1.1.6
 
 
 
@@ -38,7 +48,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.2.1
   hive_generator: ^1.1.3
-  flutter_svg: ^1.1.6
+  
 
 
 
