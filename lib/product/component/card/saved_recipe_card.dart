@@ -134,7 +134,6 @@ class SavedRecipeCard extends StatelessWidget {
               path: ImagePath.likeWhite.path,
               height: 20,
               width: 20,
-              color: Colors.white,
             ),
           ],
         ),

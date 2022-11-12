@@ -5,9 +5,15 @@ class ImageSvg extends StatelessWidget {
   final String path;
   final double? height;
   final double? width;
+  final SvgTheme? theme;
   final Color? color;
   const ImageSvg(
-      {Key? key, required this.path, this.height, this.width, this.color})
+      {Key? key,
+      required this.path,
+      this.height,
+      this.width,
+      this.theme,
+      this.color})
       : super(key: key);
 
   @override
@@ -17,7 +23,8 @@ class ImageSvg extends StatelessWidget {
       height: height,
       width: width,
       fit: BoxFit.none,
-      theme: SvgTheme(currentColor: color ?? Colors.white),
+      theme: theme,
+      color: color,
     );
   }
 }
