@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
-import 'package:recipe_finder/product/widget/bottom_nav_bar_controller/bottom_nav_bar_view.dart';
 
-import '../../../product/component/no_navigation/no_navigation_view.dart';
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
+import '../../../product/component/no_navigation/no_navigation_view.dart';
+import '../../../product/widget/bottom_nav_bar_controller/recipe_bottom_navigation_bar.dart';
 
 class NavigationRoute {
   static final NavigationRoute _instance = NavigationRoute._init();
@@ -21,7 +21,7 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:
-        return normalNavigate(const RecipeNavigationBarController(),
+        return normalNavigate(const RecipeBottomNavigationBar(),
             NavigationConstants.NAV_CONTROLLER);
       case NavigationConstants.HOME:
         return normalNavigate(const HomeView(), NavigationConstants.HOME);
