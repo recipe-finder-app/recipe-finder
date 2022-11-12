@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../feature/basket_page/view/basket_view.dart';
@@ -20,6 +23,19 @@ class RecipeNavigationBarCubit extends Cubit<int> {
   void changePage(int index) {
     selectedPageIndex = index;
     emit(selectedPageIndex);
+  }
+
+  void clickSearchButton() {
+    selectedPageIndex = 2;
+    emit(selectedPageIndex);
+  }
+
+  Color itemColor(index) {
+    if (index == selectedPageIndex) {
+      return Colors.black;
+    } else {
+      return Colors.grey;
+    }
   }
 
   void clear() {
