@@ -51,6 +51,7 @@ class StandardTextFormField extends StatelessWidget {
       height: height,
       width: width,
       child: TextFormField(
+        textAlignVertical: TextAlignVertical.center,
         initialValue: initialValue,
         maxLines: maxLines,
         controller: tfController,
@@ -63,6 +64,7 @@ class StandardTextFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
           enabled: enabled ?? true,
           hintText: hintText,
+          contentPadding: context.paddingLowAll,
           floatingLabelBehavior: upLabel == false
               ? FloatingLabelBehavior.never
               : FloatingLabelBehavior.always,
@@ -80,10 +82,11 @@ class StandardTextFormField extends StatelessWidget {
           filled: filled ?? true,
           fillColor: filledColor ?? Colors.transparent,
           hintStyle: const TextStyle(
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: Colors.grey),
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+            color: Colors.grey,
+          ),
           border: borderEnable == false
               ? null
               : OutlineInputBorder(

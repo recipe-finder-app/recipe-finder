@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/widget/button/login_button.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/model/category_model.dart';
 import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
 import 'package:recipe_finder/feature/home_page/model/search_model.dart';
 import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
+import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
+
 import '../../../product/component/card/search_by_meal_card.dart';
 
 class HomeView extends StatelessWidget {
@@ -75,7 +76,7 @@ class HomeView extends StatelessWidget {
         ),
         Stack(children: [
           SizedBox(
-              height: context.maxValue,
+              height: context.highValue,
               child: InkWell(
                   onTap: () {
                     Navigator.push(

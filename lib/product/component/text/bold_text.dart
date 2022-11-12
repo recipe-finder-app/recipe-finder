@@ -37,7 +37,7 @@ class BoldText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
+      style: style?.copyWith(
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w500,
         fontSize: fontSize ?? 14,

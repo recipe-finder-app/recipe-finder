@@ -46,5 +46,7 @@
     "carrot":"Havuç",
     "eggplant":"Patlican",
     "peas":"Bezelye",
-    "addIngredients": "Malzemeler ekle"
+    "addIngredients": "Malzemeler ekle",
+    "mySavedRecipes": "Kaydedilen Tariflerim",
+    "addToBasket": "Sepete Ekle"
 }

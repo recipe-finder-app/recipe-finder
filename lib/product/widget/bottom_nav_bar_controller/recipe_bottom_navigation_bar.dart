@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 
 typedef IntParameterFunction = void Function(int data);
 
@@ -67,7 +67,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
             BottomNavigationBarItem(
                 label: 'Basket',
                 icon: ImageSvg(
-                  path: ImagePath.basket.path,
+                  path: ImagePath.shoppingBag.path,
                   height: 24,
                 )),
           ],

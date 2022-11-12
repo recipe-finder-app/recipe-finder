@@ -11,11 +11,12 @@ extension MediaQueryExtension on BuildContext {
   double get screenHeight => mediaQuery.size.height;
   double get screenWidth => mediaQuery.size.width;
 
+  double get veryLowValue => screenHeight * 0.008;
   double get lowValue => screenHeight * 0.01;
   double get normalValue => screenHeight * 0.02;
   double get mediumValue => screenHeight * 0.04;
-  double get maxValue => screenHeight * 0.07;
-  double get highValue => screenHeight * 0.1;
+  double get highValue => screenHeight * 0.07;
+  double get veryHighValue => screenHeight * 0.1;
 }
 
 extension ThemeExtension on BuildContext {
@@ -25,10 +26,11 @@ extension ThemeExtension on BuildContext {
 }
 
 extension PaddingExtensionAll on BuildContext {
+  EdgeInsets get paddingVeryLowAll => EdgeInsets.all(veryLowValue);
   EdgeInsets get paddingLowAll => EdgeInsets.all(lowValue);
   EdgeInsets get paddingNormalAll => EdgeInsets.all(normalValue);
   EdgeInsets get paddingMediumAll => EdgeInsets.all(mediumValue);
-  EdgeInsets get paddingHighAll => EdgeInsets.all(highValue);
+  EdgeInsets get paddingHighAll => EdgeInsets.all(veryHighValue);
 
   EdgeInsets get paddingLowLeft => EdgeInsets.only(left: normalValue);
   EdgeInsets get paddingLowEdges =>
@@ -49,12 +51,12 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingMediumTopBottom =>
       EdgeInsets.only(top: mediumValue, bottom: mediumValue);
   EdgeInsets get paddingHighTopBottom =>
-      EdgeInsets.only(top: highValue, bottom: highValue);
+      EdgeInsets.only(top: veryHighValue, bottom: veryHighValue);
 
   EdgeInsets get paddingLowOnlyTop => EdgeInsets.only(top: lowValue);
   EdgeInsets get paddingNormalOnlyTop => EdgeInsets.only(top: normalValue);
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
-  EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
+  EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: veryHighValue);
 }
 
 extension PaddingExtensionSymetric on BuildContext {
@@ -64,7 +66,7 @@ extension PaddingExtensionSymetric on BuildContext {
   EdgeInsets get paddingMediumVertical =>
       EdgeInsets.symmetric(vertical: mediumValue);
   EdgeInsets get paddingHighVertical =>
-      EdgeInsets.symmetric(vertical: highValue);
+      EdgeInsets.symmetric(vertical: veryHighValue);
 
   EdgeInsets get paddingLowHorizontal =>
       EdgeInsets.symmetric(horizontal: lowValue);
@@ -73,7 +75,7 @@ extension PaddingExtensionSymetric on BuildContext {
   EdgeInsets get paddingMediumHorizontal =>
       EdgeInsets.symmetric(horizontal: mediumValue);
   EdgeInsets get paddingHighHorizontal =>
-      EdgeInsets.symmetric(horizontal: highValue);
+      EdgeInsets.symmetric(horizontal: veryHighValue);
 }
 
 extension PageExtension on BuildContext {
@@ -86,11 +88,19 @@ extension DurationExtension on BuildContext {
 }
 
 extension SizedBoxExtension on BuildContext {
-  SizedBox get veryLowSizedBox => const SizedBox(height: 5);
-  SizedBox get lowSizedBox => const SizedBox(height: 10);
-  SizedBox get mediumSizedBox => const SizedBox(height: 15);
-  SizedBox get highSizedBox => const SizedBox(height: 25);
-  SizedBox get veryHighSizedBox => const SizedBox(height: 50);
+  SizedBox get veryLowSizedBox => SizedBox(height: veryLowValue);
+  SizedBox get lowSizedBox => SizedBox(height: lowValue);
+  SizedBox get normalSizedBox => SizedBox(height: normalValue);
+  SizedBox get mediumSizedBox => SizedBox(height: mediumValue);
+  SizedBox get highSizedBox => SizedBox(height: highValue);
+  SizedBox get veryHighSizedBox => SizedBox(height: veryHighValue);
+
+  SizedBox get veryLowSizedBoxWidth => SizedBox(width: veryLowValue);
+  SizedBox get lowSizedBoxWidth => SizedBox(width: lowValue);
+  SizedBox get normalSizedBoxWidth => SizedBox(width: normalValue);
+  SizedBox get mediumSizedBoxWidth => SizedBox(width: mediumValue);
+  SizedBox get highSizedBoxWidth => SizedBox(width: highValue);
+  SizedBox get veryHighSizedBoxWidth => SizedBox(width: veryHighValue);
 }
 
 extension ScreenOrientationExtension on BuildContext {
@@ -109,8 +119,24 @@ extension BorderExtension on BuildContext {
   BorderRadius get radiusAllCircularHigh => BorderRadius.circular(35.0);
   BorderRadius get radiusAllCircularVeryHigh => BorderRadius.circular(50.0);
 
-  BorderRadius get radiusAllCircula => const BorderRadius.only(
+  BorderRadius get radiusTopCircularHigh => const BorderRadius.only(
         topLeft: Radius.circular(35),
         topRight: Radius.circular(35),
+      );
+  BorderRadius get radiusTopCircularMedium => const BorderRadius.only(
+        topLeft: Radius.circular(15),
+        topRight: Radius.circular(15),
+      );
+  BorderRadius get radiusTopCircularMin => const BorderRadius.only(
+        topLeft: Radius.circular(10),
+        topRight: Radius.circular(10),
+      );
+  BorderRadius get radiusBottomCircularMin => const BorderRadius.only(
+        bottomLeft: Radius.circular(10.0),
+        bottomRight: Radius.circular(10.0),
+      );
+  BorderRadius get radiusBottomCircularMedium => const BorderRadius.only(
+        bottomLeft: Radius.circular(15.0),
+        bottomRight: Radius.circular(15.0),
       );
 }
