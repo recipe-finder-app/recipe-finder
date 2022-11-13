@@ -12,6 +12,7 @@ import 'package:recipe_finder/feature/home_page/model/category_model.dart';
 import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
 import 'package:recipe_finder/feature/home_page/model/search_model.dart';
 import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
+import 'package:recipe_finder/product/component/image_format/image_png.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';

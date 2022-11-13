@@ -50,44 +50,6 @@ class LoginView extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        backgroundColor: ColorConstants.instance.russianViolet,
-        body: SafeArea(
-          child: Padding(
-            padding: context.paddingLowEdges,
-            child: Column(
-              children: [
-                Padding(
-                  padding: context.paddingLowEdges,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const LanguagePopupMenuButton(),
-                      TextButton(
-                        child: LocaleText(
-                          text: LocaleKeys.later,
-                          style: TextStyle(
-                              color: ColorConstants.instance.oriolesOrange,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16),
-                        ),
-                        onPressed: () {
-                          NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.NAV_CONTROLLER);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: ImageSvg(
-                    path: ImagePath.group5357.path,
-                  ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const LanguagePopupMenuButton(),
                       TextButton(
@@ -108,7 +70,6 @@ class LoginView extends StatelessWidget {
                   Flexible(
                     flex: 5,
                     child: ImageSvg(
-                      
                       path: ImagePath.group5357.path,
                     ),
                   ),
