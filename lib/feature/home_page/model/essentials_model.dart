@@ -47,6 +47,13 @@ class EssentialItems {
           ),
           title: LocaleKeys.fish,
           color: const Color(0xff3388ac).withOpacity(0.1)),
+      EssentialModel(
+          imagePath: ImageSvg(
+            path: ImagePath.egg.path,
+            height: 24,
+          ),
+          title: LocaleKeys.egg,
+          color: const Color(0xff968960).withOpacity(0.1)),
     ];
   }
 }

@@ -10,13 +10,14 @@ extension ContextExtension on BuildContext {
 extension MediaQueryExtension on BuildContext {
   double get screenHeight => mediaQuery.size.height;
   double get screenWidth => mediaQuery.size.width;
-
   double get veryLowValue => screenHeight * 0.008;
   double get lowValue => screenHeight * 0.01;
   double get normalValue => screenHeight * 0.02;
   double get mediumValue => screenHeight * 0.04;
   double get highValue => screenHeight * 0.07;
   double get veryHighValue => screenHeight * 0.1;
+  double get maxValue => screenHeight * 0.07;
+  double get maxValueWidth => screenWidth * 0.86;
 }
 
 extension ThemeExtension on BuildContext {
