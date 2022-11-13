@@ -49,5 +49,7 @@ abstract class  LocaleKeys {
   static const eggplant = 'eggplant';
   static const peas = 'peas';
   static const addIngredients = 'addIngredients';
+  static const mySavedRecipes = 'mySavedRecipes';
+  static const addToBasket = 'addToBasket';
 
 }

@@ -46,5 +46,7 @@
     "carrot":"Carrot",
     "eggplant":"Eggplant",
     "peas":"Peas",
-    "addIngredients": "Add Ingredients"
+    "addIngredients": "Add Ingredients",
+    "mySavedRecipes": "My Saved Recipes",
+    "addToBasket": "Add to Basket"
 }

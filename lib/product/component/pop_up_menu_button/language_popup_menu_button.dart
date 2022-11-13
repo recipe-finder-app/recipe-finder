@@ -5,6 +5,7 @@ import 'package:recipe_finder/core/constant/enum/supported_languages_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+
 import '../../../core/init/language/language_manager.dart';
 
 class LanguagePopupMenuButton extends StatefulWidget {
@@ -48,11 +49,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       offset: const Offset(0, 0),
-      padding: EdgeInsets.only(
-        top: context.screenHeight / 100,
-      ),
-      shape: OutlineInputBorder(
-          borderRadius: context.radiusAllCircularMin),
+      shape: OutlineInputBorder(borderRadius: context.radiusAllCircularMin),
       color: Colors.white.withOpacity(0.8),
       initialValue: selectedLanguageId,
       itemBuilder: (context) => [

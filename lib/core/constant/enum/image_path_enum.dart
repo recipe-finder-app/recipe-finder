@@ -7,7 +7,7 @@ enum ImagePath {
   email('asset/svg/email.svg'),
   like('asset/navigation_bar_icon/heart.svg'),
   home('asset/navigation_bar_icon/home.svg'),
-  basket('asset/navigation_bar_icon/shopping_bag.svg'),
+  shoppingBag('asset/navigation_bar_icon/shopping_bag.svg'),
   discover('asset/navigation_bar_icon/world.svg'),
   search('asset/navigation_bar_icon/search.svg'),
 
@@ -35,8 +35,14 @@ enum ImagePath {
   desserts('asset/png/desserts.png'),
   lunch('asset/png/lunch.png'),
   drinks('asset/png/drinks.png'),
-  refrigerator('asset/png/refrigerator.png'),
-  login('asset/svg/login.svg');
+
+  basket('asset/svg/basket.svg'),
+  likeWhite('asset/svg/heart_white.svg'),
+  imageSample1('asset/png/imageSample1.png'),
+  imageSample2('asset/png/imageSample2.png'),
+  imageSample3('asset/png/imageSample3.png'),
+  imageSample4('asset/png/imageSample4.png'),
+  cookingAnimation('asset/lotties/cooking_animation.json');
 
   const ImagePath(this.path);
   final String path;

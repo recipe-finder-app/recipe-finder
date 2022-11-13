@@ -1,22 +1,22 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../product/widget/button/authenticate_circular_button.dart';
-import '../../../product/widget/button/login_button.dart';
+import '../../../core/constant/design/color_constant.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/component/image_format/image_svg.dart';
 import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/component/text/locale_text.dart';
-import '../../../core/constant/design/color_constant.dart';
-import '../../../core/init/language/locale_keys.g.dart';
+import '../../../product/widget/button/authenticate_circular_button.dart';
+import '../../../product/widget/button/login_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
@@ -50,6 +50,44 @@ class LoginView extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        backgroundColor: ColorConstants.instance.russianViolet,
+        body: SafeArea(
+          child: Padding(
+            padding: context.paddingLowEdges,
+            child: Column(
+              children: [
+                Padding(
+                  padding: context.paddingLowEdges,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const LanguagePopupMenuButton(),
+                      TextButton(
+                        child: LocaleText(
+                          text: LocaleKeys.later,
+                          style: TextStyle(
+                              color: ColorConstants.instance.oriolesOrange,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16),
+                        ),
+                        onPressed: () {
+                          NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.NAV_CONTROLLER);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 5,
+                  child: ImageSvg(
+                    path: ImagePath.group5357.path,
+                  ),
+                ),
+                Flexible(
+                  flex: 5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const LanguagePopupMenuButton(),
                       TextButton(
@@ -136,16 +174,22 @@ class LoginView extends StatelessWidget {
             Flexible(
               flex: 5,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(text: LocaleKeys.userName)),
-                  const UserTextFormField(),
-                  const Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(text: LocaleKeys.password)),
-                  const PasswordTextFormField(),
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    const Align(
+                        alignment: Alignment.centerLeft,
+                        child: LocaleBoldText(text: LocaleKeys.userName)),
+                    context.lowSizedBox,
+                    const UserTextFormField(),
+                  ]),
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    const Align(
+                        alignment: Alignment.centerLeft,
+                        child: LocaleBoldText(text: LocaleKeys.password)),
+                    context.lowSizedBox,
+                    const PasswordTextFormField(),
+                  ]),
                   Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -229,24 +273,44 @@ class LoginView extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              flex: 3,
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(text: LocaleKeys.userName.locale)),
-                  const UserTextFormField(),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(text: LocaleKeys.email.locale)),
-                  const EmailTextFormField(
-                    validator: true,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child:
+                              LocaleBoldText(text: LocaleKeys.userName.locale)),
+                      context.lowSizedBox,
+                      const UserTextFormField(),
+                    ],
                   ),
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(text: LocaleKeys.password.locale)),
-                  const PasswordTextFormField(),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                      context.lowSizedBox,
+                      const EmailTextFormField(
+                        validator: true,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child:
+                              LocaleBoldText(text: LocaleKeys.password.locale)),
+                      context.lowSizedBox,
+                      const PasswordTextFormField(),
+                    ],
+                  ),
                   LoginButton(
                     text: LocaleKeys.createNewAccount.locale,
                     onPressed: () {
@@ -258,7 +322,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 2,
+              flex: 3,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -347,7 +411,7 @@ class LoginView extends StatelessWidget {
                 ),
               ],
             ),
-            context.veryLowSizedBox,
+            context.lowSizedBox,
             LoginButton(
               text: LocaleKeys.sendEmail.locale,
               onPressed: () {
