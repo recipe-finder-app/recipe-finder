@@ -25,7 +25,7 @@ class SearchItems {
           title: LocaleKeys.breakfast,
           color: const Color(0xffFBFFDF)),
       SearchModel(
-          imagePath:ImagePng(path: ImagePath.lunch.path),
+          imagePath: ImagePng(path: ImagePath.lunch.path),
           title: LocaleKeys.lunch,
           color: const Color(0xffFAEAEA)),
       SearchModel(

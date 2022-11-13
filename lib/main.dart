@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'package:recipe_finder/product/widget/button_navbar/navigation_custom.dart';
 import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
@@ -43,7 +42,7 @@ Future<void> _init() async {
   }
 }
 
-class MyApp extends StatelessWidget with NavigatorCustom {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -62,16 +61,6 @@ class MyApp extends StatelessWidget with NavigatorCustom {
         navigatorKey: NavigationService.instance.navigatorKey,
         initialRoute: NavigationRoute.instance.initialRoute(),
         //initialRoute: NavigationConstants.LOGIN,
-
-        /**
-     * 
-         initialRoute: '/',
-        routes: {
-          "/": (context) => const HomeView(),
-        },
-        onGenerateRoute: onGenerateRoute
-      
-     */
       ),
     );
   }

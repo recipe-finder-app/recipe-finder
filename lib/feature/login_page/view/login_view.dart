@@ -32,15 +32,23 @@ class LoginView extends StatelessWidget {
         cubitRead.init();
       },
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-        backgroundColor: ColorConstants.instance.russianViolet,
-        body: SafeArea(
-          child: Padding(
-            padding: context.paddingLowEdges,
-            child: Column(
-              children: [
-                Padding(
-                  padding: context.paddingLowEdges,
-                  child: Row(
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: RadialGradient(
+            colors: [
+              const Color(0xFF034A72),
+              ColorConstants.instance.russianViolet,
+            ],
+            center: const Alignment(0.0, -0.3),
+            focal: const Alignment(0.2, -0.2),
+            focalRadius: 0.0,
+          )),
+          child: SafeArea(
+            child: Padding(
+              padding: context.paddingLowEdges,
+              child: Column(
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const LanguagePopupMenuButton(),
@@ -59,54 +67,54 @@ class LoginView extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: ImageSvg(
-                    path: ImagePath.group5357.path,
+                  Flexible(
+                    flex: 5,
+                    child: ImageSvg(
+                      path: ImagePath.group5357.path,
+                    ),
                   ),
-                ),
-                Flexible(
-                  flex: 5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      LocaleText(
-                          text: LocaleKeys.recipeIngredients,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24)),
-                      LoginButton(
-                        text: LocaleKeys.login.locale,
-                        onPressed: () {
-                          signInBottomSheet(context, cubitRead);
-                        },
-                        color: ColorConstants.instance.oriolesOrange,
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          signUpBottomSheet(context, cubitRead);
-                        },
-                        child: LocaleText(
-                            text: LocaleKeys.createNewAccount,
+                  Flexible(
+                    flex: 4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        LocaleText(
+                            text: LocaleKeys.recipeIngredients,
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme
-                                .headline6!
+                                .headline5!
                                 .copyWith(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16)),
-                      ),
-                    ],
+                                    fontSize: 24)),
+                        LoginButton(
+                          text: LocaleKeys.login.locale,
+                          onPressed: () {
+                            signInBottomSheet(context, cubitRead);
+                          },
+                          color: ColorConstants.instance.oriolesOrange,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            signUpBottomSheet(context, cubitRead);
+                          },
+                          child: LocaleText(
+                              text: LocaleKeys.createNewAccount,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16)),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
