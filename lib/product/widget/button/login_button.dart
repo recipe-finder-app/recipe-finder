@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/widget/button/authenticate_circular_button.dart';
+import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 
 class LoginButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -14,7 +14,7 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticateCircularButton(
+    return RecipeCircularButton(
       text: text,
       color: color,
       onPressed: onPressed,

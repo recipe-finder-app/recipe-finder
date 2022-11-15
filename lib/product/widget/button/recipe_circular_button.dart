@@ -55,12 +55,15 @@ class RecipeCircularButton extends StatelessWidget {
                   color: Colors.transparent,
                   size: 0,
                 ),
-            label: LocaleText(
-                text: text,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: textColor ?? Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16))),
+            label: FittedBox(
+              child: LocaleText(
+                  textAlign: TextAlign.center,
+                  text: text,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: textColor ?? Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16)),
+            )),
       ),
     );
   }

@@ -1,5 +1,3 @@
-import 'package:motaperp_sosyal/view/onboard/model/department_response_model.dart';
-
 abstract class IOnboardState {
   IOnboardState();
 }
@@ -18,18 +16,7 @@ class ChangeCurrentIndex extends IOnboardState {
   ChangeCurrentIndex(index);
 }
 
-class ChangeDropdownValue extends IOnboardState {
-  late String id;
-  late String name;
-  ChangeDropdownValue(this.id, this.name);
-}
-
-class DepartmentListLoaded extends IOnboardState {
-  List<DepartmentResponseModel>? myList;
-  DepartmentListLoaded(this.myList);
-}
-
-class JOnboardError extends IOnboardState {
+class OnboardError extends IOnboardState {
   String errorMessage;
-  JOnboardError(this.errorMessage);
+  OnboardError(this.errorMessage);
 }

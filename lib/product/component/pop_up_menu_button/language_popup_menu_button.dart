@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/supported_languages_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 
+import '../../../core/constant/enum/supported_languages_enum.dart';
 import '../../../core/init/language/language_manager.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 
 class LanguagePopupMenuButton extends StatefulWidget {
   final Color? color;
@@ -92,3 +92,46 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
     );
   }
 }
+
+/*
+class LanguagePopupMenuButton extends StatefulWidget {
+  const LanguagePopupMenuButton({Key? key}) : super(key: key);
+
+  @override
+  State<LanguagePopupMenuButton> createState() =>
+      _LanguagePopupMenuButtonState();
+}
+
+class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 25,
+      width: 70,
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Colors.white.withOpacity(0.9)),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: context.radiusAllCircularVeryHigh,
+              /*side: BorderSide(
+                  color: ColorConstants.instance.oriolesOrange,
+                )*/
+            ),
+          ),
+        ),
+        icon: ImageSvg(
+          path: ImagePath.discover.path,
+          color: ColorConstants.instance.oriolesOrange,
+          height: 25,
+        ),
+        label: Text(
+          'EN',
+          style: TextStyle(color: ColorConstants.instance.oriolesOrange),
+        ),
+        onPressed: () {},
+      ),
+    );
+  }
+}*/

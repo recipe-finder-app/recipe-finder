@@ -15,8 +15,8 @@ import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/component/image_format/image_svg.dart';
 import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/component/text/locale_text.dart';
-import '../../../product/widget/button/authenticate_circular_button.dart';
 import '../../../product/widget/button/login_button.dart';
+import '../../../product/widget/button/recipe_circular_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
@@ -183,13 +183,13 @@ class LoginView extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      AuthenticateCircularButton(
+                      RecipeCircularButton(
                         borderColor: Colors.black,
                         textColor: Colors.black,
                         text: LocaleKeys.loginWithGoogle.locale,
                       ),
                       context.lowSizedBox,
-                      AuthenticateCircularButton(
+                      RecipeCircularButton(
                         borderColor: Colors.black,
                         textColor: ColorConstants.instance.brightNavyBlue,
                         text: LocaleKeys.loginWithFacebook.locale,
@@ -291,13 +291,13 @@ class LoginView extends StatelessWidget {
                   LocaleText(text: LocaleKeys.orContinueWith.locale),
                   Column(
                     children: [
-                      AuthenticateCircularButton(
+                      RecipeCircularButton(
                         borderColor: Colors.black,
                         textColor: Colors.black,
                         text: LocaleKeys.registerWithGoogle.locale,
                       ),
                       context.lowSizedBox,
-                      AuthenticateCircularButton(
+                      RecipeCircularButton(
                         borderColor: Colors.black,
                         textColor: ColorConstants.instance.brightNavyBlue,
                         text: LocaleKeys.registerWithFacebook.locale,

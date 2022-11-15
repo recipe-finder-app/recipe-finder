@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/extension/border_extension.dart';
@@ -18,7 +17,8 @@ class CircularBottomSheet {
   Future<void> show(context,
       {required Widget child,
       CircularBottomSheetHeight? bottomSheetHeight,
-      bool? resizeToAvoidBottomInset}) {
+      bool? resizeToAvoidBottomInset,
+      bool? scrollable}) {
     return showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderConstant.instance.radiusAllCircularHigh),
@@ -44,7 +44,11 @@ class CircularBottomSheet {
                 ? context.paddingMediumOnlyTop
                 : context.paddingMediumTopBottom,
             child: Center(
-              child: Padding(padding: context.paddingMediumEdges, child: child),
+              child: Padding(
+                  padding: context.paddingMediumEdges,
+                  child: scrollable == true
+                      ? SingleChildScrollView(child: child)
+                      : child),
             ),
           ),
         ),
@@ -52,3 +56,13 @@ class CircularBottomSheet {
     );
   }
 }
+
+/*Padding(
+padding: EdgeInsets.only(top: 5),
+child: Container(
+height: 5,
+width: 20,
+decoration: BoxDecoration(
+border: Border.all(width: 3, color: Colors.grey)),
+),
+),*/

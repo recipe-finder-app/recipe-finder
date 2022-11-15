@@ -1,45 +1,41 @@
-import 'package:motaperp_sosyal/core/constant/app/app_constants.dart';
+import '../../../core/constant/enum/image_path_enum.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 
-import '../../../core/base/model/base_model.dart';
+class OnboardModel {
+  String imagePath;
+  String title;
+  String explanation;
 
-enum OnboardPageType {
-  name,
-  department,
-  idPass,
+  OnboardModel({
+    required this.imagePath,
+    required this.title,
+    required this.explanation,
+  });
 }
 
-class OnboardModel extends IBaseModel<OnboardModel> {
-  OnboardPageType? pageType;
-  String? nameSurname;
-  String? departmentId;
-  String? userName;
-  String? password;
+class OnboardItems {
+  late List<OnboardModel> items;
 
-  OnboardModel(
-      {this.pageType,
-      this.nameSurname,
-      this.departmentId,
-      this.userName,
-      this.password});
-
-  @override
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['db_name'] = ApplicationConstants.DB_NAME;
-    data['db_userName'] = ApplicationConstants.DB_USER;
-    data['db_password'] = ApplicationConstants.DB_PASS;
-    data['pageType'] = pageType ?? '';
-    data['nameSurname'] = nameSurname ?? '';
-    data['departmentId'] = departmentId ?? '';
-    data['userName'] = userName ?? '';
-    data['password'] = password ?? '';
-
-    return data;
-  }
-
-  @override
-  OnboardModel fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+  OnboardItems() {
+    items = [
+      OnboardModel(
+        imagePath: ImagePath.onboardImage1.path,
+        title: LocaleKeys.chooseTheItemsInYourCloset,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+      ),
+      OnboardModel(
+        imagePath: ImagePath.onboardImage2.path,
+        title: LocaleKeys.chooseYourSpecialRecipe,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+      ),
+      OnboardModel(
+        imagePath: ImagePath.onboardImage3.path,
+        title: LocaleKeys.startDoing,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
+      ),
+    ];
   }
 }
