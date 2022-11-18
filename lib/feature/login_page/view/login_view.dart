@@ -31,6 +31,7 @@ class LoginView extends StatelessWidget {
       init: (cubitRead) {
         cubitRead.init();
       },
+      visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: Container(
           decoration: BoxDecoration(
@@ -62,7 +63,8 @@ class LoginView extends StatelessWidget {
                         ),
                         onPressed: () {
                           NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.NAV_CONTROLLER);
+                            path: NavigationConstants.NAV_CONTROLLER,
+                          );
                         },
                       ),
                     ],

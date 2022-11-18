@@ -8,7 +8,7 @@ enum CircularBottomSheetHeight {
   standard,
   high,
   full,
-  middle,
+  medium,
 }
 
 class CircularBottomSheet {
@@ -31,10 +31,10 @@ class CircularBottomSheet {
                 : 0),
         child: SizedBox(
           height: bottomSheetHeight == CircularBottomSheetHeight.short
-              ? context.screenHeight / 2
+              ? context.screenHeight / 1.8
               : bottomSheetHeight == CircularBottomSheetHeight.full
                   ? context.screenHeight
-                  : bottomSheetHeight == CircularBottomSheetHeight.middle
+                  : bottomSheetHeight == CircularBottomSheetHeight.medium
                       ? context.screenHeight / 1.40
                       : bottomSheetHeight == CircularBottomSheetHeight.high
                           ? context.screenHeight / 1.1

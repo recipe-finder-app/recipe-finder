@@ -170,7 +170,7 @@ class HomeView extends StatelessWidget {
 
     return CircularBottomSheet.instance.show(
       context,
-      bottomSheetHeight: CircularBottomSheetHeight.middle,
+      bottomSheetHeight: CircularBottomSheetHeight.medium,
       child: Column(
         children: [
           Row(

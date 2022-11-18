@@ -12,7 +12,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [
     const HomeView(),
     const DiscoverView(),
-    const LikesView(),
+    const HomeView(),
     const LikesView(),
     const BasketView(),
   ];

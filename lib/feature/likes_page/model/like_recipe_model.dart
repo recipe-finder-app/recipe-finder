@@ -1,39 +1,15 @@
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../../product/model/ingradient_model.dart';
+import '../../../product/model/recipe_model.dart';
 
-class SavedRecipeModel {
+class LikeRecipeModel {
   final String imagePath;
   final String title;
+  final List<IngredientModel>? missingItems;
+  final RecipeModel recipeModel;
 
-  SavedRecipeModel({required this.imagePath, required this.title});
-}
-
-class SavedRecipeItems {
-  late final List<SavedRecipeModel> items;
-
-  SavedRecipeItems() {
-    items = [
-      SavedRecipeModel(
-        imagePath: ImagePath.imageSample1.path,
-        title:
-            'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
-            'uzun text deneme',
-      ),
-      SavedRecipeModel(
-        imagePath: ImagePath.imageSample2.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
-      ),
-      SavedRecipeModel(
-        imagePath: ImagePath.imageSample3.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
-      ),
-      SavedRecipeModel(
-        imagePath: ImagePath.imageSample4.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
-      ),
-      SavedRecipeModel(
-        imagePath: ImagePath.imageSample1.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
-      ),
-    ];
-  }
+  LikeRecipeModel(
+      {required this.imagePath,
+      required this.title,
+      this.missingItems,
+      required this.recipeModel});
 }
