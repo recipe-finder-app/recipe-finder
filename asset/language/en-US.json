@@ -48,5 +48,19 @@
     "peas":"Peas",
     "addIngredients": "Add Ingredients",
     "mySavedRecipes": "My Saved Recipes",
-    "addToBasket": "Add to Basket"
+    "addToBasket": "Add to Basket",
+    "next": "Next",
+    "back": "Back",
+    "getStarted": "Get Started",
+    "skip": "Skip",
+    "chooseTheItemsInYourCloset": "Choose the items in your closet",
+    "chooseYourSpecialRecipe": "Choose your special recipe",
+    "startDoing": "And start doing",
+    "progressText": "Special recipes for you are cooked in Recipe App...",
+    "missingItem": "Missing Item (Basket)",
+    "yourFrize": "Your Frize",
+    "confirm": "Confirm",
+    "ingredients": "Ingredients",
+    "description": "Description",
+    "directions": "Directions"
 }

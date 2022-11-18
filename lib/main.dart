@@ -7,13 +7,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
+
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
 import 'core/init/notifier/bloc_list.dart';
+import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         initialRoute: NavigationRoute.instance.initialRoute(),
-        //initialRoute: NavigationConstants.LOGIN,
+        //initialRoute: NavigationConstants.ONBOARD,
       ),
     );
   }

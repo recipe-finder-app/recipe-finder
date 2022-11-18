@@ -10,8 +10,10 @@ class ColorConstants {
   Color oriolesOrange = const Color(0xFFF6411A);
   Color roboticgods = const Color(0xff97A2B0);
   Color black = const Color(0xff000000);
-   Color red = const Color(0xffff0000);
-   Color shadowplanet = const Color(0xff1F1346);
-   Color white = const Color(0xffffffff);
-   Color blackbox = const Color(0xff0A2533);
+  Color red = const Color(0xffff0000);
+  Color shadowplanet = const Color(0xff1F1346);
+  Color white = const Color(0xffffffff);
+  Color blackbox = const Color(0xff0A2533);
+  Color brightGraySolid = const Color(0xFFE3EBEC);
+  Color brightGraySolid2 = const Color(0xFFE6EBF2);
 }

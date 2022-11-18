@@ -3,16 +3,17 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/likes_page/model/saved_recipe_model.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 
-class SavedRecipeCard extends StatelessWidget {
-  final SavedRecipeModel model;
+import '../../../feature/likes_page/model/like_recipe_model.dart';
+
+class LikesRecipeCard extends StatelessWidget {
+  final LikeRecipeModel model;
   final VoidCallback? recipeOnPressed;
   final VoidCallback? addToBasketOnPressed;
-  const SavedRecipeCard(
+  const LikesRecipeCard(
       {Key? key,
       this.recipeOnPressed,
       this.addToBasketOnPressed,
@@ -24,7 +25,7 @@ class SavedRecipeCard extends StatelessWidget {
       children: [
         Flexible(
           flex: 5,
-          child: GestureDetector(
+          child: InkWell(
             onTap: recipeOnPressed,
             child: Stack(
               children: [
@@ -39,8 +40,8 @@ class SavedRecipeCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                       textAlign: TextAlign.start,
                       fontSize: 12,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 )

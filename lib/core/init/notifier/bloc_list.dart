@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
+import 'package:recipe_finder/feature/onboard_page/cubit/onboard_cubit.dart';
 import 'package:recipe_finder/product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
 import '../../../feature/login_page/cubit/login_cubit.dart';
 
@@ -15,6 +16,9 @@ class ApplicationBloc {
   ApplicationBloc._init();
 
   List<dynamic> dependItems = [
+    BlocProvider(
+      create: (context) => OnboardCubit(),
+    ),
     BlocProvider(
       create: (context) => LoginCubit(),
     ),

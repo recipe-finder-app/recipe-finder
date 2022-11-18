@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/extension/border_extension.dart';
@@ -9,7 +8,7 @@ enum CircularBottomSheetHeight {
   standard,
   high,
   full,
-  middle,
+  medium,
 }
 
 class CircularBottomSheet {
@@ -18,7 +17,8 @@ class CircularBottomSheet {
   Future<void> show(context,
       {required Widget child,
       CircularBottomSheetHeight? bottomSheetHeight,
-      bool? resizeToAvoidBottomInset}) {
+      bool? resizeToAvoidBottomInset,
+      bool? scrollable}) {
     return showModalBottomSheet(
       shape: RoundedRectangleBorder(
           borderRadius: BorderConstant.instance.radiusAllCircularHigh),
@@ -31,10 +31,10 @@ class CircularBottomSheet {
                 : 0),
         child: SizedBox(
           height: bottomSheetHeight == CircularBottomSheetHeight.short
-              ? context.screenHeight / 2
+              ? context.screenHeight / 1.8
               : bottomSheetHeight == CircularBottomSheetHeight.full
                   ? context.screenHeight
-                  : bottomSheetHeight == CircularBottomSheetHeight.middle
+                  : bottomSheetHeight == CircularBottomSheetHeight.medium
                       ? context.screenHeight / 1.40
                       : bottomSheetHeight == CircularBottomSheetHeight.high
                           ? context.screenHeight / 1.1
@@ -44,7 +44,11 @@ class CircularBottomSheet {
                 ? context.paddingMediumOnlyTop
                 : context.paddingMediumTopBottom,
             child: Center(
-              child: Padding(padding: context.paddingMediumEdges, child: child),
+              child: Padding(
+                  padding: context.paddingMediumEdges,
+                  child: scrollable == true
+                      ? SingleChildScrollView(child: child)
+                      : child),
             ),
           ),
         ),
@@ -52,3 +56,13 @@ class CircularBottomSheet {
     );
   }
 }
+
+/*Padding(
+padding: EdgeInsets.only(top: 5),
+child: Container(
+height: 5,
+width: 20,
+decoration: BoxDecoration(
+border: Border.all(width: 3, color: Colors.grey)),
+),
+),*/
