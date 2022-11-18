@@ -48,5 +48,13 @@
     "peas":"Bezelye",
     "addIngredients": "Malzemeler ekle",
     "mySavedRecipes": "Kaydedilen Tariflerim",
-    "addToBasket": "Sepete Ekle"
+    "addToBasket": "Sepete Ekle",
+    "next": "Sonraki",
+    "back": "Geri",
+    "getStarted": "Başla",
+    "skip": "Geç",
+    "chooseTheItemsInYourCloset": "Dolabınızdaki malzemeleri seçin",
+    "chooseYourSpecialRecipe": "Size özel tarifinizi seçin",
+    "startDoing": "Ve Uygulamaya Başlayın",
+    "progressText": "Recipe Finder uygulamasında size özel tarifler pişirilir..."
 }

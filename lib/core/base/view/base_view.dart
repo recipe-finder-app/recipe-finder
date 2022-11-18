@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 class BaseView<T extends Cubit> extends StatefulWidget {
   final Function(
@@ -8,8 +9,13 @@ class BaseView<T extends Cubit> extends StatefulWidget {
   final Widget Function(BuildContext context, T modelRead, T modelWatch)
       onPageBuilder;
   final Function(T modelRead)? dispose;
+  final bool? visibleProgress;
   const BaseView(
-      {Key? key, required this.init, required this.onPageBuilder, this.dispose})
+      {Key? key,
+      required this.init,
+      required this.onPageBuilder,
+      this.dispose,
+      this.visibleProgress})
       : super(key: key);
 
   @override
@@ -39,6 +45,8 @@ class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
   Widget build(BuildContext context) {
     modelRead = context.read<T>();
     modelWatch = context.watch<T>();
-    return widget.onPageBuilder(context, modelRead, modelWatch);
+    return RecipeProgress(
+        visible: widget.visibleProgress,
+        child: widget.onPageBuilder(context, modelRead, modelWatch));
   }
 }

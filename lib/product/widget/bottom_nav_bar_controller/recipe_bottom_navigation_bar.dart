@@ -45,14 +45,18 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 BottomNavigationBarItem(
                     label: 'Home',
                     icon: ImageSvg(
-                      path: ImagePath.home.path,
+                      path: cubitRead.selectedPageIndex == 0
+                          ? ImagePath.homeBlack.path
+                          : ImagePath.home.path,
                       color: cubitRead.itemColor(0),
                       height: 24,
                     )),
                 BottomNavigationBarItem(
                     label: 'Discover',
                     icon: ImageSvg(
-                      path: ImagePath.discover.path,
+                      path: cubitRead.selectedPageIndex == 1
+                          ? ImagePath.discoverBlack.path
+                          : ImagePath.discover.path,
                       color: cubitRead.itemColor(1),
                       height: 24,
                     )),
@@ -69,14 +73,18 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 BottomNavigationBarItem(
                     label: 'Likes',
                     icon: ImageSvg(
-                      path: ImagePath.like.path,
+                      path: cubitRead.selectedPageIndex == 3
+                          ? ImagePath.likeBlack.path
+                          : ImagePath.like.path,
                       color: cubitRead.itemColor(3),
                       height: 24,
                     )),
                 BottomNavigationBarItem(
                     label: 'Basket',
                     icon: ImageSvg(
-                      path: ImagePath.shoppingBag.path,
+                      path: cubitRead.selectedPageIndex == 4
+                          ? ImagePath.shoppingBagBlack.path
+                          : ImagePath.shoppingBag.path,
                       color: cubitRead.itemColor(4),
                       height: 24,
                     )),

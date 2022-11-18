@@ -39,8 +39,8 @@ class SavedRecipeCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white, fontSize: 12),
                       textAlign: TextAlign.start,
                       fontSize: 12,
-                      maxLines: 4,
-                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                      overflow: TextOverflow.fade,
                     ),
                   ),
                 )

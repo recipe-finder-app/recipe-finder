@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
+import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
@@ -18,6 +19,8 @@ class NavigationRoute {
 
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
+      case NavigationConstants.ONBOARD:
+        return normalNavigate(const OnboardView(), NavigationConstants.ONBOARD);
       case NavigationConstants.LOGIN:
         return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:

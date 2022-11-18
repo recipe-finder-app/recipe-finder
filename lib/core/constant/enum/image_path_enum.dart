@@ -6,9 +6,13 @@ enum ImagePath {
   password('asset/svg/password.svg'),
   email('asset/svg/email.svg'),
   like('asset/navigation_bar_icon/heart.svg'),
+  likeBlack('asset/navigation_bar_icon/heart_black.svg'),
   home('asset/navigation_bar_icon/home.svg'),
+  homeBlack('asset/navigation_bar_icon/home_black.svg'),
   shoppingBag('asset/navigation_bar_icon/shopping_bag.svg'),
+  shoppingBagBlack('asset/navigation_bar_icon/shopping_bag_black.svg'),
   discover('asset/navigation_bar_icon/world.svg'),
+  discoverBlack('asset/navigation_bar_icon/world_black.svg'),
   search('asset/navigation_bar_icon/search.svg'),
   pizza('asset/svg/icon_pizza.svg'),
   vegetarian('asset/svg/icon_vegetables.svg'),
@@ -42,7 +46,11 @@ enum ImagePath {
   imageSample4('asset/png/imageSample4.png'),
   cookingAnimation('asset/lotties/cooking_animation.json'),
   refrigerator('asset/png/refrigerator.png'),
-  login('asset/svg/login.svg');
+  login('asset/svg/login.svg'),
+
+  onboardImage1('asset/svg/onboardImage1.svg'),
+  onboardImage2('asset/svg/onboardImage2.svg'),
+  onboardImage3('asset/svg/onboardImage3.svg');
 
   const ImagePath(this.path);
   final String path;
