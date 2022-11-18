@@ -16,8 +16,13 @@ extension MediaQueryExtension on BuildContext {
   double get mediumValue => screenHeight * 0.04;
   double get highValue => screenHeight * 0.07;
   double get veryHighValue => screenHeight * 0.1;
+  double get veryveryHighValue => screenHeight * 0.3;
+  double get veryyHighValue => screenHeight * 0.21;
+  double get normalhighValue => screenHeight * 0.13;
   double get maxValue => screenHeight * 0.07;
   double get maxValueWidth => screenWidth * 0.86;
+  double get veryValueWidth => screenWidth * 0.95;
+  double get normalValueWidth => screenWidth * 0.71;
 }
 
 extension ThemeExtension on BuildContext {
@@ -34,16 +39,21 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingHighAll => EdgeInsets.all(veryHighValue);
 
   EdgeInsets get paddingLowLeft => EdgeInsets.only(left: normalValue);
+  EdgeInsets get paddingLowRight => EdgeInsets.only(right: normalValue);
+  EdgeInsets get paddingMediumRight => EdgeInsets.only(right: mediumValue);
+  EdgeInsets get paddingLowRightLow => EdgeInsets.only(right: lowValue);
   EdgeInsets get paddingLowEdges =>
       EdgeInsets.only(left: lowValue, right: lowValue);
+  EdgeInsets get paddingLowRightTop => EdgeInsets.only(top: normalValue);
   EdgeInsets get paddingNormalEdges => EdgeInsets.only(
         left: normalValue,
         right: normalValue,
         top: normalValue,
       );
+
   EdgeInsets get paddingMediumEdges =>
       EdgeInsets.only(left: mediumValue, right: mediumValue);
-  EdgeInsets get paddingHighEdges => EdgeInsets.only(left: mediumValue);
+  EdgeInsets get paddingHighEdges => EdgeInsets.only(left: mediumValue, top: 4);
 
   EdgeInsets get paddingLowTopBottom =>
       EdgeInsets.only(top: lowValue, bottom: lowValue);
@@ -95,6 +105,7 @@ extension SizedBoxExtension on BuildContext {
   SizedBox get mediumSizedBox => SizedBox(height: mediumValue);
   SizedBox get highSizedBox => SizedBox(height: highValue);
   SizedBox get veryHighSizedBox => SizedBox(height: veryHighValue);
+  SizedBox get veryveryHighSizedBox => SizedBox(height: veryveryHighValue);
 
   SizedBox get veryLowSizedBoxWidth => SizedBox(width: veryLowValue);
   SizedBox get lowSizedBoxWidth => SizedBox(width: lowValue);

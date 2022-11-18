@@ -1,3 +1,5 @@
+import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
+
 class NavigationConstants {
   static const DEFAULT = '/';
   static const LOGIN = '/login';
@@ -6,4 +8,6 @@ class NavigationConstants {
   static const DISCOVER = '/discover';
   static const LIKES = '/likes';
   static const BASKET = '/basket';
+  static const MATERIALSEARCH = '/materialSearch';
+   static const SEARCH = '/search';
 }

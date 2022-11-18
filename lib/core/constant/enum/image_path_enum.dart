@@ -41,8 +41,11 @@ enum ImagePath {
   imageSample3('asset/png/imageSample3.png'),
   imageSample4('asset/png/imageSample4.png'),
   cookingAnimation('asset/lotties/cooking_animation.json'),
-  refrigerator('asset/png/refrigerator.png'),
-  login('asset/svg/login.svg');
+  fridge('asset/svg/fridge.svg'),
+  login('asset/svg/login.svg'),
+   union('asset/png/union.png'),
+  searchh('asset/svg/search.svg'),
+  microphone('asset/svg/microphone.svg');
 
   const ImagePath(this.path);
   final String path;

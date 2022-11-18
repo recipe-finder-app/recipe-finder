@@ -22,7 +22,9 @@ class SearchByMealCard extends StatelessWidget {
         children: [
           Padding(
             padding: context.paddingLowLeft,
-            child: LocaleText(text: _model.title),
+            child: LocaleText(
+              text: _model.title,
+            ),
           ),
           _model.imagePath
         ],

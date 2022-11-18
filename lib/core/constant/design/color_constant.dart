@@ -8,4 +8,10 @@ class ColorConstants {
   Color brightNavyBlue = const Color(0xFF1E76D6);
   Color russianViolet = const Color(0xFF1F1346);
   Color oriolesOrange = const Color(0xFFF6411A);
+  Color roboticgods = const Color(0xff97A2B0);
+  Color black = const Color(0xff000000);
+   Color red = const Color(0xffff0000);
+   Color shadowplanet = const Color(0xff1F1346);
+   Color white = const Color(0xffffffff);
+   Color blackbox = const Color(0xff0A2533);
 }
