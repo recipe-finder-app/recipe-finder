@@ -34,7 +34,10 @@ class NavigationRoute {
       case NavigationConstants.LIKES:
         return normalNavigate(const LikesView(), NavigationConstants.LIKES);
       case NavigationConstants.BASKET:
-        return normalNavigate(const BasketView(), NavigationConstants.BASKET);
+        return normalNavigate(
+          const BasketView(),
+          NavigationConstants.BASKET,
+        );
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationView(),
@@ -51,5 +54,12 @@ class NavigationRoute {
         builder: (context) => widget,
         //analytciste görülecek olan sayfa ismi için pageName veriyoruz
         settings: RouteSettings(name: pageName));
+  }
+
+  MaterialPageRoute argNavigate(Widget widget, String pageName, String data) {
+    return MaterialPageRoute(
+        builder: (context) => widget,
+        //analytciste görülecek olan sayfa ismi için pageName veriyoruz
+        settings: RouteSettings(name: pageName, arguments: data));
   }
 }

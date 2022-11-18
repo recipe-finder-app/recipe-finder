@@ -56,5 +56,11 @@
     "chooseTheItemsInYourCloset": "Choose the items in your closet",
     "chooseYourSpecialRecipe": "Choose your special recipe",
     "startDoing": "And start doing",
-    "progressText": "Special recipes for you are cooked in Recipe App..."
+    "progressText": "Special recipes for you are cooked in Recipe App...",
+    "missingItem": "Missing Item (Basket)",
+    "yourFrize": "Your Frize",
+    "confirm": "Confirm",
+    "ingredients": "Ingredients",
+    "description": "Description",
+    "directions": "Directions"
 }
