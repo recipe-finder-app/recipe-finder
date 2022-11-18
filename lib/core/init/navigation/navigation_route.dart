@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 
-
-
+import '../../../feature/material_search_page/view/material_search_view.dart';
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
@@ -34,7 +33,9 @@ class NavigationRoute {
         return normalNavigate(const LikesView(), NavigationConstants.LIKES);
       case NavigationConstants.BASKET:
         return normalNavigate(const BasketView(), NavigationConstants.BASKET);
-      
+      case NavigationConstants.MATERIALSEARCH:
+        return normalNavigate(
+            MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
       default:
         return MaterialPageRoute(
           builder: (context) => const NotFoundNavigationView(),
