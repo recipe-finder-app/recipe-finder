@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/core/extension/string_extension.dart';
 
 import '../../../core/constant/enum/supported_languages_enum.dart';
 import '../../../core/init/language/language_manager.dart';
-import '../../../core/init/language/locale_keys.g.dart';
+import '../image_format/image_svg.dart';
 
 class LanguagePopupMenuButton extends StatefulWidget {
   final Color? color;
@@ -19,7 +19,7 @@ class LanguagePopupMenuButton extends StatefulWidget {
 
 class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
   String? selectedLanguage;
-  int selectedLanguageId = 1;
+  int? selectedLanguageId;
   void changeSelectedLanguage(int? selectedValue) {
     switch (selectedValue) {
       case 1:
@@ -51,7 +51,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
       offset: const Offset(0, 0),
       shape: OutlineInputBorder(borderRadius: context.radiusAllCircularMin),
       color: Colors.white.withOpacity(0.8),
-      initialValue: selectedLanguageId,
+      initialValue: selectedLanguageId ?? 1,
       itemBuilder: (context) => [
         PopupMenuItem(
             textStyle: TextStyle(
@@ -60,7 +60,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
                     : Colors.black),
             value: 1,
             child: const Text(
-              'EN',
+              'English (EN)',
             )),
         PopupMenuItem(
             textStyle: TextStyle(
@@ -69,25 +69,34 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
                     : Colors.black),
             value: 2,
             child: const Text(
-              'TR',
+              'Türkçe (TR)',
             )),
       ],
       onSelected: (int? value) {
         changeSelectedLanguage(value);
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            selectedLanguage ?? LocaleKeys.language.locale,
-            style: TextStyle(
-                color: widget.color ?? ColorConstants.instance.oriolesOrange),
-          ),
-          Icon(
-            Icons.language,
-            color: widget.color ?? ColorConstants.instance.oriolesOrange,
-          )
-        ],
+      child: Container(
+        height: 35,
+        width: 55,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: context.radiusAllCircularHigh,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ImageSvg(
+              color: widget.color ?? ColorConstants.instance.oriolesOrange,
+              path: ImagePath.discover.path,
+            ),
+            Text(
+              selectedLanguage ?? context.locale.languageCode.toUpperCase(),
+              style: TextStyle(
+                  color: widget.color ?? ColorConstants.instance.oriolesOrange),
+            ),
+          ],
+        ),
       ),
     );
   }
