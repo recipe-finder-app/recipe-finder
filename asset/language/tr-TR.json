@@ -62,5 +62,8 @@
     "confirm": "Onayla",
     "ingredients": "Malzemeler",
     "description": "Açıklama",
-    "directions": "Talimatlar"
+    "directions": "Talimatlar",
+    "findMyRecipe":"Tarifimi Bul",
+    "fruits":"Meyveler",
+    "selectIngredients":"Malzemelerinizi seçin"
 }

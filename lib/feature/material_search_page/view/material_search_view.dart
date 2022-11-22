@@ -45,8 +45,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                       : ColorConstants.instance.oriolesOrange,
                   shape: RoundedRectangleBorder(
                       borderRadius: context.radiusAllCircularMin),
-                  label: Text(
-                    'Find My Recipe',
+                  label: LocaleText(
+                    text: LocaleKeys.findMyRecipe,
                     style: TextStyle(color: ColorConstants.instance.white),
                   ),
                 ),
@@ -57,48 +57,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: context.veryveryHighValue,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FontStyle.normal,
-                                    color: ColorConstants.instance.blackbox,
-                                  ),
-                                  text: 'Select your have ingredients',
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: context.paddingLeftEdges,
-                              child: TextButton(
-                                onPressed: () {
-                                  NavigationService.instance.navigateToPage(
-                                      path: NavigationConstants.NAV_CONTROLLER);
-                                },
-                                child: LocaleText(
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.w600,
-                                      color:
-                                          ColorConstants.instance.shadowplanet,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          ColorConstants.instance.shadowplanet,
-                                      decorationThickness: 2,
-                                    ),
-                                    text: LocaleKeys.later),
-                              ),
-                            ),
-                          ],
-                        ),
+                        _textRow(context),
                         context.mediumSizedBox,
                         Column(children: [
                           AutoCompleteWidget(),
@@ -215,7 +174,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       fontSize: 25,
                                       fontWeight: FontWeight.w400,
                                       fontStyle: FontStyle.normal),
-                                  text: 'Fruits',
+                                  text: LocaleKeys.fruits,
                                 ),
                               ),
                               context.normalSizedBox,
@@ -270,5 +229,48 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                     )),
               ),
             ));
+  }
+
+  Row _textRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: context.veryveryHighValue,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: LocaleText(
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                color: ColorConstants.instance.blackbox,
+              ),
+              text: LocaleKeys.selectIngredients,
+            ),
+          ),
+        ),
+        Padding(
+          padding: context.paddingLeftEdges,
+          child: TextButton(
+            onPressed: () {
+              NavigationService.instance
+                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+            },
+            child: LocaleText(
+                style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w600,
+                  color: ColorConstants.instance.shadowplanet,
+                  decoration: TextDecoration.underline,
+                  decorationColor: ColorConstants.instance.shadowplanet,
+                  decorationThickness: 2,
+                ),
+                text: LocaleKeys.later),
+          ),
+        ),
+      ],
+    );
   }
 }

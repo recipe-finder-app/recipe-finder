@@ -5,15 +5,12 @@ import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
+import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/feature/home_page/model/category_model.dart';
-import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
-import 'package:recipe_finder/feature/home_page/model/search_model.dart';
-import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
 import '../../../core/init/navigation/navigation_service.dart';
@@ -24,11 +21,13 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late final List<SearchModel> searchItem = SearchItems().items;
-    late final List<CategoryModel> catItem = CategoryItems().items;
     return BaseView<HomeCubit>(
       init: (cubitRead) {
         cubitRead.init();
+        cubitRead.searchByMealList();
+        cubitRead.categoryList();
+        cubitRead.essentialHomeList();
+        cubitRead.vegatableHomeList();
       },
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(
@@ -36,7 +35,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
               child: Column(children: [
-                _textRow(context),
+                _textRow(context, cubitRead),
                 context.mediumSizedBox,
                 Center(
                     child: SearchWidget(
@@ -60,7 +59,7 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       context.lowSizedBox,
-                      _categoryListView(context, catItem),
+                      _categoryListView(context, cubitRead),
                     ],
                   ),
                 ),
@@ -81,7 +80,7 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       context.lowSizedBox,
-                      _searchByGridView(context, searchItem)
+                      _searchByGridView(context, cubitRead)
                     ],
                   ),
                 ),
@@ -93,7 +92,40 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Row _textRow(BuildContext context) {
+  SizedBox _categoryListView(BuildContext context, HomeCubit cubitRead) {
+    return SizedBox(
+      height: context.screenHeight / 8.2,
+      child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+          itemCount: cubitRead.category.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: context.paddingLowRight,
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 32,
+                    backgroundColor: cubitRead.category[index].color,
+                    child: cubitRead.category[index].image,
+                  ),
+                  context.lowSizedBox,
+                  LocaleText(
+                    text: cubitRead.category[index].title ?? '',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorConstants.instance.roboticgods,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+    );
+  }
+
+  Row _textRow(BuildContext context, HomeCubit cubitRead) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -123,7 +155,7 @@ class HomeView extends StatelessWidget {
                   onTap: () {
                     NavigationService.instance.navigateToPage(
                         path: NavigationConstants.NAV_CONTROLLER);
-                    refrigeratorBottomSheet(context);
+                    fridgeBottomSheet(context, cubitRead);
                   },
                   child: ImageSvg(
                     path: ImagePath.fridge.path,
@@ -144,12 +176,12 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _searchByGridView(BuildContext context, List<SearchModel> searchItem) {
+  Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
     return SizedBox(
       height: context.screenHeight / 3,
       child: GridView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: searchItem.length,
+          itemCount: cubitRead.searchByMeal.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 2,
@@ -157,51 +189,16 @@ class HomeView extends StatelessWidget {
               mainAxisSpacing: 15),
           itemBuilder: (BuildContext context, index) {
             return SearchByMealCard(
-              model: searchItem[index],
+              model: cubitRead.searchByMeal[index],
             );
           }),
     );
   }
 
-  Widget _categoryListView(BuildContext context, List<CategoryModel> catItem) {
-    return SizedBox(
-      height: context.screenHeight / 8.2,
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: catItem.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: context.paddingLowRight,
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 32,
-                    backgroundColor: catItem[index].color,
-                    child: catItem[index].imagePath,
-                  ),
-                  context.lowSizedBox,
-                  LocaleText(
-                    text: catItem[index].title,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorConstants.instance.roboticgods,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-    );
-  }
-
-  Future<void> refrigeratorBottomSheet(
+  Future<void> fridgeBottomSheet(
     BuildContext context,
+    HomeCubit cubitRead,
   ) {
-    late final List<EssentialModel> essentialItem = EssentialItems().items;
-    late final List<VegatablesModel> vegatableItem = VegatablesItems().items;
-
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.medium,
@@ -220,7 +217,7 @@ class HomeView extends StatelessWidget {
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: essentialItem.length,
+                itemCount: cubitRead.essentialsItem.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: context.paddingLowRight,
@@ -228,12 +225,13 @@ class HomeView extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 32,
-                          backgroundColor: essentialItem[index].color,
-                          child: essentialItem[index].imagePath,
+                          backgroundColor:
+                              cubitRead.essentialsItem[index].color,
+                          child: cubitRead.essentialsItem[index].image,
                         ),
                         context.lowSizedBox,
                         LocaleText(
-                          text: essentialItem[index].title,
+                          text: cubitRead.essentialsItem[index].title ?? '',
                           style: TextStyle(
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w400,
@@ -257,7 +255,7 @@ class HomeView extends StatelessWidget {
             flex: 2,
             child: GridView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: vegatableItem.length,
+                itemCount: cubitRead.vegateblesItem.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: 0.70,
@@ -265,18 +263,17 @@ class HomeView extends StatelessWidget {
                     mainAxisSpacing: 10),
                 itemBuilder: (BuildContext context, index) {
                   return Column(
-                    //  crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundColor: vegatableItem[index].color,
-                        child: vegatableItem[index].imagePath,
+                        backgroundColor: cubitRead.vegateblesItem[index].color,
+                        child: cubitRead.vegateblesItem[index].image,
                       ),
                       context.lowSizedBox,
                       Align(
                         alignment: Alignment.center,
                         child: LocaleText(
-                          text: vegatableItem[index].title,
+                          text: cubitRead.vegateblesItem[index].title ?? '',
                           style: TextStyle(
                               fontStyle: FontStyle.normal,
                               fontWeight: FontWeight.w400,
