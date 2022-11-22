@@ -1,5 +1,4 @@
-import 'package:recipe_finder/feature/material_search_page/model/material_essential_model.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_vegatable_model.dart';
+import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 
 abstract class IMaterialSearchState {
   IMaterialSearchState();
@@ -18,11 +17,13 @@ class MaterialSearchError extends IMaterialSearchState {
   String errorMessage;
   MaterialSearchError(this.errorMessage);
 }
+
 class EssentialListLoaded extends IMaterialSearchState {
-  List<MaterialEssentialModel>?  essentialList;
- EssentialListLoaded(this.essentialList);
+  List<ProductModel>? essentialList;
+  EssentialListLoaded(this.essentialList);
 }
+
 class VegatableListLoaded extends IMaterialSearchState {
-  List<MaterialVegatablesModel>?  vegatablealList;
- VegatableListLoaded(this.vegatablealList);
+  List<ProductModel>? vegatablealList;
+  VegatableListLoaded(this.vegatablealList);
 }

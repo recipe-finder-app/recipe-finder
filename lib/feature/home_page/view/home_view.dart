@@ -6,7 +6,6 @@ import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
-import 'package:recipe_finder/product/widget/app_bar/text_app_bar.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
@@ -37,17 +36,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
               child: Column(children: [
-                TextAppBar(
-                    title: LocaleKeys.homeTitle,
-                    onPressed: () {
-                      NavigationService.instance.navigateToPage(
-                          path: NavigationConstants.NAV_CONTROLLER);
-                      refrigeratorBottomSheet(context);
-                    },
-                    widget: ImageSvg(
-                      path: ImagePath.fridge.path,
-                    ),
-                    color: ColorConstants.instance.red),
+                _textRow(context),
                 context.mediumSizedBox,
                 Center(
                     child: SearchWidget(
@@ -101,6 +90,57 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Row _textRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: context.veryveryHighValue,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: LocaleText(
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                color: ColorConstants.instance.blackbox,
+              ),
+              text: LocaleKeys.homeTitle,
+            ),
+          ),
+        ),
+        Padding(
+          padding: context.paddingHighEdges,
+          child: Stack(children: [
+            Padding(
+              padding: context.paddingLeftEdges,
+              child: SizedBox(
+                height: context.highValue,
+                child: InkWell(
+                  onTap: () {
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.NAV_CONTROLLER);
+                    refrigeratorBottomSheet(context);
+                  },
+                  child: ImageSvg(
+                    path: ImagePath.fridge.path,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: context.paddingMaxEdges,
+              child: CircleAvatar(
+                radius: 5,
+                backgroundColor: ColorConstants.instance.red,
+              ),
+            )
+          ]),
+        ),
+      ],
     );
   }
 

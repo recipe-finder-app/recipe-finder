@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_essential_model.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_vegatable_model.dart';
+import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/feature/material_search_page/service/material_service.dart';
 
 import '../../../core/base/model/base_view_model.dart';
@@ -13,9 +12,8 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   MaterialSearchCubit() : super(MaterialSearchInit());
 
-  List<MaterialEssentialModel> essentials = [];
-  List<MaterialVegatablesModel> vegatables = [];
-
+  List<ProductModel> essentials = [];
+  List<ProductModel> vegatables = [];
 
   @override
   void init() {
@@ -29,10 +27,12 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
     essentials = service!.fetchEssentialList();
     emit(EssentialListLoaded(essentials));
   }
-void vegatablesList() {
+
+  void vegatablesList() {
     vegatables = service!.fetchVegatablesList();
     emit(VegatableListLoaded(vegatables));
   }
+
   @override
   void setContext(BuildContext context) => this.context = context;
 

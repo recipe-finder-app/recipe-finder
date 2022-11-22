@@ -22,7 +22,12 @@ extension MediaQueryExtension on BuildContext {
   double get maxValue => screenHeight * 0.07;
   double get maxValueWidth => screenWidth * 0.86;
   double get veryValueWidth => screenWidth * 0.95;
+  double get floatinValueWidth => screenWidth * 0.91;
   double get normalValueWidth => screenWidth * 0.71;
+  double get mediumValuee => screenHeight * 0.03;
+  double get highWidth => screenWidth * 0.10;
+  double get normalWidth => screenWidth * 0.10;
+  double get maxWidth => screenWidth * 0.18;
 }
 
 extension ThemeExtension on BuildContext {
@@ -42,6 +47,8 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingLowRight => EdgeInsets.only(right: normalValue);
   EdgeInsets get paddingMediumRight => EdgeInsets.only(right: mediumValue);
   EdgeInsets get paddingLowRightLow => EdgeInsets.only(right: lowValue);
+  EdgeInsets get paddingRight => EdgeInsets.only(right: mediumValuee);
+
   EdgeInsets get paddingLowEdges =>
       EdgeInsets.only(left: lowValue, right: lowValue);
   EdgeInsets get paddingLowRightTop => EdgeInsets.only(top: normalValue);
@@ -54,8 +61,15 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingMediumEdges =>
       EdgeInsets.only(left: mediumValue, right: mediumValue);
 
-  EdgeInsets get paddingHighEdges =>
-      EdgeInsets.only(left: highValue, right: highValue);
+  EdgeInsets get paddingHighEdges => EdgeInsets.only(
+        left: highWidth,
+      );
+  EdgeInsets get paddingMaxEdges => EdgeInsets.only(
+        left: maxWidth,
+      );
+  EdgeInsets get paddingLeftEdges => EdgeInsets.only(
+        left: normalWidth,
+      );
 
   EdgeInsets get paddingLowTopBottom =>
       EdgeInsets.only(top: lowValue, bottom: lowValue);

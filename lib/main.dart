@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/init/language/language_manager.dart';

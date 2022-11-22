@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class SerachModel {
+class ProductModel {
   final String? title;
   final Widget? image;
   final String? type;
+  final Color? color;
 
-  SerachModel({this.title, this.image, this.type});
+  ProductModel({this.title, this.image, this.type,this.color});
 }
