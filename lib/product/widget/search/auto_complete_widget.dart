@@ -27,9 +27,10 @@ class AutoCompleteWidget extends StatelessWidget {
           if (textEditingValue.text == '') {
             return const Iterable<ProductModel>.empty();
           }
-          return searchList.where(
+          Iterable<ProductModel> iterable = searchList.where(
             (element) => element.title!.contains(textEditingValue.text),
           );
+          return iterable.isNotEmpty ? iterable : [ProductModel()];
         },
         onSelected: (value) {},
         optionsViewBuilder: (BuildContext context,
@@ -43,59 +44,73 @@ class AutoCompleteWidget extends StatelessWidget {
                 ? firsType = '$firsType + ${list[i].type!}'
                 : '';
           }
-          return Scaffold(
-            body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              context.normalSizedBox,
-              Align(
-                alignment: Alignment.centerLeft,
-                child: LocaleText(
-                  style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal),
-                  text: firsType,
-                ),
-              ),
-              SizedBox(
-                height: context.screenHeight / 3,
-                child: GridView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: list.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 0.65,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 10,
-                    ),
-                    itemBuilder: (BuildContext context, index) {
-                      return Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 32,
-                            backgroundColor: list[index].color,
-                            child: list[index].image,
-                          ),
-                          context.lowSizedBox,
-                          SizedBox(
-                            width: context.veryHighValue,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: LocaleText(
-                                text: list[index].title ?? '',
-                                style: TextStyle(
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.w400,
-                                    color: ColorConstants.instance.roboticgods),
-                              ),
+          return SafeArea(
+            child: Scaffold(
+              body: options.first.title == null
+                  ? const Center(
+                      child: LocaleText(
+                        text: 'Aranan isimde ürün bulunamadı',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.normal),
+                      ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: LocaleText(
+                              style: const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal),
+                              text: firsType,
                             ),
                           ),
-                        ],
-                      );
-                    }),
-              )
-            ]),
+                          context.normalSizedBox,
+                          SizedBox(
+                            height: context.screenHeight / 3,
+                            child: GridView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: list.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 4,
+                                  childAspectRatio: 0.65,
+                                  crossAxisSpacing: 20,
+                                  mainAxisSpacing: 10,
+                                ),
+                                itemBuilder: (BuildContext context, index) {
+                                  return Column(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 32,
+                                        backgroundColor: list[index].color,
+                                        child: list[index].image,
+                                      ),
+                                      context.lowSizedBox,
+                                      SizedBox(
+                                        width: context.veryHighValue,
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: LocaleText(
+                                            text: list[index].title ?? '',
+                                            style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w400,
+                                                color: ColorConstants
+                                                    .instance.roboticgods),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                          )
+                        ]),
+            ),
           );
         },
         fieldViewBuilder: (BuildContext context,
