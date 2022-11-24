@@ -14,12 +14,16 @@ enum CircularBottomSheetHeight {
 class CircularBottomSheet {
   static CircularBottomSheet instance = CircularBottomSheet._init();
   CircularBottomSheet._init();
-  Future<void> show(context,
-      {required Widget child,
-      CircularBottomSheetHeight? bottomSheetHeight,
-      bool? resizeToAvoidBottomInset,
-      bool? scrollable}) {
+  Future<void> show(
+    context, {
+    required Widget child,
+    CircularBottomSheetHeight? bottomSheetHeight,
+    bool? resizeToAvoidBottomInset,
+    bool? scrollable,
+    AnimationController? controller,
+  }) {
     return showModalBottomSheet(
+      transitionAnimationController: controller,
       shape: RoundedRectangleBorder(
           borderRadius: BorderConstant.instance.radiusAllCircularHigh),
       context: context,
@@ -47,7 +51,11 @@ class CircularBottomSheet {
               child: Padding(
                   padding: context.paddingMediumEdges,
                   child: scrollable == true
-                      ? SingleChildScrollView(child: child)
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal, child: child),
+                        )
                       : child),
             ),
           ),

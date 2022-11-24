@@ -10,12 +10,17 @@ class LikesInit extends ILikesState {
 
 class OnLikesLoading extends ILikesState {
   late bool isLoading;
-  OnLikesLoading(isLoading);
+  OnLikesLoading(this.isLoading);
 }
 
-class UpdateIngredientList extends ILikesState {
-  late List<IngredientModel> myList;
-  UpdateIngredientList(this.myList);
+class MissingItemListLoad extends ILikesState {
+  late List<IngredientModel> missingItemList;
+  MissingItemListLoad(this.missingItemList);
+}
+
+class MyFrizeListLoad extends ILikesState {
+  late List<IngredientModel> myFrizeList;
+  MyFrizeListLoad(this.myFrizeList);
 }
 
 class LikesError extends ILikesState {
