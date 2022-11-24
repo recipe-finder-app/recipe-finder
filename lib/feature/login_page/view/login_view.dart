@@ -46,28 +46,31 @@ class LoginView extends StatelessWidget {
           )),
           child: SafeArea(
             child: Padding(
-              padding: context.paddingLowEdges,
+              padding: context.paddingNormalAll,
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const LanguagePopupMenuButton(),
-                      TextButton(
-                        child: LocaleText(
-                          text: LocaleKeys.later,
-                          style: TextStyle(
-                              color: ColorConstants.instance.oriolesOrange,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16),
+                  Padding(
+                    padding: context.paddingLowEdges,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const LanguagePopupMenuButton(),
+                        TextButton(
+                          child: LocaleText(
+                            text: LocaleKeys.later,
+                            style: TextStyle(
+                                color: ColorConstants.instance.oriolesOrange,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16),
+                          ),
+                          onPressed: () {
+                            NavigationService.instance.navigateToPage(
+                              path: NavigationConstants.NAV_CONTROLLER,
+                            );
+                          },
                         ),
-                        onPressed: () {
-                          NavigationService.instance.navigateToPage(
-                            path: NavigationConstants.NAV_CONTROLLER,
-                          );
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Flexible(
                     flex: 5,
