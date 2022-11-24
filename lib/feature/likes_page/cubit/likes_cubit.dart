@@ -10,22 +10,20 @@ import '../service/likes_service.dart';
 import 'likes_state.dart';
 
 class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
-  late GlobalKey<FormState> loginFormKey;
-  late GlobalKey<FormState> createAccountFormKey;
-  late GlobalKey<FormState> forgotPasswordFormKey;
   ILikesService? service;
 
-  late final List<LikeRecipeModel> likeRecipeItems;
-  late final List<IngredientModel> myFrizeItems;
+  late List<LikeRecipeModel> likeRecipeItems;
+  late List<IngredientModel> myFrizeItems;
+
+  String directionText =
+      """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. """;
 
   LikesCubit() : super(LikesInit());
-
   @override
   void init() {
-    loginFormKey = GlobalKey<FormState>();
-    createAccountFormKey = GlobalKey<FormState>();
-    forgotPasswordFormKey = GlobalKey<FormState>();
-
     service = LikesService();
 
     likeRecipeItems = [
@@ -44,16 +42,22 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(
               title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
           IngredientModel(
-              title: 'egg', imagePath: ImagePath.egg.path, quantity: 4),
+              title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
         ],
         recipeModel: RecipeModel(
-            directions: 'asdadasdaddadasdada',
-            description: 'şiş kebab yapımı anlatılıyor',
             ingredients: [
-              IngredientModel(title: 'et'),
-            ]),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
       ),
-      LikeRecipeModel(
+      /* LikeRecipeModel(
         imagePath: ImagePath.imageSample2.path,
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         missingItems: [
@@ -63,11 +67,14 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
               title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
         ],
         recipeModel: RecipeModel(
-            directions: 'asdadasdaddadasdada',
-            description: 'vejeteryan yemek',
             ingredients: [
-              IngredientModel(title: 'sebze'),
-            ]),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
       ),
       LikeRecipeModel(
         imagePath: ImagePath.imageSample3.path,
@@ -78,33 +85,43 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'milk'),
         ],
         recipeModel: RecipeModel(
-            directions: 'asdadasdaddadasdada',
-            description: 'hamburger yapımı',
             ingredients: [
-              IngredientModel(title: 'hamburger köftesi'),
-            ]),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
       ),
       LikeRecipeModel(
         imagePath: ImagePath.imageSample4.path,
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         recipeModel: RecipeModel(
-            directions: 'asdadasdaddadasdada',
-            description: 'şiş kebab yapımı anlatılıyor',
             ingredients: [
-              IngredientModel(title: 'et'),
-            ]),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
       ),
       LikeRecipeModel(
         imagePath: ImagePath.imageSample1.path,
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         recipeModel: RecipeModel(
-            directions: 'asdadasdaddadasdada',
-            description: 'şiş kebab yapımı anlatılıyor',
             ingredients: [
-              IngredientModel(title: 'et'),
-            ]),
-      ),
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
+      ),*/
     ];
+
     myFrizeItems = [
       IngredientModel(
           title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
@@ -112,23 +129,30 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
       IngredientModel(
           title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
+      IngredientModel(
+          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
+      IngredientModel(
+          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
   }
 
-  void addItemMyFrize(int cardIndex, IngredientModel itemModelToBeDeleted) {
-    likeRecipeItems[cardIndex].missingItems!.remove(itemModelToBeDeleted);
+  void removeMissingItem(int cardIndex, int missingItemIndex) {
+    likeRecipeItems[cardIndex].missingItems!.removeAt(missingItemIndex);
+
+    emit(MissingItemListLoad(
+        likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
+  }
+
+  void addItemToMyFrize(IngredientModel itemModelToBeDeleted) {
     myFrizeItems.add(itemModelToBeDeleted);
 
-    emit(UpdateIngredientList(myFrizeItems));
-    emit(UpdateIngredientList(likeRecipeItems[cardIndex].missingItems!));
-    print("------------");
-    for (var i in likeRecipeItems[cardIndex].missingItems!) {
-      print(i.title);
-    }
-    print("------------");
-    for (var i in myFrizeItems!) {
-      print(i.title);
-    }
+    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+  }
+
+  void missingItemLoad(int cardIndex) {
+    emit(MissingItemListLoad(
+        likeRecipeItems[cardIndex].missingItems!.toSet().toList()));
   }
 
   @override

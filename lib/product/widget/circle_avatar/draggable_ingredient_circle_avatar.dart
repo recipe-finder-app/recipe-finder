@@ -9,7 +9,7 @@ import '../../component/text/locale_text.dart';
 class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
   final IngredientModel model;
   final Color? color;
-  final Widget? widgetOnIcon;
+  final Widget? iconBottomWidget;
   final VoidCallback? onDragStarted;
   final Function(DraggableDetails)? onDragEnd;
   final Function(Velocity, Offset)? onDraggableCanceled;
@@ -20,7 +20,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
       {Key? key,
       required this.model,
       this.color,
-      this.widgetOnIcon,
+      this.iconBottomWidget,
       this.onDragStarted,
       this.onDragEnd,
       this.onDraggableCanceled,
@@ -62,7 +62,7 @@ class _DraggableIngredientCircleAvatarState
       onDragUpdate: widget.onDragUpdate,
       feedback: Column(
         children: [
-          widget.widgetOnIcon != null
+          widget.iconBottomWidget != null
               ? Stack(
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
@@ -73,7 +73,7 @@ class _DraggableIngredientCircleAvatarState
                         path: widget.model.imagePath ?? ImagePath.like.path,
                       ),
                     ),
-                    widget.widgetOnIcon!,
+                    widget.iconBottomWidget!,
                   ],
                 )
               : CircleAvatar(
@@ -91,41 +91,38 @@ class _DraggableIngredientCircleAvatarState
           ),
         ],
       ),
-      childWhenDragging: Container(),
-      child: onDragEnd == true
-          ? Center()
-          : Column(
-              children: [
-                widget.widgetOnIcon != null
-                    ? Stack(
-                        alignment: AlignmentDirectional.bottomCenter,
-                        children: [
-                          CircleAvatar(
-                            radius: 32,
-                            backgroundColor: widget.color,
-                            child: ImageSvg(
-                              path:
-                                  widget.model.imagePath ?? ImagePath.like.path,
-                            ),
-                          ),
-                          widget.widgetOnIcon!,
-                        ],
-                      )
-                    : CircleAvatar(
-                        radius: 32,
-                        backgroundColor: widget.color,
-                        child: ImageSvg(
-                          path: widget.model.imagePath ?? ImagePath.like.path,
-                        ),
+      childWhenDragging: const Center(),
+      child: Column(
+        children: [
+          widget.iconBottomWidget != null
+              ? Stack(
+                  alignment: AlignmentDirectional.bottomCenter,
+                  children: [
+                    CircleAvatar(
+                      radius: 32,
+                      backgroundColor: widget.color,
+                      child: ImageSvg(
+                        path: widget.model.imagePath ?? ImagePath.like.path,
                       ),
-                context.veryLowSizedBox,
-                FittedBox(
-                  child: LocaleText(
-                    text: widget.model.title,
+                    ),
+                    widget.iconBottomWidget!,
+                  ],
+                )
+              : CircleAvatar(
+                  radius: 32,
+                  backgroundColor: widget.color,
+                  child: ImageSvg(
+                    path: widget.model.imagePath ?? ImagePath.like.path,
                   ),
                 ),
-              ],
+          context.veryLowSizedBox,
+          FittedBox(
+            child: LocaleText(
+              text: widget.model.title,
             ),
+          ),
+        ],
+      ),
     );
   }
 }

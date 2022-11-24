@@ -48,14 +48,15 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      offset: const Offset(0, 0),
       shape: OutlineInputBorder(borderRadius: context.radiusAllCircularMin),
+      position: PopupMenuPosition.under,
       color: Colors.white.withOpacity(0.8),
       initialValue: selectedLanguageId ?? 1,
       itemBuilder: (context) => [
         PopupMenuItem(
             textStyle: TextStyle(
-                color: selectedLanguageId == SupportedLanguages.EN.id
+                color: context.locale.languageCode ==
+                        SupportedLanguages.EN.name.toLowerCase()
                     ? ColorConstants.instance.oriolesOrange
                     : Colors.black),
             value: 1,
@@ -64,7 +65,8 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
             )),
         PopupMenuItem(
             textStyle: TextStyle(
-                color: selectedLanguageId == SupportedLanguages.TR.id
+                color: context.locale.languageCode ==
+                        SupportedLanguages.TR.name.toLowerCase()
                     ? ColorConstants.instance.oriolesOrange
                     : Colors.black),
             value: 2,
@@ -79,8 +81,11 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
         height: 35,
         width: 55,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
           borderRadius: context.radiusAllCircularHigh,
+          border: Border.all(
+            color: ColorConstants.instance.oriolesOrange,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
