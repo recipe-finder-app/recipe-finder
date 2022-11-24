@@ -20,7 +20,7 @@
     "signUp": "Kaydol",
     "signIn": "Giriş Yap",
     "search":"Ara",
-    "homeTitle":"En iyi tarifleri \n bulun pişirmek için",
+    "homeTitle":"En iyi tarifleri  bulun pişirmek için",
     "category":"Kategori",
     "pizza":"Pizza",
     "vegetarian":"Vejetaryen",
@@ -28,8 +28,8 @@
     "desserts":"Tatlılar",
     "searchbymeal":"Yemeğe Göre Arama",
     "breakfast":"Kahvaltı",
-    "lunch":"Öğle \n yemeği",
-    "dinner":"Akşam \n yemeği",
+    "lunch":"Öğle  yemeği",
+    "dinner":"Akşam  yemeği",
     "drinks":"İçecekler",
     "appetizers":"Mezeler",
     "essentials":"Temeller",
@@ -62,5 +62,8 @@
     "confirm": "Onayla",
     "ingredients": "Malzemeler",
     "description": "Açıklama",
-    "directions": "Talimatlar"
+    "directions": "Talimatlar",
+    "findMyRecipe":"Tarifimi Bul",
+    "fruits":"Meyveler",
+    "selectIngredients":"Malzemelerinizi seçin"
 }

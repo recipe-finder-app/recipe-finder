@@ -65,7 +65,7 @@ class LoginView extends StatelessWidget {
                           ),
                           onPressed: () {
                             NavigationService.instance.navigateToPage(
-                              path: NavigationConstants.NAV_CONTROLLER,
+                              path: NavigationConstants.MATERIALSEARCH,
                             );
                           },
                         ),

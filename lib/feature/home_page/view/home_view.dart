@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/base/view/base_view.dart';
+
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
-import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/home_page/model/category_model.dart';
-import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
-import 'package:recipe_finder/feature/home_page/model/search_model.dart';
-import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
-import 'package:recipe_finder/product/component/image_format/image_png.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
+import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
+import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
+import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
-
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/component/card/search_by_meal_card.dart';
 
@@ -22,138 +21,102 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late final List<SearchModel> searchItem = SearchItems().items;
-    late final List<CategoryModel> catItem = CategoryItems().items;
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: context.paddingNormalEdges,
-          child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              _appBarRow(context),
-              SizedBox(
-                height: context.mediumValue,
-              ),
-              const Center(child: SearchWidget()),
-              SizedBox(
-                height: context.mediumValue,
-              ),
-              SizedBox(
-                height: context.screenHeight / 4.4,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const LocaleText(
-                      style: TextStyle(fontSize: 25),
-                      text: LocaleKeys.category,
-                    ),
-                    SizedBox(
-                      height: context.lowValue,
-                    ),
-                    _categoryListView(context, catItem),
-                  ],
+    return BaseView<HomeCubit>(
+      init: (cubitRead) {
+        cubitRead.init();
+        cubitRead.searchByMealList();
+        cubitRead.categoryList();
+        cubitRead.essentialHomeList();
+        cubitRead.vegatableHomeList();
+      },
+      onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: context.paddingNormalEdges,
+            child: SingleChildScrollView(
+              child: Column(children: [
+                _textRow(context, cubitRead),
+                context.mediumSizedBox,
+                Center(
+                    child: SearchWidget(
+                  width: context.veryValueWidth,
+                  onChanged: () {},
+                )),
+                context.mediumSizedBox,
+                SizedBox(
+                  height: context.screenHeight / 4.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: LocaleText(
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: ColorConstants.instance.black,
+                              fontWeight: FontWeight.w400),
+                          text: LocaleKeys.category,
+                        ),
+                      ),
+                      context.lowSizedBox,
+                      _categoryListView(context, cubitRead),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: context.screenHeight / 2.5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const LocaleText(
-                      style: TextStyle(fontSize: 25),
-                      text: LocaleKeys.searchbymeal,
-                    ),
-                    SizedBox(
-                      height: context.lowValue,
-                    ),
-                    _searchByGridView(context, searchItem)
-                  ],
+                SizedBox(
+                  height: context.screenHeight / 2.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: LocaleText(
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w400,
+                            color: ColorConstants.instance.black,
+                          ),
+                          text: LocaleKeys.searchbymeal,
+                        ),
+                      ),
+                      context.lowSizedBox,
+                      _searchByGridView(context, cubitRead)
+                    ],
+                  ),
                 ),
-              ),
-            ]),
+              ]),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Row _appBarRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        LocaleText(
-          textAlign: TextAlign.start,
-          style: Theme.of(context).textTheme.headline5?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-          text: LocaleKeys.homeTitle,
-        ),
-        Stack(children: [
-          SizedBox(
-              height: context.highValue,
-              child: InkWell(
-                  onTap: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.NAV_CONTROLLER);
-                    refrigeratorBottomSheet(context);
-                  },
-                  child: ImagePng(
-                    path: ImagePath.refrigerator.path,
-                  ))),
-          Padding(
-            padding: context.paddingHighEdges,
-            child: const CircleAvatar(
-              radius: 6,
-              backgroundColor: Colors.red,
-            ),
-          )
-        ]),
-      ],
-    );
-  }
-
-  Widget _searchByGridView(BuildContext context, List<SearchModel> searchItem) {
-    return SizedBox(
-      height: context.screenHeight / 3,
-      child: GridView.builder(
-          itemCount: searchItem.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 1.95,
-          ),
-          itemBuilder: (BuildContext context, index) {
-            return Padding(
-              padding: context.paddingLowAll,
-              child: SearchByMealCard(
-                model: searchItem[index],
-              ),
-            );
-          }),
-    );
-  }
-
-  Widget _categoryListView(BuildContext context, List<CategoryModel> catItem) {
+  SizedBox _categoryListView(BuildContext context, HomeCubit cubitRead) {
     return SizedBox(
       height: context.screenHeight / 8.2,
       child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          itemCount: catItem.length,
+          itemCount: cubitRead.category.length,
           itemBuilder: (context, index) {
             return Padding(
-              padding: context.paddingLowEdges,
+              padding: context.paddingLowRight,
               child: Column(
                 children: [
                   CircleAvatar(
                     radius: 32,
-                    backgroundColor: catItem[index].color,
-                    child: catItem[index].imagePath,
+                    backgroundColor: cubitRead.category[index].color,
+                    child: cubitRead.category[index].image,
                   ),
-                  SizedBox(
-                    height: context.lowValue,
-                  ),
+                  context.lowSizedBox,
                   LocaleText(
-                    text: catItem[index].title,
+                    text: cubitRead.category[index].title ?? '',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: ColorConstants.instance.roboticgods,
+                    ),
                   ),
                 ],
               ),
@@ -162,108 +125,166 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Future<void> refrigeratorBottomSheet(
-    BuildContext context,
-  ) {
-    late final List<EssentialModel> essentialItem = EssentialItems().items;
-    late final List<VegatablesModel> vegatableItem = VegatablesItems().items;
+  Row _textRow(BuildContext context, HomeCubit cubitRead) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SizedBox(
+          width: context.veryveryHighValue,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: LocaleText(
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                color: ColorConstants.instance.blackbox,
+              ),
+              text: LocaleKeys.homeTitle,
+            ),
+          ),
+        ),
+        Padding(
+          padding: context.paddingHighEdges,
+          child: Stack(children: [
+            Padding(
+              padding: context.paddingLeftEdges,
+              child: SizedBox(
+                height: context.highValue,
+                child: InkWell(
+                  onTap: () {
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.NAV_CONTROLLER);
+                    fridgeBottomSheet(context, cubitRead);
+                  },
+                  child: ImageSvg(
+                    path: ImagePath.fridge.path,
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: context.paddingMaxEdges,
+              child: CircleAvatar(
+                radius: 5,
+                backgroundColor: ColorConstants.instance.red,
+              ),
+            )
+          ]),
+        ),
+      ],
+    );
+  }
 
+  Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
+    return SizedBox(
+      height: context.screenHeight / 3,
+      child: GridView.builder(
+          physics: const BouncingScrollPhysics(),
+          itemCount: cubitRead.searchByMeal.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2,
+              crossAxisSpacing: 25,
+              mainAxisSpacing: 15),
+          itemBuilder: (BuildContext context, index) {
+            return SearchByMealCard(
+              model: cubitRead.searchByMeal[index],
+            );
+          }),
+    );
+  }
+
+  Future<void> fridgeBottomSheet(
+    BuildContext context,
+    HomeCubit cubitRead,
+  ) {
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.medium,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const LocaleText(
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                text: LocaleKeys.essentials,
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.chevron_right,
-                    size: 30,
-                  )),
-            ],
+          const LocaleText(
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal),
+            text: LocaleKeys.essentials,
           ),
-          SizedBox(
-            height: context.lowValue,
-          ),
+          context.normalSizedBox,
           Flexible(
             child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: essentialItem.length,
+                itemCount: cubitRead.essentialsItem.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: context.paddingLowEdges,
+                    padding: context.paddingLowRight,
                     child: Column(
                       children: [
                         CircleAvatar(
                           radius: 32,
-                          backgroundColor: essentialItem[index].color,
-                          child: essentialItem[index].imagePath,
+                          backgroundColor:
+                              cubitRead.essentialsItem[index].color,
+                          child: cubitRead.essentialsItem[index].image,
                         ),
-                        SizedBox(
-                          height: context.lowValue,
-                        ),
+                        context.lowSizedBox,
                         LocaleText(
-                          text: essentialItem[index].title,
+                          text: cubitRead.essentialsItem[index].title ?? '',
+                          style: TextStyle(
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w400,
+                              color: ColorConstants.instance.roboticgods),
                         ),
                       ],
                     ),
                   );
                 }),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const LocaleText(
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                text: LocaleKeys.vegatables,
-              ),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.chevron_right,
-                    size: 30,
-                  )),
-            ],
+          context.normalSizedBox,
+          const LocaleText(
+            style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w400,
+                fontStyle: FontStyle.normal),
+            text: LocaleKeys.vegatables,
           ),
-          SizedBox(
-            height: context.lowValue,
-          ),
-          Expanded(
+          context.normalSizedBox,
+          Flexible(
             flex: 2,
             child: GridView.builder(
-                shrinkWrap: true,
-                itemCount: vegatableItem.length,
+                physics: const BouncingScrollPhysics(),
+                itemCount: cubitRead.vegateblesItem.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: 0.70,
-                ),
+                    crossAxisCount: 4,
+                    childAspectRatio: 0.70,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 10),
                 itemBuilder: (BuildContext context, index) {
                   return Column(
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundColor: vegatableItem[index].color,
-                        child: vegatableItem[index].imagePath,
+                        backgroundColor: cubitRead.vegateblesItem[index].color,
+                        child: cubitRead.vegateblesItem[index].image,
                       ),
-                      SizedBox(
-                        height: context.lowValue,
-                      ),
-                      LocaleText(
-                        text: vegatableItem[index].title,
+                      context.lowSizedBox,
+                      Align(
+                        alignment: Alignment.center,
+                        child: LocaleText(
+                          text: cubitRead.vegateblesItem[index].title ?? '',
+                          style: TextStyle(
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.w400,
+                              color: ColorConstants.instance.roboticgods),
+                        ),
                       ),
                     ],
                   );
                 }),
           ),
-          SizedBox(
-            height: context.lowValue,
-          ),
+          context.normalSizedBox,
           LoginButton(
             text: LocaleKeys.addIngredients,
             color: ColorConstants.instance.russianViolet,

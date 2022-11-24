@@ -5,20 +5,20 @@ import 'package:recipe_finder/feature/material_search_page/model/product_model.d
 import '../../../product/component/image_format/image_svg.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 
-// class VegatablesModel {
+// class MaterialVegatablesModel {
 //   final Widget imagePath;
 //   final String title;
 //   final Color color;
 
-//   VegatablesModel(
+//   MaterialVegatablesModel(
 //       {required this.color, required this.imagePath, required this.title});
 // }
 
-class VegatablesItems {
-  late final List<ProductModel> vegatableItems;
+class MaterialVegatablesItems {
+  late final List<ProductModel> vegatables;
 
-  VegatablesItems() {
-    vegatableItems = [
+  MaterialVegatablesItems() {
+    vegatables = [
       ProductModel(
           image: ImageSvg(
             path: ImagePath.tomato.path,
