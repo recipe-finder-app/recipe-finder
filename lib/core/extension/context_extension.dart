@@ -16,9 +16,9 @@ extension MediaQueryExtension on BuildContext {
   double get mediumValue => screenHeight * 0.04;
   double get highValue => screenHeight * 0.07;
   double get veryHighValue => screenHeight * 0.1;
-  double get veryveryHighValue => screenHeight * 0.3;
+  double get veryveryHighValue => screenHeight * 0.35;
   double get veryyHighValue => screenHeight * 0.21;
-  double get normalhighValue => screenHeight * 0.13;
+  double get normalhighValue => screenHeight * 0.16;
   double get maxValue => screenHeight * 0.07;
   double get maxValueWidth => screenWidth * 0.86;
   double get veryValueWidth => screenWidth * 0.95;

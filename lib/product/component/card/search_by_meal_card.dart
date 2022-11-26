@@ -14,6 +14,7 @@ class SearchByMealCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: context.veryyHighValue,
       decoration: BoxDecoration(
         borderRadius: context.radiusAllCircularMin,
         color: _model.color,

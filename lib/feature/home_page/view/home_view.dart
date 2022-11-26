@@ -94,7 +94,7 @@ class HomeView extends StatelessWidget {
 
   SizedBox _categoryListView(BuildContext context, HomeCubit cubitRead) {
     return SizedBox(
-      height: context.screenHeight / 8.2,
+      height: context.screenHeight / 7,
       child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
@@ -184,7 +184,7 @@ class HomeView extends StatelessWidget {
           itemCount: cubitRead.searchByMeal.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 2,
+              childAspectRatio: 2.40,
               crossAxisSpacing: 25,
               mainAxisSpacing: 15),
           itemBuilder: (BuildContext context, index) {
@@ -213,7 +213,8 @@ class HomeView extends StatelessWidget {
             text: LocaleKeys.essentials,
           ),
           context.normalSizedBox,
-          Flexible(
+          SizedBox(
+            height: context.screenHeight / 7,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
