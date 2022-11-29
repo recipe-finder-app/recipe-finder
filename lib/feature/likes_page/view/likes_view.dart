@@ -7,7 +7,6 @@ import 'package:recipe_finder/product/component/card/saved_recipe_card.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import 'package:recipe_finder/product/widget/scrollbar/recipe_scrollbar.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/init/language/locale_keys.g.dart';
@@ -194,6 +193,74 @@ class LikesView extends StatelessWidget {
       BuildContext context, LikesCubit cubitRead, int cardIndex) {
     return CircularBottomSheet.instance.show(
       context,
+      resizeToAvoidBottomInset: true,
+      scrollable: true,
+      bottomSheetHeight: CircularBottomSheetHeight.standard,
+      child: Column(
+        children: [
+          LocaleBoldText(text: LocaleKeys.ingredients),
+          ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: cubitRead
+                  .likeRecipeItems[cardIndex].recipeModel.ingredients.length,
+              itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(cubitRead.likeRecipeItems[cardIndex].recipeModel
+                        .ingredients[recipeIngredientsIndex].quantity
+                        .toString()),
+                    Text(cubitRead.likeRecipeItems[cardIndex].recipeModel
+                        .ingredients[recipeIngredientsIndex].title),
+                  ],
+                );
+              }),
+          LocaleBoldText(text: LocaleKeys.yourFrize),
+          cubitRead.myFrizeItems == null
+              ? const Center()
+              : ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: cubitRead.myFrizeItems.length,
+                  itemBuilder: (BuildContext context, int missingItemIndex) {
+                    return Padding(
+                      padding: EdgeInsets.only(right: context.lowValue),
+                      child: IngredientCircleAvatar(
+                        color: ColorConstants.instance.russianViolet
+                            .withOpacity(0.1),
+                        model: cubitRead.myFrizeItems[missingItemIndex],
+                        widgetOnIcon: Text(
+                          cubitRead.myFrizeItems[missingItemIndex].quantity
+                              .toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  }),
+          LocaleBoldText(text: LocaleKeys.description),
+          Text(
+            cubitRead.likeRecipeItems[cardIndex].recipeModel.description,
+            style: const TextStyle(overflow: TextOverflow.ellipsis),
+            maxLines: 3,
+          ),
+          LocaleBoldText(text: LocaleKeys.directions),
+          Text(
+            cubitRead.likeRecipeItems[cardIndex].recipeModel.directions,
+            style: const TextStyle(overflow: TextOverflow.clip),
+          ),
+          RecipeCircularButton(
+              color: ColorConstants.instance.russianViolet,
+              text: LocaleKeys.confirm),
+        ],
+      ),
+    );
+  }
+  /* Future<void> recipeBottomSheet(
+      BuildContext context, LikesCubit cubitRead, int cardIndex) {
+    return CircularBottomSheet.instance.show(
+      context,
       bottomSheetHeight: CircularBottomSheetHeight.standard,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -292,5 +359,5 @@ class LikesView extends StatelessWidget {
         ],
       ),
     );
-  }
+  }*/
 }

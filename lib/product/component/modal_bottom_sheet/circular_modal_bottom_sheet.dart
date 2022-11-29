@@ -53,8 +53,7 @@ class CircularBottomSheet {
                   child: scrollable == true
                       ? SingleChildScrollView(
                           scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal, child: child),
+                          child: child,
                         )
                       : child),
             ),
@@ -64,13 +63,3 @@ class CircularBottomSheet {
     );
   }
 }
-
-/*Padding(
-padding: EdgeInsets.only(top: 5),
-child: Container(
-height: 5,
-width: 20,
-decoration: BoxDecoration(
-border: Border.all(width: 3, color: Colors.grey)),
-),
-),*/
