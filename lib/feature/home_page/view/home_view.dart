@@ -35,6 +35,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
               child: Column(children: [
+                context.mediumSizedBox,
                 _textRow(context, cubitRead),
                 context.mediumSizedBox,
                 Center(
@@ -144,34 +145,31 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: context.paddingHighEdges,
-          child: Stack(children: [
-            Padding(
-              padding: context.paddingLeftEdges,
-              child: SizedBox(
-                height: context.highValue,
-                child: InkWell(
-                  onTap: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.NAV_CONTROLLER);
-                    fridgeBottomSheet(context, cubitRead);
-                  },
-                  child: ImageSvg(
-                    path: ImagePath.fridge.path,
-                  ),
+        Stack(children: [
+          Padding(
+            padding: context.paddingLeftEdges,
+            child: SizedBox(
+              height: context.highValue,
+              child: InkWell(
+                onTap: () {
+                  NavigationService.instance
+                      .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+                  fridgeBottomSheet(context, cubitRead);
+                },
+                child: ImageSvg(
+                  path: ImagePath.fridge.path,
                 ),
               ),
             ),
-            Padding(
-              padding: context.paddingMaxEdges,
-              child: CircleAvatar(
-                radius: 5,
-                backgroundColor: ColorConstants.instance.red,
-              ),
-            )
-          ]),
-        ),
+          ),
+          Padding(
+            padding: context.paddingMaxEdges,
+            child: CircleAvatar(
+              radius: 5,
+              backgroundColor: ColorConstants.instance.red,
+            ),
+          )
+        ]),
       ],
     );
   }
