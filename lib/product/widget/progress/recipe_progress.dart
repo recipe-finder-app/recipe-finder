@@ -28,7 +28,7 @@ class RecipeProgress extends StatelessWidget {
               : const Center(),
           visible == true
               ? BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -51,12 +51,13 @@ class RecipeProgress extends StatelessWidget {
                         padding: context.paddingHighEdges,
                         child: Padding(
                             padding: context.paddingMediumOnlyTop,
-                            child: LocaleBoldText(
+                            child: const LocaleBoldText(
                               text: LocaleKeys.progressText,
                               maxLines: 3,
                               textAlign: TextAlign.center,
-                              textColor: ColorConstants.instance.oriolesOrange,
-                              style: const TextStyle(
+                              textColor: Colors.white,
+                              fontSize: 16,
+                              style: TextStyle(
                                 decoration: TextDecoration.none,
                               ),
                             )),

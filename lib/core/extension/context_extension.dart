@@ -51,21 +51,22 @@ extension PaddingExtensionAll on BuildContext {
 
   EdgeInsets get paddingLowEdges =>
       EdgeInsets.only(left: lowValue, right: lowValue);
-  EdgeInsets get paddingLowRightTop => EdgeInsets.only(top: normalValue);
+
   EdgeInsets get paddingNormalEdges => EdgeInsets.only(
         left: normalValue,
         right: normalValue,
-        top: normalValue,
       );
 
   EdgeInsets get paddingMediumEdges =>
       EdgeInsets.only(left: mediumValue, right: mediumValue);
 
   EdgeInsets get paddingHighEdges => EdgeInsets.only(
-        left: highWidth,
+        left: highValue,
+        right: highValue,
       );
   EdgeInsets get paddingMaxEdges => EdgeInsets.only(
         left: maxWidth,
+        right: maxWidth,
       );
   EdgeInsets get paddingLeftEdges => EdgeInsets.only(
         left: normalWidth,
@@ -83,7 +84,7 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingLowOnlyTop => EdgeInsets.only(top: lowValue);
   EdgeInsets get paddingNormalOnlyTop => EdgeInsets.only(top: normalValue);
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
-  EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: veryHighValue);
+  EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
 }
 
 extension PaddingExtensionSymetric on BuildContext {

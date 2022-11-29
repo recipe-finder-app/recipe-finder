@@ -78,8 +78,8 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
         changeSelectedLanguage(value);
       },
       child: Container(
-        height: 35,
-        width: 55,
+        height: 36,
+        width: 65,
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: context.radiusAllCircularHigh,
