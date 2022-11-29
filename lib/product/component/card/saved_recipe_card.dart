@@ -41,7 +41,7 @@ class LikesRecipeCard extends StatelessWidget {
                       textAlign: TextAlign.start,
                       fontSize: 12,
                       maxLines: 3,
-                      overflow: TextOverflow.fade,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 )
