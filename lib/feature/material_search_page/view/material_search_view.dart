@@ -57,6 +57,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(children: [
+                        context.mediumSizedBox,
                         _textRow(context),
                         context.mediumSizedBox,
                         Column(children: [
@@ -253,25 +254,22 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
             ),
           ),
         ),
-        Padding(
-          padding: context.paddingLeftEdges,
-          child: TextButton(
-            onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-            },
-            child: LocaleText(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstants.instance.shadowplanet,
-                  decoration: TextDecoration.underline,
-                  decorationColor: ColorConstants.instance.shadowplanet,
-                  decorationThickness: 2,
-                ),
-                text: LocaleKeys.later),
-          ),
+        TextButton(
+          onPressed: () {
+            NavigationService.instance
+                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+          },
+          child: LocaleText(
+              style: TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.w600,
+                color: ColorConstants.instance.shadowplanet,
+                decoration: TextDecoration.underline,
+                decorationColor: ColorConstants.instance.shadowplanet,
+                decorationThickness: 2,
+              ),
+              text: LocaleKeys.later),
         ),
       ],
     );

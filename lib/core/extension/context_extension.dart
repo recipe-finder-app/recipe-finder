@@ -66,7 +66,8 @@ extension PaddingExtensionAll on BuildContext {
       );
   EdgeInsets get paddingMaxEdges => EdgeInsets.only(
         left: maxWidth,
-        right: maxWidth,
+        //right: maxWidth,
+        top: veryLowValue,
       );
   EdgeInsets get paddingLeftEdges => EdgeInsets.only(
         left: normalWidth,
