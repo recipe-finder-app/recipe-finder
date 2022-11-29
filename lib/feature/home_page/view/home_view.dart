@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
-
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
+import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
-import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
+
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/component/card/search_by_meal_card.dart';
 
@@ -126,51 +125,53 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Row _textRow(BuildContext context, HomeCubit cubitRead) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: context.veryveryHighValue,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
+  Widget _textRow(BuildContext context, HomeCubit cubitRead) {
+    return FittedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: context.veryveryHighValue,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: LocaleText(
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: ColorConstants.instance.blackbox,
+                ),
+                text: LocaleKeys.homeTitle,
               ),
-              text: LocaleKeys.homeTitle,
             ),
           ),
-        ),
-        Stack(children: [
-          Padding(
-            padding: context.paddingLeftEdges,
-            child: SizedBox(
-              height: context.highValue,
-              child: InkWell(
-                onTap: () {
-                  NavigationService.instance
-                      .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-                  fridgeBottomSheet(context, cubitRead);
-                },
-                child: ImageSvg(
-                  path: ImagePath.fridge.path,
+          Stack(children: [
+            Padding(
+              padding: context.paddingLeftEdges,
+              child: SizedBox(
+                height: context.highValue,
+                child: InkWell(
+                  onTap: () {
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.NAV_CONTROLLER);
+                    fridgeBottomSheet(context, cubitRead);
+                  },
+                  child: ImageSvg(
+                    path: ImagePath.fridge.path,
+                  ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: context.paddingMaxEdges,
-            child: CircleAvatar(
-              radius: 5,
-              backgroundColor: ColorConstants.instance.red,
-            ),
-          )
-        ]),
-      ],
+            Padding(
+              padding: context.paddingMaxEdges,
+              child: CircleAvatar(
+                radius: 5,
+                backgroundColor: ColorConstants.instance.red,
+              ),
+            )
+          ]),
+        ],
+      ),
     );
   }
 
@@ -199,6 +200,7 @@ class HomeView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
+      scrollable: true,
       bottomSheetHeight: CircularBottomSheetHeight.medium,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,6 +217,7 @@ class HomeView extends StatelessWidget {
             height: context.screenHeight / 7,
             child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: cubitRead.essentialsItem.length,
                 itemBuilder: (context, index) {
@@ -250,39 +253,38 @@ class HomeView extends StatelessWidget {
             text: LocaleKeys.vegatables,
           ),
           context.normalSizedBox,
-          Flexible(
-            flex: 2,
-            child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: cubitRead.vegateblesItem.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    childAspectRatio: 0.70,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 10),
-                itemBuilder: (BuildContext context, index) {
-                  return Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 32,
-                        backgroundColor: cubitRead.vegateblesItem[index].color,
-                        child: cubitRead.vegateblesItem[index].image,
+          GridView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
+              itemCount: cubitRead.vegateblesItem.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 0.70,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 10),
+              itemBuilder: (BuildContext context, index) {
+                return Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 32,
+                      backgroundColor: cubitRead.vegateblesItem[index].color,
+                      child: cubitRead.vegateblesItem[index].image,
+                    ),
+                    context.lowSizedBox,
+                    Align(
+                      alignment: Alignment.center,
+                      child: LocaleText(
+                        text: cubitRead.vegateblesItem[index].title ?? '',
+                        style: TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w400,
+                            color: ColorConstants.instance.roboticgods),
                       ),
-                      context.lowSizedBox,
-                      Align(
-                        alignment: Alignment.center,
-                        child: LocaleText(
-                          text: cubitRead.vegateblesItem[index].title ?? '',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.w400,
-                              color: ColorConstants.instance.roboticgods),
-                        ),
-                      ),
-                    ],
-                  );
-                }),
-          ),
+                    ),
+                  ],
+                );
+              }),
           context.normalSizedBox,
           LoginButton(
             text: LocaleKeys.addIngredients,

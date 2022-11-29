@@ -44,9 +44,7 @@ class CircularBottomSheet {
                           ? context.screenHeight / 1.1
                           : context.screenHeight / 1.2,
           child: Padding(
-            padding: resizeToAvoidBottomInset == true
-                ? context.paddingMediumOnlyTop
-                : context.paddingMediumTopBottom,
+            padding: context.paddingMediumTopBottom,
             child: Center(
               child: Padding(
                   padding: context.paddingMediumEdges,

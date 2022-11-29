@@ -6,6 +6,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/component/card/saved_recipe_card.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -197,12 +198,15 @@ class LikesView extends StatelessWidget {
       scrollable: true,
       bottomSheetHeight: CircularBottomSheetHeight.standard,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LocaleBoldText(text: LocaleKeys.ingredients),
+          const LocaleBoldText(text: LocaleKeys.ingredients),
+          context.lowSizedBox,
           ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: cubitRead
                   .likeRecipeItems[cardIndex].recipeModel.ingredients.length,
               itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
@@ -217,42 +221,53 @@ class LikesView extends StatelessWidget {
                   ],
                 );
               }),
-          LocaleBoldText(text: LocaleKeys.yourFrize),
+          const LocaleBoldText(text: LocaleKeys.yourFrize),
+          context.lowSizedBox,
           cubitRead.myFrizeItems == null
               ? const Center()
-              : ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: cubitRead.myFrizeItems.length,
-                  itemBuilder: (BuildContext context, int missingItemIndex) {
-                    return Padding(
-                      padding: EdgeInsets.only(right: context.lowValue),
-                      child: IngredientCircleAvatar(
-                        color: ColorConstants.instance.russianViolet
-                            .withOpacity(0.1),
-                        model: cubitRead.myFrizeItems[missingItemIndex],
-                        widgetOnIcon: Text(
-                          cubitRead.myFrizeItems[missingItemIndex].quantity
-                              .toString(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    );
-                  }),
-          LocaleBoldText(text: LocaleKeys.description),
+              : SizedBox(
+                  height: context.screenHeight / 8,
+                  width: context.screenWidth,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: cubitRead.myFrizeItems.length,
+                      itemBuilder:
+                          (BuildContext context, int missingItemIndex) {
+                        return Padding(
+                          padding: EdgeInsets.only(right: context.lowValue),
+                          child: IngredientCircleAvatar(
+                            color: ColorConstants.instance.russianViolet
+                                .withOpacity(0.1),
+                            model: cubitRead.myFrizeItems[missingItemIndex],
+                            widgetOnIcon: Text(
+                              cubitRead.myFrizeItems[missingItemIndex].quantity
+                                  .toString(),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+          const LocaleBoldText(text: LocaleKeys.description),
+          context.lowSizedBox,
           Text(
             cubitRead.likeRecipeItems[cardIndex].recipeModel.description,
             style: const TextStyle(overflow: TextOverflow.ellipsis),
             maxLines: 3,
           ),
-          LocaleBoldText(text: LocaleKeys.directions),
+          context.lowSizedBox,
+          const LocaleBoldText(text: LocaleKeys.directions),
+          context.lowSizedBox,
           Text(
             cubitRead.likeRecipeItems[cardIndex].recipeModel.directions,
             style: const TextStyle(overflow: TextOverflow.clip),
           ),
-          RecipeCircularButton(
+          context.lowSizedBox,
+          RecipeFabButton(
               color: ColorConstants.instance.russianViolet,
-              text: LocaleKeys.confirm),
+              text: LocaleKeys.addToBasket),
         ],
       ),
     );
