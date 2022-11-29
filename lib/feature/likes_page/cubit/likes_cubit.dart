@@ -57,7 +57,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
             directions: directionText),
       ),
-      /* LikeRecipeModel(
+      LikeRecipeModel(
         imagePath: ImagePath.imageSample2.path,
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         missingItems: [
@@ -119,7 +119,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             description:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
             directions: directionText),
-      ),*/
+      ),
     ];
 
     myFrizeItems = [
