@@ -44,17 +44,14 @@ class CircularBottomSheet {
                           ? context.screenHeight / 1.1
                           : context.screenHeight / 1.2,
           child: Padding(
-            padding: resizeToAvoidBottomInset == true
-                ? context.paddingMediumOnlyTop
-                : context.paddingMediumTopBottom,
+            padding: context.paddingMediumTopBottom,
             child: Center(
               child: Padding(
                   padding: context.paddingMediumEdges,
                   child: scrollable == true
                       ? SingleChildScrollView(
                           scrollDirection: Axis.vertical,
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal, child: child),
+                          child: child,
                         )
                       : child),
             ),
@@ -64,13 +61,3 @@ class CircularBottomSheet {
     );
   }
 }
-
-/*Padding(
-padding: EdgeInsets.only(top: 5),
-child: Container(
-height: 5,
-width: 20,
-decoration: BoxDecoration(
-border: Border.all(width: 3, color: Colors.grey)),
-),
-),*/
