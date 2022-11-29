@@ -124,9 +124,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 3.5,
+                                height: context.screenHeight / 2,
                                 child: GridView.builder(
-                                    physics: const BouncingScrollPhysics(),
+                                    primary: false,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     itemCount: cubitRead.vegatables.length,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -179,10 +181,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 3,
+                                height: context.screenHeight / 1.90,
                                 child: GridView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    itemCount: 8,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: cubitRead.vegatables.length,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount: 4,
