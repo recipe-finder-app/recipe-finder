@@ -125,7 +125,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 2,
+                                height: context.screenHeight / 1.60,
+                                // constraints:
+                                //     BoxConstraints(maxHeight: double.infinity),
                                 child: GridView.builder(
                                     primary: false,
                                     physics:
@@ -182,7 +184,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 1.90,
+                                height: context.screenHeight / 1.60,
                                 child: GridView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -235,43 +237,45 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
             ));
   }
 
-  Row _textRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: context.veryveryHighValue,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
+  Widget _textRow(BuildContext context) {
+    return FittedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: context.veryveryHighValue,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: LocaleText(
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: ColorConstants.instance.blackbox,
+                ),
+                text: LocaleKeys.selectIngredients,
               ),
-              text: LocaleKeys.selectIngredients,
             ),
           ),
-        ),
-        TextButton(
-          onPressed: () {
-            NavigationService.instance
-                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-          },
-          child: LocaleText(
-              style: TextStyle(
-                fontSize: 16,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w600,
-                color: ColorConstants.instance.shadowplanet,
-                decoration: TextDecoration.underline,
-                decorationColor: ColorConstants.instance.shadowplanet,
-                decorationThickness: 2,
-              ),
-              text: LocaleKeys.later),
-        ),
-      ],
+          TextButton(
+            onPressed: () {
+              NavigationService.instance
+                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+            },
+            child: LocaleText(
+                style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w600,
+                  color: ColorConstants.instance.shadowplanet,
+                  decoration: TextDecoration.underline,
+                  decorationColor: ColorConstants.instance.shadowplanet,
+                  decorationThickness: 2,
+                ),
+                text: LocaleKeys.later),
+          ),
+        ],
+      ),
     );
   }
 }

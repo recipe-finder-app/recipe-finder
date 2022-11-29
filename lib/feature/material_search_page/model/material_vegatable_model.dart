@@ -82,6 +82,41 @@ class MaterialVegatablesItems {
           ),
           title: LocaleKeys.peas,
           color: const Color(0xff61980a).withOpacity(0.1)),
+      ProductModel(
+          image: ImageSvg(
+            path: ImagePath.broccoli.path,
+            height: 24,
+          ),
+          title: LocaleKeys.broccoli,
+          color: const Color(0xff1a5b22).withOpacity(0.1)),
+      ProductModel(
+          image: ImageSvg(
+            path: ImagePath.carrot.path,
+            height: 24,
+          ),
+          title: LocaleKeys.carrot,
+          color: const Color(0xffa44703).withOpacity(0.1)),
+      ProductModel(
+          image: ImageSvg(
+            path: ImagePath.eggplant.path,
+            height: 24,
+          ),
+          title: LocaleKeys.eggplant,
+          color: const Color(0xff800771).withOpacity(0.1)),
+      ProductModel(
+          image: ImageSvg(
+            path: ImagePath.peas.path,
+            height: 24,
+          ),
+          title: LocaleKeys.peas,
+          color: const Color(0xff61980a).withOpacity(0.1)),
+      ProductModel(
+          image: ImageSvg(
+            path: ImagePath.peas.path,
+            height: 24,
+          ),
+          title: LocaleKeys.peas,
+          color: const Color(0xff61980a).withOpacity(0.1)),
     ];
   }
 }
