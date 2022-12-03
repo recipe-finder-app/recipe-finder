@@ -79,6 +79,10 @@ class LikesView extends StatelessWidget {
                                 recipeBottomSheet(
                                     context, cubitRead, cardIndex);
                               },
+                              likeIconOnPressed: () {
+                                cubitRead.deleteItemFromLikedRecipeList(
+                                    cubitRead.likeRecipeItems[cardIndex]);
+                              },
                             )),
                       );
                     }),

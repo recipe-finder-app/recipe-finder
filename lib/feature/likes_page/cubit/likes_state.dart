@@ -1,4 +1,5 @@
 import '../../../product/model/ingradient_model.dart';
+import '../model/like_recipe_model.dart';
 
 abstract class ILikesState {
   ILikesState();
@@ -11,6 +12,11 @@ class LikesInit extends ILikesState {
 class OnLikesLoading extends ILikesState {
   late bool isLoading;
   OnLikesLoading(this.isLoading);
+}
+
+class LikesRecipeItemListLoad extends ILikesState {
+  late List<LikeRecipeModel> likesRecipeItemList;
+  LikesRecipeItemListLoad(this.likesRecipeItemList);
 }
 
 class MissingItemListTargetState extends ILikesState {

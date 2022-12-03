@@ -141,6 +141,11 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     changeMyFrizeListTargetState(false);
   }
 
+  void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
+    likeRecipeItems.remove(model);
+    emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));
+  }
+
   void changeMissingItemListTargetState(bool state) {
     missingItemListTargetState = state;
     emit(MissingItemListTargetState(missingItemListTargetState));

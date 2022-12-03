@@ -13,11 +13,13 @@ class LikesRecipeCard extends StatelessWidget {
   final LikeRecipeModel model;
   final VoidCallback? recipeOnPressed;
   final VoidCallback? addToBasketOnPressed;
+  final VoidCallback? likeIconOnPressed;
   const LikesRecipeCard(
       {Key? key,
       this.recipeOnPressed,
       this.addToBasketOnPressed,
-      required this.model})
+      required this.model,
+      this.likeIconOnPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -131,10 +133,13 @@ class LikesRecipeCard extends StatelessWidget {
                 color: Colors.transparent.withOpacity(0.2),
               ),
             ),
-            ImageSvg(
-              path: ImagePath.likeWhite.path,
-              height: 20,
-              width: 20,
+            InkWell(
+              onTap: likeIconOnPressed,
+              child: ImageSvg(
+                path: ImagePath.likeWhite.path,
+                height: 20,
+                width: 20,
+              ),
             ),
           ],
         ),
