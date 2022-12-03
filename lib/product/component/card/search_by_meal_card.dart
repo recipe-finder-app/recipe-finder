@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/feature/home_page/model/search_by_meal_model.dart';
 import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 
@@ -25,6 +24,7 @@ class SearchByMealCard extends StatelessWidget {
           Padding(
             padding: context.paddingLowLeft,
             child: LocaleText(
+              fontSize: 12,
               text: _model.title ?? '',
             ),
           ),

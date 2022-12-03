@@ -109,6 +109,7 @@ class _DraggableIngredientCircleAvatarState
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
+              fontSize: 12,
               text: widget.model.title,
             ),
           ),

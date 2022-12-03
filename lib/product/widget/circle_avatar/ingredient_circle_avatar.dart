@@ -49,6 +49,7 @@ class IngredientCircleAvatar extends StatelessWidget {
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
+              fontSize: 12,
               text: model.title,
             ),
           ),
