@@ -36,22 +36,13 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
 
 class _DraggableIngredientCircleAvatarState
     extends State<DraggableIngredientCircleAvatar> {
-  bool onDragEnd = false;
-  @override
   @override
   Widget build(BuildContext context) {
     return Draggable(
       data: widget.data,
-      onDragStarted: () {
-        setState(() {
-          onDragEnd = false;
-        });
-      },
+      onDragStarted: widget.onDragStarted,
       onDragEnd: (DraggableDetails draggableDetails) {
         if (draggableDetails.wasAccepted) {
-          setState(() {
-            onDragEnd = true;
-          });
           if (widget.onDragEnd != null) {
             widget.onDragEnd!(draggableDetails);
           }

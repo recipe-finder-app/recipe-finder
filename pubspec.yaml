@@ -28,7 +28,6 @@ dependencies:
 
   #Network
   dio: ^4.0.6
-  vexana: ^3.0.1
 
   #Google
   connectivity_plus:

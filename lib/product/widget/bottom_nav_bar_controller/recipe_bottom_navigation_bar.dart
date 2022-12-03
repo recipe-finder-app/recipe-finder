@@ -92,7 +92,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
             ),
             Positioned(
               top: -30,
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {
                   cubitRead.clickSearchButton();
                 },
