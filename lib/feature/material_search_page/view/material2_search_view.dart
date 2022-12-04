@@ -10,7 +10,7 @@ import 'package:recipe_finder/feature/material_search_page/cubit/material2_state
 import 'package:recipe_finder/feature/material_search_page/model/material2_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
-import 'package:recipe_finder/product/widget/search/search_widget.dart';
+import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
 
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import '../cubit/material2_cubit.dart';
@@ -64,7 +64,8 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
                         _textRow(context),
                         context.mediumSizedBox,
                         Column(children: [
-                          SearchWidget(
+                          SearchVoiceTextFormField(
+                            controller: TextEditingController(),
                             width: context.screenHeight / 1.2,
                             onChanged: () {},
                           ),
