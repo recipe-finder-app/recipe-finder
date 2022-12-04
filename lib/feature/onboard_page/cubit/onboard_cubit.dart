@@ -43,8 +43,11 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
   void changeCurrentIndex(int value) {
     if (value >= 0 && value < onboardItems.length) {
       currentIndex = value;
-      pageController.animateToPage(value,
-          duration: const Duration(milliseconds: 500), curve: Curves.linear);
+      pageController.animateToPage(
+        value,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.linear,
+      );
       emit(ChangeCurrentIndex(currentIndex));
     }
   }

@@ -21,38 +21,23 @@ class EssentialItems {
   EssentialItems() {
     essentialItems = [
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.egg.path,
-            height: 24,
-          ),
+          image: ImagePath.egg.path,
           title: LocaleKeys.egg,
           color: const Color(0xff968960).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.milk.path,
-            height: 24,
-          ),
+          image: ImagePath.milk.path,
           title: LocaleKeys.milk,
           color: const Color(0xff127aa7).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.bread.path,
-            height: 24,
-          ),
+          image: ImagePath.bread.path,
           title: LocaleKeys.bread,
           color: const Color(0xffb7690d).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.fish.path,
-            height: 24,
-          ),
+          image: ImagePath.fish.path,
           title: LocaleKeys.fish,
           color: const Color(0xff3388ac).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.egg.path,
-            height: 24,
-          ),
+          image: ImagePath.egg.path,
           title: LocaleKeys.egg,
           color: const Color(0xff968960).withOpacity(0.1)),
     ];

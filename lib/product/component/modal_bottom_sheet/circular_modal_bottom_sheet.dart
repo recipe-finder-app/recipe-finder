@@ -50,6 +50,7 @@ class CircularBottomSheet {
                   padding: context.paddingMediumEdges,
                   child: scrollable == true
                       ? SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           child: child,
                         )

@@ -6,6 +6,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
+import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/auto_complete_widget.dart';
 
@@ -93,8 +94,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               radius: 32,
                                               backgroundColor: cubitRead
                                                   .essentials[index].color,
-                                              child: cubitRead
-                                                  .essentials[index].image,
+                                              child: ImageSvg(
+                                                  path: cubitRead
+                                                          .essentials[index]
+                                                          .image ??
+                                                      ''),
                                             ),
                                             context.lowSizedBox,
                                             LocaleText(
@@ -125,11 +129,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 1.60,
-                                // constraints:
-                                //     BoxConstraints(maxHeight: double.infinity),
+                                height: context.screenHeight / 1.35,
                                 child: GridView.builder(
-                                    primary: false,
                                     physics:
                                         const NeverScrollableScrollPhysics(),
                                     itemCount: cubitRead.vegatables.length,
@@ -143,12 +144,15 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       return Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 32,
-                                            backgroundColor: cubitRead
-                                                .vegatables[index].color,
-                                            child: cubitRead
-                                                .vegatables[index].image,
-                                          ),
+                                              radius: 32,
+                                              backgroundColor: cubitRead
+                                                  .vegatables[index].color,
+                                              child: ImageSvg(
+                                                path: cubitRead
+                                                        .vegatables[index]
+                                                        .image ??
+                                                    '',
+                                              )),
                                           context.lowSizedBox,
                                           SizedBox(
                                             width: context.veryHighValue,
@@ -184,7 +188,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 1.60,
+                                height: context.screenHeight / 1.30,
                                 child: GridView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -199,12 +203,15 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       return Column(
                                         children: [
                                           CircleAvatar(
-                                            radius: 32,
-                                            backgroundColor: cubitRead
-                                                .vegatables[index].color,
-                                            child: cubitRead
-                                                .vegatables[index].image,
-                                          ),
+                                              radius: 32,
+                                              backgroundColor: cubitRead
+                                                  .vegatables[index].color,
+                                              child: ImageSvg(
+                                                path: cubitRead
+                                                        .vegatables[index]
+                                                        .image ??
+                                                    '',
+                                              )),
                                           context.lowSizedBox,
                                           SizedBox(
                                             width: context.veryHighValue,
@@ -238,44 +245,41 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   }
 
   Widget _textRow(BuildContext context) {
-    return FittedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: context.veryveryHighValue,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: LocaleText(
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  color: ColorConstants.instance.blackbox,
-                ),
-                text: LocaleKeys.selectIngredients,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: LocaleText(
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                color: ColorConstants.instance.blackbox,
               ),
+              text: LocaleKeys.selectIngredients,
             ),
           ),
-          TextButton(
-            onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-            },
-            child: LocaleText(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstants.instance.shadowplanet,
-                  decoration: TextDecoration.underline,
-                  decorationColor: ColorConstants.instance.shadowplanet,
-                  decorationThickness: 2,
-                ),
-                text: LocaleKeys.later),
-          ),
-        ],
-      ),
+        ),
+        TextButton(
+          onPressed: () {
+            NavigationService.instance
+                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+          },
+          child: LocaleText(
+              style: TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.w600,
+                color: ColorConstants.instance.shadowplanet,
+                decoration: TextDecoration.underline,
+                decorationColor: ColorConstants.instance.shadowplanet,
+                decorationThickness: 2,
+              ),
+              text: LocaleKeys.later),
+        ),
+      ],
     );
   }
 }

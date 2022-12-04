@@ -29,6 +29,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
     return StandardTextFormField(
       hintText: 'Enter Password',
       maxLines: 1,
+      
       keyboardType: TextInputType.visiblePassword,
       height: context.screenHeight < DeviceSizeEnum.inch_5.size
           ? isValid == false

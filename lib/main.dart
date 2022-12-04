@@ -52,7 +52,10 @@ class MyApp extends StatelessWidget {
       providers: [...ApplicationBloc.instance.dependItems],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'Poppins'),
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
+        ),
         // theme: ThemeManager.craeteTheme(AppThemeLight()),
         supportedLocales: context.supportedLocales,
         locale: context.locale,

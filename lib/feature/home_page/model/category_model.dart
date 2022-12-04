@@ -21,59 +21,35 @@ class CategoryItems {
   CategoryItems() {
     categorys = [
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.pizza.path,
-            height: 24,
-          ),
+          image: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xffcc8026).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.vegetarian.path,
-            height: 24,
-          ),
+          image: ImagePath.vegetarian.path,
           title: LocaleKeys.vegetarian,
           color: const Color(0xff2b710a).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.muffin.path,
-            height: 24,
-          ),
+          image: ImagePath.muffin.path,
           title: LocaleKeys.desserts,
           color: const Color(0xff8b4e05).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.chicken.path,
-            height: 24,
-          ),
+          image: ImagePath.chicken.path,
           title: LocaleKeys.chicken,
           color: const Color(0xff8b3c03).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.pizza.path,
-            height: 24,
-          ),
+          image: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xff212a34).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.muffin.path,
-            height: 24,
-          ),
+          image: ImagePath.muffin.path,
           title: LocaleKeys.desserts,
           color: const Color(0xff8b4e05).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.chicken.path,
-            height: 24,
-          ),
+          image: ImagePath.chicken.path,
           title: LocaleKeys.chicken,
           color: const Color(0xff8b3c03).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.pizza.path,
-            height: 24,
-          ),
+          image: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xff212a34).withOpacity(0.1)),
     ];

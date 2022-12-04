@@ -86,10 +86,11 @@ class AutoCompleteWidget extends StatelessWidget {
                                   return Column(
                                     children: [
                                       CircleAvatar(
-                                        radius: 32,
-                                        backgroundColor: list[index].color,
-                                        child: list[index].image,
-                                      ),
+                                          radius: 32,
+                                          backgroundColor: list[index].color,
+                                          child: ImageSvg(
+                                            path: list[index].image ?? '',
+                                          )),
                                       context.lowSizedBox,
                                       SizedBox(
                                         width: context.veryHighValue,
@@ -125,7 +126,7 @@ class AutoCompleteWidget extends StatelessWidget {
               prefixIcon: ImageSvg(
                   path: ImagePath.searchh.path,
                   color: ColorConstants.instance.shadowplanet),
-              hintText: 'Search',
+              hintText: LocaleKeys.search,
               hintStyle: TextStyle(
                   fontSize: 14,
                   color: ColorConstants.instance.roboticgods,
@@ -149,98 +150,62 @@ class AutoCompleteWidget extends StatelessWidget {
 
   final List<ProductModel> searchList = [
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.egg.path,
-          height: 24,
-        ),
+        image: ImagePath.egg.path,
         title: LocaleKeys.egg,
         type: 'Essentials',
         color: const Color(0xff968960).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.milk.path,
-          height: 24,
-        ),
+        image: ImagePath.milk.path,
         title: LocaleKeys.milk,
         type: 'Essentials',
         color: const Color(0xff127aa7).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.bread.path,
-          height: 24,
-        ),
+        image: ImagePath.bread.path,
         title: LocaleKeys.bread,
         type: 'Essentials',
         color: const Color(0xffb7690d).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.tomato.path,
-          height: 24,
-        ),
+        image: ImagePath.tomato.path,
         title: LocaleKeys.tomato,
         type: 'Vegatables',
         color: const Color(0xffa30909).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.salad.path,
-          height: 24,
-        ),
+        image: ImagePath.salad.path,
         title: LocaleKeys.salad,
         type: 'Vegatables',
         color: const Color(0xff519e1b).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.potato.path,
-          height: 24,
-        ),
+        image: ImagePath.potato.path,
         title: LocaleKeys.potato,
         type: 'Vegatables',
         color: const Color(0xffb7690d).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.onion.path,
-          height: 24,
-        ),
+        image: ImagePath.onion.path,
         title: LocaleKeys.onion,
         type: 'Vegatables',
         color: const Color(0xff9d5622).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.broccoli.path,
-          height: 24,
-        ),
+        image: ImagePath.broccoli.path,
         title: LocaleKeys.broccoli,
         type: 'Vegatables',
         color: const Color(0xff1a5b22).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.carrot.path,
-          height: 24,
-        ),
+        image: ImagePath.carrot.path,
         title: LocaleKeys.carrot,
         type: 'Vegatables',
         color: const Color(0xffa44703).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.eggplant.path,
-          height: 24,
-        ),
+        image: ImagePath.eggplant.path,
         title: LocaleKeys.eggplant,
         type: 'Vegatables',
         color: const Color(0xff800771).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.peas.path,
-          height: 24,
-        ),
+        image: ImagePath.peas.path,
         title: LocaleKeys.peas,
         type: 'Vegatables',
         color: const Color(0xff61980a).withOpacity(0.1)),
     ProductModel(
-        image: ImageSvg(
-          path: ImagePath.peas.path,
-          height: 24,
-        ),
+        image: ImagePath.peas.path,
         title: LocaleKeys.peas,
         type: 'Vegatables',
         color: const Color(0xff61980a).withOpacity(0.1)),

@@ -20,27 +20,39 @@ class SearchByMealItems {
   SearchByMealItems() {
     searchByMeals = [
       ProductModel(
-          image: ImagePng(path: ImagePath.breakfast.path),
+          image: ImagePath.breakfast.path,
           title: LocaleKeys.breakfast,
           color: const Color(0xffFBFFDF)),
       ProductModel(
-          image: ImagePng(path: ImagePath.lunch.path),
+          image: ImagePath.lunch.path,
           title: LocaleKeys.lunch,
           color: const Color(0xffFAEAEA)),
       ProductModel(
-          image: ImagePng(path: ImagePath.dinner.path),
+          image: ImagePath.dinner.path,
           title: LocaleKeys.dinner,
           color: const Color(0xffF2EBDF)),
       ProductModel(
-          image: ImagePng(path: ImagePath.desserts.path),
+          image: ImagePath.desserts.path,
           title: LocaleKeys.desserts,
           color: const Color(0xffF5E4EC)),
       ProductModel(
-          image: ImagePng(path: ImagePath.drinks.path),
+          image: ImagePath.drinks.path,
           title: LocaleKeys.drinks,
           color: const Color(0xffEAFAF7)),
       ProductModel(
-          image: ImagePng(path: ImagePath.appetizers.path),
+          image: ImagePath.appetizers.path,
+          title: LocaleKeys.appetizers,
+          color: const Color(0xffEAECFA)),
+      ProductModel(
+          image: ImagePath.desserts.path,
+          title: LocaleKeys.desserts,
+          color: const Color(0xffF5E4EC)),
+      ProductModel(
+          image: ImagePath.drinks.path,
+          title: LocaleKeys.drinks,
+          color: const Color(0xffEAFAF7)),
+      ProductModel(
+          image: ImagePath.appetizers.path,
           title: LocaleKeys.appetizers,
           color: const Color(0xffEAECFA)),
     ];

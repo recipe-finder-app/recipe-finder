@@ -11,12 +11,13 @@ extension MediaQueryExtension on BuildContext {
   double get screenHeight => mediaQuery.size.height;
   double get screenWidth => mediaQuery.size.width;
   double get veryLowValue => screenHeight * 0.008;
+  double get redLowValue => screenHeight * 0.004;
   double get lowValue => screenHeight * 0.01;
   double get normalValue => screenHeight * 0.02;
   double get mediumValue => screenHeight * 0.04;
   double get highValue => screenHeight * 0.07;
   double get veryHighValue => screenHeight * 0.1;
-  double get veryveryHighValue => screenHeight * 0.35;
+  double get textHighValue => screenHeight * 0.30;
   double get veryyHighValue => screenHeight * 0.21;
   double get normalhighValue => screenHeight * 0.16;
   double get maxValue => screenHeight * 0.07;
@@ -67,7 +68,7 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingMaxEdges => EdgeInsets.only(
         left: maxWidth,
         //right: maxWidth,
-        top: veryLowValue,
+        top: redLowValue,
       );
   EdgeInsets get paddingLeftEdges => EdgeInsets.only(
         left: normalWidth,
@@ -123,7 +124,7 @@ extension SizedBoxExtension on BuildContext {
   SizedBox get mediumSizedBox => SizedBox(height: mediumValue);
   SizedBox get highSizedBox => SizedBox(height: highValue);
   SizedBox get veryHighSizedBox => SizedBox(height: veryHighValue);
-  SizedBox get veryveryHighSizedBox => SizedBox(height: veryveryHighValue);
+  SizedBox get veryveryHighSizedBox => SizedBox(height: textHighValue);
 
   SizedBox get veryLowSizedBoxWidth => SizedBox(width: veryLowValue);
   SizedBox get lowSizedBoxWidth => SizedBox(width: lowValue);

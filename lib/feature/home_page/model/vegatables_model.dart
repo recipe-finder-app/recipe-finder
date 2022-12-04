@@ -20,66 +20,39 @@ class VegatablesItems {
   VegatablesItems() {
     vegatableItems = [
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.tomato.path,
-            height: 24,
-          ),
+          image: ImagePath.tomato.path,
           title: LocaleKeys.tomato,
           color: const Color(0xffa30909).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.salad.path,
-            height: 24,
-          ),
+          image: ImagePath.salad.path,
           title: LocaleKeys.salad,
           color: const Color(0xff519e1b).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.potato.path,
-            height: 24,
-          ),
+          image: ImagePath.potato.path,
           title: LocaleKeys.potato,
           color: const Color(0xffb7690d).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.onion.path,
-            height: 24,
-          ),
+          image:  ImagePath.onion.path,
           title: LocaleKeys.onion,
           color: const Color(0xff9d5622).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.broccoli.path,
-            height: 24,
-          ),
+          image: ImagePath.broccoli.path,
           title: LocaleKeys.broccoli,
           color: const Color(0xff1a5b22).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.carrot.path,
-            height: 24,
-          ),
+          image: ImagePath.carrot.path,
           title: LocaleKeys.carrot,
           color: const Color(0xffa44703).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.eggplant.path,
-            height: 24,
-          ),
+          image:ImagePath.eggplant.path,
           title: LocaleKeys.eggplant,
           color: const Color(0xff800771).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.peas.path,
-            height: 24,
-          ),
+          image: ImagePath.peas.path,
           title: LocaleKeys.peas,
           color: const Color(0xff61980a).withOpacity(0.1)),
       ProductModel(
-          image: ImageSvg(
-            path: ImagePath.peas.path,
-            height: 24,
-          ),
+          image: ImagePath.peas.path,
           title: LocaleKeys.peas,
           color: const Color(0xff61980a).withOpacity(0.1)),
     ];

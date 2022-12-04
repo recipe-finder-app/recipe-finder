@@ -6,14 +6,13 @@ import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
+import 'package:recipe_finder/product/component/image_format/image_png.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/search/search_widget.dart';
-
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/card/search_by_meal_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -33,6 +32,7 @@ class HomeView extends StatelessWidget {
           child: Padding(
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(children: [
                 context.mediumSizedBox,
                 _textRow(context, cubitRead),
@@ -107,7 +107,8 @@ class HomeView extends StatelessWidget {
                   CircleAvatar(
                     radius: 32,
                     backgroundColor: cubitRead.category[index].color,
-                    child: cubitRead.category[index].image,
+                    child:
+                        ImageSvg(path: cubitRead.category[index].image ?? ''),
                   ),
                   context.lowSizedBox,
                   LocaleText(
@@ -126,52 +127,49 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _textRow(BuildContext context, HomeCubit cubitRead) {
-    return FittedBox(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: context.veryveryHighValue,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: LocaleText(
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  color: ColorConstants.instance.blackbox,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: LocaleText(
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                color: ColorConstants.instance.blackbox,
+              ),
+              text: LocaleKeys.homeTitle,
+            ),
+          ),
+        ),
+        Stack(children: [
+          Padding(
+            padding: context.paddingLeftEdges,
+            child: SizedBox(
+              height: context.highValue,
+              child: InkWell(
+                onTap: () {
+                  NavigationService.instance
+                      .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+                  fridgeBottomSheet(context, cubitRead);
+                },
+                child: ImageSvg(
+                  path: ImagePath.fridge.path,
                 ),
-                text: LocaleKeys.homeTitle,
               ),
             ),
           ),
-          Stack(children: [
-            Padding(
-              padding: context.paddingLeftEdges,
-              child: SizedBox(
-                height: context.highValue,
-                child: InkWell(
-                  onTap: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstants.NAV_CONTROLLER);
-                    fridgeBottomSheet(context, cubitRead);
-                  },
-                  child: ImageSvg(
-                    path: ImagePath.fridge.path,
-                  ),
-                ),
-              ),
+          Padding(
+            padding: context.paddingMaxEdges,
+            child: CircleAvatar(
+              radius: 5,
+              backgroundColor: ColorConstants.instance.red,
             ),
-            Padding(
-              padding: context.paddingMaxEdges,
-              child: CircleAvatar(
-                radius: 5,
-                backgroundColor: ColorConstants.instance.red,
-              ),
-            )
-          ]),
-        ],
-      ),
+          )
+        ]),
+      ],
     );
   }
 
@@ -187,10 +185,35 @@ class HomeView extends StatelessWidget {
               crossAxisSpacing: 25,
               mainAxisSpacing: 15),
           itemBuilder: (BuildContext context, index) {
-            return SearchByMealCard(
-              model: cubitRead.searchByMeal[index],
-            );
+            return _searchByMealCard(context, cubitRead, index);
           }),
+    );
+  }
+
+  Container _searchByMealCard(
+      BuildContext context, HomeCubit cubitRead, int index) {
+    return Container(
+      height: context.veryyHighValue,
+      decoration: BoxDecoration(
+        borderRadius: context.radiusAllCircularMin,
+        color: cubitRead.searchByMeal[index].color,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: context.paddingLowLeft,
+            child: LocaleText(
+              text: cubitRead.searchByMeal[index].title ?? '',
+              textAlign: TextAlign.start,
+            ),
+          ),
+          SizedBox(
+              child: ImagePng(
+            path: cubitRead.searchByMeal[index].image ?? '',
+          ))
+        ],
+      ),
     );
   }
 
@@ -229,7 +252,9 @@ class HomeView extends StatelessWidget {
                           radius: 32,
                           backgroundColor:
                               cubitRead.essentialsItem[index].color,
-                          child: cubitRead.essentialsItem[index].image,
+                          child: ImageSvg(
+                              path:
+                                  cubitRead.essentialsItem[index].image ?? ''),
                         ),
                         context.lowSizedBox,
                         LocaleText(
@@ -269,7 +294,8 @@ class HomeView extends StatelessWidget {
                     CircleAvatar(
                       radius: 32,
                       backgroundColor: cubitRead.vegateblesItem[index].color,
-                      child: cubitRead.vegateblesItem[index].image,
+                      child: ImageSvg(
+                          path: cubitRead.vegateblesItem[index].image ?? ''),
                     ),
                     context.lowSizedBox,
                     Align(

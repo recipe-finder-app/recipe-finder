@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProductModel {
   final String? title;
-  final Widget? image;
+  final String? image;
   final String? type;
   final Color? color;
 

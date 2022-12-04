@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 typedef StringFunction = String? Function(String? value);
@@ -87,15 +88,20 @@ class StandardTextFormField extends StatelessWidget {
             fontSize: 14,
             color: Colors.grey,
           ),
+
           border: borderEnable == false
               ? null
               : OutlineInputBorder(
-                  borderRadius: context.radiusAllCircularMedium),
+                  borderRadius: context.radiusAllCircularMedium,
+                ),
+
           disabledBorder: borderEnable == false
               ? null
               : OutlineInputBorder(
                   borderRadius: context.radiusAllCircularMin,
-                  borderSide: const BorderSide(width: 0.5)),
+                  borderSide: const BorderSide(
+                    width: 0.5,
+                  )),
         ),
         validator: (tfInput) {
           return validator!(tfInput);

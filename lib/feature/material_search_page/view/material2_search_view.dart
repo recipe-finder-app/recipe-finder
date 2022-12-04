@@ -294,7 +294,7 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: context.veryveryHighValue,
+          width: context.textHighValue,
           child: Align(
             alignment: Alignment.centerLeft,
             child: LocaleText(
