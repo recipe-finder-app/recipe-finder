@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+    	<string>Speech recognition is required</string>
+    	<key>NSMicrophoneUsageDescription</key>
+            	<string>Microphone is required to record audio</string>
 	<key>CFBundleDisplayName</key>
 	<string>Recipe Finder</string>
 	<key>CFBundleExecutable</key>

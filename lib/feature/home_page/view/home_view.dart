@@ -11,8 +11,9 @@ import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
-import 'package:recipe_finder/product/widget/search/search_widget.dart';
-import '../../../core/init/navigation/navigation_service.dart';
+
+import '../../../product/component/card/search_by_meal_card.dart';
+import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -38,7 +39,8 @@ class HomeView extends StatelessWidget {
                 _textRow(context, cubitRead),
                 context.mediumSizedBox,
                 Center(
-                    child: SearchWidget(
+                    child: SearchVoiceTextFormField(
+                  controller: TextEditingController(),
                   width: context.veryValueWidth,
                   onChanged: () {},
                 )),
@@ -151,8 +153,7 @@ class HomeView extends StatelessWidget {
               height: context.highValue,
               child: InkWell(
                 onTap: () {
-                  NavigationService.instance
-                      .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+                 // NavigationService.instance.navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
                   fridgeBottomSheet(context, cubitRead);
                 },
                 child: ImageSvg(

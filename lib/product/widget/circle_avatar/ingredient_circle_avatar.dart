@@ -9,13 +9,13 @@ import '../../component/text/locale_text.dart';
 class IngredientCircleAvatar extends StatelessWidget {
   final IngredientModel model;
   final Color? color;
-  final Widget? widgetOnIcon;
+  final Widget? iconBottomWidget;
   final VoidCallback? onPressed;
   const IngredientCircleAvatar(
       {Key? key,
       required this.model,
       this.color,
-      this.widgetOnIcon,
+      this.iconBottomWidget,
       this.onPressed})
       : super(key: key);
 
@@ -25,7 +25,7 @@ class IngredientCircleAvatar extends StatelessWidget {
       onTap: onPressed,
       child: Column(
         children: [
-          widgetOnIcon != null
+          iconBottomWidget != null
               ? Stack(
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
@@ -36,7 +36,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                         path: model.imagePath ?? ImagePath.like.path,
                       ),
                     ),
-                    widgetOnIcon!,
+                    iconBottomWidget!,
                   ],
                 )
               : CircleAvatar(
@@ -49,6 +49,7 @@ class IngredientCircleAvatar extends StatelessWidget {
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
+              fontSize: 12,
               text: model.title,
             ),
           ),

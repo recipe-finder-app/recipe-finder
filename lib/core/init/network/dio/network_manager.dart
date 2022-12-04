@@ -11,7 +11,7 @@ class NetworkManager {
     return _instance;
   }
 
-  ICoreDioNullSafety? coreDio;
+  ICoreDio? coreDio;
 
   NetworkManager._init() {
     final baseOptions = BaseOptions(

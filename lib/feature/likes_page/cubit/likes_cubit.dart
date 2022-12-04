@@ -14,6 +14,8 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
 
   late List<LikeRecipeModel> likeRecipeItems;
   late List<IngredientModel> myFrizeItems;
+  bool missingItemListTargetState = false;
+  bool myFrizeListTargetState = false;
 
   String directionText =
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
@@ -135,6 +137,33 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       IngredientModel(
           title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
+    changeMissingItemListTargetState(false);
+    changeMyFrizeListTargetState(false);
+  }
+
+  void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
+    likeRecipeItems.remove(model);
+    emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));
+  }
+
+  void changeMissingItemListTargetState(bool state) {
+    missingItemListTargetState = state;
+    emit(MissingItemListTargetState(missingItemListTargetState));
+    print('missingItemListTargetState $missingItemListTargetState');
+  }
+
+  void changeMyFrizeListTargetState(bool state) {
+    myFrizeListTargetState = state;
+    emit(MyFrizeItemTargetState(myFrizeListTargetState));
+    print('myFrizeItemTargetState $myFrizeListTargetState');
+  }
+
+  void addItemToMissingList(
+      int cardIndex, IngredientModel itemModelToBeDeleted) {
+    likeRecipeItems[cardIndex].missingItems!.add(itemModelToBeDeleted);
+
+    emit(MissingItemListLoad(
+        likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
   }
 
   void removeMissingItem(int cardIndex, int missingItemIndex) {
@@ -144,10 +173,16 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
         likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
   }
 
-  void addItemToMyFrize(IngredientModel itemModelToBeDeleted) {
+  void addItemToMyFrizeList(IngredientModel itemModelToBeDeleted) {
     myFrizeItems.add(itemModelToBeDeleted);
 
     emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+  }
+
+  void removeMyFrizeItem(int myFrizeItemIndex) {
+    myFrizeItems.removeAt(myFrizeItemIndex);
+
+    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
   }
 
   void missingItemLoad(int cardIndex) {

@@ -4,14 +4,14 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 import '../../../base/model/base_error.dart';
-import '../../../base/model/base_model.dart';
+import '../../../base/model/base_network_model.dart';
 import '../../../constant/enum/http_request_enum.dart';
 import 'ICoreDio.dart';
 import 'IResponseModel.dart';
 
 part './network_core/core_operations.dart';
 
-class CoreDio with DioMixin implements Dio, ICoreDioNullSafety {
+class CoreDio with DioMixin implements Dio, ICoreDio {
   @override
   final BaseOptions options;
 
@@ -22,7 +22,7 @@ class CoreDio with DioMixin implements Dio, ICoreDioNullSafety {
   }
 
   @override
-  Future<IResponseModel<R>> send<R, T extends IBaseModel>(String path,
+  Future<IResponseModel<R>> send<R, T extends IBaseNetworkModel>(String path,
       {required HttpTypes type,
       required T parseModel,
       dynamic data,

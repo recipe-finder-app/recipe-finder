@@ -79,6 +79,10 @@ class LikesView extends StatelessWidget {
                                 recipeBottomSheet(
                                     context, cubitRead, cardIndex);
                               },
+                              likeIconOnPressed: () {
+                                cubitRead.deleteItemFromLikedRecipeList(
+                                    cubitRead.likeRecipeItems[cardIndex]);
+                              },
                             )),
                       );
                     }),
@@ -116,72 +120,210 @@ class LikesView extends StatelessWidget {
               builder: (BuildContext context, state) {
                 return Flexible(
                   flex: 4,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.length,
-                      itemBuilder:
-                          (BuildContext context, int missingItemIndex) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: context.lowValue),
-                          child: DraggableIngredientCircleAvatar<int>(
-                            data: missingItemIndex,
-                            onDragEnd: (DraggableDetails draggableDetails) {
-                              if (draggableDetails.wasAccepted == true) {
-                                cubitRead
-                                    .addItemToMyFrize(state[missingItemIndex]);
-                                cubitRead.removeMissingItem(
-                                    cardIndex, missingItemIndex);
-                              }
-                            },
-                            iconBottomWidget: BoldText(
-                              text: state[missingItemIndex].quantity.toString(),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            color: ColorConstants.instance.oriolesOrange
-                                .withOpacity(0.4),
-                            model: state[missingItemIndex],
-                          ),
-                        );
-                      }),
+                  child: BlocBuilder<LikesCubit, ILikesState>(
+                      builder: (BuildContext context, dragState) {
+                    if (cubitRead.missingItemListTargetState == true) {
+                      return DragTarget<int>(
+                          onWillAccept: (data) {
+                            return true;
+                          },
+                          onAccept: (data) {},
+                          builder: (BuildContext context,
+                              List<Object?> candidateData,
+                              List<dynamic> rejectedData) {
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.length,
+                                itemBuilder: (BuildContext context,
+                                    int missingItemIndex) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        right: context.lowValue),
+                                    child: DraggableIngredientCircleAvatar<int>(
+                                      data: missingItemIndex,
+                                      onDragStarted: () {
+                                        cubitRead
+                                            .changeMissingItemListTargetState(
+                                                false);
+                                        cubitRead
+                                            .changeMyFrizeListTargetState(true);
+                                      },
+                                      onDragEnd:
+                                          (DraggableDetails draggableDetails) {
+                                        if (draggableDetails.wasAccepted ==
+                                            true) {
+                                          cubitRead.addItemToMyFrizeList(
+                                              state[missingItemIndex]);
+                                          cubitRead.removeMissingItem(
+                                              cardIndex, missingItemIndex);
+                                        }
+                                      },
+                                      iconBottomWidget: BoldText(
+                                        text: state[missingItemIndex]
+                                            .quantity
+                                            .toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      color: ColorConstants
+                                          .instance.oriolesOrange
+                                          .withOpacity(0.4),
+                                      model: state[missingItemIndex],
+                                    ),
+                                  );
+                                });
+                          });
+                    } else {
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.length,
+                          itemBuilder:
+                              (BuildContext context, int missingItemIndex) {
+                            return Padding(
+                              padding: EdgeInsets.only(right: context.lowValue),
+                              child: DraggableIngredientCircleAvatar<int>(
+                                data: missingItemIndex,
+                                onDragUpdate: (d) {},
+                                onDragStarted: () {
+                                  cubitRead
+                                      .changeMissingItemListTargetState(false);
+                                  cubitRead.changeMyFrizeListTargetState(true);
+                                },
+                                onDragEnd: (DraggableDetails draggableDetails) {
+                                  if (draggableDetails.wasAccepted == true) {
+                                    cubitRead.addItemToMyFrizeList(
+                                        state[missingItemIndex]);
+                                    cubitRead.removeMissingItem(
+                                        cardIndex, missingItemIndex);
+                                  }
+                                },
+                                iconBottomWidget: BoldText(
+                                  text: state[missingItemIndex]
+                                      .quantity
+                                      .toString(),
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                color: ColorConstants.instance.oriolesOrange
+                                    .withOpacity(0.4),
+                                model: state[missingItemIndex],
+                              ),
+                            );
+                          });
+                    }
+                  }),
                 );
               },
             ),
           const Flexible(
               flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
-          Flexible(
-            flex: 4,
-            child: cubitRead.myFrizeItems == null
-                ? const Center()
-                : DragTarget<int>(
-                    onWillAccept: (data) {
-                      return true;
-                    },
-                    onAccept: (data) {},
-                    builder: (BuildContext context, List<Object?> candidateData,
-                        List<dynamic> rejectedData) {
-                      return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: cubitRead.myFrizeItems.length,
-                          itemBuilder:
-                              (BuildContext context, int missingItemIndex) {
-                            return Padding(
-                              padding: EdgeInsets.only(right: context.lowValue),
-                              child: IngredientCircleAvatar(
-                                color: ColorConstants.instance.russianViolet
-                                    .withOpacity(0.1),
-                                model: cubitRead.myFrizeItems[missingItemIndex],
-                                widgetOnIcon: Text(
-                                  cubitRead
-                                      .myFrizeItems[missingItemIndex].quantity
-                                      .toString(),
-                                  style: const TextStyle(color: Colors.white),
+          BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
+              selector: (state) {
+            if (state is MyFrizeListLoad) {
+              return state.myFrizeList;
+            } else {
+              return cubitRead.myFrizeItems ?? [];
+            }
+          }, builder: (BuildContext context, state) {
+            return Flexible(
+              flex: 4,
+              child: cubitRead.myFrizeItems == null
+                  ? const Center()
+                  : BlocBuilder<LikesCubit, ILikesState>(
+                      builder: (BuildContext context, dragState) {
+                      if (cubitRead.myFrizeListTargetState == true) {
+                        return DragTarget<int>(
+                          onWillAccept: (data) {
+                            return true;
+                          },
+                          onAccept: (data) {},
+                          builder: (BuildContext context,
+                              List<Object?> candidateData,
+                              List<dynamic> rejectedData) {
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: state.length,
+                                itemBuilder: (BuildContext context,
+                                    int myFrizeItemIndex) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        right: context.lowValue),
+                                    child: DraggableIngredientCircleAvatar<int>(
+                                      data: myFrizeItemIndex,
+                                      onDragStarted: () {
+                                        cubitRead.changeMyFrizeListTargetState(
+                                            false);
+                                        cubitRead
+                                            .changeMissingItemListTargetState(
+                                                true);
+                                      },
+                                      onDragEnd:
+                                          (DraggableDetails draggableDetails) {
+                                        if (draggableDetails.wasAccepted ==
+                                            true) {
+                                          cubitRead.addItemToMissingList(
+                                              cardIndex,
+                                              state[myFrizeItemIndex]);
+                                          cubitRead.removeMyFrizeItem(
+                                              myFrizeItemIndex);
+                                        }
+                                      },
+                                      iconBottomWidget: BoldText(
+                                        text: state[myFrizeItemIndex]
+                                            .quantity
+                                            .toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                      color: ColorConstants
+                                          .instance.brightGraySolid2,
+                                      model: state[myFrizeItemIndex],
+                                    ),
+                                  );
+                                });
+                          },
+                        );
+                      } else {
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.length,
+                            itemBuilder:
+                                (BuildContext context, int myFrizeItemIndex) {
+                              return Padding(
+                                padding:
+                                    EdgeInsets.only(right: context.lowValue),
+                                child: DraggableIngredientCircleAvatar<int>(
+                                  data: myFrizeItemIndex,
+                                  onDragStarted: () {
+                                    cubitRead
+                                        .changeMyFrizeListTargetState(false);
+                                    cubitRead
+                                        .changeMissingItemListTargetState(true);
+                                  },
+                                  onDragEnd:
+                                      (DraggableDetails draggableDetails) {
+                                    if (draggableDetails.wasAccepted == true) {
+                                      cubitRead.addItemToMissingList(
+                                          cardIndex, state[myFrizeItemIndex]);
+                                      cubitRead
+                                          .removeMyFrizeItem(myFrizeItemIndex);
+                                    }
+                                  },
+                                  iconBottomWidget: BoldText(
+                                    text: state[myFrizeItemIndex]
+                                        .quantity
+                                        .toString(),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  color:
+                                      ColorConstants.instance.brightGraySolid2,
+                                  model: state[myFrizeItemIndex],
                                 ),
-                              ),
-                            );
-                          });
-                    },
-                  ),
-          ),
+                              );
+                            });
+                      }
+                    }),
+            );
+          }),
           RecipeCircularButton(
               color: ColorConstants.instance.oriolesOrange,
               text: LocaleKeys.confirm),
@@ -241,7 +383,7 @@ class LikesView extends StatelessWidget {
                             color: ColorConstants.instance.russianViolet
                                 .withOpacity(0.1),
                             model: cubitRead.myFrizeItems[missingItemIndex],
-                            widgetOnIcon: Text(
+                            iconBottomWidget: Text(
                               cubitRead.myFrizeItems[missingItemIndex].quantity
                                   .toString(),
                               style: const TextStyle(color: Colors.white),
@@ -272,107 +414,4 @@ class LikesView extends StatelessWidget {
       ),
     );
   }
-  /* Future<void> recipeBottomSheet(
-      BuildContext context, LikesCubit cubitRead, int cardIndex) {
-    return CircularBottomSheet.instance.show(
-      context,
-      bottomSheetHeight: CircularBottomSheetHeight.standard,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Flexible(
-            flex: 1,
-            child: LocaleBoldText(text: LocaleKeys.ingredients),
-          ),
-          Flexible(
-            flex: 2,
-            child: RecipeScrollBar(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: cubitRead.likeRecipeItems[cardIndex].recipeModel
-                      .ingredients.length,
-                  itemBuilder:
-                      (BuildContext context, int recipeIngredientsIndex) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(cubitRead.likeRecipeItems[cardIndex].recipeModel
-                            .ingredients[recipeIngredientsIndex].quantity
-                            .toString()),
-                        Text(cubitRead.likeRecipeItems[cardIndex].recipeModel
-                            .ingredients[recipeIngredientsIndex].title),
-                      ],
-                    );
-                  }),
-            ),
-          ),
-          const Flexible(
-            flex: 1,
-            child: LocaleBoldText(text: LocaleKeys.yourFrize),
-          ),
-          cubitRead.myFrizeItems == null
-              ? const Center()
-              : Flexible(
-                  flex: 2,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: cubitRead.myFrizeItems.length,
-                      itemBuilder:
-                          (BuildContext context, int missingItemIndex) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: context.lowValue),
-                          child: IngredientCircleAvatar(
-                            color: ColorConstants.instance.russianViolet
-                                .withOpacity(0.1),
-                            model: cubitRead.myFrizeItems[missingItemIndex],
-                            widgetOnIcon: Text(
-                              cubitRead.myFrizeItems[missingItemIndex].quantity
-                                  .toString(),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        );
-                      }),
-                ),
-          const Flexible(
-            flex: 1,
-            child: LocaleBoldText(text: LocaleKeys.description),
-          ),
-          Flexible(
-            flex: 2,
-            child: Text(
-              cubitRead.likeRecipeItems[cardIndex].recipeModel.description,
-              style: const TextStyle(overflow: TextOverflow.ellipsis),
-              maxLines: 3,
-            ),
-          ),
-          const Flexible(
-            flex: 1,
-            child: LocaleBoldText(text: LocaleKeys.directions),
-          ),
-          Flexible(
-            flex: 2,
-            child: RecipeScrollBar(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Text(
-                  cubitRead.likeRecipeItems[cardIndex].recipeModel.directions,
-                  style: const TextStyle(overflow: TextOverflow.clip),
-                ),
-              ),
-            ),
-          ),
-          Flexible(
-            flex: 1,
-            child: RecipeCircularButton(
-                color: ColorConstants.instance.russianViolet,
-                text: LocaleKeys.confirm),
-          ),
-        ],
-      ),
-    );
-  }*/
 }
