@@ -159,6 +159,7 @@ class OnboardView extends StatelessWidget {
                                     text: LocaleKeys.next,
                                     icon: const Icon(
                                       Icons.arrow_back_sharp,
+                                      color: Colors.white,
                                     ),
                                     textDirection: TextDirection.rtl,
                                     color:
@@ -194,7 +195,9 @@ class OnboardView extends StatelessWidget {
                                           RecipeCircularButton(
                                             width: context.screenWidth / 2.7,
                                             icon: const Icon(
-                                                Icons.arrow_back_sharp),
+                                              Icons.arrow_back_sharp,
+                                              color: Colors.white,
+                                            ),
                                             textDirection: TextDirection.rtl,
                                             color: ColorConstants
                                                 .instance.oriolesOrange,
@@ -232,7 +235,9 @@ class OnboardView extends StatelessWidget {
                                           ),
                                           RecipeCircularButton(
                                             icon: const Icon(
-                                                Icons.arrow_back_sharp),
+                                              Icons.arrow_back_sharp,
+                                              color: Colors.white,
+                                            ),
                                             textDirection: TextDirection.rtl,
                                             width: context.screenWidth / 2.7,
                                             color: ColorConstants
