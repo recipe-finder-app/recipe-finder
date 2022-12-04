@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/auto_complete_widget.dart';
+
+import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 
 class MaterialSearchView extends StatefulWidget {
   MaterialSearchView({
@@ -266,6 +267,10 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
           onPressed: () {
             NavigationService.instance
                 .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+            /*Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SpeechSampleApp()),
+            );*/
           },
           child: LocaleText(
               style: TextStyle(
