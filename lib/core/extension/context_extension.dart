@@ -84,7 +84,7 @@ extension PaddingExtensionAll on BuildContext {
       EdgeInsets.only(top: veryHighValue, bottom: veryHighValue);
 
   EdgeInsets get paddingLowOnlyTop =>
-      EdgeInsets.only(top: lowValue, right: lowValue);
+      EdgeInsets.only(top: lowValue, right: normalValue);
   EdgeInsets get paddingNormalOnlyTop => EdgeInsets.only(top: normalValue);
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
   EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
