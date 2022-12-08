@@ -10,7 +10,9 @@ import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 import '../../../core/base/view/base_view.dart';
+import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/component/text/bold_text.dart';
 import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/model/ingradient_model.dart';
@@ -76,8 +78,9 @@ class LikesView extends StatelessWidget {
                                     context, cubitRead, cardIndex);
                               },
                               recipeOnPressed: () {
-                                recipeBottomSheet(
-                                    context, cubitRead, cardIndex);
+                                NavigationService.instance.navigateToPage(
+                                    path: NavigationConstants.RECIPE_DETAIL,
+                                    data: cardIndex);
                               },
                               likeIconOnPressed: () {
                                 cubitRead.deleteItemFromLikedRecipeList(
@@ -143,10 +146,7 @@ class LikesView extends StatelessWidget {
                                       data: missingItemIndex,
                                       onDragStarted: () {
                                         cubitRead
-                                            .changeMissingItemListTargetState(
-                                                false);
-                                        cubitRead
-                                            .changeMyFrizeListTargetState(true);
+                                            .changeMissingItemListDraggable();
                                       },
                                       onDragEnd:
                                           (DraggableDetails draggableDetails) {
@@ -162,8 +162,7 @@ class LikesView extends StatelessWidget {
                                         text: state[missingItemIndex]
                                             .quantity
                                             .toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        textColor: Colors.white,
                                       ),
                                       color: ColorConstants
                                           .instance.oriolesOrange
@@ -185,9 +184,7 @@ class LikesView extends StatelessWidget {
                                 data: missingItemIndex,
                                 onDragUpdate: (d) {},
                                 onDragStarted: () {
-                                  cubitRead
-                                      .changeMissingItemListTargetState(false);
-                                  cubitRead.changeMyFrizeListTargetState(true);
+                                  cubitRead.changeMissingItemListDraggable();
                                 },
                                 onDragEnd: (DraggableDetails draggableDetails) {
                                   if (draggableDetails.wasAccepted == true) {
@@ -201,7 +198,7 @@ class LikesView extends StatelessWidget {
                                   text: state[missingItemIndex]
                                       .quantity
                                       .toString(),
-                                  style: const TextStyle(color: Colors.white),
+                                  textColor: Colors.white,
                                 ),
                                 color: ColorConstants.instance.oriolesOrange
                                     .withOpacity(0.4),
@@ -250,11 +247,7 @@ class LikesView extends StatelessWidget {
                                     child: DraggableIngredientCircleAvatar<int>(
                                       data: myFrizeItemIndex,
                                       onDragStarted: () {
-                                        cubitRead.changeMyFrizeListTargetState(
-                                            false);
-                                        cubitRead
-                                            .changeMissingItemListTargetState(
-                                                true);
+                                        cubitRead.changeMyFrizeListDraggable();
                                       },
                                       onDragEnd:
                                           (DraggableDetails draggableDetails) {
@@ -271,8 +264,7 @@ class LikesView extends StatelessWidget {
                                         text: state[myFrizeItemIndex]
                                             .quantity
                                             .toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                                        textColor: Colors.white,
                                       ),
                                       color: ColorConstants
                                           .instance.brightGraySolid2,
@@ -294,10 +286,7 @@ class LikesView extends StatelessWidget {
                                 child: DraggableIngredientCircleAvatar<int>(
                                   data: myFrizeItemIndex,
                                   onDragStarted: () {
-                                    cubitRead
-                                        .changeMyFrizeListTargetState(false);
-                                    cubitRead
-                                        .changeMissingItemListTargetState(true);
+                                    cubitRead.changeMyFrizeListDraggable();
                                   },
                                   onDragEnd:
                                       (DraggableDetails draggableDetails) {
@@ -312,7 +301,7 @@ class LikesView extends StatelessWidget {
                                     text: state[myFrizeItemIndex]
                                         .quantity
                                         .toString(),
-                                    style: const TextStyle(color: Colors.white),
+                                    textColor: Colors.white,
                                   ),
                                   color:
                                       ColorConstants.instance.brightGraySolid2,

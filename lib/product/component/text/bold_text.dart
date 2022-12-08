@@ -15,6 +15,8 @@ class BoldText extends StatelessWidget {
   final TextWidthBasis? textWidthBasis;
   final TextHeightBehavior? textHeightBehavior;
   final double? fontSize;
+  final FontWeight? fontWeight;
+  final Color? textColor;
   const BoldText(
       {Key? key,
       required this.text,
@@ -30,18 +32,28 @@ class BoldText extends StatelessWidget {
       this.semanticsLabel,
       this.textWidthBasis,
       this.textHeightBehavior,
-      this.fontSize})
+      this.fontSize,
+      this.textColor,
+      this.fontWeight})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: style?.copyWith(
-        fontFamily: 'Poppins',
-        fontWeight: FontWeight.w500,
-        fontSize: fontSize ?? 14,
-      ),
+      style: style == null
+          ? TextStyle(
+              color: textColor ?? Colors.black,
+              fontFamily: 'Poppins',
+              fontWeight: fontWeight ?? FontWeight.w500,
+              fontSize: fontSize ?? 14,
+            )
+          : style!.copyWith(
+              color: textColor ?? Colors.black,
+              fontFamily: 'Poppins',
+              fontWeight: fontWeight ?? FontWeight.w500,
+              fontSize: fontSize ?? 14,
+            ),
       strutStyle: strutStyle,
       textAlign: textAlign,
       textDirection: textDirection,

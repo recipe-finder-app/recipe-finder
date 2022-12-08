@@ -137,8 +137,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       IngredientModel(
           title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
-    changeMissingItemListTargetState(false);
-    changeMyFrizeListTargetState(false);
   }
 
   void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
@@ -146,16 +144,23 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));
   }
 
-  void changeMissingItemListTargetState(bool state) {
-    missingItemListTargetState = state;
+  void changeMissingItemListDraggable() {
+    missingItemListTargetState = false;
+    myFrizeListTargetState = true;
+    emit(MyFrizeItemTargetState(myFrizeListTargetState));
     emit(MissingItemListTargetState(missingItemListTargetState));
+
     print('missingItemListTargetState $missingItemListTargetState');
+    print('myFrizeItemTargetState $myFrizeListTargetState');
   }
 
-  void changeMyFrizeListTargetState(bool state) {
-    myFrizeListTargetState = state;
+  void changeMyFrizeListDraggable() {
+    myFrizeListTargetState = false;
+    missingItemListTargetState = true;
+    emit(MissingItemListTargetState(missingItemListTargetState));
     emit(MyFrizeItemTargetState(myFrizeListTargetState));
     print('myFrizeItemTargetState $myFrizeListTargetState');
+    print('missingItemListTargetState $missingItemListTargetState');
   }
 
   void addItemToMissingList(

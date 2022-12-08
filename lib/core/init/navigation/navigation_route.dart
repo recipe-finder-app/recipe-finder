@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/view/recipe_detail_view.dart';
 
-import '../../../feature/material_search_page/view/material_search_view.dart';
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
+import '../../../feature/material_search_page/view/material_search_view.dart';
 import '../../../product/component/no_navigation/no_navigation_view.dart';
 import '../../../product/widget/bottom_nav_bar_controller/recipe_bottom_navigation_bar.dart';
 
@@ -39,6 +40,10 @@ class NavigationRoute {
       case NavigationConstants.MATERIALSEARCH:
         return normalNavigate(
             MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
+      case NavigationConstants.RECIPE_DETAIL:
+        return normalNavigate(
+            RecipeDetailView(cardIndex: int.parse(args.arguments.toString())),
+            NavigationConstants.RECIPE_DETAIL);
 
       default:
         return MaterialPageRoute(

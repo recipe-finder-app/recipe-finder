@@ -58,6 +58,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
 
         var systemLocale = await speech.systemLocale();
         _currentLocaleId = systemLocale?.localeId ?? '';
+        print("_currentLocaleId $_currentLocaleId");
       }
       if (!mounted) return;
 
@@ -196,7 +197,7 @@ class _SpeechSampleAppState extends State<SpeechSampleApp> {
     setState(() {
       _currentLocaleId = selectedVal;
     });
-    print(selectedVal);
+    print('_currentLocaleId $_currentLocaleId');
   }
 
   void _logEvent(String eventDescription) {

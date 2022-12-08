@@ -59,7 +59,7 @@ class OnboardView extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         const LanguagePopupMenuButton(),
-                                        GestureDetector(
+                                        InkWell(
                                           onTap: () {
                                             NavigationService.instance
                                                 .navigateToPage(

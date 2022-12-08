@@ -6,6 +6,7 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
 
 import '../../../feature/likes_page/model/like_recipe_model.dart';
 
@@ -39,7 +40,8 @@ class LikesRecipeCard extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: BoldText(
                       text: model.title,
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                      textColor: Colors.white,
+                      style: const TextStyle(fontSize: 12),
                       textAlign: TextAlign.start,
                       fontSize: 12,
                       maxLines: 3,
@@ -57,7 +59,7 @@ class LikesRecipeCard extends StatelessWidget {
             onTap: addToBasketOnPressed,
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: context.radiusBottomCircularMedium,
+                  borderRadius: context.radiusBottomCircularMin,
                   color: Colors.white,
                   border:
                       Border.all(color: ColorConstants.instance.oriolesOrange)),
@@ -97,7 +99,7 @@ class LikesRecipeCard extends StatelessWidget {
             image: AssetImage(
               model.imagePath,
             )),
-        borderRadius: context.radiusTopCircularMedium,
+        borderRadius: context.radiusTopCircularMin,
       ),
       child: Container(
         decoration: BoxDecoration(
@@ -122,18 +124,15 @@ class LikesRecipeCard extends StatelessWidget {
       padding: context.paddingNormalAll,
       child: Align(
         alignment: Alignment.topRight,
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            Container(
-              height: 35,
-              width: 35,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.transparent.withOpacity(0.2),
-              ),
-            ),
-            InkWell(
+        child: Container(
+          height: 35,
+          width: 35,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.transparent.withOpacity(0.2),
+          ),
+          child: TransparentCircularBackground(
+            child: InkWell(
               onTap: likeIconOnPressed,
               child: ImageSvg(
                 path: ImagePath.likeWhite.path,
@@ -141,7 +140,7 @@ class LikesRecipeCard extends StatelessWidget {
                 width: 20,
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

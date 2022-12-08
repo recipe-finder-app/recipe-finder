@@ -8,4 +8,5 @@ class NavigationConstants {
   static const LIKES = '/likes';
   static const BASKET = '/basket';
   static const MATERIALSEARCH = '/materialSearch';
+  static const RECIPE_DETAIL = '/recipeDetail';
 }

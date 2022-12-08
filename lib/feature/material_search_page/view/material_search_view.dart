@@ -25,6 +25,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MaterialSearchCubit>(
+        visibleProgress: false,
         init: (cubitRead) {
           cubitRead.init();
           cubitRead.essentialList();
