@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
 
@@ -59,8 +60,8 @@ class OnboardView extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         const LanguagePopupMenuButton(),
-                                        InkWell(
-                                          onTap: () {
+                                        TextButton(
+                                          onPressed: () {
                                             NavigationService.instance
                                                 .navigateToPage(
                                                     path: NavigationConstants
@@ -73,7 +74,7 @@ class OnboardView extends StatelessWidget {
                                                 decoration:
                                                     TextDecoration.underline),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -146,7 +147,7 @@ class OnboardView extends StatelessWidget {
                           children: [
                             LocaleBoldText(
                               fontWeight: FontWeight.w600,
-                              text: cubitRead.onboardItems[index].title,
+                              text: cubitRead.onboardItems[index].title.locale,
                               textAlign: TextAlign.center,
                               fontSize: 24,
                             ),

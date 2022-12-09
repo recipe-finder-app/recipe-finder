@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -45,15 +47,14 @@ class RecipeDetailView extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                ImagePath.imageSample3.path,
-                              )),
+                              image: AssetImage(cubitRead
+                                  .likeRecipeItems[cardIndex].imagePath)),
                         ),
                       ),
                       Padding(
                         padding: context.paddingNormalAll,
                         child: Padding(
-                          padding: context.paddingMediumOnlyTop,
+                          padding: context.paddingHighOnlyTop,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -65,7 +66,10 @@ class RecipeDetailView extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    icon: Icon(Icons.arrow_back_rounded),
+                                    icon: Icon(
+                                      Icons.arrow_back_rounded,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                   TransparentCircularBackground(
                                     circleHeight: 35,
@@ -104,28 +108,40 @@ class RecipeDetailView extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              BoldText(
-                                text:
-                                    cubitRead.likeRecipeItems[cardIndex].title,
-                                fontSize: 20,
-                                maxLines: 3,
-                                textColor: Colors.white,
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                              ),
                             ],
                           ),
                         ),
                       ),
                     ],
                   ),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(context.mediumValue),
-                            topRight: Radius.circular(context.mediumValue))),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: context.paddingMediumEdges,
+                        child: Padding(
+                          padding: context.paddingNormalTopBottom,
+                          child: BoldText(
+                            text: cubitRead.likeRecipeItems[cardIndex].title,
+                            fontSize: 20,
+                            maxLines: 3,
+                            textColor: Colors.white,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(context.mediumValue),
+                                topRight:
+                                    Radius.circular(context.mediumValue))),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -134,101 +150,104 @@ class RecipeDetailView extends StatelessWidget {
                   color: Colors.white,
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(
-                    left: context.mediumValue,
-                    right: context.mediumValue,
-                    bottom: context.mediumValue,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const LocaleBoldText(text: LocaleKeys.ingredients),
-                      ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: context
-                              .read<LikesCubit>()
-                              .likeRecipeItems[cardIndex]
-                              .recipeModel
-                              .ingredients
-                              .length,
-                          itemBuilder: (BuildContext context,
-                              int recipeIngredientsIndex) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(context
-                                    .read<LikesCubit>()
-                                    .likeRecipeItems[cardIndex]
-                                    .recipeModel
-                                    .ingredients[recipeIngredientsIndex]
-                                    .quantity
-                                    .toString()),
-                                context.lowSizedBoxWidth,
-                                Text(context
-                                    .read<LikesCubit>()
-                                    .likeRecipeItems[cardIndex]
-                                    .recipeModel
-                                    .ingredients[recipeIngredientsIndex]
-                                    .title),
-                              ],
-                            );
-                          }),
-                      const LocaleBoldText(text: LocaleKeys.yourFrize),
-                      context.lowSizedBox,
-                      cubitRead.myFrizeItems == null
-                          ? const Center()
-                          : SizedBox(
-                              height: context.screenHeight / 8,
-                              width: context.screenWidth,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  physics: const BouncingScrollPhysics(),
-                                  itemCount: cubitRead.myFrizeItems.length,
-                                  itemBuilder: (BuildContext context,
-                                      int missingItemIndex) {
-                                    return Padding(
-                                      padding: EdgeInsets.only(
-                                          right: context.lowValue),
-                                      child: IngredientCircleAvatar(
-                                        color: ColorConstants
-                                            .instance.russianViolet
-                                            .withOpacity(0.1),
-                                        model: cubitRead
-                                            .myFrizeItems[missingItemIndex],
-                                        iconBottomWidget: Text(
-                                          cubitRead
-                                              .myFrizeItems[missingItemIndex]
-                                              .quantity
-                                              .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
+                  padding: context.paddingMediumEdges,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: context.veryHighValue),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const LocaleBoldText(text: LocaleKeys.ingredients),
+                        context.lowSizedBox,
+                        ListView.builder(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: context
+                                .read<LikesCubit>()
+                                .likeRecipeItems[cardIndex]
+                                .recipeModel
+                                .ingredients
+                                .length,
+                            itemBuilder: (BuildContext context,
+                                int recipeIngredientsIndex) {
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(context
+                                      .read<LikesCubit>()
+                                      .likeRecipeItems[cardIndex]
+                                      .recipeModel
+                                      .ingredients[recipeIngredientsIndex]
+                                      .quantity
+                                      .toString()),
+                                  context.lowSizedBoxWidth,
+                                  Text(context
+                                      .read<LikesCubit>()
+                                      .likeRecipeItems[cardIndex]
+                                      .recipeModel
+                                      .ingredients[recipeIngredientsIndex]
+                                      .title),
+                                ],
+                              );
+                            }),
+                        context.lowSizedBox,
+                        const LocaleBoldText(text: LocaleKeys.yourFrize),
+                        context.lowSizedBox,
+                        cubitRead.myFrizeItems == null
+                            ? const Center()
+                            : SizedBox(
+                                height: context.screenHeight / 8,
+                                width: context.screenWidth,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    physics: const BouncingScrollPhysics(),
+                                    itemCount: cubitRead.myFrizeItems.length,
+                                    itemBuilder: (BuildContext context,
+                                        int missingItemIndex) {
+                                      return Padding(
+                                        padding: EdgeInsets.only(
+                                            right: context.lowValue),
+                                        child: IngredientCircleAvatar(
+                                          color: ColorConstants
+                                              .instance.russianViolet
+                                              .withOpacity(0.1),
+                                          model: cubitRead
+                                              .myFrizeItems[missingItemIndex],
+                                          iconBottomWidget: Text(
+                                            cubitRead
+                                                .myFrizeItems[missingItemIndex]
+                                                .quantity
+                                                .toString(),
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                      const LocaleBoldText(text: LocaleKeys.description),
-                      context.lowSizedBox,
-                      Text(
-                        cubitRead
-                            .likeRecipeItems[cardIndex].recipeModel.description,
-                        style: const TextStyle(overflow: TextOverflow.ellipsis),
-                        maxLines: 3,
-                      ),
-                      context.lowSizedBox,
-                      const LocaleBoldText(text: LocaleKeys.directions),
-                      context.lowSizedBox,
-                      Text(
-                        cubitRead
-                            .likeRecipeItems[cardIndex].recipeModel.directions,
-                        style: const TextStyle(overflow: TextOverflow.clip),
-                      ),
-                      context.lowSizedBox,
-                    ],
+                                      );
+                                    }),
+                              ),
+                        const LocaleBoldText(text: LocaleKeys.description),
+                        context.lowSizedBox,
+                        Text(
+                          cubitRead.likeRecipeItems[cardIndex].recipeModel
+                              .description,
+                          style:
+                              const TextStyle(overflow: TextOverflow.ellipsis),
+                          maxLines: 3,
+                        ),
+                        context.lowSizedBox,
+                        const LocaleBoldText(text: LocaleKeys.directions),
+                        context.lowSizedBox,
+                        Text(
+                          cubitRead.likeRecipeItems[cardIndex].recipeModel
+                              .directions,
+                          style: const TextStyle(overflow: TextOverflow.clip),
+                        ),
+                        context.lowSizedBox,
+                      ],
+                    ),
                   ),
                 ),
               ),
