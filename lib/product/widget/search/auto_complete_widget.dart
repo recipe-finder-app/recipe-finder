@@ -44,7 +44,8 @@ class AutoCompleteWidget extends StatelessWidget {
                 ? firsType = '$firsType + ${list[i].type!}'
                 : '';
           }
-          return SafeArea(
+          return Padding(
+            padding: context.paddingLowOnlyTop,
             child: Scaffold(
               body: options.first.title == null
                   ? const Center(
@@ -70,8 +71,7 @@ class AutoCompleteWidget extends StatelessWidget {
                             ),
                           ),
                           context.normalSizedBox,
-                          SizedBox(
-                            height: context.screenHeight / 3,
+                          Expanded(
                             child: GridView.builder(
                                 physics: const BouncingScrollPhysics(),
                                 itemCount: list.length,

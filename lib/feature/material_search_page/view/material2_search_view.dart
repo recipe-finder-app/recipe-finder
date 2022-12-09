@@ -118,9 +118,7 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
                                                 context.lowSizedBox,
                                                 LocaleText(
                                                   text: cubitRead
-                                                          .essentials[index]
-                                                          .title ??
-                                                      '',
+                                                      .essentials[index].title,
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -188,9 +186,7 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
                                                 alignment: Alignment.center,
                                                 child: LocaleText(
                                                   text: cubitRead
-                                                          .vegetables[index]
-                                                          .title ??
-                                                      '',
+                                                      .vegetables[index].title,
                                                   style: TextStyle(
                                                       fontStyle:
                                                           FontStyle.normal,
@@ -260,9 +256,8 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
                                                   alignment: Alignment.center,
                                                   child: LocaleText(
                                                     text: cubitRead
-                                                            .vegetables[index]
-                                                            .title ??
-                                                        '',
+                                                        .vegetables[index]
+                                                        .title,
                                                     style: TextStyle(
                                                         fontStyle:
                                                             FontStyle.normal,

@@ -47,14 +47,15 @@ class CircularBottomSheet {
             padding: context.paddingMediumTopBottom,
             child: Center(
               child: Padding(
-                  padding: context.paddingMediumEdges,
-                  child: scrollable == true
-                      ? SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          child: child,
-                        )
-                      : child),
+                padding: context.paddingMediumEdges,
+                child: scrollable == true
+                    ? SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        child: child,
+                      )
+                    : child,
+              ),
             ),
           ),
         ),

@@ -151,7 +151,6 @@ class HomeView extends StatelessWidget {
               height: context.highValue,
               child: InkWell(
                 onTap: () {
-                  // NavigationService.instance.navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
                   fridgeBottomSheet(context, cubitRead);
                 },
                 child: ImageSvg(
