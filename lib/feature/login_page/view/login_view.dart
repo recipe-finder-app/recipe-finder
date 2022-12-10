@@ -100,7 +100,7 @@ class LoginView extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 24)),
                         LoginButton(
-                          text: LocaleKeys.login.locale,
+                          text: LocaleKeys.login,
                           onPressed: () {
                             signInBottomSheet(context, cubitRead);
                           },

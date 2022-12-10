@@ -1,5 +1,3 @@
-import 'package:recipe_finder/core/extension/string_extension.dart';
-
 import '../../../core/constant/enum/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 
@@ -22,7 +20,7 @@ class OnboardItems {
     items = [
       OnboardModel(
         imagePath: ImagePath.onboardImage1.path,
-        title: LocaleKeys.chooseTheItemsInYourCloset.locale,
+        title: LocaleKeys.chooseTheItemsInYourCloset,
         explanation:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       ),

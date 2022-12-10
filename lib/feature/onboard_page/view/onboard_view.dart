@@ -1,14 +1,16 @@
+import 'dart:ui' as ui;
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
+import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/component/image_format/image_svg.dart';
+import '../../../product/component/pop_up_menu_button/language_popup_menu_button.dart';
 import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
 import '../cubit/onboard_cubit.dart';
@@ -67,10 +69,11 @@ class OnboardView extends StatelessWidget {
                                                     path: NavigationConstants
                                                         .LOGIN);
                                           },
-                                          child: const LocaleBoldText(
+                                          child: LocaleBoldText(
                                             text: LocaleKeys.skip,
                                             fontWeight: FontWeight.w500,
-                                            style: TextStyle(
+                                            locale: context.locale,
+                                            style: const TextStyle(
                                                 decoration:
                                                     TextDecoration.underline),
                                           ),
@@ -147,7 +150,8 @@ class OnboardView extends StatelessWidget {
                           children: [
                             LocaleBoldText(
                               fontWeight: FontWeight.w600,
-                              text: cubitRead.onboardItems[index].title.locale,
+                              text: cubitRead.onboardItems[index].title,
+                              locale: context.locale,
                               textAlign: TextAlign.center,
                               fontSize: 24,
                             ),
@@ -162,7 +166,7 @@ class OnboardView extends StatelessWidget {
                                       Icons.arrow_back_sharp,
                                       color: Colors.white,
                                     ),
-                                    textDirection: TextDirection.rtl,
+                                    textDirection: ui.TextDirection.rtl,
                                     color:
                                         ColorConstants.instance.russianViolet,
                                     onPressed: () {
@@ -182,7 +186,7 @@ class OnboardView extends StatelessWidget {
                                               color: ColorConstants
                                                   .instance.russianViolet,
                                             ),
-                                            textDirection: TextDirection.ltr,
+                                            textDirection: ui.TextDirection.ltr,
                                             color: ColorConstants
                                                 .instance.brightGraySolid2,
                                             text: LocaleKeys.back,
@@ -199,7 +203,7 @@ class OnboardView extends StatelessWidget {
                                               Icons.arrow_back_sharp,
                                               color: Colors.white,
                                             ),
-                                            textDirection: TextDirection.rtl,
+                                            textDirection: ui.TextDirection.rtl,
                                             color: ColorConstants
                                                 .instance.oriolesOrange,
                                             text: LocaleKeys.getStarted,
@@ -222,7 +226,7 @@ class OnboardView extends StatelessWidget {
                                               color: ColorConstants
                                                   .instance.russianViolet,
                                             ),
-                                            textDirection: TextDirection.ltr,
+                                            textDirection: ui.TextDirection.ltr,
                                             color: ColorConstants
                                                 .instance.brightGraySolid2,
                                             width: context.screenWidth / 2.7,
@@ -239,7 +243,7 @@ class OnboardView extends StatelessWidget {
                                               Icons.arrow_back_sharp,
                                               color: Colors.white,
                                             ),
-                                            textDirection: TextDirection.rtl,
+                                            textDirection: ui.TextDirection.rtl,
                                             width: context.screenWidth / 2.7,
                                             color: ColorConstants
                                                 .instance.russianViolet,
