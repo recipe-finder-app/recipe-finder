@@ -14,8 +14,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
 
   late List<LikeRecipeModel> likeRecipeItems;
   late List<IngredientModel> myFrizeItems;
-  bool missingItemListTargetState = false;
-  bool myFrizeListTargetState = false;
 
   String directionText =
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
@@ -139,53 +137,28 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     ];
   }
 
-  void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
-    likeRecipeItems.remove(model);
-    emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));
-  }
-
-  void changeMissingItemListDraggable() {
-    missingItemListTargetState = false;
-    myFrizeListTargetState = true;
-    emit(MyFrizeItemTargetState(myFrizeListTargetState));
-    emit(MissingItemListTargetState(missingItemListTargetState));
-
-    print('missingItemListTargetState $missingItemListTargetState');
-    print('myFrizeItemTargetState $myFrizeListTargetState');
-  }
-
-  void changeMyFrizeListDraggable() {
-    myFrizeListTargetState = false;
-    missingItemListTargetState = true;
-    emit(MissingItemListTargetState(missingItemListTargetState));
-    emit(MyFrizeItemTargetState(myFrizeListTargetState));
-    print('myFrizeItemTargetState $myFrizeListTargetState');
-    print('missingItemListTargetState $missingItemListTargetState');
-  }
-
-  void addItemToMissingList(
-      int cardIndex, IngredientModel itemModelToBeDeleted) {
-    likeRecipeItems[cardIndex].missingItems!.add(itemModelToBeDeleted);
+  void addItemToMissingList(int cardIndex, IngredientModel model) {
+    likeRecipeItems[cardIndex].missingItems!.add(model);
 
     emit(MissingItemListLoad(
         likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
   }
 
-  void removeMissingItem(int cardIndex, int missingItemIndex) {
-    likeRecipeItems[cardIndex].missingItems!.removeAt(missingItemIndex);
+  void removeMissingItem(int cardIndex, IngredientModel missingItemModel) {
+    likeRecipeItems[cardIndex].missingItems!.remove(missingItemModel);
 
     emit(MissingItemListLoad(
         likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
   }
 
-  void addItemToMyFrizeList(IngredientModel itemModelToBeDeleted) {
-    myFrizeItems.add(itemModelToBeDeleted);
+  void addItemToMyFrizeList(IngredientModel model) {
+    myFrizeItems.add(model);
 
     emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
   }
 
-  void removeMyFrizeItem(int myFrizeItemIndex) {
-    myFrizeItems.removeAt(myFrizeItemIndex);
+  void removeMyFrizeItem(IngredientModel myFrizeItemModel) {
+    myFrizeItems.remove(myFrizeItemModel);
 
     emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
   }
@@ -193,6 +166,11 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   void missingItemLoad(int cardIndex) {
     emit(MissingItemListLoad(
         likeRecipeItems[cardIndex].missingItems!.toSet().toList()));
+  }
+
+  void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
+    likeRecipeItems.remove(model);
+    emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));
   }
 
   @override
