@@ -19,16 +19,6 @@ class LikesRecipeItemListLoad extends ILikesState {
   LikesRecipeItemListLoad(this.likesRecipeItemList);
 }
 
-class MissingItemListTargetState extends ILikesState {
-  late bool targetState;
-  MissingItemListTargetState(this.targetState);
-}
-
-class MyFrizeItemTargetState extends ILikesState {
-  late bool targetState;
-  MyFrizeItemTargetState(this.targetState);
-}
-
 class MissingItemListLoad extends ILikesState {
   late List<IngredientModel> missingItemList;
   MissingItemListLoad(this.missingItemList);
