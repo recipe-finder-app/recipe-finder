@@ -67,14 +67,6 @@ class MaterialVegatablesItems {
           image: ImagePath.eggplant.path,
           title: LocaleKeys.eggplant,
           color: const Color(0xff800771).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.peas.path,
-          title: LocaleKeys.peas,
-          color: const Color(0xff61980a).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.peas.path,
-          title: LocaleKeys.peas,
-          color: const Color(0xff61980a).withOpacity(0.1)),
     ];
   }
 }

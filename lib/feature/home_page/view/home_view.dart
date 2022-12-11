@@ -10,6 +10,7 @@ import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
+import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 
@@ -163,7 +164,7 @@ class HomeView extends StatelessWidget {
             padding: context.paddingMaxEdges,
             child: CircleAvatar(
               radius: 5,
-              backgroundColor: ColorConstants.instance.red,
+              backgroundColor: ColorConstants.instance.oriolesOrange,
             ),
           )
         ]),
@@ -222,102 +223,117 @@ class HomeView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
-      scrollable: true,
+      scrollable: false,
       bottomSheetHeight: CircularBottomSheetHeight.medium,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const LocaleText(
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal),
-            text: LocaleKeys.essentials,
-          ),
-          context.normalSizedBox,
-          SizedBox(
-            height: context.screenHeight / 7,
-            child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: cubitRead.essentialsItem.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: context.paddingLowRight,
-                    child: Column(
+      child: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const LocaleText(
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal),
+                text: LocaleKeys.essentials,
+              ),
+              context.normalSizedBox,
+              SizedBox(
+                height: context.screenHeight / 7,
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: cubitRead.essentialsItem.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: context.paddingLowRight,
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 32,
+                              backgroundColor:
+                                  cubitRead.essentialsItem[index].color,
+                              child: ImageSvg(
+                                  path: cubitRead.essentialsItem[index].image ??
+                                      ''),
+                            ),
+                            context.lowSizedBox,
+                            LocaleText(
+                              text: cubitRead.essentialsItem[index].title ?? '',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.w400,
+                                  color: ColorConstants.instance.roboticgods),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+              ),
+              context.normalSizedBox,
+              const LocaleText(
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal),
+                text: LocaleKeys.vegatables,
+              ),
+              context.normalSizedBox,
+              GridView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: cubitRead.vegateblesItem.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 0.70,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 10),
+                  itemBuilder: (BuildContext context, index) {
+                    return Column(
                       children: [
                         CircleAvatar(
                           radius: 32,
                           backgroundColor:
-                              cubitRead.essentialsItem[index].color,
+                              cubitRead.vegateblesItem[index].color,
                           child: ImageSvg(
                               path:
-                                  cubitRead.essentialsItem[index].image ?? ''),
+                                  cubitRead.vegateblesItem[index].image ?? ''),
                         ),
                         context.lowSizedBox,
-                        LocaleText(
-                          text: cubitRead.essentialsItem[index].title ?? '',
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal,
-                              fontWeight: FontWeight.w400,
-                              color: ColorConstants.instance.roboticgods),
+                        Align(
+                          alignment: Alignment.center,
+                          child: LocaleText(
+                            text: cubitRead.vegateblesItem[index].title ?? '',
+                            style: TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.w400,
+                                color: ColorConstants.instance.roboticgods),
+                          ),
                         ),
                       ],
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ],
           ),
-          context.normalSizedBox,
-          const LocaleText(
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal),
-            text: LocaleKeys.vegatables,
-          ),
-          context.normalSizedBox,
-          GridView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: const BouncingScrollPhysics(),
-              itemCount: cubitRead.vegateblesItem.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: 0.70,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 10),
-              itemBuilder: (BuildContext context, index) {
-                return Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor: cubitRead.vegateblesItem[index].color,
-                      child: ImageSvg(
-                          path: cubitRead.vegateblesItem[index].image ?? ''),
-                    ),
-                    context.lowSizedBox,
-                    Align(
-                      alignment: Alignment.center,
-                      child: LocaleText(
-                        text: cubitRead.vegateblesItem[index].title ?? '',
-                        style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w400,
-                            color: ColorConstants.instance.roboticgods),
-                      ),
-                    ),
-                  ],
-                );
-              }),
-          context.normalSizedBox,
-          LoginButton(
+        ),
+        Positioned(
+          bottom: 20,
+          child: RecipeFabButton(
+            width: context.screenWidth / 1.17,
             text: LocaleKeys.addIngredients,
-            color: ColorConstants.instance.russianViolet,
-            onPressed: () {},
           ),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
+
+
+
+// LoginButton(
+//             text: LocaleKeys.addIngredients,
+//             color: ColorConstants.instance.russianViolet,
+//             onPressed: () {},
+//           ),

@@ -25,11 +25,14 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           children: [
             BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              selectedIconTheme: const IconThemeData(color: Colors.black),
-              unselectedIconTheme: const IconThemeData(color: Colors.grey),
-              selectedItemColor: Colors.black,
-              unselectedItemColor: Colors.grey,
-              backgroundColor: Colors.white,
+              selectedIconTheme:
+                  IconThemeData(color: ColorConstants.instance.russianViolet),
+              unselectedIconTheme: IconThemeData(
+                color: ColorConstants.instance.roboticgods,
+              ),
+              selectedItemColor: ColorConstants.instance.russianViolet,
+              unselectedItemColor: ColorConstants.instance.roboticgods,
+              backgroundColor: ColorConstants.instance.white,
               iconSize: 24,
               showSelectedLabels: true,
               showUnselectedLabels: true,
@@ -39,7 +42,9 @@ class RecipeBottomNavigationBar extends StatelessWidget {
               // selectedFontSize: 10,
               onTap: (index) {
                 cubitRead.changePage(index);
+                  cubitRead.changeCurrentIndex(index);
               },
+
               currentIndex: cubitRead.selectedPageIndex,
               items: [
                 BottomNavigationBarItem(

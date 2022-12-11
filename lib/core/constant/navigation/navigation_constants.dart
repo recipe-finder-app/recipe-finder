@@ -9,4 +9,5 @@ class NavigationConstants {
   static const BASKET = '/basket';
   static const MATERIALSEARCH = '/materialSearch';
   static const RECIPE_DETAIL = '/recipeDetail';
+  static const FINDER = '/finder';
 }

@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/constant/navigation/navigation_constants.dart';
@@ -54,6 +53,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Poppins',
+          visualDensity: VisualDensity.adaptivePlatformDensity,
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
         ),
         // theme: ThemeManager.craeteTheme(AppThemeLight()),
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
 
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
-        //initialRoute: NavigationRoute.instance.initialRoute(),
+        // initialRoute: NavigationRoute.instance.initialRoute(),
         initialRoute: NavigationConstants.ONBOARD,
       ),
     );

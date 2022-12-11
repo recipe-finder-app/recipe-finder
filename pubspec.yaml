@@ -36,13 +36,16 @@ dependencies:
   email_validator: ^2.0.1
   dropdown_search: ^5.0.3
   page_transition: ^2.0.9
-  lottie: ^1.4.2
+ 
   avatar_glow: ^2.0.2
   speech_to_text: ^6.1.1
 
 
   #Animation
   flutter_svg: ^1.1.6
+  lottie: ^1.4.2
+  swipe_cards: ^1.0.0
+  swipable_stack: ^2.0.0
 
 
 
