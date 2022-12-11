@@ -138,29 +138,50 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   }
 
   void addItemToMissingList(int cardIndex, IngredientModel model) {
-    likeRecipeItems[cardIndex].missingItems!.add(model);
-
-    emit(MissingItemListLoad(
-        likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
+    List<IngredientModel> value = likeRecipeItems[cardIndex]
+        .missingItems!
+        .where((element) => element.hashCode == model.hashCode)
+        .toList();
+    if (value.isEmpty) {
+      likeRecipeItems[cardIndex].missingItems!.add(model);
+      emit(MissingItemListLoad(
+          likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
+    }
   }
 
-  void removeMissingItem(int cardIndex, IngredientModel missingItemModel) {
-    likeRecipeItems[cardIndex].missingItems!.remove(missingItemModel);
+  void removeMissingItem(int cardIndex, IngredientModel model) {
+    List<IngredientModel> value = likeRecipeItems[cardIndex]
+        .missingItems!
+        .where((element) => element.hashCode == model.hashCode)
+        .toList();
+    if (value.isNotEmpty) {
+      likeRecipeItems[cardIndex].missingItems!.remove(model);
 
-    emit(MissingItemListLoad(
-        likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
+      emit(MissingItemListLoad(
+          likeRecipeItems[cardIndex].missingItems!.toSet().toList()!));
+    }
   }
 
   void addItemToMyFrizeList(IngredientModel model) {
-    myFrizeItems.add(model);
+    List<IngredientModel> value = myFrizeItems
+        .where((element) => element.hashCode == model.hashCode)
+        .toList();
+    if (value.isEmpty) {
+      myFrizeItems.add(model);
 
-    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+      emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+    }
   }
 
-  void removeMyFrizeItem(IngredientModel myFrizeItemModel) {
-    myFrizeItems.remove(myFrizeItemModel);
+  void removeMyFrizeItem(IngredientModel model) {
+    List<IngredientModel> value = myFrizeItems
+        .where((element) => element.hashCode == model.hashCode)
+        .toList();
+    if (value.isNotEmpty) {
+      myFrizeItems.remove(model);
 
-    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
+      emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
+    }
   }
 
   void missingItemLoad(int cardIndex) {
