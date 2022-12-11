@@ -75,7 +75,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
           border: InputBorder.none,
           prefixIcon: ImageSvg(
               path: ImagePath.searchh.path,
-              color: ColorConstants.instance.shadowplanet),
+              color: ColorConstants.instance.russianViolet),
           hintText: 'Search',
           hintStyle: TextStyle(
               fontSize: 14,
@@ -93,7 +93,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
                 onTap: _listen,
                 child: ImageSvg(
                   path: ImagePath.microphone.path,
-                  color: ColorConstants.instance.shadowplanet,
+                  color: ColorConstants.instance.russianViolet,
                 ),
               ),
             ),

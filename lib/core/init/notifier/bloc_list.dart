@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
@@ -33,6 +34,9 @@ class ApplicationBloc {
     ),
     BlocProvider(
       create: (context) => MaterialSearchCubit(),
+    ),
+    BlocProvider(
+      create: (context) => FinderCubit(),
     ),
   ];
 }

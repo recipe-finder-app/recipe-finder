@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 
@@ -39,6 +40,8 @@ class NavigationRoute {
       case NavigationConstants.MATERIALSEARCH:
         return normalNavigate(
             MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
+      case NavigationConstants.FINDER:
+        return normalNavigate(const FinderView(), NavigationConstants.FINDER);
 
       default:
         return MaterialPageRoute(

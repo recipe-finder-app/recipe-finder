@@ -65,5 +65,7 @@
     "directions": "Talimatlar",
     "findMyRecipe":"Tarifimi Bul",
     "fruits":"Meyveler",
-    "selectIngredients":"Malzemelerinizi seçin"
+    "selectIngredients":"Malzemelerinizi seçin",
+    "finderText":"Sizi tariflerle eşleştirdik.",
+    "close":"Kapat"
 }

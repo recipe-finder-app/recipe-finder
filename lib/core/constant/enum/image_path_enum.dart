@@ -30,7 +30,7 @@ enum ImagePath {
   peas('asset/svg/icon_peas.svg'),
   potato('asset/svg/icon_potato.svg'),
   tomato('asset/svg/icon_tomato.svg'),
-
+  shop('asset/png/icon_shop.png'),
   dinner('asset/png/dinner.png'),
   appetizers('asset/png/appetizers.png'),
   breakfast('asset/png/breakfast.png'),
