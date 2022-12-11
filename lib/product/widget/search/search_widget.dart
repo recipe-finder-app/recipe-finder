@@ -29,7 +29,7 @@ class SearchWidget extends StatelessWidget {
           border: InputBorder.none,
           prefixIcon: ImageSvg(
               path: ImagePath.searchh.path,
-              color: ColorConstants.instance.shadowplanet),
+              color: ColorConstants.instance.russianViolet),
           hintText: LocaleKeys.search,
           hintStyle: TextStyle(
               fontSize: 14,
@@ -40,7 +40,7 @@ class SearchWidget extends StatelessWidget {
             padding: context.paddingLowRightLow,
             child: ImageSvg(
               path: ImagePath.microphone.path,
-              color: ColorConstants.instance.shadowplanet,
+              color: ColorConstants.instance.russianViolet,
             ),
           ),
         ),

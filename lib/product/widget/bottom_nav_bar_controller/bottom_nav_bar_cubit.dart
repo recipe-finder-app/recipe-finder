@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
@@ -12,12 +13,12 @@ class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [
     const HomeView(),
     const DiscoverView(),
-    const HomeView(),
+    const FinderView(),
     const LikesView(),
     const BasketView(),
   ];
   int selectedPageIndex = 0;
-
+PageController pageController = PageController(initialPage: 0);
   RecipeNavigationBarCubit() : super(0);
 
   void changePage(int index) {
@@ -27,6 +28,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
 
   void clickSearchButton() {
     selectedPageIndex = 2;
+ 
     emit(selectedPageIndex);
   }
 
@@ -35,6 +37,18 @@ class RecipeNavigationBarCubit extends Cubit<int> {
       return Colors.black;
     } else {
       return Colors.grey;
+    }
+  }
+   late int index;
+void changeCurrentIndex(int value) {
+    if (value >= 0 && value < pageList.length) {
+      selectedPageIndex = value;
+      pageController.animateToPage(
+        value,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.linear,
+      );
+      emit(index);
     }
   }
 

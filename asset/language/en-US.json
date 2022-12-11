@@ -65,5 +65,7 @@
     "directions": "Directions",
     "findMyRecipe":"Find My Recipe",
     "fruits":"Fruits",
-    "selectIngredients":"Select your have ingredients"
+    "selectIngredients":"Select your have ingredients",
+    "finderText":"We  matched you with recipes.",
+    "close":"Close"
 }

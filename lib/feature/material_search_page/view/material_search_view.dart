@@ -39,9 +39,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 width: context.floatinValueWidth,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    setState(() {
-                      _click = !_click;
-                    });
+                    NavigationService.instance
+                        .navigateToPage(path: NavigationConstants.FINDER);
+                    // setState(() {
+                    //   _click = !_click;
+                    // });
                   },
                   backgroundColor: _click
                       ? ColorConstants.instance.roboticgods.withOpacity(1)
@@ -131,7 +133,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               ),
                               context.normalSizedBox,
                               SizedBox(
-                                height: context.screenHeight / 1.35,
+                                height: context.screenHeight / 2,
                                 child: GridView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -278,9 +280,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 fontSize: 16,
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w600,
-                color: ColorConstants.instance.shadowplanet,
+                color: ColorConstants.instance.russianViolet,
                 decoration: TextDecoration.underline,
-                decorationColor: ColorConstants.instance.shadowplanet,
+                decorationColor: ColorConstants.instance.russianViolet,
                 decorationThickness: 2,
               ),
               text: LocaleKeys.later),

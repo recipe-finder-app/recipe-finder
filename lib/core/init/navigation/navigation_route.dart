@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/view/recipe_detail_view.dart';
@@ -44,6 +45,8 @@ class NavigationRoute {
         return normalNavigate(
             RecipeDetailView(cardIndex: int.parse(args.arguments.toString())),
             NavigationConstants.RECIPE_DETAIL);
+      case NavigationConstants.FINDER:
+        return normalNavigate(const FinderView(), NavigationConstants.FINDER);
 
       default:
         return MaterialPageRoute(

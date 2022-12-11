@@ -86,7 +86,7 @@ class RecipeDetailView extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                                children: const [
                                   SizedBox(),
                                   TransparentCircularBackground(
                                     circleHeight: 70,
@@ -120,16 +120,13 @@ class RecipeDetailView extends StatelessWidget {
                     children: [
                       Padding(
                         padding: context.paddingMediumEdges,
-                        child: Padding(
-                          padding: context.paddingNormalTopBottom,
-                          child: BoldText(
-                            text: cubitRead.likeRecipeItems[cardIndex].title,
-                            fontSize: 20,
-                            maxLines: 3,
-                            textColor: Colors.white,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                        child: BoldText(
+                          text: cubitRead.likeRecipeItems[cardIndex].title,
+                          fontSize: 20,
+                          maxLines: 3,
+                          textColor: Colors.white,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Container(
