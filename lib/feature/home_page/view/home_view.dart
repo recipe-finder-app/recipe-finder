@@ -227,6 +227,7 @@ class HomeView extends StatelessWidget {
       bottomSheetHeight: CircularBottomSheetHeight.medium,
       child: Stack(children: [
         SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -158,9 +158,9 @@ class _FinderViewState extends State<FinderView> {
           final itemIndex = properties.index % cubitRead.draggableItems.length;
           return InkWell(
             onTap: () {
-              // NavigationService.instance.navigateToPage(
-              //   path: NavigationConstants.RECIPE_DETAIL,
-              // );
+              NavigationService.instance.navigateToPage(
+                path: NavigationConstants.RECIPE_DETAIL,
+              );
             },
             child: TinderCard(
               name: cubitRead.draggableItems[itemIndex].distance,
