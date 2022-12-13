@@ -86,9 +86,9 @@ class RecipeDetailView extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                children: const [
-                                  SizedBox(),
-                                  TransparentCircularBackground(
+                                children: [
+                                  const SizedBox(),
+                                  const TransparentCircularBackground(
                                     circleHeight: 70,
                                     circleWidth: 70,
                                     child: Icon(
@@ -97,13 +97,16 @@ class RecipeDetailView extends StatelessWidget {
                                       size: 25,
                                     ),
                                   ),
-                                  TransparentCircularBackground(
-                                    circleHeight: 35,
-                                    circleWidth: 35,
-                                    child: Icon(
-                                      Icons.share_outlined,
-                                      color: Colors.white,
-                                      size: 20,
+                                  InkWell(
+                                    onTap: () {},
+                                    child: const TransparentCircularBackground(
+                                      circleHeight: 35,
+                                      circleWidth: 35,
+                                      child: Icon(
+                                        Icons.share_outlined,
+                                        color: Colors.white,
+                                        size: 20,
+                                      ),
                                     ),
                                   ),
                                 ],

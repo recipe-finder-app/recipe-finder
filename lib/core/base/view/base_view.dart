@@ -36,8 +36,6 @@ class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
 
   @override
   void dispose() {
-    modelRead = context.read<T>();
-    if (widget.dispose != null) widget.dispose!(modelRead);
     super.dispose();
   }
 

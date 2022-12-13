@@ -67,5 +67,8 @@
     "fruits":"Meyveler",
     "selectIngredients":"Malzemelerinizi seçin",
     "finderText":"Sizi tariflerle eşleştirdik.",
-    "close":"Kapat"
+    "close":"Kapat",
+    "deleteSavedRecipeQuestion": "Bu tarifi kaydedilen tariflerden çıkarmak istediğinize emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır"
 }

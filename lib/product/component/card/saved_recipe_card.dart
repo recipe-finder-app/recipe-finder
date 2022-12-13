@@ -124,21 +124,13 @@ class LikesRecipeCard extends StatelessWidget {
       padding: context.paddingNormalAll,
       child: Align(
         alignment: Alignment.topRight,
-        child: Container(
-          height: 35,
-          width: 35,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.transparent.withOpacity(0.2),
-          ),
-          child: TransparentCircularBackground(
-            child: InkWell(
-              onTap: likeIconOnPressed,
-              child: ImageSvg(
-                path: ImagePath.likeWhite.path,
-                height: 20,
-                width: 20,
-              ),
+        child: TransparentCircularBackground(
+          circleHeight: 40,
+          circleWidth: 40,
+          child: InkWell(
+            onTap: likeIconOnPressed,
+            child: ImageSvg(
+              path: ImagePath.likeWhite.path,
             ),
           ),
         ),
