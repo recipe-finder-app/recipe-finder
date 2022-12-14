@@ -85,6 +85,7 @@ flutter:
     - asset/png/
     - asset/svg/
     - asset/lotties/
+    - asset/samplevideo.mp4
   uses-material-design: true
 
 

@@ -36,6 +36,7 @@ class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
 
   @override
   void dispose() {
+    modelRead.close();
     super.dispose();
   }
 

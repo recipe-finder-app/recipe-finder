@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/view/landscape_player_view.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
@@ -22,9 +25,12 @@ class RecipeDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LikesCubit>(
+    return BaseView<RecipeDetailCubit>(
       init: (cubitRead) {
         cubitRead.init();
+      },
+      dispose: (cubitRead) {
+        cubitRead.dispose();
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
@@ -41,16 +47,67 @@ class RecipeDetailView extends StatelessWidget {
                   Stack(
                     alignment: AlignmentDirectional.topStart,
                     children: [
-                      Container(
-                        height: context.screenHeight / 2.5,
-                        width: context.screenWidth,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage(cubitRead
-                                  .likeRecipeItems[cardIndex].imagePath)),
-                        ),
-                      ),
+                      cubitRead.videoPlayerController.value.isPlaying
+                          ? AspectRatio(
+                              aspectRatio: cubitRead
+                                  .videoPlayerController.value.aspectRatio,
+                              child: Stack(
+                                alignment: AlignmentDirectional.center,
+                                children: [
+                                  VideoPlayer(cubitRead.videoPlayerController),
+                                  IconButton(
+                                    icon: const Icon(Icons.pause),
+                                    color: Colors.white,
+                                    onPressed: () {
+                                      cubitRead.clickRunVideoButton();
+                                    },
+                                  ),
+                                  Positioned(
+                                    bottom: 50,
+                                    right: 5,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.fullscreen,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return LandscapePlayerView(
+                                              controller: cubitRead
+                                                  .videoPlayerController);
+                                        }));
+                                      },
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 45,
+                                    right: 50,
+                                    left: 50,
+                                    child: VideoProgressIndicator(
+                                        cubitRead.videoPlayerController,
+                                        colors: VideoProgressColors(
+                                            backgroundColor: ColorConstants
+                                                .instance.brightGraySolid,
+                                            playedColor: Colors.white),
+                                        allowScrubbing: true),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              height: context.screenHeight / 2.5,
+                              width: context.screenWidth,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(context
+                                        .read<LikesCubit>()
+                                        .likeRecipeItems[cardIndex]
+                                        .imagePath)),
+                              ),
+                            ),
                       Padding(
                         padding: context.paddingNormalAll,
                         child: Padding(
@@ -66,20 +123,23 @@ class RecipeDetailView extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_back_rounded,
                                       color: Colors.white,
                                     ),
                                   ),
-                                  TransparentCircularBackground(
-                                    circleHeight: 35,
-                                    circleWidth: 35,
-                                    child: ImageSvg(
-                                      path: ImagePath.likeWhite.path,
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                  ),
+                                  cubitRead
+                                          .videoPlayerController.value.isPlaying
+                                      ? const SizedBox()
+                                      : TransparentCircularBackground(
+                                          circleHeight: 35,
+                                          circleWidth: 35,
+                                          child: ImageSvg(
+                                            path: ImagePath.likeWhite.path,
+                                            height: 20,
+                                            width: 20,
+                                          ),
+                                        ),
                                 ],
                               ),
                               Row(
@@ -88,27 +148,42 @@ class RecipeDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(),
-                                  const TransparentCircularBackground(
-                                    circleHeight: 70,
-                                    circleWidth: 70,
-                                    child: Icon(
-                                      Icons.play_circle_outline,
-                                      color: Colors.white,
-                                      size: 25,
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {},
-                                    child: const TransparentCircularBackground(
-                                      circleHeight: 35,
-                                      circleWidth: 35,
-                                      child: Icon(
-                                        Icons.share_outlined,
-                                        color: Colors.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  ),
+                                  cubitRead
+                                          .videoPlayerController.value.isPlaying
+                                      ? const SizedBox()
+                                      : InkWell(
+                                          onTap: () {
+                                            cubitRead.clickRunVideoButton();
+                                          },
+                                          child: TransparentCircularBackground(
+                                            circleHeight: 70,
+                                            circleWidth: 70,
+                                            child: Icon(
+                                              cubitRead.videoPlayerController
+                                                      .value.isPlaying
+                                                  ? Icons.pause
+                                                  : Icons.play_circle_outline,
+                                              color: Colors.white,
+                                              size: 25,
+                                            ),
+                                          ),
+                                        ),
+                                  cubitRead
+                                          .videoPlayerController.value.isPlaying
+                                      ? const SizedBox()
+                                      : InkWell(
+                                          onTap: () {},
+                                          child:
+                                              const TransparentCircularBackground(
+                                            circleHeight: 35,
+                                            circleWidth: 35,
+                                            child: Icon(
+                                              Icons.share_outlined,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                             ],
@@ -121,17 +196,23 @@ class RecipeDetailView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: context.paddingMediumEdges,
-                        child: BoldText(
-                          text: cubitRead.likeRecipeItems[cardIndex].title,
-                          fontSize: 20,
-                          maxLines: 3,
-                          textColor: Colors.white,
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      cubitRead.videoPlayerController.value.isPlaying
+                          ? const SizedBox()
+                          : Padding(
+                              padding: context.paddingMediumEdges,
+                              child: BoldText(
+                                text: context
+                                    .read<LikesCubit>()
+                                    .likeRecipeItems[cardIndex]
+                                    .title,
+                                fontSize: 20,
+                                maxLines: 3,
+                                textColor: Colors.white,
+                                textAlign: TextAlign.start,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                      context.lowSizedBox,
                       Container(
                         height: 40,
                         decoration: BoxDecoration(
@@ -195,7 +276,7 @@ class RecipeDetailView extends StatelessWidget {
                         context.lowSizedBox,
                         const LocaleBoldText(text: LocaleKeys.yourFrize),
                         context.lowSizedBox,
-                        cubitRead.myFrizeItems == null
+                        context.read<LikesCubit>().myFrizeItems == null
                             ? const Center()
                             : SizedBox(
                                 height: context.screenHeight / 8,
@@ -204,7 +285,10 @@ class RecipeDetailView extends StatelessWidget {
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
-                                    itemCount: cubitRead.myFrizeItems.length,
+                                    itemCount: context
+                                        .read<LikesCubit>()
+                                        .myFrizeItems
+                                        .length,
                                     itemBuilder: (BuildContext context,
                                         int missingItemIndex) {
                                       return Padding(
@@ -214,10 +298,12 @@ class RecipeDetailView extends StatelessWidget {
                                           color: ColorConstants
                                               .instance.russianViolet
                                               .withOpacity(0.1),
-                                          model: cubitRead
+                                          model: context
+                                              .read<LikesCubit>()
                                               .myFrizeItems[missingItemIndex],
                                           iconBottomWidget: Text(
-                                            cubitRead
+                                            context
+                                                .read<LikesCubit>()
                                                 .myFrizeItems[missingItemIndex]
                                                 .quantity
                                                 .toString(),
@@ -231,7 +317,10 @@ class RecipeDetailView extends StatelessWidget {
                         const LocaleBoldText(text: LocaleKeys.description),
                         context.lowSizedBox,
                         Text(
-                          cubitRead.likeRecipeItems[cardIndex].recipeModel
+                          context
+                              .read<LikesCubit>()
+                              .likeRecipeItems[cardIndex]
+                              .recipeModel
                               .description,
                           style:
                               const TextStyle(overflow: TextOverflow.ellipsis),
@@ -241,7 +330,10 @@ class RecipeDetailView extends StatelessWidget {
                         const LocaleBoldText(text: LocaleKeys.directions),
                         context.lowSizedBox,
                         Text(
-                          cubitRead.likeRecipeItems[cardIndex].recipeModel
+                          context
+                              .read<LikesCubit>()
+                              .likeRecipeItems[cardIndex]
+                              .recipeModel
                               .directions,
                           style: const TextStyle(overflow: TextOverflow.clip),
                         ),
