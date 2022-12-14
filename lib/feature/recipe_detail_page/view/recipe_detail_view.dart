@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/view/landscape_player_view.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -172,7 +174,26 @@ class RecipeDetailView extends StatelessWidget {
                                           .videoPlayerController.value.isPlaying
                                       ? const SizedBox()
                                       : InkWell(
-                                          onTap: () {},
+                                          onTap: () {
+                                            String ingredientsText = '';
+                                            for (var ingredient in context
+                                                .read<LikesCubit>()
+                                                .likeRecipeItems[cardIndex]
+                                                .recipeModel
+                                                .ingredients) {
+                                              ingredientsText =
+                                                  '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+                                            }
+
+                                            String message =
+                                                '${LocaleKeys.ingredients.locale}\n'
+                                                '$ingredientsText\n\n'
+                                                '${LocaleKeys.description}\n\n'
+                                                '${context.read<LikesCubit>().likeRecipeItems[cardIndex].recipeModel.description}\n\n'
+                                                '${LocaleKeys.directions}\n\n'
+                                                '${context.read<LikesCubit>().likeRecipeItems[cardIndex].recipeModel.directions}\n\n';
+                                            Share.share(message);
+                                          },
                                           child:
                                               const TransparentCircularBackground(
                                             circleHeight: 35,
