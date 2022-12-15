@@ -41,8 +41,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
               ),
               // selectedFontSize: 10,
               onTap: (index) {
-                cubitRead.changePage(index);
-                  cubitRead.changeCurrentIndex(index);
+                cubitRead.changeCurrentIndex(index);
               },
 
               currentIndex: cubitRead.selectedPageIndex,
