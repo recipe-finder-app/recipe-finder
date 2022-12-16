@@ -17,6 +17,7 @@ class LocaleText extends StatelessWidget {
   final TextHeightBehavior? textHeightBehavior;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final Color? color;
   const LocaleText(
       {Key? key,
       required this.text,
@@ -32,6 +33,7 @@ class LocaleText extends StatelessWidget {
       this.semanticsLabel,
       this.textWidthBasis,
       this.textHeightBehavior,
+      this.color,
       this.fontSize,
       this.fontWeight})
       : super(key: key);
@@ -42,6 +44,7 @@ class LocaleText extends StatelessWidget {
       text.locale,
       style: style ??
           TextStyle(
+            color: color,
             fontFamily: 'Poppins',
             fontWeight: fontWeight ?? FontWeight.normal,
             fontSize: fontSize ?? 14,

@@ -92,7 +92,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
   Widget build(BuildContext context) {
     setLanguage();
     return Container(
-      width: widget.width,
+      width: context.veryValueWidth,
       decoration: BoxDecoration(
         color: ColorConstants.instance.white,
         border: Border.all(
