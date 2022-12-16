@@ -1,4 +1,4 @@
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 abstract class IHomeState {
   IHomeState();
@@ -19,21 +19,21 @@ class HomeError extends IHomeState {
 }
 
 class SearchByMealListLoaded extends IHomeState {
-  List<ProductModel>? searchByMealList;
+  List<IngredientModel>? searchByMealList;
   SearchByMealListLoaded(this.searchByMealList);
 }
 
 class CategoryListLoaded extends IHomeState {
-  List<ProductModel>? categoryList;
+  List<IngredientModel>? categoryList;
   CategoryListLoaded(this.categoryList);
 }
 
 class EssentialListLoaded extends IHomeState {
-  List<ProductModel>? essentialsList;
+  List<IngredientModel>? essentialsList;
   EssentialListLoaded(this.essentialsList);
 }
 
 class VegatableListLoaded extends IHomeState {
-  List<ProductModel>? vegatablesList;
+  List<IngredientModel>? vegatablesList;
   VegatableListLoaded(this.vegatablesList);
 }

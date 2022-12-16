@@ -10,6 +10,7 @@ import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
+import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
@@ -109,7 +110,7 @@ class HomeView extends StatelessWidget {
                     radius: 32,
                     backgroundColor: cubitRead.category[index].color,
                     child:
-                        ImageSvg(path: cubitRead.category[index].image ?? ''),
+                        ImageSvg(path: cubitRead.category[index].imagePath ?? ''),
                   ),
                   context.lowSizedBox,
                   LocaleText(
@@ -210,7 +211,7 @@ class HomeView extends StatelessWidget {
           ),
           SizedBox(
               child: ImagePng(
-            path: cubitRead.searchByMeal[index].image ?? '',
+            path: cubitRead.searchByMeal[index].imagePath ?? '',
           ))
         ],
       ),
@@ -256,7 +257,7 @@ class HomeView extends StatelessWidget {
                               backgroundColor:
                                   cubitRead.essentialsItem[index].color,
                               child: ImageSvg(
-                                  path: cubitRead.essentialsItem[index].image ??
+                                  path: cubitRead.essentialsItem[index].imagePath ??
                                       ''),
                             ),
                             context.lowSizedBox,
@@ -300,7 +301,7 @@ class HomeView extends StatelessWidget {
                               cubitRead.vegateblesItem[index].color,
                           child: ImageSvg(
                               path:
-                                  cubitRead.vegateblesItem[index].image ?? ''),
+                                  cubitRead.vegateblesItem[index].imagePath ?? ''),
                         ),
                         context.lowSizedBox,
                         Align(
@@ -321,20 +322,12 @@ class HomeView extends StatelessWidget {
         ),
         Positioned(
           bottom: 20,
-          child: RecipeFabButton(
-            width: context.screenWidth / 1.17,
-            text: LocaleKeys.addIngredients,
-          ),
+          child: RecipeCircularButton(
+              width: context.screenWidth / 1.15,
+              color: ColorConstants.instance.russianViolet,
+              text: LocaleKeys.addIngredients),
         ),
       ]),
     );
   }
 }
-
-
-
-// LoginButton(
-//             text: LocaleKeys.addIngredients,
-//             color: ColorConstants.instance.russianViolet,
-//             onPressed: () {},
-//           ),

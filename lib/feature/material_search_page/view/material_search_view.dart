@@ -7,12 +7,11 @@ import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/search/auto_complete_widget.dart';
-
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 
 class MaterialSearchView extends StatefulWidget {
-  MaterialSearchView({
+  const MaterialSearchView({
     Key? key,
   }) : super(key: key);
 
@@ -38,6 +37,10 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
               floatingActionButton: SizedBox(
                 width: context.floatinValueWidth,
                 child: FloatingActionButton.extended(
+                  heroTag: LocaleText(
+                    text: LocaleKeys.findMyRecipe,
+                    style: TextStyle(color: ColorConstants.instance.white),
+                  ),
                   onPressed: () {
                     NavigationService.instance
                         .navigateToPage(path: NavigationConstants.FINDER);
@@ -45,9 +48,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                     //   _click = !_click;
                     // });
                   },
-                  backgroundColor: _click
-                      ? ColorConstants.instance.roboticgods.withOpacity(1)
-                      : ColorConstants.instance.oriolesOrange,
+                  backgroundColor:
+                      ColorConstants.instance.roboticgods.withOpacity(1),
                   shape: RoundedRectangleBorder(
                       borderRadius: context.radiusAllCircularMin),
                   label: LocaleText(
@@ -101,14 +103,13 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               child: ImageSvg(
                                                   path: cubitRead
                                                           .essentials[index]
-                                                          .image ??
+                                                          .imagePath ??
                                                       ''),
                                             ),
                                             context.lowSizedBox,
                                             LocaleText(
-                                              text: cubitRead.essentials[index]
-                                                      .title ??
-                                                  '',
+                                              text: cubitRead
+                                                  .essentials[index].title,
                                               style: TextStyle(
                                                   fontStyle: FontStyle.normal,
                                                   fontWeight: FontWeight.w400,
@@ -154,7 +155,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               child: ImageSvg(
                                                 path: cubitRead
                                                         .vegatables[index]
-                                                        .image ??
+                                                        .imagePath ??
                                                     '',
                                               )),
                                           context.lowSizedBox,
@@ -164,9 +165,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               alignment: Alignment.center,
                                               child: LocaleText(
                                                 text: cubitRead
-                                                        .vegatables[index]
-                                                        .title ??
-                                                    '',
+                                                    .vegatables[index].title,
                                                 style: TextStyle(
                                                     fontStyle: FontStyle.normal,
                                                     fontWeight: FontWeight.w400,
@@ -213,7 +212,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               child: ImageSvg(
                                                 path: cubitRead
                                                         .vegatables[index]
-                                                        .image ??
+                                                        .imagePath ??
                                                     '',
                                               )),
                                           context.lowSizedBox,
@@ -223,9 +222,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               alignment: Alignment.center,
                                               child: LocaleText(
                                                 text: cubitRead
-                                                        .vegatables[index]
-                                                        .title ??
-                                                    '',
+                                                    .vegatables[index].title,
                                                 style: TextStyle(
                                                     fontStyle: FontStyle.normal,
                                                     fontWeight: FontWeight.w400,

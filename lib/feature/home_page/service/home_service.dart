@@ -2,38 +2,39 @@ import 'package:recipe_finder/feature/home_page/model/category_model.dart';
 import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
 import 'package:recipe_finder/feature/home_page/model/search_by_meal_model.dart';
 import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 abstract class IHomeService {
-  List<ProductModel> fetchSearchByMealList();
-  List<ProductModel> fetchCategoryList();
-  List<ProductModel> fetchVegatablesList();
-  List<ProductModel> fetchEssetialsList();
+  List<IngredientModel> fetchSearchByMealList();
+  List<IngredientModel> fetchCategoryList();
+  List<IngredientModel> fetchVegatablesList();
+  List<IngredientModel> fetchEssetialsList();
 }
 
 class HomeService implements IHomeService {
-  late final List<ProductModel> searchByMeallist =
+  late final List<IngredientModel> searchByMeallist =
       SearchByMealItems().searchByMeals;
 
-  late final List<ProductModel> categorylist = CategoryItems().categorys;
-  late final List<ProductModel> essentiallist = EssentialItems().essentialItems;
+  late final List<IngredientModel> categorylist = CategoryItems().categorys;
+  late final List<IngredientModel> essentiallist =
+      EssentialItems().essentialItems;
 
-  late final List<ProductModel> vegatablelist =
+  late final List<IngredientModel> vegatablelist =
       VegatablesItems().vegatableItems;
 
-  List<ProductModel> fetchSearchByMealList() {
+  List<IngredientModel> fetchSearchByMealList() {
     return searchByMeallist;
   }
 
-  List<ProductModel> fetchCategoryList() {
+  List<IngredientModel> fetchCategoryList() {
     return categorylist;
   }
 
-  List<ProductModel> fetchEssetialsList() {
+  List<IngredientModel> fetchEssetialsList() {
     return essentiallist;
   }
 
-  List<ProductModel> fetchVegatablesList() {
+  List<IngredientModel> fetchVegatablesList() {
     return vegatablelist;
   }
 }

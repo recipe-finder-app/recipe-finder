@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/product/component/image_format/image_png.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 
 // class SearchByMealModel {
@@ -15,44 +15,44 @@ import '../../../core/constant/enum/image_path_enum.dart';
 // }
 
 class SearchByMealItems {
-  late final List<ProductModel> searchByMeals;
+  late final List<IngredientModel> searchByMeals;
 
   SearchByMealItems() {
     searchByMeals = [
-      ProductModel(
-          image: ImagePath.breakfast.path,
+      IngredientModel(
+          imagePath: ImagePath.breakfast.path,
           title: LocaleKeys.breakfast,
           color: const Color(0xffFBFFDF)),
-      ProductModel(
-          image: ImagePath.lunch.path,
+      IngredientModel(
+          imagePath: ImagePath.lunch.path,
           title: LocaleKeys.lunch,
           color: const Color(0xffFAEAEA)),
-      ProductModel(
-          image: ImagePath.dinner.path,
+      IngredientModel(
+          imagePath: ImagePath.dinner.path,
           title: LocaleKeys.dinner,
           color: const Color(0xffF2EBDF)),
-      ProductModel(
-          image: ImagePath.desserts.path,
+      IngredientModel(
+          imagePath: ImagePath.desserts.path,
           title: LocaleKeys.desserts,
           color: const Color(0xffF5E4EC)),
-      ProductModel(
-          image: ImagePath.drinks.path,
+      IngredientModel(
+          imagePath: ImagePath.drinks.path,
           title: LocaleKeys.drinks,
           color: const Color(0xffEAFAF7)),
-      ProductModel(
-          image: ImagePath.appetizers.path,
+      IngredientModel(
+          imagePath: ImagePath.appetizers.path,
           title: LocaleKeys.appetizers,
           color: const Color(0xffEAECFA)),
-      ProductModel(
-          image: ImagePath.desserts.path,
+      IngredientModel(
+          imagePath: ImagePath.desserts.path,
           title: LocaleKeys.desserts,
           color: const Color(0xffF5E4EC)),
-      ProductModel(
-          image: ImagePath.drinks.path,
+      IngredientModel(
+          imagePath: ImagePath.drinks.path,
           title: LocaleKeys.drinks,
           color: const Color(0xffEAFAF7)),
-      ProductModel(
-          image: ImagePath.appetizers.path,
+      IngredientModel(
+          imagePath: ImagePath.appetizers.path,
           title: LocaleKeys.appetizers,
           color: const Color(0xffEAECFA)),
     ];

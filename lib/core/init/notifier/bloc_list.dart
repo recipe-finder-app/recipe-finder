@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
+import 'package:recipe_finder/feature/material_search_page/cubit/material2_cubit.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
 import 'package:recipe_finder/feature/onboard_page/cubit/onboard_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
@@ -42,6 +43,9 @@ class ApplicationBloc {
     ),
     BlocProvider(
       create: (context) => FinderCubit(),
+    ),
+     BlocProvider(
+      create: (context) => MaterialSearch2Cubit(),
     ),
   ];
 }

@@ -111,7 +111,7 @@ class OnboardView extends StatelessWidget {
                                                       width: 1.5),
                                                 ),
                                               )
-                                            : Center(),
+                                            : const Center(),
                                         CircleAvatar(
                                           backgroundColor:
                                               index == cubitRead.currentIndex

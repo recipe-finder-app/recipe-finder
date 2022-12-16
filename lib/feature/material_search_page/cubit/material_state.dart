@@ -1,4 +1,4 @@
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 abstract class IMaterialSearchState {
   IMaterialSearchState();
@@ -19,11 +19,11 @@ class MaterialSearchError extends IMaterialSearchState {
 }
 
 class EssentialListLoaded extends IMaterialSearchState {
-  List<ProductModel>? essentialList;
+  List<IngredientModel>? essentialList;
   EssentialListLoaded(this.essentialList);
 }
 
 class VegatableListLoaded extends IMaterialSearchState {
-  List<ProductModel>? vegatablealList;
+  List<IngredientModel>? vegatablealList;
   VegatableListLoaded(this.vegatablealList);
 }

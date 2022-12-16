@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
+
 import 'package:recipe_finder/feature/material_search_page/service/material_service.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 
@@ -12,8 +13,8 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   MaterialSearchCubit() : super(MaterialSearchInit());
 
-  List<ProductModel> essentials = [];
-  List<ProductModel> vegatables = [];
+  List<IngredientModel> essentials = [];
+  List<IngredientModel> vegatables = [];
 
   @override
   void init() {

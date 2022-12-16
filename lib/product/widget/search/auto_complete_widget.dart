@@ -3,9 +3,9 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 class AutoCompleteWidget extends StatelessWidget {
   AutoCompleteWidget({Key? key}) : super(key: key);
@@ -22,20 +22,20 @@ class AutoCompleteWidget extends StatelessWidget {
             style: BorderStyle.solid),
         borderRadius: context.radiusAllCircularMin,
       ),
-      child: Autocomplete<ProductModel>(
+      child: Autocomplete<IngredientModel>(
         optionsBuilder: (textEditingValue) {
           if (textEditingValue.text == '') {
-            return const Iterable<ProductModel>.empty();
+            return const Iterable<IngredientModel>.empty();
           }
-          Iterable<ProductModel> iterable = searchList.where(
-            (element) => element.title!.contains(textEditingValue.text),
+          Iterable<IngredientModel> iterable = searchList.where(
+            (element) => element.title.contains(textEditingValue.text),
           );
-          return iterable.isNotEmpty ? iterable : [ProductModel()];
+          return iterable.isNotEmpty ? iterable : [IngredientModel(title: '')];
         },
         onSelected: (value) {},
         optionsViewBuilder: (BuildContext context,
-            AutocompleteOnSelected<ProductModel> onSelected,
-            Iterable<ProductModel> options) {
+            AutocompleteOnSelected<IngredientModel> onSelected,
+            Iterable<IngredientModel> options) {
           final list = options.toList();
           String firsType = list.first.type ?? '';
 
@@ -89,7 +89,7 @@ class AutoCompleteWidget extends StatelessWidget {
                                           radius: 32,
                                           backgroundColor: list[index].color,
                                           child: ImageSvg(
-                                            path: list[index].image ?? '',
+                                            path: list[index].imagePath ?? '',
                                           )),
                                       context.lowSizedBox,
                                       SizedBox(
@@ -97,7 +97,7 @@ class AutoCompleteWidget extends StatelessWidget {
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: LocaleText(
-                                            text: list[index].title ?? '',
+                                            text: list[index].title,
                                             style: TextStyle(
                                                 fontStyle: FontStyle.normal,
                                                 fontWeight: FontWeight.w400,
@@ -148,64 +148,64 @@ class AutoCompleteWidget extends StatelessWidget {
     );
   }
 
-  final List<ProductModel> searchList = [
-    ProductModel(
-        image: ImagePath.egg.path,
+  final List<IngredientModel> searchList = [
+    IngredientModel(
+        imagePath: ImagePath.egg.path,
         title: LocaleKeys.egg,
         type: 'Essentials',
         color: const Color(0xff968960).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.milk.path,
+    IngredientModel(
+        imagePath: ImagePath.milk.path,
         title: LocaleKeys.milk,
         type: 'Essentials',
         color: const Color(0xff127aa7).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.bread.path,
+    IngredientModel(
+        imagePath: ImagePath.bread.path,
         title: LocaleKeys.bread,
         type: 'Essentials',
         color: const Color(0xffb7690d).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.tomato.path,
+    IngredientModel(
+        imagePath: ImagePath.tomato.path,
         title: LocaleKeys.tomato,
         type: 'Vegatables',
         color: const Color(0xffa30909).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.salad.path,
+    IngredientModel(
+        imagePath: ImagePath.salad.path,
         title: LocaleKeys.salad,
         type: 'Vegatables',
         color: const Color(0xff519e1b).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.potato.path,
+    IngredientModel(
+        imagePath: ImagePath.potato.path,
         title: LocaleKeys.potato,
         type: 'Vegatables',
         color: const Color(0xffb7690d).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.onion.path,
+    IngredientModel(
+        imagePath: ImagePath.onion.path,
         title: LocaleKeys.onion,
         type: 'Vegatables',
         color: const Color(0xff9d5622).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.broccoli.path,
+    IngredientModel(
+        imagePath: ImagePath.broccoli.path,
         title: LocaleKeys.broccoli,
         type: 'Vegatables',
         color: const Color(0xff1a5b22).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.carrot.path,
+    IngredientModel(
+        imagePath: ImagePath.carrot.path,
         title: LocaleKeys.carrot,
         type: 'Vegatables',
         color: const Color(0xffa44703).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.eggplant.path,
+    IngredientModel(
+        imagePath: ImagePath.eggplant.path,
         title: LocaleKeys.eggplant,
         type: 'Vegatables',
         color: const Color(0xff800771).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.peas.path,
+    IngredientModel(
+        imagePath: ImagePath.peas.path,
         title: LocaleKeys.peas,
         type: 'Vegatables',
         color: const Color(0xff61980a).withOpacity(0.1)),
-    ProductModel(
-        image: ImagePath.peas.path,
+    IngredientModel(
+        imagePath: ImagePath.peas.path,
         title: LocaleKeys.peas,
         type: 'Vegatables',
         color: const Color(0xff61980a).withOpacity(0.1)),

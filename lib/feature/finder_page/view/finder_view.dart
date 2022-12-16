@@ -30,7 +30,7 @@ class FinderView extends StatefulWidget {
 
 class _FinderViewState extends State<FinderView> {
   late final SwipableStackController _controller;
-
+// final ValueChanged<SwipeDirection> onSwipe;
   void _listenController() {
     setState(() {});
   }
@@ -71,14 +71,20 @@ class _FinderViewState extends State<FinderView> {
                           topRight: Radius.circular(35))),
                   child: Padding(
                     padding: context.paddingNormalTopLeftRight,
-                    child: Column(
-                      children: [
-                        _textRow(context),
-                        context.highSizedBox,
-                        buildTinderCard(context, cubitRead),
-                        context.mediumSizedBox,
-                        buildRowButon(context),
-                      ],
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: SizedBox(
+                        height: context.screenHeight,
+                        child: Column(
+                          children: [
+                            _textRow(context),
+                            context.highSizedBox,
+                            buildTinderCard(context, cubitRead),
+                            context.mediumSizedBox,
+                            buildRowButon(context),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -94,7 +100,9 @@ class _FinderViewState extends State<FinderView> {
         children: [
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.russianViolet,
-            onPressed: () {},
+            onPressed: () {
+              _controller.next(swipeDirection: SwipeDirection.left);
+            },
             child: Icon(
               Icons.clear,
               color: ColorConstants.instance.white,
@@ -104,13 +112,15 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: const Color(0xffE6EBF2),
             onPressed: () {
-              // addToBasketBottomSheet(context,cubitRead,cardIndex);
+          //  addToBasketBottomSheet(context,cubitRead,cardIndex);
             },
             child: Image.asset('asset/png/icon_shop.png'),
           ),
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
-            onPressed: () {},
+            onPressed: () {
+              _controller.next(swipeDirection: SwipeDirection.right);
+            },
             child: Icon(
               Icons.favorite,
               color: ColorConstants.instance.white,
@@ -161,6 +171,9 @@ class _FinderViewState extends State<FinderView> {
               NavigationService.instance.navigateToPage(
                 path: NavigationConstants.RECIPE_DETAIL,
               );
+              // NavigationService.instance.navigateToPage(
+              //   path: NavigationConstants.HOME,
+              // );
             },
             child: TinderCard(
               name: cubitRead.draggableItems[itemIndex].distance,
@@ -196,7 +209,7 @@ class _FinderViewState extends State<FinderView> {
           child: TextButton(
             onPressed: () {
               NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.HOME);
+                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
             },
             child: LocaleText(
                 style: TextStyle(
@@ -212,6 +225,118 @@ class _FinderViewState extends State<FinderView> {
           ),
         ),
       ],
+    );
+  }
+   Future<void> addToBasketBottomSheet(
+      BuildContext context, LikesCubit cubitRead, int cardIndex) {
+    return CircularBottomSheet.instance.show(
+      context,
+      bottomSheetHeight: CircularBottomSheetHeight.short,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Flexible(
+              flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
+          if (cubitRead.likeRecipeItems[cardIndex].missingItems == null)
+            const Center()
+          else
+            BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
+              selector: (state) {
+                if (state is MissingItemListLoad) {
+                  return state.missingItemList;
+                } else {
+                  return cubitRead.likeRecipeItems[cardIndex].missingItems ??
+                      [];
+                }
+              },
+              builder: (BuildContext context, state) {
+                return Flexible(
+                  flex: 4,
+                  child: DragTarget<IngredientModel>(onAccept: (data) {
+                    cubitRead.addItemToMissingList(cardIndex, data);
+                    cubitRead.removeMyFrizeItem(data);
+                  }, builder: (BuildContext context,
+                      List<Object?> candidateData, List<dynamic> rejectedData) {
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: state.length,
+                        itemBuilder:
+                            (BuildContext context, int missingItemIndex) {
+                          return Padding(
+                            padding: EdgeInsets.only(right: context.lowValue),
+                            child: DraggableIngredientCircleAvatar<
+                                IngredientModel>(
+                              data: state[missingItemIndex],
+                              iconBottomWidget: BoldText(
+                                text:
+                                    state[missingItemIndex].quantity.toString(),
+                                textColor: Colors.white,
+                              ),
+                              color: ColorConstants.instance.oriolesOrange
+                                  .withOpacity(0.4),
+                              model: state[missingItemIndex],
+                            ),
+                          );
+                        });
+                  }),
+                );
+              },
+            ),
+          const Flexible(
+              flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
+          BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
+              selector: (state) {
+            if (state is MyFrizeListLoad) {
+              return state.myFrizeList;
+            } else {
+              return cubitRead.myFrizeItems ?? [];
+            }
+          }, builder: (BuildContext context, state) {
+            return Flexible(
+              flex: 4,
+              child: cubitRead.myFrizeItems == null
+                  ? const Center()
+                  : DragTarget<IngredientModel>(
+                      onAccept: (data) {
+                        cubitRead.addItemToMyFrizeList(data);
+                        cubitRead.removeMissingItem(cardIndex, data);
+                      },
+                      builder: (BuildContext context,
+                          List<Object?> candidateData,
+                          List<dynamic> rejectedData) {
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.length,
+                            itemBuilder:
+                                (BuildContext context, int myFrizeItemIndex) {
+                              return Padding(
+                                padding:
+                                    EdgeInsets.only(right: context.lowValue),
+                                child: DraggableIngredientCircleAvatar<
+                                    IngredientModel>(
+                                  data: state[myFrizeItemIndex],
+                                  iconBottomWidget: BoldText(
+                                    text: state[myFrizeItemIndex]
+                                        .quantity
+                                        .toString(),
+                                    textColor: Colors.white,
+                                  ),
+                                  color:
+                                      ColorConstants.instance.brightGraySolid2,
+                                  model: state[myFrizeItemIndex],
+                                ),
+                              );
+                            });
+                      },
+                    ),
+            );
+          }),
+          RecipeCircularButton(
+              color: ColorConstants.instance.oriolesOrange,
+              text: LocaleKeys.confirm),
+        ],
+      ),
     );
   }
 }
