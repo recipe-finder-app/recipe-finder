@@ -18,17 +18,12 @@ class RecipeNavigationBarCubit extends Cubit<int> {
     const BasketView(),
   ];
   int selectedPageIndex = 0;
-PageController pageController = PageController(initialPage: 0);
+  PageController pageController = PageController(initialPage: 0);
   RecipeNavigationBarCubit() : super(0);
-
-  void changePage(int index) {
-    selectedPageIndex = index;
-    emit(selectedPageIndex);
-  }
 
   void clickSearchButton() {
     selectedPageIndex = 2;
- 
+
     emit(selectedPageIndex);
   }
 
@@ -39,16 +34,18 @@ PageController pageController = PageController(initialPage: 0);
       return Colors.grey;
     }
   }
-   late int index;
-void changeCurrentIndex(int value) {
-    if (value >= 0 && value < pageList.length) {
-      selectedPageIndex = value;
-      pageController.animateToPage(
-        value,
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.linear,
-      );
-      emit(index);
+
+  void changeCurrentIndex(int index) {
+    if (index >= 0 && index < pageList.length) {
+      selectedPageIndex = index;
+      emit(selectedPageIndex);
+      if (pageController.hasClients) {
+        pageController.animateToPage(
+          selectedPageIndex,
+          duration: const Duration(milliseconds: 1000),
+          curve: Curves.linear,
+        );
+      }
     }
   }
 

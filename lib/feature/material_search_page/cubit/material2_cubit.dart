@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material2_model.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
 
@@ -19,14 +20,17 @@ class MaterialSearch2Cubit extends Cubit<IMaterialSearch2State>
   List<IngredientModel> vegetables = [];
   List<IngredientModel> fruits = [];
   late MaterialSearchModel materialSearchModel;
+  late Map<MaterialSearchCategory, List<IngredientModel>>? searchedMap;
+  late TextEditingController searchTextController;
 
   @override
   void init() {
     service = MaterialSearch2Service();
+    searchTextController = TextEditingController();
     essentials = [
       IngredientModel(
         imagePath: ImagePath.egg.path,
-        title: LocaleKeys.egg,
+        title: LocaleKeys.egg.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.milk.path,
@@ -34,35 +38,35 @@ class MaterialSearch2Cubit extends Cubit<IMaterialSearch2State>
       ),
       IngredientModel(
         imagePath: ImagePath.bread.path,
-        title: LocaleKeys.bread,
-      )
+        title: LocaleKeys.bread.locale,
+      ),
     ];
     vegetables = [
       IngredientModel(
         imagePath: ImagePath.tomato.path,
-        title: LocaleKeys.tomato,
+        title: LocaleKeys.tomato.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.salad.path,
-        title: LocaleKeys.salad,
+        title: LocaleKeys.salad.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.potato.path,
-        title: LocaleKeys.potato,
+        title: LocaleKeys.potato.locale,
       ),
     ];
     fruits = [
       IngredientModel(
         imagePath: ImagePath.tomato.path,
-        title: LocaleKeys.tomato,
+        title: LocaleKeys.broccoli.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.milk.path,
-        title: LocaleKeys.salad,
+        title: LocaleKeys.carrot.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.potato.path,
-        title: LocaleKeys.potato,
+        title: LocaleKeys.pizza.locale,
       ),
     ];
     materialSearchModel = MaterialSearchModel(materialSearchMap: {
@@ -70,16 +74,28 @@ class MaterialSearch2Cubit extends Cubit<IMaterialSearch2State>
       MaterialSearchCategory.vegatables: vegetables,
       MaterialSearchCategory.fruits: fruits
     });
+    searchedMap = {};
   }
 
   void searchData(String data) {
-    var value = materialSearchModel.materialSearchMap.values.where(
-        (ingredientList) => ingredientList
-            .where((ingredient) => ingredient.title.contains(data))
-            .toList()
-            .isNotEmpty);
+    searchedMap?.clear();
+    for (var entry in materialSearchModel.materialSearchMap.entries) {
+      for (var element in entry.value) {
+        if (element.title.toLowerCase().contains(data.toLowerCase())) {
+          searchedMap?[entry.key] = entry.value
+              .where((element) => element.title.contains(data))
+              .toList();
+          for (var i in entry.value) {
+            print(i.title);
+          }
+        }
+      }
+    }
+    emit(SearchedIngredientListLoad(searchedMap));
+  }
 
-    // emit(IngredientListLoad(value));
+  void ingredientListLoad() {
+    emit(IngredientListLoad(materialSearchModel.materialSearchMap));
   }
 
   @override

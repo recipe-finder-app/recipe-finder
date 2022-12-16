@@ -18,6 +18,11 @@ class MyFrizeListLoad extends IRecipeDetailState {
   MyFrizeListLoad(this.myFrizeList);
 }
 
+class VideoPlaybackState extends IRecipeDetailState {
+  late Future<void> controller;
+  VideoPlaybackState(this.controller);
+}
+
 class RecipeDetailError extends IRecipeDetailState {
   String errorMessage;
   RecipeDetailError(this.errorMessage);

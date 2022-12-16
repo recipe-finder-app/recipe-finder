@@ -5,6 +5,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/component/card/saved_recipe_card.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -84,8 +85,20 @@ class LikesView extends StatelessWidget {
                                     context, cubitRead, cardIndex);*/
                               },
                               likeIconOnPressed: () {
-                                cubitRead.deleteItemFromLikedRecipeList(
-                                    cubitRead.likeRecipeItems[cardIndex]);
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return QuestionAlertDialog(
+                                        explanation: LocaleKeys
+                                            .deleteSavedRecipeQuestion,
+                                        onPressedYes: () {
+                                          cubitRead
+                                              .deleteItemFromLikedRecipeList(
+                                                  cubitRead.likeRecipeItems[
+                                                      cardIndex]);
+                                        },
+                                      );
+                                    });
                               },
                             )),
                       );

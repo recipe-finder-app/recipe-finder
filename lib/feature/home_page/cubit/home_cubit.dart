@@ -18,6 +18,10 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   @override
   void init() {
     service = HomeService();
+    searchByMeal = service!.fetchSearchByMealList();
+    category = service!.fetchCategoryList();
+    essentialsItem = service!.fetchEssetialsList();
+    vegateblesItem = service!.fetchVegatablesList();
   }
 
   @override

@@ -67,5 +67,6 @@
     "fruits":"Fruits",
     "selectIngredients":"Select your have ingredients",
     "finderText":"We  matched you with recipes.",
-    "close":"Close"
+    "close":"Close",
+    "deleteSavedRecipeQuestion": "Are you sure you want to remove this recipe from saved recipes?"
 }

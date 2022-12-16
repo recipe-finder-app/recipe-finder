@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
@@ -49,6 +50,7 @@ class IngredientCircleAvatar extends StatelessWidget {
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
+              locale: context.locale,
               fontSize: 12,
               text: model.title,
             ),

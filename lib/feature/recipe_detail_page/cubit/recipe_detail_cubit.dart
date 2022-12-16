@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/constant/enum/image_path_enum.dart';
-import '../../../product/model/ingradient_model.dart';
 import '../service/recipe_detail_service.dart';
 import 'recipe_detail_state.dart';
 
 class RecipeDetailCubit extends Cubit<IRecipeDetailState>
     implements IBaseViewModel {
   IRecipeDetailService? service;
-  late List<IngredientModel> myFrizeItems;
+  late VideoPlayerController videoPlayerController;
 
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
   void init() {
     service = RecipeDetailService();
-    myFrizeItems = [
-      IngredientModel(
-          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-      IngredientModel(
-          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-      IngredientModel(
-          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-      IngredientModel(
-          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-      IngredientModel(
-          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
-    ];
+    videoPlayerController = VideoPlayerController.network(
+        'https://file-examples.com/storage/fe88dacf086398d1c98749c/2017/04/file_example_MP4_640_3MG.mp4')
+      ..initialize().then((value) {});
+  }
+
+  void clickRunVideoButton() {
+    print('calisti');
+    if (videoPlayerController.value.isPlaying) {
+      emit(VideoPlaybackState(videoPlayerController.pause()));
+    } else {
+      emit(VideoPlaybackState(videoPlayerController.play()));
+    }
   }
 
   @override
@@ -40,6 +38,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    videoPlayerController.dispose();
   }
 }

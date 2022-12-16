@@ -10,9 +10,9 @@ import 'package:recipe_finder/feature/material_search_page/cubit/material2_state
 import 'package:recipe_finder/feature/material_search_page/model/material2_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
-import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
 
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
+import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 import '../cubit/material2_cubit.dart';
 
 class MaterialSearch2View extends StatefulWidget {
@@ -39,11 +39,7 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
               floatingActionButton: SizedBox(
                 width: context.floatinValueWidth,
                 child: FloatingActionButton.extended(
-                  onPressed: () {
-                    setState(() {
-                      _click = !_click;
-                    });
-                  },
+                  onPressed: () {},
                   backgroundColor: _click
                       ? ColorConstants.instance.roboticgods.withOpacity(1)
                       : ColorConstants.instance.oriolesOrange,
@@ -63,268 +59,281 @@ class _MaterialSearch2ViewState extends State<MaterialSearch2View> {
                       child: Column(children: [
                         _textRow(context),
                         context.mediumSizedBox,
-                        Column(children: [
-                          SearchVoiceTextFormField(
-                            controller: TextEditingController(),
-                            width: context.screenHeight / 1.2,
-                            onChanged: () {},
-                          ),
-                          context.normalSizedBox,
-                          Column(
+                        Wrap(
+                            direction: Axis.vertical,
+                            runSpacing: context.normalValue,
+                            spacing: context.normalValue,
                             children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.essentials,
-                                ),
+                              SearchVoiceTextFormField(
+                                controller: cubitRead.searchTextController,
+                                width: context.screenWidth / 1.2,
+                                onChanged: (String data) {
+                                  if (data.isEmpty) {
+                                    cubitRead.ingredientListLoad();
+                                  } else {
+                                    cubitRead.searchData(data);
+                                  }
+                                },
                               ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.normalhighValue,
-                                width: context.veryValueWidth,
-                                child: BlocSelector<
-                                    MaterialSearch2Cubit,
-                                    IMaterialSearch2State,
-                                    List<IngredientModel>>(
-                                  selector: (state) {
-                                    if (state is IngredientListLoad) {
-                                      return state.materialSearchMap[
-                                          MaterialSearchCategory.essentials]!;
-                                    } else {
-                                      return cubitRead.materialSearchModel
-                                              .materialSearchMap[
-                                          MaterialSearchCategory.essentials]!;
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return ListView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: state.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: context.paddingRight,
-                                            child: Column(
-                                              children: [
-                                                IngredientCircleAvatar(
-                                                  color: Colors.blue,
-                                                  model: state[index],
-                                                ),
-                                                context.lowSizedBox,
-                                                LocaleText(
-                                                  text: cubitRead
-                                                      .essentials[index].title,
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: ColorConstants
-                                                          .instance
-                                                          .roboticgods),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        });
-                                  },
-                                ),
-                              ),
-                              context.normalSizedBox,
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.vegatables,
-                                ),
-                              ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.screenHeight / 3.5,
-                                child: BlocSelector<
-                                    MaterialSearch2Cubit,
-                                    IMaterialSearch2State,
-                                    List<IngredientModel>>(selector: (state) {
+                              BlocSelector<
+                                  MaterialSearch2Cubit,
+                                  IMaterialSearch2State,
+                                  List<IngredientModel>?>(
+                                selector: (state) {
                                   if (state is IngredientListLoad) {
-                                    return state.materialSearchMap[
-                                        MaterialSearchCategory.vegatables]!;
+                                    return state.materialSearchMap![
+                                        MaterialSearchCategory.essentials];
+                                  } else if (state
+                                      is SearchedIngredientListLoad) {
+                                    return state.searchedMap![
+                                        MaterialSearchCategory.essentials];
                                   } else {
                                     return cubitRead.materialSearchModel
                                             .materialSearchMap[
-                                        MaterialSearchCategory.vegatables]!;
+                                        MaterialSearchCategory.essentials];
                                   }
-                                }, builder: (context, state) {
-                                  return GridView.builder(
-                                      physics: const BouncingScrollPhysics(),
-                                      itemCount: state.length,
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 4,
-                                              childAspectRatio: 0.70,
-                                              crossAxisSpacing: 25,
-                                              mainAxisSpacing: 15),
-                                      itemBuilder:
-                                          (BuildContext context, index) {
-                                        return Column(
-                                          children: [
-                                            IngredientCircleAvatar(
-                                              color: Colors.blue,
-                                              model: state[index],
+                                },
+                                builder: (context, state) {
+                                  if (state == null) {
+                                    return const SizedBox();
+                                  } else {
+                                    return SizedBox(
+                                      height: context.screenHeight / 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Flexible(
+                                            flex: 1,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.essentials,
                                             ),
-                                            context.lowSizedBox,
-                                            SizedBox(
-                                              width: context.veryHighValue,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: LocaleText(
-                                                  text: cubitRead
-                                                      .vegetables[index].title,
-                                                  style: TextStyle(
-                                                      fontStyle:
-                                                          FontStyle.normal,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      color: ColorConstants
-                                                          .instance
-                                                          .roboticgods),
-                                                ),
-                                              ),
+                                          ),
+                                          Flexible(
+                                            flex: 3,
+                                            child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child: Column(
+                                                      children: [
+                                                        IngredientCircleAvatar(
+                                                          color: Colors.blue,
+                                                          model: state![index],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                              BlocSelector<
+                                  MaterialSearch2Cubit,
+                                  IMaterialSearch2State,
+                                  List<IngredientModel>?>(
+                                selector: (state) {
+                                  if (state is IngredientListLoad) {
+                                    return state.materialSearchMap![
+                                        MaterialSearchCategory.vegatables];
+                                  } else if (state
+                                      is SearchedIngredientListLoad) {
+                                    return state.searchedMap![
+                                        MaterialSearchCategory.vegatables];
+                                  } else {
+                                    return cubitRead.materialSearchModel
+                                            .materialSearchMap[
+                                        MaterialSearchCategory.vegatables];
+                                  }
+                                },
+                                builder: (context, state) {
+                                  if (state == null) {
+                                    return const SizedBox();
+                                  } else {
+                                    return SizedBox(
+                                      height: context.screenHeight / 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Flexible(
+                                            flex: 1,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.vegatables,
                                             ),
-                                          ],
-                                        );
-                                      });
-                                }),
+                                          ),
+                                          Flexible(
+                                            flex: 3,
+                                            child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child: Column(
+                                                      children: [
+                                                        IngredientCircleAvatar(
+                                                          color: Colors.blue,
+                                                          model: state![index],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
-                              context.normalSizedBox,
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.fruits,
-                                ),
+                              BlocSelector<
+                                  MaterialSearch2Cubit,
+                                  IMaterialSearch2State,
+                                  List<IngredientModel>?>(
+                                selector: (state) {
+                                  if (state is IngredientListLoad) {
+                                    return state.materialSearchMap![
+                                        MaterialSearchCategory.fruits];
+                                  } else if (state
+                                      is SearchedIngredientListLoad) {
+                                    return state.searchedMap![
+                                        MaterialSearchCategory.fruits];
+                                  } else {
+                                    return cubitRead.materialSearchModel
+                                            .materialSearchMap[
+                                        MaterialSearchCategory.fruits];
+                                  }
+                                },
+                                builder: (context, state) {
+                                  if (state == null) {
+                                    return const SizedBox();
+                                  } else {
+                                    return SizedBox(
+                                      height: state == null
+                                          ? 0
+                                          : context.screenHeight / 6,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Flexible(
+                                            flex: 1,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.fruits,
+                                            ),
+                                          ),
+                                          Flexible(
+                                            flex: 3,
+                                            child: ListView.builder(
+                                                padding: EdgeInsets.zero,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child: Column(
+                                                      children: [
+                                                        IngredientCircleAvatar(
+                                                          color: Colors.blue,
+                                                          model: state![index],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.screenHeight / 3,
-                                child: BlocSelector<
-                                    MaterialSearch2Cubit,
-                                    IMaterialSearch2State,
-                                    List<IngredientModel>>(
-                                  selector: (state) {
-                                    if (state is IngredientListLoad) {
-                                      return state.materialSearchMap[
-                                          MaterialSearchCategory.fruits]!;
-                                    } else {
-                                      return cubitRead.materialSearchModel
-                                              .materialSearchMap[
-                                          MaterialSearchCategory.fruits]!;
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return GridView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: state.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4,
-                                                childAspectRatio: 0.70,
-                                                crossAxisSpacing: 25,
-                                                mainAxisSpacing: 15),
-                                        itemBuilder:
-                                            (BuildContext context, index) {
-                                          return Column(
-                                            children: [
-                                              IngredientCircleAvatar(
-                                                color: Colors.blue,
-                                                model: state[index],
-                                              ),
-                                              context.lowSizedBox,
-                                              SizedBox(
-                                                width: context.veryHighValue,
-                                                child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: LocaleText(
-                                                    text: cubitRead
-                                                        .vegetables[index]
-                                                        .title,
-                                                    style: TextStyle(
-                                                        fontStyle:
-                                                            FontStyle.normal,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: ColorConstants
-                                                            .instance
-                                                            .roboticgods),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          //
-                        ]),
+                              //
+                            ]),
                       ]),
                     )),
               ),
             ));
   }
 
-  Row _textRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(
-          width: context.textHighValue,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
+  FittedBox _textRow(BuildContext context) {
+    return FittedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+            width: context.textHighValue,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: LocaleText(
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: ColorConstants.instance.blackbox,
+                ),
+                text: LocaleKeys.selectIngredients,
               ),
-              text: LocaleKeys.selectIngredients,
             ),
           ),
-        ),
-        Padding(
-          padding: context.paddingLeftEdges,
-          child: TextButton(
-            onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-            },
-            child: LocaleText(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstants.instance.russianViolet,
-                  decoration: TextDecoration.underline,
-                  decorationColor: ColorConstants.instance.russianViolet,
-                  decorationThickness: 2,
-                ),
-                text: LocaleKeys.later),
+          Padding(
+            padding: context.paddingLeftEdges,
+            child: TextButton(
+              onPressed: () {
+                NavigationService.instance
+                    .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+              },
+              child: LocaleText(
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.w600,
+                    color: ColorConstants.instance.russianViolet,
+                    decoration: TextDecoration.underline,
+                    decorationColor: ColorConstants.instance.russianViolet,
+                    decorationThickness: 2,
+                  ),
+                  text: LocaleKeys.later),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

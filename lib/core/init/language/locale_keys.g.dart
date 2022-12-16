@@ -70,5 +70,8 @@ abstract class  LocaleKeys {
   static const selectIngredients = 'selectIngredients';
   static const finderText = 'finderText';
   static const close = 'close';
+  static const deleteSavedRecipeQuestion = 'deleteSavedRecipeQuestion';
+  static const yes = 'yes';
+  static const no = 'no';
 
 }
