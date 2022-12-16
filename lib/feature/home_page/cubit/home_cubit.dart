@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
-
 import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-
 import '../service/home_service.dart';
 
 class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
@@ -21,6 +19,10 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   @override
   void init() {
     service = HomeService();
+    searchByMeal = service!.fetchSearchByMealList();
+    category = service!.fetchCategoryList();
+    essentialsItem = service!.fetchEssetialsList();
+    vegateblesItem = service!.fetchVegatablesList();
   }
 
   @override

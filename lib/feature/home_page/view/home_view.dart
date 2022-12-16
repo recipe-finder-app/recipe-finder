@@ -9,7 +9,6 @@ import 'package:recipe_finder/product/component/image_format/image_png.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
-import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
@@ -22,10 +21,6 @@ class HomeView extends StatelessWidget {
     return BaseView<HomeCubit>(
       init: (cubitRead) {
         cubitRead.init();
-        cubitRead.searchByMealList();
-        cubitRead.categoryList();
-        cubitRead.essentialHomeList();
-        cubitRead.vegatableHomeList();
       },
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(
@@ -41,7 +36,7 @@ class HomeView extends StatelessWidget {
                     child: SearchVoiceTextFormField(
                   controller: TextEditingController(),
                   width: context.veryValueWidth,
-                  onChanged: () {},
+                  onChanged: (String data) {},
                 )),
                 context.mediumSizedBox,
                 SizedBox(
@@ -330,8 +325,6 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-
-
 
 // LoginButton(
 //             text: LocaleKeys.addIngredients,

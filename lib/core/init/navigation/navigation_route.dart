@@ -9,7 +9,7 @@ import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
-import '../../../feature/material_search_page/view/material_search_view.dart';
+import '../../../feature/material_search_page/view/material2_search_view.dart';
 import '../../../product/component/no_navigation/no_navigation_view.dart';
 import '../../../product/widget/bottom_nav_bar_controller/recipe_bottom_navigation_bar.dart';
 
@@ -40,7 +40,7 @@ class NavigationRoute {
         return normalNavigate(const BasketView(), NavigationConstants.BASKET);
       case NavigationConstants.MATERIALSEARCH:
         return normalNavigate(
-            MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
+            const MaterialSearch2View(), NavigationConstants.MATERIALSEARCH);
       case NavigationConstants.RECIPE_DETAIL:
         return normalNavigate(
             RecipeDetailView(cardIndex: int.parse(args.arguments.toString())),

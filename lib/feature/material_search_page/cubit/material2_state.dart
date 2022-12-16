@@ -20,6 +20,11 @@ class MaterialSearch2Error extends IMaterialSearch2State {
 }
 
 class IngredientListLoad extends IMaterialSearch2State {
-  Map<MaterialSearchCategory, List<IngredientModel>> materialSearchMap;
+  Map<MaterialSearchCategory, List<IngredientModel>>? materialSearchMap;
   IngredientListLoad(this.materialSearchMap);
+}
+
+class SearchedIngredientListLoad extends IMaterialSearch2State {
+  Map<MaterialSearchCategory, List<IngredientModel>>? searchedMap;
+  SearchedIngredientListLoad(this.searchedMap);
 }

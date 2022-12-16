@@ -10,14 +10,14 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../../core/constant/enum/supported_languages_enum.dart';
 
 class SearchVoiceTextFormField extends StatefulWidget {
-  final VoidCallback? onChanged;
+  final ValueChanged<String>? onChanged;
   final double width;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   SearchVoiceTextFormField({
     Key? key,
     required this.width,
     this.onChanged,
-    required this.controller,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -76,7 +76,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
           cancelOnError: true,
           listenMode: ListenMode.confirmation,
           onResult: (val) => setState(() {
-            widget.controller.text = val.recognizedWords;
+            widget.controller?.text = val.recognizedWords;
             print(val.recognizedWords);
           }),
         );
@@ -102,6 +102,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
+        onChanged: widget.onChanged,
         controller: widget.controller,
         decoration: InputDecoration(
           border: InputBorder.none,
