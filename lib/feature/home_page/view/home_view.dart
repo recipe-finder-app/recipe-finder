@@ -327,12 +327,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-<<<<<<< HEAD
-=======
-
-// LoginButton(
-//             text: LocaleKeys.addIngredients,
-//             color: ColorConstants.instance.russianViolet,
-//             onPressed: () {},
-//           ),
->>>>>>> 4b96dcb0773bc932b2e38fafdcf3c47d765ceef2
