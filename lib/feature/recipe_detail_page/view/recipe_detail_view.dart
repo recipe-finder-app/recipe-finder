@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/view/landscape_player_view.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
@@ -18,12 +19,13 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/component/text/bold_text.dart';
 import '../../../product/component/text/locale_bold_text.dart';
+import '../../../product/model/recipe_model.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import '../../likes_page/cubit/likes_cubit.dart';
 
 class RecipeDetailView extends StatelessWidget {
-  int cardIndex;
-  RecipeDetailView({Key? key, required this.cardIndex}) : super(key: key);
+  RecipeModel recipeModel;
+  RecipeDetailView({Key? key, required this.recipeModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,10 +106,7 @@ class RecipeDetailView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(context
-                                        .read<LikesCubit>()
-                                        .likeRecipeItems[cardIndex]
-                                        .imagePath)),
+                                    image: AssetImage(recipeModel.imagePath)),
                               ),
                             ),
                       Padding(
@@ -176,11 +175,8 @@ class RecipeDetailView extends StatelessWidget {
                                       : InkWell(
                                           onTap: () {
                                             String ingredientsText = '';
-                                            for (var ingredient in context
-                                                .read<LikesCubit>()
-                                                .likeRecipeItems[cardIndex]
-                                                .recipeModel
-                                                .ingredients) {
+                                            for (var ingredient
+                                                in recipeModel.ingredients!) {
                                               ingredientsText =
                                                   '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
                                             }
@@ -189,9 +185,9 @@ class RecipeDetailView extends StatelessWidget {
                                                 '${LocaleKeys.ingredients.locale}\n'
                                                 '$ingredientsText\n\n'
                                                 '${LocaleKeys.description}\n\n'
-                                                '${context.read<LikesCubit>().likeRecipeItems[cardIndex].recipeModel.description}\n\n'
+                                                '${recipeModel.description}\n\n'
                                                 '${LocaleKeys.directions}\n\n'
-                                                '${context.read<LikesCubit>().likeRecipeItems[cardIndex].recipeModel.directions}\n\n';
+                                                '${recipeModel.directions}\n\n';
                                             Share.share(message);
                                           },
                                           child:
@@ -222,10 +218,7 @@ class RecipeDetailView extends StatelessWidget {
                           : Padding(
                               padding: context.paddingMediumEdges,
                               child: BoldText(
-                                text: context
-                                    .read<LikesCubit>()
-                                    .likeRecipeItems[cardIndex]
-                                    .title,
+                                text: recipeModel.title,
                                 fontSize: 20,
                                 maxLines: 3,
                                 textColor: Colors.white,
@@ -266,30 +259,19 @@ class RecipeDetailView extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: context
-                                .read<LikesCubit>()
-                                .likeRecipeItems[cardIndex]
-                                .recipeModel
-                                .ingredients
-                                .length,
+                            itemCount: recipeModel.ingredients?.length,
                             itemBuilder: (BuildContext context,
                                 int recipeIngredientsIndex) {
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(context
-                                      .read<LikesCubit>()
-                                      .likeRecipeItems[cardIndex]
-                                      .recipeModel
-                                      .ingredients[recipeIngredientsIndex]
+                                  Text(recipeModel
+                                      .ingredients![recipeIngredientsIndex]
                                       .quantity
                                       .toString()),
                                   context.lowSizedBoxWidth,
-                                  Text(context
-                                      .read<LikesCubit>()
-                                      .likeRecipeItems[cardIndex]
-                                      .recipeModel
-                                      .ingredients[recipeIngredientsIndex]
+                                  Text(recipeModel
+                                      .ingredients![recipeIngredientsIndex]
                                       .title),
                                 ],
                               );
@@ -297,17 +279,17 @@ class RecipeDetailView extends StatelessWidget {
                         context.lowSizedBox,
                         const LocaleBoldText(text: LocaleKeys.yourFrize),
                         context.lowSizedBox,
-                        context.read<LikesCubit>().myFrizeItems == null
+                        context.read<HomeCubit>().myFrizeItems == null
                             ? const Center()
                             : SizedBox(
-                                height: context.screenHeight / 8,
+                                height: context.screenHeight / 7,
                                 width: context.screenWidth,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
                                     itemCount: context
-                                        .read<LikesCubit>()
+                                        .read<HomeCubit>()
                                         .myFrizeItems
                                         .length,
                                     itemBuilder: (BuildContext context,
@@ -320,11 +302,11 @@ class RecipeDetailView extends StatelessWidget {
                                               .instance.russianViolet
                                               .withOpacity(0.1),
                                           model: context
-                                              .read<LikesCubit>()
+                                              .read<HomeCubit>()
                                               .myFrizeItems[missingItemIndex],
                                           iconBottomWidget: Text(
                                             context
-                                                .read<LikesCubit>()
+                                                .read<HomeCubit>()
                                                 .myFrizeItems[missingItemIndex]
                                                 .quantity
                                                 .toString(),
@@ -338,11 +320,7 @@ class RecipeDetailView extends StatelessWidget {
                         const LocaleBoldText(text: LocaleKeys.description),
                         context.lowSizedBox,
                         Text(
-                          context
-                              .read<LikesCubit>()
-                              .likeRecipeItems[cardIndex]
-                              .recipeModel
-                              .description,
+                          recipeModel?.description ?? '',
                           style:
                               const TextStyle(overflow: TextOverflow.ellipsis),
                           maxLines: 3,
@@ -351,11 +329,7 @@ class RecipeDetailView extends StatelessWidget {
                         const LocaleBoldText(text: LocaleKeys.directions),
                         context.lowSizedBox,
                         Text(
-                          context
-                              .read<LikesCubit>()
-                              .likeRecipeItems[cardIndex]
-                              .recipeModel
-                              .directions,
+                          recipeModel.directions ?? '',
                           style: const TextStyle(overflow: TextOverflow.clip),
                         ),
                         context.lowSizedBox,

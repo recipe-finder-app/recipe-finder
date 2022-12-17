@@ -73,196 +73,224 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           },
                         ),
                         context.mediumSizedBox,
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
-                            List<IngredientModel>?>(
-                          selector: (state) {
-                            if (state is IngredientListLoad) {
-                              return state.materialSearchMap![
-                                  MaterialSearchCategory.essentials];
-                            } else if (state is SearchedIngredientListLoad) {
-                              return state.searchedMap![
-                                  MaterialSearchCategory.essentials];
-                            } else {
-                              return cubitRead
-                                      .materialSearchModel.materialSearchMap[
-                                  MaterialSearchCategory.essentials];
-                            }
-                          },
-                          builder: (context, state) {
-                            if (state == null) {
-                              return Padding(
-                                padding: context.paddingHighTop,
-                                child: const LocaleText(
-                                  text: 'Aranan isimde ürün bulunamadı',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
+                        BlocSelector<
+                            MaterialSearchCubit,
+                            IMaterialSearchState,
+                            Map<MaterialSearchCategory,
+                                List<IngredientModel>>?>(selector: (state) {
+                          if (state is SearchedIngredientListLoad) {
+                            return state.searchedMap;
+                          } else if (state is IngredientListLoad) {
+                            return state.materialSearchMap;
+                          } else {
+                            return cubitRead
+                                .materialSearchModel.materialSearchMap;
+                          }
+                        }, builder: (context, state) {
+                          if (state!.isEmpty) {
+                            return Padding(
+                              padding: context.paddingHighTop,
+                              child: const LocaleText(
+                                text: 'Aranan isimde ürün bulunamadı',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                            );
+                          } else {
+                            return Column(
+                              children: [
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.essentials];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.essentials];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.essentials];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.essentials,
+                                            ),
+                                          ),
+                                          context.normalSizedBox,
+                                          SizedBox(
+                                            height: context.normalhighValue,
+                                            width: context.screenWidth,
+                                            child: ListView.builder(
+                                                // padding: EdgeInsets.zero,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child:
+                                                        IngredientCircleAvatar(
+                                                      model: state![index],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  },
                                 ),
-                              );
-                            } else {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: LocaleText(
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal),
-                                      text: LocaleKeys.essentials,
-                                    ),
-                                  ),
-                                  context.normalSizedBox,
-                                  SizedBox(
-                                    height: context.normalhighValue,
-                                    width: context.screenWidth,
-                                    child: ListView.builder(
-                                        // padding: EdgeInsets.zero,
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: state?.length ?? 0,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: context.paddingRight,
-                                            child: IngredientCircleAvatar(
-                                              model: state![index],
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.vegatables];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.vegatables];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.vegatables];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.vegatables,
                                             ),
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              );
-                            }
-                          },
-                        ),
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
-                            List<IngredientModel>?>(
-                          selector: (state) {
-                            if (state is IngredientListLoad) {
-                              return state.materialSearchMap![
-                                  MaterialSearchCategory.vegatables];
-                            } else if (state is SearchedIngredientListLoad) {
-                              return state.searchedMap![
-                                  MaterialSearchCategory.vegatables];
-                            } else {
-                              return cubitRead
-                                      .materialSearchModel.materialSearchMap[
-                                  MaterialSearchCategory.vegatables];
-                            }
-                          },
-                          builder: (context, state) {
-                            if (state == null) {
-                              return const SizedBox();
-                            } else {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: LocaleText(
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal),
-                                      text: LocaleKeys.vegatables,
-                                    ),
-                                  ),
-                                  context.normalSizedBox,
-                                  SizedBox(
-                                    height: context.screenHeight / 2,
-                                    child: GridView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        shrinkWrap: true,
-                                        itemCount: state?.length ?? 0,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4,
-                                                //childAspectRatio: 0.84,
-                                                //crossAxisSpacing: 25,
-                                                mainAxisSpacing: 25),
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: context.paddingRight,
-                                            child: IngredientCircleAvatar(
-                                              model: state![index],
+                                          ),
+                                          context.normalSizedBox,
+                                          GridView.builder(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: state?.length ?? 0,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      //childAspectRatio: 0.84,
+                                                      //crossAxisSpacing: 25,
+                                                      mainAxisSpacing: 25),
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: context.paddingRight,
+                                                  child: IngredientCircleAvatar(
+                                                    model: state![index],
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.fruits];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.fruits];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.fruits];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.fruits,
                                             ),
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              );
-                            }
-                          },
-                        ),
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
-                            List<IngredientModel>?>(
-                          selector: (state) {
-                            if (state is IngredientListLoad) {
-                              return state.materialSearchMap![
-                                  MaterialSearchCategory.fruits];
-                            } else if (state is SearchedIngredientListLoad) {
-                              return state
-                                  .searchedMap![MaterialSearchCategory.fruits];
-                            } else {
-                              return cubitRead
-                                      .materialSearchModel.materialSearchMap[
-                                  MaterialSearchCategory.fruits];
-                            }
-                          },
-                          builder: (context, state) {
-                            if (state == null) {
-                              return const SizedBox();
-                            } else {
-                              return
-                                  // SizedBox(
-                                  //   height: state == null
-                                  //       ? 0
-                                  //       : context.screenHeight / 1.20,
-                                  //   child:
-                                  Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: LocaleText(
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          fontWeight: FontWeight.w400,
-                                          fontStyle: FontStyle.normal),
-                                      text: LocaleKeys.fruits,
-                                    ),
-                                  ),
-                                  context.normalSizedBox,
-                                  SizedBox(
-                                    height: context.screenHeight / 2,
-                                    child: GridView.builder(
-                                        physics: const BouncingScrollPhysics(),
-                                        shrinkWrap: true,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4,
-                                                //childAspectRatio: 0.70,
-                                                //crossAxisSpacing: 10,
-                                                mainAxisSpacing: 25),
-                                        itemCount: state?.length ?? 0,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: context.paddingRight,
-                                            child: IngredientCircleAvatar(
-                                              model: state![index],
-                                            ),
-                                          );
-                                        }),
-                                  ),
-                                ],
-                              );
-                            }
-                          },
-                        ),
+                                          ),
+                                          context.normalSizedBox,
+                                          GridView.builder(
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      //childAspectRatio: 0.70,
+                                                      //crossAxisSpacing: 10,
+                                                      mainAxisSpacing: 25),
+                                              itemCount: state?.length ?? 0,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: context.paddingRight,
+                                                  child: IngredientCircleAvatar(
+                                                    model: state![index],
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        }),
                       ]),
                     )),
               ),

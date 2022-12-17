@@ -39,7 +39,7 @@ class LikesRecipeCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: BoldText(
-                      text: model.title,
+                      text: model.recipeModel.title,
                       textColor: Colors.white,
                       style: const TextStyle(fontSize: 12),
                       textAlign: TextAlign.start,
@@ -97,7 +97,7 @@ class LikesRecipeCard extends StatelessWidget {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              model.imagePath,
+              model.recipeModel.imagePath,
             )),
         borderRadius: context.radiusTopCircularMin,
       ),

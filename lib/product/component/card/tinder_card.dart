@@ -1,64 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 
 class TinderCard extends StatelessWidget {
   const TinderCard({
-    required this.name,
-    required this.assetPath,
-    super.key,
+   
+    super.key, required this.model, this.recipeOnPressed,
   });
 
-  final String name;
-  final String assetPath;
+ final LikeRecipeModel model;
+  final VoidCallback? recipeOnPressed;
+
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: context.cardhighValue,
-          width: context.cardValueWidth,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(assetPath),
-              fit: BoxFit.cover,
-            ),
-            borderRadius: context.radiusAllCircularMedium,
-          ),
-          child: Container(
+    return InkWell(
+       onTap: recipeOnPressed,
+      child: Stack(
+        children: [
+          Container(
+            height: context.cardhighValue,
+            width: context.cardValueWidth,
             decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(model.recipeModel.imagePath),
+                fit: BoxFit.cover,
+              ),
               borderRadius: context.radiusAllCircularMedium,
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: const [0, 0, 0.4, 1],
-                colors: [
-                  ColorConstants.instance.russianViolet,
-                  Colors.transparent,
-                  Colors.transparent,
-                  ColorConstants.instance.russianViolet,
-                ],
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: context.radiusAllCircularMedium,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: const [0, 0, 0.4, 1],
+                  colors: [
+                    ColorConstants.instance.russianViolet,
+                    Colors.transparent,
+                    Colors.transparent,
+                    ColorConstants.instance.russianViolet,
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          width: context.cardValueWidth,
-          child: Padding(
-            padding: context.paddingNormalOnlyTop,
-            child: Text(
-              name,
-              textAlign: TextAlign.left,
-              style: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 20,
-                color: Colors.white,
+          SizedBox(
+            width: context.cardValueWidth,
+            child: Padding(
+              padding: context.paddingNormalOnlyTop,
+              child: Text(
+                model.recipeModel.title,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         // initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.ONBOARD,
+        initialRoute: NavigationConstants.MATERIALSEARCH,
       ),
     );
   }

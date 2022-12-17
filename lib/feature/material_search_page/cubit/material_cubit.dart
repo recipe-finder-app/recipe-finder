@@ -114,6 +114,18 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           imagePath: ImagePath.eggplant.path,
           title: LocaleKeys.eggplant.locale,
           color: const Color(0xff800771).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.broccoli.path,
+          title: LocaleKeys.broccoli.locale,
+          color: const Color(0xff1a5b22).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.carrot.path,
+          title: LocaleKeys.carrot.locale,
+          color: const Color(0xffa44703).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.eggplant.path,
+          title: LocaleKeys.eggplant.locale,
+          color: const Color(0xff800771).withOpacity(0.1)),
     ];
     fruits = [
       IngredientModel(
@@ -124,6 +136,10 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           imagePath: ImagePath.salad.path,
           title: LocaleKeys.salad.locale,
           color: const Color(0xff519e1b).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.fish.path,
+          title: LocaleKeys.fish.locale,
+          color: const Color(0xff3388ac).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.potato.path,
           title: LocaleKeys.potato.locale,
@@ -175,11 +191,12 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   void searchData(String data) {
     searchedMap?.clear();
+    data = data.toLowerCase();
     for (var entry in materialSearchModel.materialSearchMap.entries) {
       for (var element in entry.value) {
-        if (element.title.toLowerCase().contains(data.toLowerCase())) {
+        if (element.title.toLowerCase().contains(data)) {
           searchedMap?[entry.key] = entry.value
-              .where((element) => element.title.contains(data))
+              .where((element) => element.title.toLowerCase().contains(data))
               .toList();
           for (var i in entry.value) {
             print(i.title);

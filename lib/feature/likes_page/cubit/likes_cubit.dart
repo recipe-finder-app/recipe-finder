@@ -28,10 +28,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
 
     likeRecipeItems = [
       LikeRecipeModel(
-        imagePath: ImagePath.imageSample1.path,
-        title:
-            'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
-            'uzun text deneme',
         missingItems: [
           IngredientModel(
               title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
@@ -45,6 +41,10 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
               title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
         ],
         recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample1.path,
+            title:
+                'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+                'uzun text deneme',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -58,8 +58,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             directions: directionText),
       ),
       LikeRecipeModel(
-        imagePath: ImagePath.imageSample2.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
         missingItems: [
           IngredientModel(
               title: 'milk', imagePath: ImagePath.milk.path, quantity: 5),
@@ -67,6 +65,8 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
               title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
         ],
         recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample2.path,
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -77,14 +77,14 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             directions: directionText),
       ),
       LikeRecipeModel(
-        imagePath: ImagePath.imageSample3.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
         missingItems: [
           IngredientModel(title: 'somon'),
           IngredientModel(title: 'bread'),
           IngredientModel(title: 'milk'),
         ],
         recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample3.path,
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -95,9 +95,9 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             directions: directionText),
       ),
       LikeRecipeModel(
-        imagePath: ImagePath.imageSample4.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
         recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample4.path,
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -108,9 +108,9 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             directions: directionText),
       ),
       LikeRecipeModel(
-        imagePath: ImagePath.imageSample1.path,
-        title: 'Cajun spiced Cauliflower Rice with Chicken',
         recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample1.path,
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -122,19 +122,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ),
     ];
 
-    myFrizeItems = [
-      IngredientModel(
-          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-      IngredientModel(
-          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-      IngredientModel(
-          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-      IngredientModel(
-          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-      IngredientModel(
-          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
-    ];
+  
   }
 
   void addItemToMissingList(int cardIndex, IngredientModel model) {
