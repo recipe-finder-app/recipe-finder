@@ -73,8 +73,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           },
                         ),
                         context.mediumSizedBox,
-                        BlocSelector<MaterialSearchCubit,
-                            IMaterialSearchState, List<IngredientModel>?>(
+                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
+                            List<IngredientModel>?>(
                           selector: (state) {
                             if (state is IngredientListLoad) {
                               return state.materialSearchMap![
@@ -138,8 +138,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                             }
                           },
                         ),
-                        BlocSelector<MaterialSearchCubit,
-                            IMaterialSearchState, List<IngredientModel>?>(
+                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
+                            List<IngredientModel>?>(
                           selector: (state) {
                             if (state is IngredientListLoad) {
                               return state.materialSearchMap![
@@ -198,8 +198,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                             }
                           },
                         ),
-                        BlocSelector<MaterialSearchCubit,
-                            IMaterialSearchState, List<IngredientModel>?>(
+                        BlocSelector<MaterialSearchCubit, IMaterialSearchState,
+                            List<IngredientModel>?>(
                           selector: (state) {
                             if (state is IngredientListLoad) {
                               return state.materialSearchMap![
