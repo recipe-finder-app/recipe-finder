@@ -34,7 +34,7 @@ class MaterialSearch2Cubit extends Cubit<IMaterialSearch2State>
       ),
       IngredientModel(
         imagePath: ImagePath.milk.path,
-        title: LocaleKeys.milk,
+        title: LocaleKeys.milk.locale,
       ),
       IngredientModel(
         imagePath: ImagePath.bread.path,
@@ -79,11 +79,12 @@ class MaterialSearch2Cubit extends Cubit<IMaterialSearch2State>
 
   void searchData(String data) {
     searchedMap?.clear();
+    data = data.toLowerCase();
     for (var entry in materialSearchModel.materialSearchMap.entries) {
       for (var element in entry.value) {
-        if (element.title.toLowerCase().contains(data.toLowerCase())) {
+        if (element.title.toLowerCase().contains(data)) {
           searchedMap?[entry.key] = entry.value
-              .where((element) => element.title.contains(data))
+              .where((element) => element.title.toLowerCase().contains(data))
               .toList();
           for (var i in entry.value) {
             print(i.title);
