@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/material_search_page/model/product_model.dart';
-
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 import '../../../product/component/image_format/image_svg.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 
@@ -16,40 +15,40 @@ import '../../../core/constant/enum/image_path_enum.dart';
 // }
 
 class CategoryItems {
-  late final List<ProductModel> categorys;
+  late final List<IngredientModel> categorys;
 
   CategoryItems() {
     categorys = [
-      ProductModel(
-          image: ImagePath.pizza.path,
+      IngredientModel(
+          imagePath: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xffcc8026).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.vegetarian.path,
+      IngredientModel(
+          imagePath: ImagePath.vegetarian.path,
           title: LocaleKeys.vegetarian,
           color: const Color(0xff2b710a).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.muffin.path,
+      IngredientModel(
+          imagePath: ImagePath.muffin.path,
           title: LocaleKeys.desserts,
           color: const Color(0xff8b4e05).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.chicken.path,
+      IngredientModel(
+          imagePath: ImagePath.chicken.path,
           title: LocaleKeys.chicken,
           color: const Color(0xff8b3c03).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.pizza.path,
+      IngredientModel(
+          imagePath: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xff212a34).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.muffin.path,
+      IngredientModel(
+          imagePath: ImagePath.muffin.path,
           title: LocaleKeys.desserts,
           color: const Color(0xff8b4e05).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.chicken.path,
+      IngredientModel(
+          imagePath: ImagePath.chicken.path,
           title: LocaleKeys.chicken,
           color: const Color(0xff8b3c03).withOpacity(0.1)),
-      ProductModel(
-          image: ImagePath.pizza.path,
+      IngredientModel(
+          imagePath: ImagePath.pizza.path,
           title: LocaleKeys.pizza,
           color: const Color(0xff212a34).withOpacity(0.1)),
     ];

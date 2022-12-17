@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
@@ -32,7 +33,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 32,
-                      backgroundColor: color,
+                      backgroundColor: model.color,
                       child: ImageSvg(
                         path: model.imagePath ?? ImagePath.like.path,
                       ),
@@ -42,7 +43,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                 )
               : CircleAvatar(
                   radius: 32,
-                  backgroundColor: color,
+                  backgroundColor: model.color,
                   child: ImageSvg(
                     path: model.imagePath ?? ImagePath.like.path,
                   ),
@@ -50,10 +51,10 @@ class IngredientCircleAvatar extends StatelessWidget {
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
-              locale: context.locale,
-              fontSize: 12,
-              text: model.title,
-            ),
+                locale: context.locale,
+                fontSize: 12,
+                text: model.title,
+                color: ColorConstants.instance.roboticgods),
           ),
         ],
       ),

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
+import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
+import 'package:recipe_finder/feature/material_search_page/model/material_model.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
-import 'package:recipe_finder/product/widget/search/auto_complete_widget.dart';
+import 'package:recipe_finder/product/model/ingradient_model.dart';
 
-import '../../../core/constant/navigation/navigation_constants.dart';
-import '../../../core/init/navigation/navigation_service.dart';
+import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
+import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../cubit/material_cubit.dart';
 
 class MaterialSearchView extends StatefulWidget {
-  MaterialSearchView({
+  const MaterialSearchView({
     Key? key,
   }) : super(key: key);
 
@@ -21,15 +25,11 @@ class MaterialSearchView extends StatefulWidget {
 }
 
 class _MaterialSearchViewState extends State<MaterialSearchView> {
-  bool _click = true;
   @override
   Widget build(BuildContext context) {
     return BaseView<MaterialSearchCubit>(
-        visibleProgress: false,
         init: (cubitRead) {
           cubitRead.init();
-          cubitRead.essentialList();
-          cubitRead.vegatablesList();
         },
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
             Scaffold(
@@ -41,13 +41,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                   onPressed: () {
                     NavigationService.instance
                         .navigateToPage(path: NavigationConstants.FINDER);
-                    // setState(() {
-                    //   _click = !_click;
-                    // });
                   },
-                  backgroundColor: _click
-                      ? ColorConstants.instance.roboticgods.withOpacity(1)
-                      : ColorConstants.instance.oriolesOrange,
+                  backgroundColor:
+                      ColorConstants.instance.roboticgods.withOpacity(1),
                   shape: RoundedRectangleBorder(
                       borderRadius: context.radiusAllCircularMin),
                   label: LocaleText(
@@ -65,183 +61,246 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                         context.mediumSizedBox,
                         _textRow(context),
                         context.mediumSizedBox,
-                        Column(children: [
-                          AutoCompleteWidget(),
-                          context.normalSizedBox,
-                          Column(
-                            children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.essentials,
-                                ),
+                        SearchVoiceTextFormField(
+                          controller: cubitRead.searchTextController,
+                          width: context.screenWidth / 1.2,
+                          onChanged: (String data) {
+                            if (data.isEmpty) {
+                              cubitRead.ingredientListLoad();
+                            } else {
+                              cubitRead.searchData(data);
+                            }
+                          },
+                        ),
+                        context.mediumSizedBox,
+                        BlocSelector<
+                            MaterialSearchCubit,
+                            IMaterialSearchState,
+                            Map<MaterialSearchCategory,
+                                List<IngredientModel>>?>(selector: (state) {
+                          if (state is SearchedIngredientListLoad) {
+                            return state.searchedMap;
+                          } else if (state is IngredientListLoad) {
+                            return state.materialSearchMap;
+                          } else {
+                            return cubitRead
+                                .materialSearchModel.materialSearchMap;
+                          }
+                        }, builder: (context, state) {
+                          if (state!.isEmpty) {
+                            return Padding(
+                              padding: context.paddingHighTop,
+                              child: const LocaleText(
+                                text: 'Aranan isimde ürün bulunamadı',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal),
                               ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.normalhighValue,
-                                width: context.veryValueWidth,
-                                child: ListView.builder(
-                                    physics: const BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: cubitRead.essentials.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: context.paddingRight,
-                                        child: Column(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 32,
-                                              backgroundColor: cubitRead
-                                                  .essentials[index].color,
-                                              child: ImageSvg(
-                                                  path: cubitRead
-                                                          .essentials[index]
-                                                          .image ??
-                                                      ''),
-                                            ),
-                                            context.lowSizedBox,
-                                            LocaleText(
-                                              text: cubitRead.essentials[index]
-                                                      .title ??
-                                                  '',
+                            );
+                          } else {
+                            return Column(
+                              children: [
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.essentials];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.essentials];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.essentials];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
                                               style: TextStyle(
-                                                  fontStyle: FontStyle.normal,
+                                                  fontSize: 25,
                                                   fontWeight: FontWeight.w400,
-                                                  color: ColorConstants
-                                                      .instance.roboticgods),
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.essentials,
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }),
-                              ),
-                              context.normalSizedBox,
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.vegatables,
-                                ),
-                              ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.screenHeight / 2,
-                                child: GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: cubitRead.vegatables.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 4,
-                                            childAspectRatio: 0.70,
-                                            crossAxisSpacing: 25,
-                                            mainAxisSpacing: 15),
-                                    itemBuilder: (BuildContext context, index) {
-                                      return Column(
-                                        children: [
-                                          CircleAvatar(
-                                              radius: 32,
-                                              backgroundColor: cubitRead
-                                                  .vegatables[index].color,
-                                              child: ImageSvg(
-                                                path: cubitRead
-                                                        .vegatables[index]
-                                                        .image ??
-                                                    '',
-                                              )),
-                                          context.lowSizedBox,
+                                          ),
+                                          context.normalSizedBox,
                                           SizedBox(
-                                            width: context.veryHighValue,
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: LocaleText(
-                                                text: cubitRead
-                                                        .vegatables[index]
-                                                        .title ??
-                                                    '',
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorConstants
-                                                        .instance.roboticgods),
-                                              ),
-                                            ),
+                                            height: context.normalhighValue,
+                                            width: context.screenWidth,
+                                            child: ListView.builder(
+                                                // padding: EdgeInsets.zero,
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child:
+                                                        IngredientCircleAvatar(
+                                                      model: state![index],
+                                                    ),
+                                                  );
+                                                }),
                                           ),
                                         ],
                                       );
-                                    }),
-                              ),
-                              context.normalSizedBox,
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: LocaleText(
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.normal),
-                                  text: LocaleKeys.fruits,
+                                    }
+                                  },
                                 ),
-                              ),
-                              context.normalSizedBox,
-                              SizedBox(
-                                height: context.screenHeight / 1.30,
-                                child: GridView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    itemCount: cubitRead.vegatables.length,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 4,
-                                            childAspectRatio: 0.70,
-                                            crossAxisSpacing: 25,
-                                            mainAxisSpacing: 15),
-                                    itemBuilder: (BuildContext context, index) {
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.vegatables];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.vegatables];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.vegatables];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
                                       return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          CircleAvatar(
-                                              radius: 32,
-                                              backgroundColor: cubitRead
-                                                  .vegatables[index].color,
-                                              child: ImageSvg(
-                                                path: cubitRead
-                                                        .vegatables[index]
-                                                        .image ??
-                                                    '',
-                                              )),
-                                          context.lowSizedBox,
-                                          SizedBox(
-                                            width: context.veryHighValue,
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: LocaleText(
-                                                text: cubitRead
-                                                        .vegatables[index]
-                                                        .title ??
-                                                    '',
-                                                style: TextStyle(
-                                                    fontStyle: FontStyle.normal,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: ColorConstants
-                                                        .instance.roboticgods),
-                                              ),
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.vegatables,
                                             ),
+                                          ),
+                                          context.normalSizedBox,
+                                          SizedBox(
+                                            height: context.screenHeight / 2,
+                                            child: GridView.builder(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: state?.length ?? 0,
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 4,
+                                                        //childAspectRatio: 0.84,
+                                                        //crossAxisSpacing: 25,
+                                                        mainAxisSpacing: 25),
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child:
+                                                        IngredientCircleAvatar(
+                                                      model: state![index],
+                                                    ),
+                                                  );
+                                                }),
                                           ),
                                         ],
                                       );
-                                    }),
-                              ),
-                            ],
-                          ),
-                          //
-                        ]),
+                                    }
+                                  },
+                                ),
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
+                                  selector: (state) {
+                                    if (state is IngredientListLoad) {
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.fruits];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.fruits];
+                                    } else {
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.fruits];
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    if (state == null) {
+                                      return const SizedBox();
+                                    } else {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: LocaleText(
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
+                                              text: LocaleKeys.fruits,
+                                            ),
+                                          ),
+                                          context.normalSizedBox,
+                                          SizedBox(
+                                            height: context.screenHeight / 2,
+                                            child: GridView.builder(
+                                                physics:
+                                                    const BouncingScrollPhysics(),
+                                                shrinkWrap: true,
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 4,
+                                                        //childAspectRatio: 0.70,
+                                                        //crossAxisSpacing: 10,
+                                                        mainAxisSpacing: 25),
+                                                itemCount: state?.length ?? 0,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child:
+                                                        IngredientCircleAvatar(
+                                                      model: state![index],
+                                                    ),
+                                                  );
+                                                }),
+                                          ),
+                                        ],
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                        }),
                       ]),
                     )),
               ),
@@ -270,10 +329,6 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
           onPressed: () {
             NavigationService.instance
                 .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-            /*Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SpeechSampleApp()),
-            );*/
           },
           child: LocaleText(
               style: TextStyle(

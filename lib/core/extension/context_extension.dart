@@ -77,6 +77,9 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingLeftEdges => EdgeInsets.only(
         left: normalWidth,
       );
+  EdgeInsets get paddingLeftlow => EdgeInsets.only(
+        left: normalValue,
+      );
 
   EdgeInsets get paddingLowTopBottom =>
       EdgeInsets.only(top: lowValue, bottom: lowValue);
@@ -96,6 +99,7 @@ extension PaddingExtensionAll on BuildContext {
       EdgeInsets.only(top: topHighValue, left: lowWidth);
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
   EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
+  EdgeInsets get paddingHighTop => EdgeInsets.only(top: veryyHighValue);
 }
 
 extension PaddingExtensionSymetric on BuildContext {
@@ -153,7 +157,6 @@ extension ScreenOrientationExtension on BuildContext {
 }
 
 extension BorderExtension on BuildContext {
-  
   BorderRadius get radiusAllCircularMin => BorderRadius.circular(10.0);
   BorderRadius get radiusAllCircularMedium => BorderRadius.circular(15.0);
   BorderRadius get radiusAllCircularHigh => BorderRadius.circular(35.0);

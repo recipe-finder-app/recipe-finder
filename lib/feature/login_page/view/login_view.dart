@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/feature/material_search_page/view/material_search_view.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
 
@@ -67,12 +68,12 @@ class LoginView extends StatelessWidget {
                             NavigationService.instance.navigateToPage(
                               path: NavigationConstants.MATERIALSEARCH,
                             );
-                            /*
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return SpeechSampleApp();
-                            }));
-                            */
+                          
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (context) {
+                            //   return MaterialSearch2View();
+                            // }));
+                            
                           },
                         ),
                       ],
