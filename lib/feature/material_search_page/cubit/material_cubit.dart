@@ -114,6 +114,18 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           imagePath: ImagePath.eggplant.path,
           title: LocaleKeys.eggplant.locale,
           color: const Color(0xff800771).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.broccoli.path,
+          title: LocaleKeys.broccoli.locale,
+          color: const Color(0xff1a5b22).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.carrot.path,
+          title: LocaleKeys.carrot.locale,
+          color: const Color(0xffa44703).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.eggplant.path,
+          title: LocaleKeys.eggplant.locale,
+          color: const Color(0xff800771).withOpacity(0.1)),
     ];
     fruits = [
       IngredientModel(
@@ -124,6 +136,10 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           imagePath: ImagePath.salad.path,
           title: LocaleKeys.salad.locale,
           color: const Color(0xff519e1b).withOpacity(0.1)),
+      IngredientModel(
+          imagePath: ImagePath.fish.path,
+          title: LocaleKeys.fish.locale,
+          color: const Color(0xff3388ac).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.potato.path,
           title: LocaleKeys.potato.locale,
@@ -171,6 +187,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
       MaterialSearchCategory.fruits: fruits
     });
     searchedMap = {};
+    print('materialsearch init çalıştı');
   }
 
   void searchData(String data) {
@@ -192,6 +209,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
   }
 
   void ingredientListLoad() {
+    searchedMap?.clear();
     emit(IngredientListLoad(materialSearchModel.materialSearchMap));
   }
 
@@ -203,11 +221,16 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   @override
   void dispose() {
+    clear();
+    print('materialsearch dispose çalıştı');
+  }
+
+  void clear() {
     essentials = [];
     vegetables = [];
     fruits = [];
     searchedMap?.clear();
-    materialSearchModel.materialSearchMap.clear();
-    searchTextController.clear();
+    materialSearchModel.materialSearchMap?.clear();
+    searchTextController?.clear();
   }
 }

@@ -1,13 +1,12 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:video_player/video_player.dart';
 
-import '../../../core/constant/design/color_constant.dart';
 import '../cubit/recipe_detail_cubit.dart';
 
 class LandscapePlayerView extends StatefulWidget {
-  final VideoPlayerController controller;
+  final ChewieController controller;
   const LandscapePlayerView({Key? key, required this.controller})
       : super(key: key);
 
@@ -49,7 +48,9 @@ class _LandscapePlayerViewState extends State<LandscapePlayerView> {
               onTap: () {
                 context.read<RecipeDetailCubit>().clickRunVideoButton();
               },
-              child: VideoPlayer(widget.controller)),
+              child: Chewie(
+                controller: widget.controller,
+              )),
           /* InkWell(
             onTap: () {
               context.read<RecipeDetailCubit>().clickRunVideoButton();
@@ -87,16 +88,6 @@ class _LandscapePlayerViewState extends State<LandscapePlayerView> {
                 Navigator.pop(context);
               },
             ),
-          ),
-          Positioned(
-            bottom: 25,
-            right: 50,
-            left: 50,
-            child: VideoProgressIndicator(widget.controller,
-                colors: VideoProgressColors(
-                    backgroundColor: ColorConstants.instance.brightGraySolid,
-                    playedColor: Colors.white),
-                allowScrubbing: true),
           ),
         ],
       ),

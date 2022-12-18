@@ -20,7 +20,7 @@ extension MediaQueryExtension on BuildContext {
   double get textHighValue => screenHeight * 0.30;
   double get veryyHighValue => screenHeight * 0.21;
   double get normalhighValue => screenHeight * 0.16;
-  double get cardhighValue => screenHeight * 0.60;
+  double get cardhighValue => screenHeight * 0.57;
   double get topHighValue => screenHeight * 0.47;
   double get maxValue => screenHeight * 0.07;
   double get maxValueWidth => screenWidth * 0.86;

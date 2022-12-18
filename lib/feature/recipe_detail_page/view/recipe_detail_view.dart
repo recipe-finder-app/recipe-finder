@@ -1,17 +1,17 @@
 import 'dart:ui';
 
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
-import 'package:recipe_finder/feature/recipe_detail_page/view/landscape_player_view.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
@@ -20,7 +20,6 @@ import '../../../product/component/text/bold_text.dart';
 import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/model/recipe_model.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import '../../likes_page/cubit/likes_cubit.dart';
 
 class RecipeDetailView extends StatelessWidget {
   RecipeModel recipeModel;
@@ -50,14 +49,17 @@ class RecipeDetailView extends StatelessWidget {
                   Stack(
                     alignment: AlignmentDirectional.topStart,
                     children: [
-                      cubitRead.videoPlayerController.value.isPlaying
+                      cubitRead.chewieController.isPlaying
                           ? AspectRatio(
-                              aspectRatio: cubitRead
-                                  .videoPlayerController.value.aspectRatio,
+                              aspectRatio:
+                                  cubitRead.chewieController.aspectRatio!,
                               child: Stack(
                                 alignment: AlignmentDirectional.center,
                                 children: [
-                                  VideoPlayer(cubitRead.videoPlayerController),
+                                  Chewie(
+                                    controller: cubitRead.chewieController,
+                                  ),
+                                  //VideoPlayer(cubitRead.videoPlayerController),
                                   IconButton(
                                     icon: const Icon(Icons.pause),
                                     color: Colors.white,
@@ -65,7 +67,7 @@ class RecipeDetailView extends StatelessWidget {
                                       cubitRead.clickRunVideoButton();
                                     },
                                   ),
-                                  Positioned(
+                                  /* Positioned(
                                     bottom: 50,
                                     right: 5,
                                     child: IconButton(
@@ -78,13 +80,13 @@ class RecipeDetailView extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) {
                                           return LandscapePlayerView(
-                                              controller: cubitRead
-                                                  .videoPlayerController);
+                                              controller:
+                                                  cubitRead.chewieController);
                                         }));
                                       },
                                     ),
-                                  ),
-                                  Positioned(
+                                  ),*/
+                                  /*Positioned(
                                     bottom: 45,
                                     right: 50,
                                     left: 50,
@@ -95,7 +97,7 @@ class RecipeDetailView extends StatelessWidget {
                                                 .instance.brightGraySolid,
                                             playedColor: Colors.white),
                                         allowScrubbing: true),
-                                  ),
+                                  ),*/
                                 ],
                               ),
                             )
@@ -128,8 +130,7 @@ class RecipeDetailView extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                   ),
-                                  cubitRead
-                                          .videoPlayerController.value.isPlaying
+                                  cubitRead.chewieController.isPlaying
                                       ? const SizedBox()
                                       : TransparentCircularBackground(
                                           circleHeight: 35,
@@ -148,8 +149,7 @@ class RecipeDetailView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(),
-                                  cubitRead
-                                          .videoPlayerController.value.isPlaying
+                                  cubitRead.chewieController.isPlaying
                                       ? const SizedBox()
                                       : InkWell(
                                           onTap: () {
@@ -159,8 +159,8 @@ class RecipeDetailView extends StatelessWidget {
                                             circleHeight: 70,
                                             circleWidth: 70,
                                             child: Icon(
-                                              cubitRead.videoPlayerController
-                                                      .value.isPlaying
+                                              cubitRead.chewieController
+                                                      .isPlaying
                                                   ? Icons.pause
                                                   : Icons.play_circle_outline,
                                               color: Colors.white,
@@ -168,8 +168,7 @@ class RecipeDetailView extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                  cubitRead
-                                          .videoPlayerController.value.isPlaying
+                                  cubitRead.chewieController.isPlaying
                                       ? const SizedBox()
                                       : InkWell(
                                           onTap: () {
@@ -208,41 +207,27 @@ class RecipeDetailView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      cubitRead.videoPlayerController.value.isPlaying
-                          ? const SizedBox()
-                          : Padding(
-                              padding: context.paddingMediumEdges,
-                              child: BoldText(
-                                text: recipeModel.title,
-                                fontSize: 20,
-                                maxLines: 3,
-                                textColor: Colors.white,
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                      context.lowSizedBox,
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(context.mediumValue),
-                                topRight:
-                                    Radius.circular(context.mediumValue))),
-                      ),
-                    ],
-                  ),
+                  cubitRead.chewieController.isPlaying
+                      ? const SizedBox()
+                      : Padding(
+                          padding: context.paddingMediumEdges,
+                          child: BoldText(
+                            text: recipeModel.title,
+                            fontSize: 20,
+                            maxLines: 3,
+                            textColor: Colors.white,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                 ],
               ),
               Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(context.mediumValue),
+                        topRight: Radius.circular(context.mediumValue))),
                 child: Padding(
                   padding: context.paddingMediumEdges,
                   child: Padding(
@@ -278,17 +263,17 @@ class RecipeDetailView extends StatelessWidget {
                         context.lowSizedBox,
                         const LocaleBoldText(text: LocaleKeys.yourFrize),
                         context.lowSizedBox,
-                        context.read<LikesCubit>().myFrizeItems == null
+                        context.read<HomeCubit>().myFrizeItems == null
                             ? const Center()
                             : SizedBox(
-                                height: context.screenHeight / 8,
+                                height: context.screenHeight / 7,
                                 width: context.screenWidth,
                                 child: ListView.builder(
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     physics: const BouncingScrollPhysics(),
                                     itemCount: context
-                                        .read<LikesCubit>()
+                                        .read<HomeCubit>()
                                         .myFrizeItems
                                         .length,
                                     itemBuilder: (BuildContext context,
@@ -301,11 +286,11 @@ class RecipeDetailView extends StatelessWidget {
                                               .instance.russianViolet
                                               .withOpacity(0.1),
                                           model: context
-                                              .read<LikesCubit>()
+                                              .read<HomeCubit>()
                                               .myFrizeItems[missingItemIndex],
                                           iconBottomWidget: Text(
                                             context
-                                                .read<LikesCubit>()
+                                                .read<HomeCubit>()
                                                 .myFrizeItems[missingItemIndex]
                                                 .quantity
                                                 .toString(),

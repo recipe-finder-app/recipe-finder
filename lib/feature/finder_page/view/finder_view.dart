@@ -30,7 +30,7 @@ class FinderView extends StatefulWidget {
 
 class _FinderViewState extends State<FinderView> {
   late final SwipableStackController _controller;
-// final ValueChanged<SwipeDirection> onSwipe;
+
   void _listenController() {
     setState(() {});
   }
@@ -72,15 +72,15 @@ class _FinderViewState extends State<FinderView> {
                   child: Padding(
                     padding: context.paddingNormalTopLeftRight,
                     child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       child: SizedBox(
                         height: context.screenHeight,
                         child: Column(
                           children: [
                             _textRow(context),
-                            context.highSizedBox,
+                            context.normalSizedBox,
                             buildTinderCard(context, cubitRead),
-                            context.mediumSizedBox,
+                            context.normalSizedBox,
                             buildRowButon(context),
                           ],
                         ),
@@ -92,46 +92,7 @@ class _FinderViewState extends State<FinderView> {
             ));
   }
 
-  SizedBox buildRowButon(BuildContext context) {
-    return SizedBox(
-      width: context.cardValueWidth,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          FloatingActionButton(
-            backgroundColor: ColorConstants.instance.russianViolet,
-            onPressed: () {
-              _controller.next(swipeDirection: SwipeDirection.left);
-            },
-            child: Icon(
-              Icons.clear,
-              color: ColorConstants.instance.white,
-            ),
-          ),
-          FloatingActionButton(
-            mini: true,
-            backgroundColor: const Color(0xffE6EBF2),
-            onPressed: () {
-          //  addToBasketBottomSheet(context,cubitRead,cardIndex);
-            },
-            child: Image.asset('asset/png/icon_shop.png'),
-          ),
-          FloatingActionButton(
-            backgroundColor: ColorConstants.instance.oriolesOrange,
-            onPressed: () {
-              _controller.next(swipeDirection: SwipeDirection.right);
-            },
-            child: Icon(
-              Icons.favorite,
-              color: ColorConstants.instance.white,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildTinderCard(BuildContext context, FinderCubit cubitRead) {
+  SizedBox buildTinderCard(BuildContext context, FinderCubit cubitRead) {
     return SizedBox(
       height: context.cardhighValue,
       width: context.cardValueWidth,
@@ -139,7 +100,10 @@ class _FinderViewState extends State<FinderView> {
         controller: _controller,
         stackClipBehaviour: Clip.none,
         swipeAnchor: SwipeAnchor.bottom,
-        onWillMoveNext: (index, swipeDirection) {
+        onWillMoveNext: (
+          index,
+          swipeDirection,
+        ) {
           switch (swipeDirection) {
             case SwipeDirection.left:
             case SwipeDirection.right:
@@ -164,23 +128,58 @@ class _FinderViewState extends State<FinderView> {
           swipeProgress: properties.swipeProgress,
           direction: properties.direction,
         ),
-        builder: (context, properties) {
-          final itemIndex = properties.index % cubitRead.draggableItems.length;
-          return InkWell(
-            onTap: () {
-              NavigationService.instance.navigateToPage(
-                path: NavigationConstants.RECIPE_DETAIL,
-              );
-              // NavigationService.instance.navigateToPage(
-              //   path: NavigationConstants.HOME,
-              // );
-            },
-            child: TinderCard(
-              name: cubitRead.draggableItems[itemIndex].distance,
-              assetPath: cubitRead.draggableItems[itemIndex].imageAsset,
-            ),
-          );
+        builder: (
+          context,
+          properties,
+        ) {
+          return TinderCard(
+              model: cubitRead.finderRecipeItems[properties.index],
+              recipeOnPressed: () {
+                NavigationService.instance.navigateToPage(
+                    path: NavigationConstants.RECIPE_DETAIL,
+                    data: cubitRead
+                        .finderRecipeItems[properties.index].recipeModel);
+              });
         },
+      ),
+    );
+  }
+
+  SizedBox buildRowButon(BuildContext context) {
+    return SizedBox(
+      width: context.cardValueWidth,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          FloatingActionButton(
+            backgroundColor: ColorConstants.instance.russianViolet,
+            onPressed: () {
+              _controller.next(swipeDirection: SwipeDirection.left);
+            },
+            child: Icon(
+              Icons.clear,
+              color: ColorConstants.instance.white,
+            ),
+          ),
+          FloatingActionButton(
+            mini: true,
+            backgroundColor: const Color(0xffE6EBF2),
+            onPressed: () {
+              //  addToBasketBottomSheet(context,cubitRead,cardIndex);
+            },
+            child: Image.asset('asset/png/icon_shop.png'),
+          ),
+          FloatingActionButton(
+            backgroundColor: ColorConstants.instance.oriolesOrange,
+            onPressed: () {
+              _controller.next(swipeDirection: SwipeDirection.right);
+            },
+            child: Icon(
+              Icons.favorite,
+              color: ColorConstants.instance.white,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -227,7 +226,8 @@ class _FinderViewState extends State<FinderView> {
       ],
     );
   }
-   Future<void> addToBasketBottomSheet(
+
+  Future<void> addToBasketBottomSheet(
       BuildContext context, LikesCubit cubitRead, int cardIndex) {
     return CircularBottomSheet.instance.show(
       context,

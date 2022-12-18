@@ -23,6 +23,7 @@ class HomeView extends StatelessWidget {
     return BaseView<HomeCubit>(
       init: (cubitRead) {
         cubitRead.init();
+        
       },
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(

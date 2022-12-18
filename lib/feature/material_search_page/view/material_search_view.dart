@@ -205,30 +205,25 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                             ),
                                           ),
                                           context.normalSizedBox,
-                                          SizedBox(
-                                            height: context.screenHeight / 2,
-                                            child: GridView.builder(
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemCount: state?.length ?? 0,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 4,
-                                                        //childAspectRatio: 0.84,
-                                                        //crossAxisSpacing: 25,
-                                                        mainAxisSpacing: 25),
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        context.paddingRight,
-                                                    child:
-                                                        IngredientCircleAvatar(
-                                                      model: state![index],
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
+                                          GridView.builder(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: state?.length ?? 0,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      //childAspectRatio: 0.84,
+                                                      //crossAxisSpacing: 25,
+                                                      mainAxisSpacing: 25),
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: context.paddingRight,
+                                                  child: IngredientCircleAvatar(
+                                                    model: state![index],
+                                                  ),
+                                                );
+                                              }),
                                         ],
                                       );
                                     }
@@ -271,30 +266,25 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                             ),
                                           ),
                                           context.normalSizedBox,
-                                          SizedBox(
-                                            height: context.screenHeight / 2,
-                                            child: GridView.builder(
-                                                physics:
-                                                    const BouncingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                gridDelegate:
-                                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                                        crossAxisCount: 4,
-                                                        //childAspectRatio: 0.70,
-                                                        //crossAxisSpacing: 10,
-                                                        mainAxisSpacing: 25),
-                                                itemCount: state?.length ?? 0,
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        context.paddingRight,
-                                                    child:
-                                                        IngredientCircleAvatar(
-                                                      model: state![index],
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
+                                          GridView.builder(
+                                              physics:
+                                                  const BouncingScrollPhysics(),
+                                              shrinkWrap: true,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      //childAspectRatio: 0.70,
+                                                      //crossAxisSpacing: 10,
+                                                      mainAxisSpacing: 25),
+                                              itemCount: state?.length ?? 0,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding: context.paddingRight,
+                                                  child: IngredientCircleAvatar(
+                                                    model: state![index],
+                                                  ),
+                                                );
+                                              }),
                                         ],
                                       );
                                     }

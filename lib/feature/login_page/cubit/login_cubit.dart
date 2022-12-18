@@ -20,6 +20,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
     forgotPasswordFormKey = GlobalKey<FormState>();
 
     service = LoginService();
+    print('login init tamam');
   }
 
   @override
@@ -30,7 +31,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    print('login dispose tamam');
   }
 
   void login() {

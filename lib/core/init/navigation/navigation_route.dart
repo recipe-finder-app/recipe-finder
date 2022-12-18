@@ -4,7 +4,6 @@ import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/view/recipe_detail_view.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
-
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
