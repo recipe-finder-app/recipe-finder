@@ -203,6 +203,11 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    essentials = [];
+    vegetables = [];
+    fruits = [];
+    searchedMap?.clear();
+    materialSearchModel.materialSearchMap.clear();
+    searchTextController.clear();
   }
 }
