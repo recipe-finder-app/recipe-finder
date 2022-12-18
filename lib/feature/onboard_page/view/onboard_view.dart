@@ -21,9 +21,7 @@ class OnboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<OnboardCubit>(
-      init: (cubitRead) {
-        cubitRead.init();
-      },
+      init: (cubitRead) => cubitRead.init(),
       dispose: (cubitRead) => cubitRead.dispose(),
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
@@ -65,7 +63,7 @@ class OnboardView extends StatelessWidget {
                                         TextButton(
                                           onPressed: () {
                                             NavigationService.instance
-                                                .navigateToPage(
+                                                .navigateToPageClear(
                                                     path: NavigationConstants
                                                         .LOGIN);
                                           },

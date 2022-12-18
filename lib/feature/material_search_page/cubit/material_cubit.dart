@@ -187,6 +187,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
       MaterialSearchCategory.fruits: fruits
     });
     searchedMap = {};
+    print('materialsearch init çalıştı');
   }
 
   void searchData(String data) {
@@ -208,6 +209,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
   }
 
   void ingredientListLoad() {
+    searchedMap?.clear();
     emit(IngredientListLoad(materialSearchModel.materialSearchMap));
   }
 
@@ -219,6 +221,16 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    clear();
+    print('materialsearch dispose çalıştı');
+  }
+
+  void clear() {
+    essentials = [];
+    vegetables = [];
+    fruits = [];
+    searchedMap?.clear();
+    materialSearchModel.materialSearchMap?.clear();
+    searchTextController?.clear();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
@@ -10,23 +11,33 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
     implements IBaseViewModel {
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
-
+  late ChewieController chewieController;
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
   void init() {
     service = RecipeDetailService();
+    videoPlayerInit();
+  }
+
+  void videoPlayerInit() {
     videoPlayerController = VideoPlayerController.network(
         'https://file-examples.com/storage/fe88dacf086398d1c98749c/2017/04/file_example_MP4_640_3MG.mp4')
-      ..initialize().then((value) {});
+      ..initialize();
+    chewieController = ChewieController(
+      videoPlayerController: videoPlayerController,
+      autoPlay: false,
+      looping: false,
+      aspectRatio: videoPlayerController.value.aspectRatio,
+    );
   }
 
   void clickRunVideoButton() {
     print('calisti');
-    if (videoPlayerController.value.isPlaying) {
-      emit(VideoPlaybackState(videoPlayerController.pause()));
+    if (chewieController.isPlaying) {
+      emit(VideoPlaybackState(chewieController.pause()));
     } else {
-      emit(VideoPlaybackState(videoPlayerController.play()));
+      emit(VideoPlaybackState(chewieController.play()));
     }
   }
 
@@ -39,5 +50,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
   @override
   void dispose() {
     videoPlayerController.dispose();
+    chewieController.dispose();
   }
 }

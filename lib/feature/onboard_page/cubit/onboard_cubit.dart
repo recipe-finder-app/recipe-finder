@@ -24,6 +24,7 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
   void init() {
     service = OnboardService();
     clear();
+    print('onboard init çalıştı');
   }
 
   void onCompleting() {
@@ -60,6 +61,7 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    clear();
+    print('onboard dispose tamam');
   }
 }

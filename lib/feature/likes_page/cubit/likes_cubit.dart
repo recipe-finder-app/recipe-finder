@@ -25,7 +25,19 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   @override
   void init() {
     service = LikesService();
-
+    myFrizeItems = [
+      IngredientModel(
+          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+      IngredientModel(
+          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+      IngredientModel(
+          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
+      IngredientModel(
+          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
+      IngredientModel(
+          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+    ];
     likeRecipeItems = [
       LikeRecipeModel(
         missingItems: [
@@ -121,8 +133,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
             directions: directionText),
       ),
     ];
-
-  
   }
 
   void addItemToMissingList(int cardIndex, IngredientModel model) {

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../core/constant/enum/supported_languages_enum.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 
 class SearchVoiceTextFormField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
@@ -109,7 +111,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
           prefixIcon: ImageSvg(
               path: ImagePath.searchh.path,
               color: ColorConstants.instance.russianViolet),
-          hintText: 'Search',
+          hintText: LocaleKeys.search.locale,
           hintStyle: TextStyle(
               fontSize: 14,
               color: ColorConstants.instance.roboticgods,
