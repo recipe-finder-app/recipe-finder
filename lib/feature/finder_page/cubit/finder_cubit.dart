@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_state.dart';
-import 'package:recipe_finder/feature/finder_page/model/image_model.dart';
 import 'package:recipe_finder/feature/finder_page/service/finder_service.dart';
 import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
-import 'package:swipable_stack/swipable_stack.dart';
+import 'package:video_player/video_player.dart';
 
 class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   IFinderService? service;
-  late List<LikeRecipeModel> finderRecipeItems;
-  late final SwipableStackController controller;
-
+  late List<LikeRecipeModel>? finderRecipeItems;
+  late List<IngredientModel> myFinderFrizeItems;
+  late VideoPlayerController videoPlayerController;
+  late LikeRecipeModel currentSwipedCardModel;
   String directionText =
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
   Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
@@ -26,7 +26,9 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   @override
   void init() {
     service = FinderService();
-    controller = SwipableStackController()..addListener(_listenController);
+    videoPlayerController = VideoPlayerController.network(
+        'https://file-examples.com/storage/fe88dacf086398d1c98749c/2017/04/file_example_MP4_640_3MG.mp4')
+      ..initialize().then((value) {});
     finderRecipeItems = [
       LikeRecipeModel(
         missingItems: [
@@ -43,7 +45,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         ],
         recipeModel: RecipeModel(
           imagePath: 'asset/png/image.png',
-          title: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+          title: 'Deneme Text',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
             IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -110,7 +112,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
       LikeRecipeModel(
         recipeModel: RecipeModel(
             imagePath: 'asset/png/image.png',
-            title: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+            title: 'Deneme son tarif',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -123,8 +125,35 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
     ];
   }
 
-  void _listenController() {
-    emit(state);
+    myFinderFrizeItems = [
+      IngredientModel(
+          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+      IngredientModel(
+          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+      IngredientModel(
+          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
+      IngredientModel(
+          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
+      IngredientModel(
+          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+    ];
+    currentSwipedCardModel = finderRecipeItems!.first;
+  }
+
+  void changeCurrentSwipedCard(LikeRecipeModel model) {
+    currentSwipedCardModel = model;
+    emit(CurrentSwipedCard(currentSwipedCardModel!));
+    print(currentSwipedCardModel!.recipeModel.title);
+  }
+
+  void clickRunVideoButton() {
+    print('calisti');
+    if (videoPlayerController.value.isPlaying) {
+      emit(VideoPlaybackState(videoPlayerController.pause()));
+    } else {
+      emit(VideoPlaybackState(videoPlayerController.play()));
+    }
   }
 
   @override
@@ -140,3 +169,46 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   @override
   void setContext(BuildContext context) => this.context = context;
 }
+
+/**
+ *
+  List<RecipeModel> draggableItems = [
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image.png'),
+    const RecipeModel(
+        distance: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+        imageAsset: 'asset/png/image1.png'),
+  ];
+
+ */

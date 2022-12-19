@@ -70,5 +70,10 @@
     "close":"Kapat",
     "deleteSavedRecipeQuestion": "Bu tarifi kaydedilen tariflerden çıkarmak istediğinize emin misiniz?",
     "yes": "Evet",
-    "no": "Hayır"
+    "no": "Hayır",
+    "home": "Anasayfa",
+    "discover": "Keşfet",
+    "finder": "Tarif Bulucu",
+    "likes":"Beğenilenler",
+    "basket": "Sepet"
 }

@@ -12,7 +12,101 @@ import 'likes_state.dart';
 class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   ILikesService? service;
 
-  late List<LikeRecipeModel> likeRecipeItems;
+  late List<LikeRecipeModel> likeRecipeItems = [
+    LikeRecipeModel(
+      missingItems: [
+        IngredientModel(
+            title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
+        IngredientModel(
+            title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+        IngredientModel(
+            title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+        IngredientModel(
+            title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+        IngredientModel(
+            title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
+      ],
+      recipeModel: RecipeModel(
+          imagePath: ImagePath.imageSample1.path,
+          title:
+              'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+              'uzun text deneme',
+          ingredients: [
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+          ],
+          description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+          directions: directionText),
+    ),
+    LikeRecipeModel(
+      missingItems: [
+        IngredientModel(
+            title: 'milk', imagePath: ImagePath.milk.path, quantity: 5),
+        IngredientModel(
+            title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
+      ],
+      recipeModel: RecipeModel(
+          imagePath: ImagePath.imageSample2.path,
+          title: 'Cajun spiced Cauliflower Rice with Chicken',
+          ingredients: [
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+          ],
+          description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+          directions: directionText),
+    ),
+    LikeRecipeModel(
+      missingItems: [
+        IngredientModel(title: 'somon'),
+        IngredientModel(title: 'bread'),
+        IngredientModel(title: 'milk'),
+      ],
+      recipeModel: RecipeModel(
+          imagePath: ImagePath.imageSample3.path,
+          title: 'Cajun spiced Cauliflower Rice with Chicken',
+          ingredients: [
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+          ],
+          description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+          directions: directionText),
+    ),
+    LikeRecipeModel(
+      recipeModel: RecipeModel(
+          imagePath: ImagePath.imageSample4.path,
+          title: 'Cajun spiced Cauliflower Rice with Chicken',
+          ingredients: [
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+          ],
+          description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+          directions: directionText),
+    ),
+    LikeRecipeModel(
+      recipeModel: RecipeModel(
+          imagePath: ImagePath.imageSample1.path,
+          title: 'Cajun spiced Cauliflower Rice with Chicken',
+          ingredients: [
+            IngredientModel(title: 'Egg', quantity: 4),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+            IngredientModel(title: 'Butter', quantity: 1 / 2),
+          ],
+          description:
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+          directions: directionText),
+    ),
+  ];
   late List<IngredientModel> myFrizeItems;
 
   String directionText =

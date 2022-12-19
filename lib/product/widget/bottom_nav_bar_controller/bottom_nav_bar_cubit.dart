@@ -13,7 +13,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [
     const HomeView(),
     const DiscoverView(),
-    const FinderView(),
+     FinderView(),
     const LikesView(),
     const BasketView(),
   ];
@@ -25,6 +25,11 @@ class RecipeNavigationBarCubit extends Cubit<int> {
     selectedPageIndex = 2;
 
     emit(selectedPageIndex);
+    pageController.animateToPage(
+      selectedPageIndex,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
   }
 
   Color itemColor(index) {
@@ -41,9 +46,9 @@ class RecipeNavigationBarCubit extends Cubit<int> {
       emit(selectedPageIndex);
       if (pageController.hasClients) {
         pageController.animateToPage(
-          selectedPageIndex,
-          duration: const Duration(milliseconds: 1000),
-          curve: Curves.linear,
+          index,
+          duration: const Duration(seconds: 1),
+          curve: Curves.fastOutSlowIn,
         );
       }
     }
@@ -54,3 +59,52 @@ class RecipeNavigationBarCubit extends Cubit<int> {
     emit(selectedPageIndex);
   }
 }
+
+/*class CustomPageRouteBuilder<T extends StatelessWidget>
+    extends PageRouteBuilder {
+  final T view;
+
+  CustomPageRouteBuilder({required this.view})
+      : super(
+          transitionDuration: const Duration(milliseconds: 500),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            var begin = const Offset(0.0, 1.0);
+            var end = Offset.zero;
+            var curve = Curves.ease;
+
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+            return SlideTransition(
+              position: animation.drive(tween),
+              child: child,
+            );
+          },
+          pageBuilder: (context, animation, secondaryAnimation) => view,
+        );
+}*/
+/*
+  void navigationPage(BuildContext context, int index) {
+    switch (index) {
+      case 0:
+        Navigator.push(context, CustomPageRouteBuilder(view: const HomeView()));
+        break;
+      case 1:
+        Navigator.push(
+            context, CustomPageRouteBuilder(view: const DiscoverView()));
+        break;
+      case 2:
+        Navigator.push(
+            context, CustomPageRouteBuilder(view: const DiscoverView()));
+        break;
+      case 3:
+        Navigator.push(
+            context, CustomPageRouteBuilder(view: const LikesView()));
+        break;
+      case 4:
+        Navigator.push(
+            context, CustomPageRouteBuilder(view: const BasketView()));
+        break;
+    }
+  }
+*/
