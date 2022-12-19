@@ -21,8 +21,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
   }
 
   void videoPlayerInit() {
-    videoPlayerController = VideoPlayerController.asset(
-        'asset/samplevideo.mp4')
+    videoPlayerController = VideoPlayerController.asset('asset/samplevideo.mp4')
       ..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,

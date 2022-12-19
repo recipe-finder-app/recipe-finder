@@ -23,19 +23,41 @@ import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart'
 import 'package:recipe_finder/product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
+import '../../../product/component/image_format/image_svg.dart';
 import '../../../product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
 
 class FinderView extends StatefulWidget {
-  const FinderView({super.key});
-  
+  const FinderView({Key? key}) : super(key: key);
+
+  @override
+  State<FinderView> createState() => _FinderViewState();
+}
+
+class _FinderViewState extends State<FinderView> {
+  late final SwipableStackController _controller;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _listenController() => setState(() {});
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseView<FinderCubit>(
         init: (cubitRead) {
+          _controller = SwipableStackController()
+            ..addListener(_listenController);
           cubitRead.init();
         },
         dispose: (cubitRead) {
+          _controller
+            ..removeListener(_listenController)
+            ..dispose();
           cubitRead.dispose();
         },
         visibleProgress: false,
@@ -198,33 +220,36 @@ class FinderView extends StatefulWidget {
   Widget _textRow(BuildContext context) {
     return SizedBox(
       width: context.cardValueWidth,
-      child: LocaleText(
-        style: TextStyle(
-          fontSize: 21,
-          fontWeight: FontWeight.w600,
-          fontStyle: FontStyle.normal,
-          color: ColorConstants.instance.blackbox,
-        ),
+      child: Row(children: [
         Flexible(
-          flex: 2,
-          child: TextButton(
-            onPressed: () {
-              context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
-            },
-            child: LocaleText(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstants.instance.russianViolet,
-                  decoration: TextDecoration.underline,
-                  decorationColor: ColorConstants.instance.russianViolet,
-                  decorationThickness: 2,
-                ),
-                text: LocaleKeys.close),
+          child: LocaleText(
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color: ColorConstants.instance.blackbox,
+            ),
+            text: LocaleKeys.finderText,
           ),
         ),
-      ],
+        TextButton(
+          onPressed: () {
+            context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
+          },
+          child: LocaleText(
+              style: TextStyle(
+                fontSize: 16,
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.w600,
+                color: ColorConstants.instance.russianViolet,
+                decoration: TextDecoration.underline,
+                decorationColor: ColorConstants.instance.russianViolet,
+                decorationThickness: 2,
+              ),
+              text: LocaleKeys.close),
+        ),
+      ]),
     );
   }
 
