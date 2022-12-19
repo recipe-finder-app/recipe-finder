@@ -39,12 +39,9 @@ class RecipeBottomNavigationBar extends StatelessWidget {
               selectedLabelStyle: const TextStyle(
                 fontSize: 13,
               ),
-              // selectedFontSize: 10,
               onTap: (index) {
-                // cubitRead.changePage(index);
                 cubitRead.changeCurrentIndex(index);
               },
-
               currentIndex: cubitRead.selectedPageIndex,
               items: [
                 BottomNavigationBarItem(
@@ -119,7 +116,10 @@ class RecipeBottomNavigationBar extends StatelessWidget {
             ),
           ],
         ),
-        body: cubitRead.pageList[cubitRead.selectedPageIndex],
+        body: PageView(
+          controller: cubitRead.pageController,
+          children: cubitRead.pageList,
+        ),
       ),
     );
   }
