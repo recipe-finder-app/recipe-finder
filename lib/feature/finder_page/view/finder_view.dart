@@ -8,10 +8,10 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
-import 'package:recipe_finder/product/component/card/card_overlay.dart';
-import 'package:recipe_finder/product/component/card/tinder_card.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
+import 'package:recipe_finder/product/component/card/card_overlay.dart';
+import 'package:recipe_finder/product/component/card/tinder_card.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_bold_text.dart';
@@ -20,6 +20,8 @@ import 'package:recipe_finder/product/model/ingradient_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import 'package:swipable_stack/swipable_stack.dart';
+
+import '../../../product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
 
 class FinderView extends StatefulWidget {
   const FinderView({super.key});
@@ -207,8 +209,7 @@ class _FinderViewState extends State<FinderView> {
           flex: 2,
           child: TextButton(
             onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+              context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
             },
             child: LocaleText(
                 style: TextStyle(

@@ -68,5 +68,10 @@
     "selectIngredients":"Select your have ingredients",
     "finderText":"We  matched you with recipes.",
     "close":"Close",
-    "deleteSavedRecipeQuestion": "Are you sure you want to remove this recipe from saved recipes?"
+    "deleteSavedRecipeQuestion": "Are you sure you want to remove this recipe from saved recipes?",
+    "home": "Home",
+    "discover": "Discover",
+    "finder": "Finder",
+    "likes":"Likes",
+    "basket": "Basket"
 }
