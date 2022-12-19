@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
@@ -8,8 +7,10 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
+import 'package:recipe_finder/feature/finder_page/cubit/finder_state.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
+import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 import 'package:recipe_finder/product/component/card/card_overlay.dart';
 import 'package:recipe_finder/product/component/card/tinder_card.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
@@ -81,9 +82,22 @@ class _FinderViewState extends State<FinderView> {
                           children: [
                             _textRow(context),
                             context.normalSizedBox,
-                            buildTinderCard(context, cubitRead),
-                            context.normalSizedBox,
-                            buildRowButon(context),
+                            cubitRead.finderRecipeItems == null
+                                ? Text('Şimdilik bu kadar...')
+                                : BlocSelector<FinderCubit, IFinderState,
+                                    LikeRecipeModel>(
+                                    selector: (state) {
+                                      if (state is CurrentSwipedCard) {
+                                        return state.currentSwipedCardModel;
+                                      } else {
+                                        return cubitRead.currentSwipedCardModel;
+                                      }
+                                    },
+                                    builder: (context, state) {
+                                      return buildTinderCard(
+                                          context, cubitRead, state);
+                                    },
+                                  ),
                           ],
                         ),
                       ),
@@ -94,68 +108,78 @@ class _FinderViewState extends State<FinderView> {
             ));
   }
 
-  SizedBox buildTinderCard(BuildContext context, FinderCubit cubitRead) {
-    return SizedBox(
-      height: context.cardhighValue,
-      width: context.cardValueWidth,
-      child: SwipableStack(
-        controller: _controller,
-        stackClipBehaviour: Clip.none,
-        swipeAnchor: SwipeAnchor.bottom,
-        onWillMoveNext: (
-          index,
-          swipeDirection,
-        ) {
-          switch (swipeDirection) {
-            case SwipeDirection.left:
-            case SwipeDirection.right:
-            case SwipeDirection.up:
-              return true;
-            case SwipeDirection.down:
-              return false;
-          }
-        },
-        onSwipeCompleted: (index, direction) {
-          if (kDebugMode) {
-            print('$index, $direction');
-          }
-        },
-        horizontalSwipeThreshold: 0.8,
-        verticalSwipeThreshold: 1,
-        overlayBuilder: (
-          context,
-          properties,
-        ) =>
-            CardOverlay(
-          swipeProgress: properties.swipeProgress,
-          direction: properties.direction,
+  Column buildTinderCard(
+      BuildContext context, FinderCubit cubitRead, LikeRecipeModel state) {
+    return Column(
+      children: [
+        SizedBox(
+          height: context.cardhighValue,
+          width: context.cardValueWidth,
+          child: SwipableStack(
+            controller: _controller,
+            stackClipBehaviour: Clip.none,
+            swipeAnchor: SwipeAnchor.bottom,
+            onWillMoveNext: (
+              index,
+              swipeDirection,
+            ) {
+              cubitRead
+                  .changeCurrentSwipedCard(cubitRead.finderRecipeItems![index]);
+              switch (swipeDirection) {
+                case SwipeDirection.left:
+                case SwipeDirection.right:
+                case SwipeDirection.up:
+                  return true;
+                case SwipeDirection.down:
+                  return false;
+              }
+            },
+            onSwipeCompleted: (index, direction) {
+              cubitRead
+                  .changeCurrentSwipedCard(cubitRead.finderRecipeItems![index]);
+            },
+            horizontalSwipeThreshold: 0.8,
+            verticalSwipeThreshold: 1,
+            overlayBuilder: (
+              context,
+              properties,
+            ) =>
+                CardOverlay(
+              swipeProgress: properties.swipeProgress,
+              direction: properties.direction,
+            ),
+            builder: (
+              context,
+              properties,
+            ) {
+              return TinderCard(
+                  model: cubitRead.finderRecipeItems![properties.index],
+                  recipeOnPressed: () {
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.RECIPE_DETAIL,
+                        data: cubitRead
+                            .finderRecipeItems![properties.index].recipeModel);
+                  });
+            },
+          ),
         ),
-        builder: (
-          context,
-          properties,
-        ) {
-          return TinderCard(
-              model: cubitRead.finderRecipeItems[properties.index],
-              recipeOnPressed: () {
-                NavigationService.instance.navigateToPage(
-                    path: NavigationConstants.RECIPE_DETAIL,
-                    data: cubitRead
-                        .finderRecipeItems[properties.index].recipeModel);
-              });
-        },
-      ),
+        context.normalSizedBox,
+        buildRowButton(context, cubitRead, cubitRead.currentSwipedCardModel),
+      ],
     );
   }
 
-  SizedBox buildRowButon(BuildContext context) {
+  SizedBox buildRowButton(BuildContext context, FinderCubit cubitRead,
+      LikeRecipeModel? likeRecipeModel) {
     return SizedBox(
       width: context.cardValueWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FloatingActionButton(
+          FloatingActionButton.small(
             backgroundColor: ColorConstants.instance.russianViolet,
             onPressed: () {
+              cubitRead.finderRecipeItems?.remove(likeRecipeModel);
               _controller.next(swipeDirection: SwipeDirection.left);
             },
             child: Icon(
@@ -174,6 +198,8 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
+              context.read<LikesCubit>().likeRecipeItems.add(likeRecipeModel!);
+              cubitRead.finderRecipeItems?.remove(likeRecipeModel);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(

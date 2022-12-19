@@ -50,55 +50,57 @@ class RecipeDetailView extends StatelessWidget {
                     alignment: AlignmentDirectional.topStart,
                     children: [
                       cubitRead.chewieController.isPlaying
-                          ? AspectRatio(
-                              aspectRatio:
-                                  cubitRead.chewieController.aspectRatio!,
-                              child: Stack(
-                                alignment: AlignmentDirectional.center,
-                                children: [
-                                  Chewie(
-                                    controller: cubitRead.chewieController,
-                                  ),
-                                  //VideoPlayer(cubitRead.videoPlayerController),
-                                  IconButton(
-                                    icon: const Icon(Icons.pause),
-                                    color: Colors.white,
-                                    onPressed: () {
-                                      cubitRead.clickRunVideoButton();
-                                    },
-                                  ),
-                                  /* Positioned(
-                                    bottom: 50,
-                                    right: 5,
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.fullscreen,
-                                        color: Colors.white,
-                                      ),
+                          ? SafeArea(
+                              child: AspectRatio(
+                                aspectRatio:
+                                    cubitRead.chewieController.aspectRatio!,
+                                child: Stack(
+                                  alignment: AlignmentDirectional.center,
+                                  children: [
+                                    Chewie(
+                                      controller: cubitRead.chewieController,
+                                    ),
+                                    //VideoPlayer(cubitRead.videoPlayerController),
+                                    IconButton(
+                                      icon: const Icon(Icons.pause),
+                                      color: Colors.white,
                                       onPressed: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return LandscapePlayerView(
-                                              controller:
-                                                  cubitRead.chewieController);
-                                        }));
+                                        cubitRead.clickRunVideoButton();
                                       },
                                     ),
-                                  ),*/
-                                  /*Positioned(
-                                    bottom: 45,
-                                    right: 50,
-                                    left: 50,
-                                    child: VideoProgressIndicator(
-                                        cubitRead.videoPlayerController,
-                                        colors: VideoProgressColors(
-                                            backgroundColor: ColorConstants
-                                                .instance.brightGraySolid,
-                                            playedColor: Colors.white),
-                                        allowScrubbing: true),
-                                  ),*/
-                                ],
+                                    /* Positioned(
+                                      bottom: 50,
+                                      right: 5,
+                                      child: IconButton(
+                                        icon: const Icon(
+                                          Icons.fullscreen,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return LandscapePlayerView(
+                                                controller:
+                                                    cubitRead.chewieController);
+                                          }));
+                                        },
+                                      ),
+                                    ),*/
+                                    /*Positioned(
+                                      bottom: 45,
+                                      right: 50,
+                                      left: 50,
+                                      child: VideoProgressIndicator(
+                                          cubitRead.videoPlayerController,
+                                          colors: VideoProgressColors(
+                                              backgroundColor: ColorConstants
+                                                  .instance.brightGraySolid,
+                                              playedColor: Colors.white),
+                                          allowScrubbing: true),
+                                    ),*/
+                                  ],
+                                ),
                               ),
                             )
                           : Container(

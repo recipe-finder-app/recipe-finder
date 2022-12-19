@@ -46,7 +46,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
       emit(selectedPageIndex);
       if (pageController.hasClients) {
         pageController.animateToPage(
-          selectedPageIndex,
+          index,
           duration: const Duration(seconds: 1),
           curve: Curves.fastOutSlowIn,
         );
