@@ -57,6 +57,7 @@ class StandardTextFormField extends StatelessWidget {
         maxLines: maxLines,
         controller: tfController,
         autocorrect: false,
+        enableSuggestions: false,
         keyboardType: keyboardType,
         obscureText: obscureText ?? false,
         style: TextStyle(color: textColor),

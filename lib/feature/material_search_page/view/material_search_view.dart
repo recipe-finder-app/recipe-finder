@@ -213,8 +213,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               gridDelegate:
                                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 4,
-                                                      //childAspectRatio: 0.84,
-                                                      //crossAxisSpacing: 25,
+                                                      childAspectRatio: 0.75,
+                                                      crossAxisSpacing: 10,
                                                       mainAxisSpacing: 25),
                                               itemBuilder: (context, index) {
                                                 return Padding(
@@ -273,8 +273,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               gridDelegate:
                                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 4,
-                                                      //childAspectRatio: 0.70,
-                                                      //crossAxisSpacing: 10,
+                                                      childAspectRatio: 0.75,
+                                                      crossAxisSpacing: 10,
                                                       mainAxisSpacing: 25),
                                               itemCount: state?.length ?? 0,
                                               itemBuilder: (context, index) {

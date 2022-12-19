@@ -68,11 +68,6 @@ class LoginView extends StatelessWidget {
                             NavigationService.instance.navigateToPage(
                               path: NavigationConstants.MATERIALSEARCH,
                             );
-
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) {
-                            //   return MaterialSearch2View();
-                            // }));
                           },
                         ),
                       ],

@@ -23,7 +23,6 @@ class HomeView extends StatelessWidget {
     return BaseView<HomeCubit>(
       init: (cubitRead) {
         cubitRead.init();
-        
       },
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(
@@ -106,8 +105,8 @@ class HomeView extends StatelessWidget {
                   CircleAvatar(
                     radius: 32,
                     backgroundColor: cubitRead.category[index].color,
-                    child:
-                        ImageSvg(path: cubitRead.category[index].imagePath ?? ''),
+                    child: ImageSvg(
+                        path: cubitRead.category[index].imagePath ?? ''),
                   ),
                   context.lowSizedBox,
                   LocaleText(
@@ -171,20 +170,18 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
-    return SizedBox(
-      height: context.screenHeight / 3,
-      child: GridView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: cubitRead.searchByMeal.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 2.40,
-              crossAxisSpacing: 25,
-              mainAxisSpacing: 15),
-          itemBuilder: (BuildContext context, index) {
-            return _searchByMealCard(context, cubitRead, index);
-          }),
-    );
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemCount: cubitRead.searchByMeal.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 2.40,
+            crossAxisSpacing: 25,
+            mainAxisSpacing: 15),
+        itemBuilder: (BuildContext context, index) {
+          return _searchByMealCard(context, cubitRead, index);
+        });
   }
 
   Container _searchByMealCard(
@@ -254,7 +251,8 @@ class HomeView extends StatelessWidget {
                               backgroundColor:
                                   cubitRead.essentialsItem[index].color,
                               child: ImageSvg(
-                                  path: cubitRead.essentialsItem[index].imagePath ??
+                                  path: cubitRead
+                                          .essentialsItem[index].imagePath ??
                                       ''),
                             ),
                             context.lowSizedBox,
@@ -297,8 +295,8 @@ class HomeView extends StatelessWidget {
                           backgroundColor:
                               cubitRead.vegateblesItem[index].color,
                           child: ImageSvg(
-                              path:
-                                  cubitRead.vegateblesItem[index].imagePath ?? ''),
+                              path: cubitRead.vegateblesItem[index].imagePath ??
+                                  ''),
                         ),
                         context.lowSizedBox,
                         Align(

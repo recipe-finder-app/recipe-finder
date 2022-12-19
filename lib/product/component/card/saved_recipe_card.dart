@@ -40,7 +40,7 @@ class LikesRecipeCard extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: BoldText(
                       text: model.recipeModel.title,
-                      textColor: Colors.white,
+                      textColor: ColorConstants.instance.white,
                       style: const TextStyle(fontSize: 12),
                       textAlign: TextAlign.start,
                       fontSize: 12,
@@ -60,7 +60,7 @@ class LikesRecipeCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: context.radiusBottomCircularMin,
-                  color: Colors.white,
+                  color: ColorConstants.instance.white,
                   border:
                       Border.all(color: ColorConstants.instance.oriolesOrange)),
               child: Align(
@@ -126,13 +126,13 @@ class LikesRecipeCard extends StatelessWidget {
         alignment: Alignment.topRight,
         child: InkWell(
           onTap: likeIconOnPressed,
-          child: const TransparentCircularBackground(
+          child: TransparentCircularBackground(
             circleHeight: 35,
             circleWidth: 35,
             child: Icon(
               Icons.favorite,
-              color: Colors.white,
-              size: 20,
+              color: ColorConstants.instance.white,
+              size: 18,
             ),
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
@@ -12,6 +13,7 @@ import 'package:recipe_finder/product/component/card/card_overlay.dart';
 import 'package:recipe_finder/product/component/card/tinder_card.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
+import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_bold_text.dart';
@@ -21,33 +23,8 @@ import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart'
 import 'package:recipe_finder/product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
-class FinderView extends StatefulWidget {
+class FinderView extends StatelessWidget {
   const FinderView({super.key});
-
-  @override
-  State<FinderView> createState() => _FinderViewState();
-}
-
-class _FinderViewState extends State<FinderView> {
-  late final SwipableStackController _controller;
-
-  void _listenController() {
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = SwipableStackController()..addListener(_listenController);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller
-      ..removeListener(_listenController)
-      ..dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +32,13 @@ class _FinderViewState extends State<FinderView> {
         init: (cubitRead) {
           cubitRead.init();
         },
+        dispose: (cubitRead) {
+          cubitRead.dispose();
+        },
         visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
             Scaffold(
-              backgroundColor: const Color(0xffCCD4DE),
+              backgroundColor: ColorConstants.instance.ephemeralBlue,
               body: Padding(
                 padding: context.paddingHighOnlyTop,
                 child: Container(
@@ -81,7 +61,7 @@ class _FinderViewState extends State<FinderView> {
                             context.normalSizedBox,
                             buildTinderCard(context, cubitRead),
                             context.normalSizedBox,
-                            buildRowButon(context),
+                            buildRowButon(context, cubitRead),
                           ],
                         ),
                       ),
@@ -97,7 +77,7 @@ class _FinderViewState extends State<FinderView> {
       height: context.cardhighValue,
       width: context.cardValueWidth,
       child: SwipableStack(
-        controller: _controller,
+        controller: cubitRead.controller,
         stackClipBehaviour: Clip.none,
         swipeAnchor: SwipeAnchor.bottom,
         onWillMoveNext: (
@@ -132,20 +112,20 @@ class _FinderViewState extends State<FinderView> {
           context,
           properties,
         ) {
+          final itemIndex = cubitRead.finderRecipeItems[properties.index];
           return TinderCard(
-              model: cubitRead.finderRecipeItems[properties.index],
+              model: itemIndex,
               recipeOnPressed: () {
                 NavigationService.instance.navigateToPage(
                     path: NavigationConstants.RECIPE_DETAIL,
-                    data: cubitRead
-                        .finderRecipeItems[properties.index].recipeModel);
+                    data: itemIndex.recipeModel);
               });
         },
       ),
     );
   }
 
-  SizedBox buildRowButon(BuildContext context) {
+  SizedBox buildRowButon(BuildContext context, FinderCubit cubitRead) {
     return SizedBox(
       width: context.cardValueWidth,
       child: Row(
@@ -154,7 +134,7 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.russianViolet,
             onPressed: () {
-              _controller.next(swipeDirection: SwipeDirection.left);
+              cubitRead.controller.next(swipeDirection: SwipeDirection.left);
             },
             child: Icon(
               Icons.clear,
@@ -163,16 +143,19 @@ class _FinderViewState extends State<FinderView> {
           ),
           FloatingActionButton(
             mini: true,
-            backgroundColor: const Color(0xffE6EBF2),
+            backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
               //  addToBasketBottomSheet(context,cubitRead,cardIndex);
             },
-            child: Image.asset('asset/png/icon_shop.png'),
+            child: ImageSvg(
+              path: ImagePath.shoppingBag.path,
+              color: ColorConstants.instance.russianViolet,
+            ),
           ),
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
-              _controller.next(swipeDirection: SwipeDirection.right);
+              cubitRead.controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(
               Icons.favorite,
@@ -185,45 +168,17 @@ class _FinderViewState extends State<FinderView> {
   }
 
   Widget _textRow(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Flexible(
-          flex: 3,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 21,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
-              ),
-              text: LocaleKeys.finderText,
-            ),
-          ),
+    return SizedBox(
+      width: context.cardValueWidth,
+      child: LocaleText(
+        style: TextStyle(
+          fontSize: 21,
+          fontWeight: FontWeight.w600,
+          fontStyle: FontStyle.normal,
+          color: ColorConstants.instance.blackbox,
         ),
-        Flexible(
-          flex: 2,
-          child: TextButton(
-            onPressed: () {
-              NavigationService.instance
-                  .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
-            },
-            child: LocaleText(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w600,
-                  color: ColorConstants.instance.russianViolet,
-                  decoration: TextDecoration.underline,
-                  decorationColor: ColorConstants.instance.russianViolet,
-                  decorationThickness: 2,
-                ),
-                text: LocaleKeys.close),
-          ),
-        ),
-      ],
+        text: LocaleKeys.finderText,
+      ),
     );
   }
 
@@ -271,7 +226,7 @@ class _FinderViewState extends State<FinderView> {
                               iconBottomWidget: BoldText(
                                 text:
                                     state[missingItemIndex].quantity.toString(),
-                                textColor: Colors.white,
+                                textColor: ColorConstants.instance.white,
                               ),
                               color: ColorConstants.instance.oriolesOrange
                                   .withOpacity(0.4),
@@ -290,7 +245,7 @@ class _FinderViewState extends State<FinderView> {
             if (state is MyFrizeListLoad) {
               return state.myFrizeList;
             } else {
-              return cubitRead.myFrizeItems ?? [];
+              return cubitRead.myFrizeItems;
             }
           }, builder: (BuildContext context, state) {
             return Flexible(
@@ -320,7 +275,7 @@ class _FinderViewState extends State<FinderView> {
                                     text: state[myFrizeItemIndex]
                                         .quantity
                                         .toString(),
-                                    textColor: Colors.white,
+                                    textColor: ColorConstants.instance.white,
                                   ),
                                   color:
                                       ColorConstants.instance.brightGraySolid2,

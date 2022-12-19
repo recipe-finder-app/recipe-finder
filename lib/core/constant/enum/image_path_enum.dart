@@ -39,6 +39,7 @@ enum ImagePath {
   drinks('asset/png/drinks.png'),
 
   basket('asset/svg/basket.svg'),
+
   likeWhite('asset/svg/heart_white.svg'),
   imageSample1('asset/png/imageSample1.png'),
   imageSample2('asset/png/imageSample2.png'),

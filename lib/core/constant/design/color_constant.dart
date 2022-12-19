@@ -14,6 +14,7 @@ class ColorConstants {
   Color blackbox = const Color(0xff0A2533);
   Color brightGraySolid = const Color(0xFFE3EBEC);
   Color brightGraySolid2 = const Color(0xFFE6EBF2);
+  Color ephemeralBlue = const Color(0xFFCCD4DE);
 
 
  

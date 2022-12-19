@@ -17,6 +17,9 @@ import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
+
+
+
   await _init();
   runApp(EasyLocalization(
       path: ApplicationConstants.LANGUAGE_ASSET_PATH,

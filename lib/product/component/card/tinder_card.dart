@@ -5,18 +5,18 @@ import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 
 class TinderCard extends StatelessWidget {
   const TinderCard({
-   
-    super.key, required this.model, this.recipeOnPressed,
+    super.key,
+    required this.model,
+    this.recipeOnPressed,
   });
 
- final LikeRecipeModel model;
+  final LikeRecipeModel model;
   final VoidCallback? recipeOnPressed;
-
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-       onTap: recipeOnPressed,
+      onTap: recipeOnPressed,
       child: Stack(
         children: [
           Container(
@@ -53,10 +53,10 @@ class TinderCard extends StatelessWidget {
               child: Text(
                 model.recipeModel.title,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontSize: 20,
-                  color: Colors.white,
+                  color: ColorConstants.instance.white,
                 ),
               ),
             ),
