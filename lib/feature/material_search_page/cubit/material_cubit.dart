@@ -18,15 +18,13 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   List<IngredientModel> essentials = [];
   List<IngredientModel> vegetables = [];
+
   List<IngredientModel> fruits = [];
   late MaterialSearchModel materialSearchModel;
   late Map<MaterialSearchCategory, List<IngredientModel>>? searchedMap;
   late TextEditingController searchTextController;
 
-  @override
-  void init() {
-    service = MaterialSearchService();
-    searchTextController = TextEditingController();
+  void setListData() {
     essentials = [
       IngredientModel(
           imagePath: ImagePath.egg.path,
@@ -127,6 +125,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           title: LocaleKeys.eggplant.locale,
           color: const Color(0xff800771).withOpacity(0.1)),
     ];
+
     fruits = [
       IngredientModel(
           imagePath: ImagePath.tomato.path,
@@ -181,12 +180,20 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
           title: LocaleKeys.eggplant.locale,
           color: const Color(0xff800771).withOpacity(0.1)),
     ];
+  }
+
+  @override
+  void init() {
+    service = MaterialSearchService();
+    searchTextController = TextEditingController();
+    setListData();
     materialSearchModel = MaterialSearchModel(materialSearchMap: {
       MaterialSearchCategory.essentials: essentials,
       MaterialSearchCategory.vegatables: vegetables,
       MaterialSearchCategory.fruits: fruits
     });
     searchedMap = {};
+    ingredientListLoad();
     print('materialsearch init çalıştı');
   }
 
