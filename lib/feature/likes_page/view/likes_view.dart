@@ -34,77 +34,65 @@ class LikesView extends StatelessWidget {
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: context.normalValue),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: context.mediumValue),
-                    child: const LocaleBoldText(
-                      text: LocaleKeys.mySavedRecipes,
-                      fontSize: 29,
-                    ),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: context.mediumValue,
+                  left: context.normalValue,
+                  right: context.normalValue),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const LocaleBoldText(
+                    text: LocaleKeys.mySavedRecipes,
+                    fontSize: 29,
                   ),
-                ),
-                context.normalSizedBox,
-                GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: cubitRead.likeRecipeItems.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 3 / 4,
-                    ),
-                    itemBuilder: (BuildContext context, int cardIndex) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          left: cardIndex % 2 != 0 ? context.lowValue : 0,
-                          right: cardIndex % 2 != 0 ? context.normalValue : 0,
-                        ),
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                              left:
-                                  cardIndex % 2 == 0 ? context.normalValue : 0,
-                              right: cardIndex % 2 == 0 ? context.lowValue : 0,
-                              bottom: context.normalValue,
-                            ),
-                            child: LikesRecipeCard(
-                              model: cubitRead.likeRecipeItems[cardIndex],
-                              addToBasketOnPressed: () {
-                                cubitRead.missingItemLoad(cardIndex);
-                                addToBasketBottomSheet(
-                                    context, cubitRead, cardIndex);
-                              },
-                              recipeOnPressed: () {
-                                NavigationService.instance.navigateToPage(
-                                    path: NavigationConstants.RECIPE_DETAIL,
-                                    data: cubitRead.likeRecipeItems[cardIndex]
-                                        .recipeModel);
-                                /* recipeBottomSheet(
-                                    context, cubitRead, cardIndex);*/
-                              },
-                              likeIconOnPressed: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return QuestionAlertDialog(
-                                        explanation: LocaleKeys
-                                            .deleteSavedRecipeQuestion,
-                                        onPressedYes: () {
-                                          cubitRead
-                                              .deleteItemFromLikedRecipeList(
-                                                  cubitRead.likeRecipeItems[
-                                                      cardIndex]);
-                                        },
-                                      );
-                                    });
-                              },
-                            )),
-                      );
-                    }),
-              ],
+                  context.normalSizedBox,
+                  GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: cubitRead.likeRecipeItems.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15,
+                        childAspectRatio: 3 / 4,
+                      ),
+                      itemBuilder: (BuildContext context, int cardIndex) {
+                        return LikesRecipeCard(
+                          model:
+                              cubitRead.likeRecipeItems[cardIndex].recipeModel,
+                          addToBasketOnPressed: () {
+                            cubitRead.missingItemLoad(cardIndex);
+                            addToBasketBottomSheet(
+                                context, cubitRead, cardIndex);
+                          },
+                          recipeOnPressed: () {
+                            NavigationService.instance.navigateToPage(
+                                path: NavigationConstants.RECIPE_DETAIL,
+                                data: cubitRead
+                                    .likeRecipeItems[cardIndex].recipeModel);
+                            /* recipeBottomSheet(
+                                context, cubitRead, cardIndex);*/
+                          },
+                          likeIconOnPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return QuestionAlertDialog(
+                                    explanation:
+                                        LocaleKeys.deleteSavedRecipeQuestion,
+                                    onPressedYes: () {
+                                      cubitRead.deleteItemFromLikedRecipeList(
+                                          cubitRead.likeRecipeItems[cardIndex]);
+                                    },
+                                  );
+                                });
+                          },
+                        );
+                      }),
+                ],
+              ),
             ),
           ),
         ),

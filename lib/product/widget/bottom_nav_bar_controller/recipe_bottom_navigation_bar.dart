@@ -119,6 +119,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           ],
         ),
         body: PageView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: cubitRead.pageController,
           children: cubitRead.pageList,
         ),

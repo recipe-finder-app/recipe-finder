@@ -16,11 +16,10 @@
     "registerWithGoogle": "Google ile Kaydol",
     "registerWithFacebook": "Facebook ile Kaydol",
     "dontHaveAnyAccount": "Hesabınız yok mu?",
-    "alreadyHaveAnyAccount": "Zaten bir hesabınız var mı?",
+    "alreadyHaveAnyAccount": "Zaten bir hesabın var mı?",
     "signUp": "Kaydol",
     "signIn": "Giriş Yap",
     "search":"Ara",
-    "homeTitle":"Pişirmek için en iyi tarifleri  bulun",
     "category":"Kategori",
     "pizza":"Pizza",
     "vegetarian":"Vejetaryen",
@@ -74,6 +73,8 @@
     "home": "Anasayfa",
     "discover": "Keşfet",
     "finder": "Tarif Bulucu",
-    "likes":"Beğenilenler",
-    "basket": "Sepet"
+    "likes":"Beğenilen",
+    "basket": "Sepet",
+    "findBestRecipesForCooking" : "Pişirmek için en iyi tarifleri bulun",
+    "trendingNow" : "Popüler Tarifler"
 }

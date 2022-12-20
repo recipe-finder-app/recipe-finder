@@ -22,7 +22,6 @@ abstract class  LocaleKeys {
   static const signUp = 'signUp';
   static const signIn = 'signIn';
   static const search = 'search';
-  static const homeTitle = 'homeTitle';
   static const category = 'category';
   static const pizza = 'pizza';
   static const vegetarian = 'vegetarian';
@@ -78,5 +77,7 @@ abstract class  LocaleKeys {
   static const finder = 'finder';
   static const likes = 'likes';
   static const basket = 'basket';
+  static const findBestRecipesForCooking = 'findBestRecipesForCooking';
+  static const trendingNow = 'trendingNow';
 
 }
