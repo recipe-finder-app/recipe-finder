@@ -15,7 +15,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
     const DiscoverView(),
      FinderView(),
     const LikesView(),
-    const BasketView(),
+     BasketView(),
   ];
   int selectedPageIndex = 0;
   PageController pageController = PageController(initialPage: 0);

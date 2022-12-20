@@ -47,9 +47,11 @@ class RecipeDetailView extends StatelessWidget {
               Stack(
                 alignment: AlignmentDirectional.topStart,
                 children: [
-                  cubitRead.chewieController.isPlaying
+                  /**
+                   * cubitRead.chewieController.isPlaying
                       ? AspectRatio(
-                          aspectRatio: cubitRead.chewieController.aspectRatio!,
+                          aspectRatio: 1.0,
+                          // aspectRatio: cubitRead.chewieController.aspectRatio!,
                           child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
@@ -98,30 +100,38 @@ class RecipeDetailView extends StatelessWidget {
                             ],
                           ),
                         )
-                      : Container(
-                          height: context.screenHeight / 2.5,
-                          width: context.screenWidth,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(recipeModel.imagePath)),
-                          ),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: [0, 0, 0.4, 1],
-                                colors: [
-                                  Colors.black,
-                                  Colors.black12,
-                                  Colors.black12,
-                                  Colors.black,
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                      : 
+                   */
+                  AspectRatio(
+                    aspectRatio: cubitRead.chewieController.aspectRatio!,
+                    child: Chewie(
+                      controller: cubitRead.chewieController,
+                    ),
+                  ),
+                  //Container(
+                  //     height: context.screenHeight / 2.5,
+                  //     width: context.screenWidth,
+                  //     decoration: BoxDecoration(
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.cover,
+                  //           image: AssetImage(recipeModel.imagePath)),
+                  //     ),
+                  //     child: Container(
+                  //       decoration: const BoxDecoration(
+                  //         gradient: LinearGradient(
+                  //           begin: Alignment.topCenter,
+                  //           end: Alignment.bottomCenter,
+                  //           stops: [0, 0, 0.4, 1],
+                  //           colors: [
+                  //             Colors.black,
+                  //             Colors.black12,
+                  //             Colors.black12,
+                  //             Colors.black,
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
                   Padding(
                     padding: context.paddingNormalAll,
                     child: Padding(
@@ -172,7 +182,7 @@ class RecipeDetailView extends StatelessWidget {
                                           cubitRead.chewieController.isPlaying
                                               ? Icons.pause
                                               : Icons.play_circle_outline,
-                                          color: Colors.white,
+                                          color: Colors.red,
                                           size: 25,
                                         ),
                                       ),

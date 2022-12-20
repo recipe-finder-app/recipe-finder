@@ -35,6 +35,7 @@ class FinderView extends StatefulWidget {
 
 class _FinderViewState extends State<FinderView> {
   late final SwipableStackController _controller;
+
   @override
   void initState() {
     super.initState();
@@ -71,9 +72,9 @@ class _FinderViewState extends State<FinderView> {
                   width: context.screenWidth,
                   decoration: BoxDecoration(
                       color: ColorConstants.instance.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(35),
-                          topRight: Radius.circular(35))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(context.mediumValue),
+                          topRight: Radius.circular(context.mediumValue))),
                   child: Padding(
                     padding: context.paddingNormalTopLeftRight,
                     child: SingleChildScrollView(

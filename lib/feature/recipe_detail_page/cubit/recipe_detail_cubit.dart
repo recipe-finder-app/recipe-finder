@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
@@ -12,6 +13,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
+
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
@@ -21,13 +23,13 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
   }
 
   void videoPlayerInit() {
-    videoPlayerController = VideoPlayerController.asset('asset/samplevideo.mp4')
+    videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')
       ..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      autoPlay: false,
+      autoPlay:false,
       looping: false,
-      aspectRatio: videoPlayerController.value.aspectRatio,
+      aspectRatio: 1.30,
     );
   }
 

@@ -6,11 +6,13 @@ class RecipeModel {
   final String imagePath;
   final String? description;
   final String? directions;
+  final String? video;
 
   RecipeModel(
       {required this.ingredients,
       required this.title,
       required this.imagePath,
+      this.video,
       this.description,
       this.directions});
 }
