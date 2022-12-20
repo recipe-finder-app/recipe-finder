@@ -7,6 +7,7 @@ import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/feature/basket_page/cubit/basket_cubit.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/product/component/card/card_overlay.dart';
@@ -76,7 +77,7 @@ class _FinderViewState extends State<FinderView> {
                             _textRow(context),
                             context.normalSizedBox,
                             cubitRead.recipeListItemCount == 0
-                                ? Align(
+                                ? const Align(
                                     alignment: Alignment.center,
                                     child: Text('Şimdilik bu kadar...'))
                                 : buildTinderCard(context, cubitRead),
@@ -124,7 +125,12 @@ class _FinderViewState extends State<FinderView> {
                     .read<LikesCubit>()
                     .likeRecipeItems
                     .add(cubitRead.finderRecipeItems![index]);
-              } else if (direction == SwipeDirection.left) {}
+              } else if (direction == SwipeDirection.up) {
+                context
+                    .read<BasketCubit>()
+                    .basketRecipeItems
+                    .add(cubitRead.finderRecipeItems![index]);
+              } else {}
             },
             horizontalSwipeThreshold: 0.8,
             verticalSwipeThreshold: 1,

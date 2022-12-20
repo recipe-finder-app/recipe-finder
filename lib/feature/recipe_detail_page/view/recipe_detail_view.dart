@@ -239,6 +239,7 @@ class RecipeDetailView extends StatelessWidget {
                         ),
                 ],
               ),
+              
               Container(
                 decoration: BoxDecoration(
                     color: Colors.white,

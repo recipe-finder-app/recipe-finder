@@ -37,7 +37,9 @@ class NavigationRoute {
       case NavigationConstants.LIKES:
         return normalNavigate(const LikesView(), NavigationConstants.LIKES);
       case NavigationConstants.BASKET:
-        return normalNavigate( BasketView(), NavigationConstants.BASKET);
+        return normalNavigate(
+            BasketView(),
+            NavigationConstants.BASKET);
       case NavigationConstants.MATERIALSEARCH:
         return normalNavigate(
             const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);

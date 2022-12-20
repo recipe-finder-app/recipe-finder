@@ -21,7 +21,3 @@ class FinderError extends IFinderState {
   FinderError(this.errorMessage);
 }
 
-class VideoPlaybackState extends IFinderState {
-  late Future<void> controller;
-  VideoPlaybackState(this.controller);
-}

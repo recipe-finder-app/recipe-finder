@@ -326,7 +326,6 @@ class HomeView extends StatelessWidget {
         Positioned(
           bottom: 20,
           child: RecipeCircularButton(
-              width: context.screenWidth / 1.15,
               color: ColorConstants.instance.russianViolet,
               text: LocaleKeys.addIngredients),
         ),

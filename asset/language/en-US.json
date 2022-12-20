@@ -70,8 +70,14 @@
     "close":"Close",
     "deleteSavedRecipeQuestion": "Are you sure you want to remove this recipe from saved recipes?",
     "home": "Home",
+    "yes": "Yes",
+    "no": "No",
     "discover": "Discover",
     "finder": "Finder",
     "likes":"Likes",
-    "basket": "Basket"
+    "basket": "Basket",
+    "myBasketList":"My Basket List", 
+    "toBuyList":"To - Buy List",
+    "myPantry":"My Pantry",
+    "removeCard":"Are you sure you want to remove it from the card?"
 }

@@ -75,5 +75,9 @@
     "discover": "Keşfet",
     "finder": "Tarif Bulucu",
     "likes":"Beğenilenler",
-    "basket": "Sepet"
+    "basket": "Sepet",
+    "myBasketList":"Sepet Listem", 
+    "toBuyList":"Satın Alma Listesi",
+    "myPantry":"Benimkiler",
+    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?"
 }
