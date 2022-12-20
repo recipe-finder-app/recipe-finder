@@ -1,5 +1,3 @@
-import '../../likes_page/model/like_recipe_model.dart';
-
 abstract class IFinderState {
   IFinderState();
 }
@@ -10,12 +8,12 @@ class FinderInit extends IFinderState {
 
 class OnFinderLoading extends IFinderState {
   late bool isLoading;
-  OnFinderLoading(isLoading);
+  OnFinderLoading(this.isLoading);
 }
 
-class CurrentSwipedCard extends IFinderState {
-  late LikeRecipeModel currentSwipedCardModel;
-  CurrentSwipedCard(this.currentSwipedCardModel);
+class RecipeListItemCountCounter extends IFinderState {
+  late int count;
+  RecipeListItemCountCounter(this.count);
 }
 
 class FinderError extends IFinderState {

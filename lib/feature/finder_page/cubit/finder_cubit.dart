@@ -12,7 +12,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   IFinderService? service;
   late List<LikeRecipeModel>? finderRecipeItems;
   late List<IngredientModel> myFinderFrizeItems;
-  late LikeRecipeModel currentSwipedCardModel;
+  late int recipeListItemCount;
   String directionText =
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
   Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
@@ -40,7 +40,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         ],
         recipeModel: RecipeModel(
           imagePath: 'asset/png/image.png',
-          title: 'Deneme Text',
+          title: 'Deneme Text 1',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
             IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -63,7 +63,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         ],
         recipeModel: RecipeModel(
             imagePath: 'asset/png/image1.png',
-            title: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
+            title: 'Deneme Text 2',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -81,33 +81,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         ],
         recipeModel: RecipeModel(
             imagePath: 'asset/png/image.png',
-            title: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
-            ingredients: [
-              IngredientModel(title: 'Egg', quantity: 4),
-              IngredientModel(title: 'Butter', quantity: 1 / 2),
-              IngredientModel(title: 'Butter', quantity: 1 / 2),
-            ],
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-            directions: directionText),
-      ),
-      LikeRecipeModel(
-        recipeModel: RecipeModel(
-            imagePath: 'asset/png/image1.png',
-            title: 'Cajun spiced Cauliflower Rice with Chicken Sausage',
-            ingredients: [
-              IngredientModel(title: 'Egg', quantity: 4),
-              IngredientModel(title: 'Butter', quantity: 1 / 2),
-              IngredientModel(title: 'Butter', quantity: 1 / 2),
-            ],
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-            directions: directionText),
-      ),
-      LikeRecipeModel(
-        recipeModel: RecipeModel(
-            imagePath: 'asset/png/image.png',
-            title: 'Deneme son tarif',
+            title: 'Deneme Text 3',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -118,6 +92,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
             directions: directionText),
       ),
     ];
+    recipeListItemCount = finderRecipeItems?.length ?? 0;
     myFinderFrizeItems = [
       IngredientModel(
           title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
@@ -131,13 +106,12 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
       IngredientModel(
           title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
-    currentSwipedCardModel = finderRecipeItems!.first;
   }
 
-  void changeCurrentSwipedCard(LikeRecipeModel model) {
-    currentSwipedCardModel = model;
-    emit(CurrentSwipedCard(currentSwipedCardModel!));
-    print(currentSwipedCardModel!.recipeModel.title);
+  void changeRecipeListItemCount() {
+    recipeListItemCount -= 1;
+    emit(RecipeListItemCountCounter(recipeListItemCount));
+    print(recipeListItemCount);
   }
 
   @override

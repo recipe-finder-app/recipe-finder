@@ -8,19 +8,10 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
-import 'package:recipe_finder/feature/finder_page/cubit/finder_state.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
-import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
-import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 import 'package:recipe_finder/product/component/card/card_overlay.dart';
 import 'package:recipe_finder/product/component/card/tinder_card.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/text/bold_text.dart';
-import 'package:recipe_finder/product/component/text/locale_bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
-import 'package:recipe_finder/product/model/ingradient_model.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
-import 'package:recipe_finder/product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
 import '../../../product/component/image_format/image_svg.dart';
@@ -71,10 +62,9 @@ class _FinderViewState extends State<FinderView> {
                   height: context.screenHeight,
                   width: context.screenWidth,
                   decoration: BoxDecoration(
-                      color: ColorConstants.instance.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(context.mediumValue),
-                          topRight: Radius.circular(context.mediumValue))),
+                    color: ColorConstants.instance.white,
+                    borderRadius: context.radiusTopCircularHigh,
+                  ),
                   child: Padding(
                     padding: context.paddingNormalTopLeftRight,
                     child: SingleChildScrollView(
@@ -85,22 +75,11 @@ class _FinderViewState extends State<FinderView> {
                           children: [
                             _textRow(context),
                             context.normalSizedBox,
-                            cubitRead.finderRecipeItems == null
-                                ? Text('Şimdilik bu kadar...')
-                                : BlocSelector<FinderCubit, IFinderState,
-                                    LikeRecipeModel>(
-                                    selector: (state) {
-                                      if (state is CurrentSwipedCard) {
-                                        return state.currentSwipedCardModel;
-                                      } else {
-                                        return cubitRead.currentSwipedCardModel;
-                                      }
-                                    },
-                                    builder: (context, state) {
-                                      return buildTinderCard(
-                                          context, cubitRead, state);
-                                    },
-                                  ),
+                            cubitRead.recipeListItemCount == 0
+                                ? Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Şimdilik bu kadar...'))
+                                : buildTinderCard(context, cubitRead),
                           ],
                         ),
                       ),
@@ -112,7 +91,9 @@ class _FinderViewState extends State<FinderView> {
   }
 
   Column buildTinderCard(
-      BuildContext context, FinderCubit cubitRead, LikeRecipeModel state) {
+    BuildContext context,
+    FinderCubit cubitRead,
+  ) {
     return Column(
       children: [
         SizedBox(
@@ -120,14 +101,13 @@ class _FinderViewState extends State<FinderView> {
           width: context.cardValueWidth,
           child: SwipableStack(
             controller: _controller,
+            itemCount: cubitRead.finderRecipeItems!.length,
             stackClipBehaviour: Clip.none,
             swipeAnchor: SwipeAnchor.bottom,
             onWillMoveNext: (
               index,
               swipeDirection,
             ) {
-              cubitRead
-                  .changeCurrentSwipedCard(cubitRead.finderRecipeItems![index]);
               switch (swipeDirection) {
                 case SwipeDirection.left:
                 case SwipeDirection.right:
@@ -138,8 +118,13 @@ class _FinderViewState extends State<FinderView> {
               }
             },
             onSwipeCompleted: (index, direction) {
-              cubitRead
-                  .changeCurrentSwipedCard(cubitRead.finderRecipeItems![index]);
+              cubitRead.changeRecipeListItemCount();
+              if (direction == SwipeDirection.right) {
+                context
+                    .read<LikesCubit>()
+                    .likeRecipeItems
+                    .add(cubitRead.finderRecipeItems![index]);
+              } else if (direction == SwipeDirection.left) {}
             },
             horizontalSwipeThreshold: 0.8,
             verticalSwipeThreshold: 1,
@@ -167,13 +152,18 @@ class _FinderViewState extends State<FinderView> {
           ),
         ),
         context.normalSizedBox,
-        buildRowButton(context, cubitRead, cubitRead.currentSwipedCardModel),
+        buildRowButton(
+          context,
+          cubitRead,
+        ),
       ],
     );
   }
 
-  SizedBox buildRowButton(BuildContext context, FinderCubit cubitRead,
-      LikeRecipeModel? likeRecipeModel) {
+  SizedBox buildRowButton(
+    BuildContext context,
+    FinderCubit cubitRead,
+  ) {
     return SizedBox(
       width: context.cardValueWidth,
       child: Row(
@@ -182,7 +172,6 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton.small(
             backgroundColor: ColorConstants.instance.russianViolet,
             onPressed: () {
-              cubitRead.finderRecipeItems?.remove(likeRecipeModel);
               _controller.next(swipeDirection: SwipeDirection.left);
             },
             child: Icon(
@@ -204,8 +193,10 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
-              context.read<LikesCubit>().likeRecipeItems.add(likeRecipeModel!);
-              cubitRead.finderRecipeItems?.remove(likeRecipeModel);
+              context
+                  .read<LikesCubit>()
+                  .likeRecipeItems
+                  .add(cubitRead.finderRecipeItems!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(
@@ -251,119 +242,6 @@ class _FinderViewState extends State<FinderView> {
               text: LocaleKeys.close),
         ),
       ]),
-    );
-  }
-
-  Future<void> addToBasketBottomSheet(
-      BuildContext context, LikesCubit cubitRead, int cardIndex) {
-    return CircularBottomSheet.instance.show(
-      context,
-      bottomSheetHeight: CircularBottomSheetHeight.short,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
-          if (cubitRead.likeRecipeItems[cardIndex].missingItems == null)
-            const Center()
-          else
-            BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
-              selector: (state) {
-                if (state is MissingItemListLoad) {
-                  return state.missingItemList;
-                } else {
-                  return cubitRead.likeRecipeItems[cardIndex].missingItems ??
-                      [];
-                }
-              },
-              builder: (BuildContext context, state) {
-                return Flexible(
-                  flex: 4,
-                  child: DragTarget<IngredientModel>(onAccept: (data) {
-                    cubitRead.addItemToMissingList(cardIndex, data);
-                    cubitRead.removeMyFrizeItem(data);
-                  }, builder: (BuildContext context,
-                      List<Object?> candidateData, List<dynamic> rejectedData) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.length,
-                        itemBuilder:
-                            (BuildContext context, int missingItemIndex) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: context.lowValue),
-                            child: DraggableIngredientCircleAvatar<
-                                IngredientModel>(
-                              data: state[missingItemIndex],
-                              iconBottomWidget: BoldText(
-                                text:
-                                    state[missingItemIndex].quantity.toString(),
-                                textColor: ColorConstants.instance.white,
-                              ),
-                              color: ColorConstants.instance.oriolesOrange
-                                  .withOpacity(0.4),
-                              model: state[missingItemIndex],
-                            ),
-                          );
-                        });
-                  }),
-                );
-              },
-            ),
-          const Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
-          BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
-              selector: (state) {
-            if (state is MyFrizeListLoad) {
-              return state.myFrizeList;
-            } else {
-              return cubitRead.myFrizeItems;
-            }
-          }, builder: (BuildContext context, state) {
-            return Flexible(
-              flex: 4,
-              child: cubitRead.myFrizeItems == null
-                  ? const Center()
-                  : DragTarget<IngredientModel>(
-                      onAccept: (data) {
-                        cubitRead.addItemToMyFrizeList(data);
-                        cubitRead.removeMissingItem(cardIndex, data);
-                      },
-                      builder: (BuildContext context,
-                          List<Object?> candidateData,
-                          List<dynamic> rejectedData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.length,
-                            itemBuilder:
-                                (BuildContext context, int myFrizeItemIndex) {
-                              return Padding(
-                                padding:
-                                    EdgeInsets.only(right: context.lowValue),
-                                child: DraggableIngredientCircleAvatar<
-                                    IngredientModel>(
-                                  data: state[myFrizeItemIndex],
-                                  iconBottomWidget: BoldText(
-                                    text: state[myFrizeItemIndex]
-                                        .quantity
-                                        .toString(),
-                                    textColor: ColorConstants.instance.white,
-                                  ),
-                                  color:
-                                      ColorConstants.instance.brightGraySolid2,
-                                  model: state[myFrizeItemIndex],
-                                ),
-                              );
-                            });
-                      },
-                    ),
-            );
-          }),
-          RecipeCircularButton(
-              color: ColorConstants.instance.oriolesOrange,
-              text: LocaleKeys.confirm),
-        ],
-      ),
     );
   }
 }
