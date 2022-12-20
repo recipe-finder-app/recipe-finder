@@ -26,6 +26,7 @@ class FinderView extends StatefulWidget {
 
 class _FinderViewState extends State<FinderView> {
   late final SwipableStackController _controller;
+
   @override
   void initState() {
     super.initState();

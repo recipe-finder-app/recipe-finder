@@ -168,18 +168,21 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
-    return GridView.builder(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: cubitRead.searchByMeal.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.40,
-            crossAxisSpacing: 25,
-            mainAxisSpacing: 15),
-        itemBuilder: (BuildContext context, index) {
-          return _searchByMealCard(context, cubitRead, index);
-        });
+    return SizedBox(
+      height: context.screenHeight / 3,
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: cubitRead.searchByMeal.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2.40,
+              crossAxisSpacing: 25,
+              mainAxisSpacing: 15),
+          itemBuilder: (BuildContext context, index) {
+            return _searchByMealCard(context, cubitRead, index);
+          }),
+    );
   }
 
   Container _searchByMealCard(
@@ -193,18 +196,23 @@ class HomeView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: context.paddingLowLeft,
-            child: LocaleText(
-              fontSize: 12,
-              text: cubitRead.searchByMeal[index].title ?? '',
-              textAlign: TextAlign.start,
+          Expanded(
+            flex: 8,
+            child: Padding(
+              padding: context.paddingLowLeft,
+              child: LocaleText(
+                fontSize: 12,
+                text: cubitRead.searchByMeal[index].title ?? '',
+                textAlign: TextAlign.start,
+              ),
             ),
           ),
-          SizedBox(
-              child: ImagePng(
-            path: cubitRead.searchByMeal[index].imagePath ?? '',
-          ))
+          Expanded(
+            flex: 4,
+            child: ImagePng(
+              path: cubitRead.searchByMeal[index].imagePath ?? '',
+            ),
+          )
         ],
       ),
     );

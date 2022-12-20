@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
@@ -28,6 +29,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample1.path,
+           video: 'asset/video/pizza.mp4',
           title:
               'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
               'uzun text deneme',
@@ -52,6 +54,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample2.path,
+           video: 'asset/video/samplevideo.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -70,6 +73,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample3.path,
+           video: 'asset/video/pizza.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -83,6 +87,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     LikeRecipeModel(
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample4.path,
+           video: 'asset/video/samplevideo.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -96,6 +101,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     LikeRecipeModel(
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample1.path,
+          video: 'asset/video/pizza.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -107,6 +113,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           directions: directionText),
     ),
   ];
+
   late List<IngredientModel> myFrizeItems;
 
   String directionText =
