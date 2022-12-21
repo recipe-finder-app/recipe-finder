@@ -49,11 +49,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: Column(
-            children: [
-              videoPlayer(cubitRead, context),
-              recipe(context, cubitRead),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                videoPlayer(cubitRead, context),
+                recipe(context, cubitRead),
+              ],
+            ),
           ),
         ),
       ),
@@ -153,55 +155,55 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
     );
   }
 
-  Expanded recipe(BuildContext context, RecipeDetailCubit cubitRead) {
-    return Expanded(
-      child: Container(
-        color: Colors.white,
+  Widget recipe(BuildContext context, RecipeDetailCubit cubitRead) {
+    return Container(
+      height: context.screenHeight,
+      color: Colors.white,
+      child: Padding(
+        padding: context.paddingMediumEdges,
         child: Padding(
-          padding: context.paddingMediumEdges,
-          child: Padding(
-            padding: EdgeInsets.only(bottom: context.veryHighValue),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                context.lowSizedBox,
-                BoldText(
-                  text: widget.recipeModel.title,
-                  fontSize: 16,
-                  maxLines: 3,
-                  textColor: Colors.black,
-                  textAlign: TextAlign.start,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                context.lowSizedBox,
-                TabBar(
+          padding: EdgeInsets.only(bottom: context.veryHighValue),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              context.lowSizedBox,
+              BoldText(
+                text: widget.recipeModel.title,
+                fontSize: 16,
+                maxLines: 3,
+                textColor: Colors.black,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+              ),
+              context.lowSizedBox,
+              TabBar(
+                controller: _tabController,
+                labelColor: ColorConstants.instance.oriolesOrange,
+                unselectedLabelColor: Colors.black,
+                indicatorColor: ColorConstants.instance.oriolesOrange,
+                indicatorWeight: 1,
+                tabs: [
+                  Tab(
+                    text: LocaleKeys.ingredients.locale,
+                  ),
+                  Tab(
+                    text: LocaleKeys.directions.locale,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: context.screenHeight / 2,
+                child: TabBarView(
                   controller: _tabController,
-                  labelColor: ColorConstants.instance.oriolesOrange,
-                  unselectedLabelColor: Colors.black,
-                  indicatorColor: ColorConstants.instance.oriolesOrange,
-                  indicatorWeight: 1,
-                  tabs: [
-                    Tab(
-                      text: LocaleKeys.ingredients.locale,
-                    ),
-                    Tab(
-                      text: LocaleKeys.directions.locale,
-                    ),
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    tabBarIngredients(context),
+                    tabBarDirections(context),
                   ],
                 ),
-                Expanded(
-                  child: TabBarView(
-                    controller: _tabController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      tabBarIngredients(context),
-                      tabBarDirections(context),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

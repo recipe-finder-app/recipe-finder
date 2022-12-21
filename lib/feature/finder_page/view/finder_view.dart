@@ -125,11 +125,11 @@ class _FinderViewState extends State<FinderView> {
                     .read<LikesCubit>()
                     .likeRecipeItems
                     .add(cubitRead.finderRecipeItems![index]);
-              // } else if (direction == SwipeDirection.up) {
-              //   context
-              //       .read<BasketCubit>()
-              //       .basketRecipeItems
-              //       .add(cubitRead.finderRecipeItems![index]);
+                // } else if (direction == SwipeDirection.up) {
+                //   context
+                //       .read<BasketCubit>()
+                //       .basketRecipeItems
+                //       .add(cubitRead.finderRecipeItems![index]);
               } else {}
             },
             horizontalSwipeThreshold: 0.8,
@@ -175,7 +175,7 @@ class _FinderViewState extends State<FinderView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          FloatingActionButton.small(
+          FloatingActionButton(
             backgroundColor: ColorConstants.instance.russianViolet,
             onPressed: () {
               _controller.next(swipeDirection: SwipeDirection.left);

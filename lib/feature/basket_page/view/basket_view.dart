@@ -16,22 +16,16 @@ import '../../../core/base/view/base_view.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
 
-class BasketView extends StatefulWidget {
-  BasketView({
+class BasketView extends StatelessWidget {
+  const BasketView({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<BasketView> createState() => _BasketViewState();
-}
-
-class _BasketViewState extends State<BasketView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<BasketCubit>(
         init: (cubitRead) {
           cubitRead.init();
-       
         },
         visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
@@ -113,16 +107,14 @@ class _BasketViewState extends State<BasketView> {
                                         color: ColorConstants
                                             .instance.russianViolet
                                             .withOpacity(0.1),
-                                        model: cubitRead.selectCardModel!.ingredients[index],
-                                     
+                                        model: cubitRead.selectCardModel!
+                                            .ingredients[index],
                                       ),
                                       context.normalSizedBoxWidth,
                                       Text(cubitRead.selectCardModel!
                                           .ingredients[index].title),
                                     ],
                                   ),
-                                 
-
                                   context.verySizedBoxWidth,
                                   CircleAvatar(
                                     radius: 20,
@@ -179,7 +171,7 @@ class _BasketViewState extends State<BasketView> {
             crossAxisCount: 4,
             childAspectRatio: 0.75,
             crossAxisSpacing: 30,
-            mainAxisSpacing: 20),
+            mainAxisSpacing: 25),
         itemBuilder: (context, index) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
