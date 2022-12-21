@@ -20,7 +20,6 @@
     "signUp": "Sign Up",
     "signIn": "Sign In",
     "search":"Search",
-    "homeTitle":"Find best recipes  for cooking",
     "category":"Category",
     "pizza":"Pizza",
     "vegetarian":"Vegetarian",
@@ -69,9 +68,9 @@
     "finderText":"We  matched you with recipes.",
     "close":"Close",
     "deleteSavedRecipeQuestion": "Are you sure you want to remove this recipe from saved recipes?",
-    "home": "Home",
     "yes": "Yes",
     "no": "No",
+    "home": "Home",
     "discover": "Discover",
     "finder": "Finder",
     "likes":"Likes",
@@ -79,5 +78,7 @@
     "myBasketList":"My Basket List", 
     "toBuyList":"To - Buy List",
     "myPantry":"My Pantry",
-    "removeCard":"Are you sure you want to remove it from the card?"
+    "removeCard":"Are you sure you want to remove it from the card?",
+    "findBestRecipesForCooking" : "Find best recipes for cooking",
+    "trendingNow" : "Trending Now"
 }

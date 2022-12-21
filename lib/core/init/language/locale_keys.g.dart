@@ -22,7 +22,6 @@ abstract class  LocaleKeys {
   static const signUp = 'signUp';
   static const signIn = 'signIn';
   static const search = 'search';
-  static const homeTitle = 'homeTitle';
   static const category = 'category';
   static const pizza = 'pizza';
   static const vegetarian = 'vegetarian';
@@ -71,9 +70,9 @@ abstract class  LocaleKeys {
   static const finderText = 'finderText';
   static const close = 'close';
   static const deleteSavedRecipeQuestion = 'deleteSavedRecipeQuestion';
-  static const home = 'home';
   static const yes = 'yes';
   static const no = 'no';
+  static const home = 'home';
   static const discover = 'discover';
   static const finder = 'finder';
   static const likes = 'likes';
@@ -82,5 +81,7 @@ abstract class  LocaleKeys {
   static const toBuyList = 'toBuyList';
   static const myPantry = 'myPantry';
   static const removeCard = 'removeCard';
+  static const findBestRecipesForCooking = 'findBestRecipesForCooking';
+  static const trendingNow = 'trendingNow';
 
 }

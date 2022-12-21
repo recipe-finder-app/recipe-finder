@@ -6,12 +6,11 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
 
-import '../../../feature/likes_page/model/like_recipe_model.dart';
-
 class LikesRecipeCard extends StatelessWidget {
-  final LikeRecipeModel model;
+  final RecipeModel model;
   final VoidCallback? recipeOnPressed;
   final VoidCallback? addToBasketOnPressed;
   final VoidCallback? likeIconOnPressed;
@@ -39,7 +38,7 @@ class LikesRecipeCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: BoldText(
-                      text: model.recipeModel.title,
+                      text: model.title,
                       textColor: ColorConstants.instance.white,
                       style: const TextStyle(fontSize: 12),
                       textAlign: TextAlign.start,
@@ -97,7 +96,7 @@ class LikesRecipeCard extends StatelessWidget {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              model.recipeModel.imagePath,
+              model.imagePath,
             )),
         borderRadius: context.radiusTopCircularMin,
       ),

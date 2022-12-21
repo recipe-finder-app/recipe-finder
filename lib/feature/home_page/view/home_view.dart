@@ -9,9 +9,7 @@ import 'package:recipe_finder/product/component/image_format/image_png.dart';
 import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
-import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
-import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 
@@ -138,7 +136,7 @@ class HomeView extends StatelessWidget {
                 fontStyle: FontStyle.normal,
                 color: ColorConstants.instance.blackbox,
               ),
-              text: LocaleKeys.homeTitle,
+              text: LocaleKeys.findBestRecipesForCooking,
             ),
           ),
         ),
