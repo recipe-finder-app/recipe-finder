@@ -76,5 +76,6 @@
     "likes":"Likes",
     "basket": "Basket",
     "findBestRecipesForCooking" : "Find best recipes for cooking",
-    "trendingNow" : "Trending Now"
+    "trendingNow" : "Trending Now",
+    "all": "All"
 }

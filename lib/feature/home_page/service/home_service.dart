@@ -15,7 +15,7 @@ class HomeService implements IHomeService {
   late final List<IngredientModel> searchByMeallist =
       SearchByMealItems().searchByMeals;
 
-  late final List<IngredientModel> categorylist = CategoryItems().categorys;
+  late final List<IngredientModel> categorylist = CategoryItems().categories;
   late final List<IngredientModel> essentiallist =
       EssentialItems().essentialItems;
 

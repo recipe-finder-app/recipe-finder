@@ -76,5 +76,6 @@
     "likes":"Beğenilen",
     "basket": "Sepet",
     "findBestRecipesForCooking" : "Pişirmek için en iyi tarifleri bulun",
-    "trendingNow" : "Popüler Tarifler"
+    "trendingNow" : "Popüler Tarifler",
+    "all": "Tümü"
 }

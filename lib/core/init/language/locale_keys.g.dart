@@ -79,5 +79,6 @@ abstract class  LocaleKeys {
   static const basket = 'basket';
   static const findBestRecipesForCooking = 'findBestRecipesForCooking';
   static const trendingNow = 'trendingNow';
+  static const all = 'all';
 
 }
