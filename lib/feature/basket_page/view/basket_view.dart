@@ -16,16 +16,22 @@ import '../../../core/base/view/base_view.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
 
-class BasketView extends StatelessWidget {
+class BasketView extends StatefulWidget {
   BasketView({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<BasketView> createState() => _BasketViewState();
+}
+
+class _BasketViewState extends State<BasketView> {
+  @override
   Widget build(BuildContext context) {
     return BaseView<BasketCubit>(
         init: (cubitRead) {
           cubitRead.init();
+       
         },
         visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
@@ -52,11 +58,16 @@ class BasketView extends StatelessWidget {
                           height: context.normalhighValue,
                           width: context.screenWidth,
                           child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: cubitRead.basketRecipeItems.length,
                             itemBuilder: (context, int cardIndex) {
                               return BasketRecipeCard(
                                 model: cubitRead.basketRecipeItems[cardIndex],
+                                cardOnPressed: () {
+                                  cubitRead.changeSelectedCardModel(
+                                      cubitRead.basketRecipeItems[cardIndex]);
+                                },
                                 removeIconOnPressed: (() {
                                   showDialog(
                                       context: context,
@@ -89,30 +100,29 @@ class BasketView extends StatelessWidget {
                         context.lowSizedBox,
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: cubitRead.basketRecipeItems.length,
+                          itemCount:
+                              cubitRead.selectCardModel?.ingredients.length,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: context.paddingHighOnlyTop,
                               child: Row(
                                 children: [
-                                  // Stack(
-                                  //   alignment:
-                                  //       AlignmentDirectional.bottomCenter,
-                                  //   children: [
-                                  //     CircleAvatar(
-                                  //         radius: 32,
-                                  //         backgroundColor: Colors.amber,
-                                  //         child: SvgPicture.asset(recipeModel
-                                  //                 .ingredients[index]
-                                  //                 .imagePath ??
-                                  //             '')),
-                                  //     Text(recipeModel
-                                  //         .ingredients[index].quantity
-                                  //         .toString()),
-                                  //   ],
-                                  // ),
-                                  context.normalSizedBoxWidth,
-                                  Text('ggg'),
+                                  Row(
+                                    children: [
+                                      IngredientCircleAvatar(
+                                        color: ColorConstants
+                                            .instance.russianViolet
+                                            .withOpacity(0.1),
+                                        model: cubitRead.selectCardModel!.ingredients[index],
+                                     
+                                      ),
+                                      context.normalSizedBoxWidth,
+                                      Text(cubitRead.selectCardModel!
+                                          .ingredients[index].title),
+                                    ],
+                                  ),
+                                 
+
                                   context.verySizedBoxWidth,
                                   CircleAvatar(
                                     radius: 20,
@@ -182,37 +192,3 @@ class BasketView extends StatelessWidget {
         });
   }
 }
-
-/**
- *  Card(
-                        elevation: 6,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: Text(
-                            "Card ${i + 1}",
-                            style: TextStyle(fontSize: 32),
-                          ),
-                        ),
-                      ),
-
-
-
-
-
-                       SizedBox(
-                height: 200,
-                child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  //controller: PageController(viewportFraction: 0.7),
-                  // onPageChanged: (int index) =>
-                  //     setState(() => _index = index),
-                  itemBuilder: (_, i) {
-                    return Transform.scale(
-                        scale: i == _index ? 1 : 0.9,
-                        child: LikesRecipeCard(model: null,),);
-                  },
-                ),
-              ),
- */

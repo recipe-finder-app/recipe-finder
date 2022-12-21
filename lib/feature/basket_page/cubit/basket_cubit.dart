@@ -10,43 +10,46 @@ import 'package:recipe_finder/product/model/recipe_model.dart';
 
 class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   IBasketService? service;
+  RecipeModel? selectCardModel;
 
-  late List<LikeRecipeModel> basketRecipeItems = [
-    LikeRecipeModel(
-      recipeModel: RecipeModel(
-        imagePath: 'asset/png/foot1.png',
-        title: 'Deneme Text 1',
-        ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-        ],
-      ),
+  late List<RecipeModel> basketRecipeItems = [
+    RecipeModel(
+      imagePath: 'asset/png/foot2.png',
+      title: 'Deneme Text 1',
+      ingredients: [
+        IngredientModel(
+            title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
+        IngredientModel(
+            title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+        IngredientModel(
+            title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+        IngredientModel(
+            title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+        IngredientModel(
+            title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
+      ],
     ),
-    LikeRecipeModel(
-      recipeModel: RecipeModel(
-        imagePath: 'asset/png/foot2.png',
-        title: 'Deneme Text 2',
-        ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-        ],
-      ),
+    RecipeModel(
+      imagePath: 'asset/png/foot1.png',
+      title: 'Deneme Text 2',
+      ingredients: [
+        IngredientModel(title: 'Egg', quantity: 4),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(title: 'Egg', quantity: 4),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+      ],
     ),
-    LikeRecipeModel(
-      recipeModel: RecipeModel(
-        imagePath: 'asset/png/foot1.png',
-        title: 'Deneme Text 3',
-        ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-        ],
-      ),
+    RecipeModel(
+      imagePath: 'asset/png/foot2.png',
+      title: 'Deneme Text 3',
+      ingredients: [
+        IngredientModel(
+            title: 'Egg', imagePath: ImagePath.egg.path, quantity: 4),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(title: 'Butter', quantity: 1 / 2),
+      ],
     ),
   ];
 
@@ -71,9 +74,14 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     ];
   }
 
-  void deleteItemFromBasketRecipeList(LikeRecipeModel model) {
+  void deleteItemFromBasketRecipeList(RecipeModel model) {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
+  }
+
+  void changeSelectedCardModel(RecipeModel model) {
+     selectCardModel = model;
+      emit(ChangeSelectedCardModel(selectCardModel!));
   }
 
   @override

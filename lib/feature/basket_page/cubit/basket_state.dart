@@ -1,5 +1,6 @@
 
 import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe_model.dart';
 
 import '../../../product/model/ingradient_model.dart';
 
@@ -17,13 +18,17 @@ class OnBasketLoading extends IBasketState {
 }
 
 class BasketRecipeItemListLoad extends IBasketState {
-  late List<LikeRecipeModel> basketRecipeItemList;
+  late List<RecipeModel> basketRecipeItemList;
   BasketRecipeItemListLoad(this.basketRecipeItemList);
 }
 
 class MyFrizeListLoad extends IBasketState {
   late List<IngredientModel> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);
+}
+class ChangeSelectedCardModel extends IBasketState {
+ late RecipeModel model;
+  ChangeSelectedCardModel(this.model);
 }
 
 class BasketsError extends IBasketState {
