@@ -12,7 +12,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
-
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
@@ -26,7 +25,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
       ..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      showControlsOnInitialize: false,
+      showControlsOnInitialize: true,
       autoPlay: false,
       looping: false,
       aspectRatio: 1.30,

@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
-import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
+import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 
 class DiscoverCard extends StatelessWidget {
   final RecipeModel model;

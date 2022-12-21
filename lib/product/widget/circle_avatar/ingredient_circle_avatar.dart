@@ -33,7 +33,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 32,
-                      backgroundColor: model.color,
+                      backgroundColor: model.color ?? color,
                       child: ImageSvg(
                         path: model.imagePath ?? ImagePath.like.path,
                       ),
@@ -43,7 +43,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                 )
               : CircleAvatar(
                   radius: 32,
-                  backgroundColor: model.color,
+                  backgroundColor: model.color ?? color,
                   child: ImageSvg(
                     path: model.imagePath ?? ImagePath.like.path,
                   ),
