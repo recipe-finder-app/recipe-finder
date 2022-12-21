@@ -1,5 +1,9 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
@@ -82,13 +86,32 @@ class DiscoverCubit extends Cubit<IDiscoverState> implements IBaseViewModel {
     ),
   ];
   DiscoverCubit() : super(DiscoverInit());
+  int? selectedCategoryIndex;
+
+  void changeSelectedCategoryIndex(int index) {
+    selectedCategoryIndex = index;
+    emit(ChangeSelectedCategoryIndex(selectedCategoryIndex));
+  }
+
+  Color categoryItemColor(int index) {
+    if (index == selectedCategoryIndex) {
+      return ColorConstants.instance.oriolesOrange;
+    } else {
+      return Colors.white;
+    }
+  }
+
+  Color categoryTextColor(int index) {
+    if (index == selectedCategoryIndex) {
+      return Colors.white;
+    } else {
+      return Colors.black;
+    }
+  }
 
   @override
   BuildContext? context;
 
-  void onPressedCategoryItem(int index) {
-    //basıldığında diğerlerini beyaz basılanı turuncu yap
-  }
   @override
   void dispose() {
     // TODO: implement dispose

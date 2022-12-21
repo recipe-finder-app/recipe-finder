@@ -7,7 +7,7 @@ import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
-import 'package:recipe_finder/product/widget/container/transparent_circular_bacground.dart';
+import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 
 class LikesRecipeCard extends StatelessWidget {
   final RecipeModel model;
@@ -125,7 +125,7 @@ class LikesRecipeCard extends StatelessWidget {
         alignment: Alignment.topRight,
         child: InkWell(
           onTap: likeIconOnPressed,
-          child: TransparentCircularBackground(
+          child: CircularBackground(
             circleHeight: 35,
             circleWidth: 35,
             child: Icon(

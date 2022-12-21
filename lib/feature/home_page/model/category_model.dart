@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
-import '../../../product/component/image_format/image_svg.dart';
+
 import '../../../core/constant/enum/image_path_enum.dart';
 
 // class CategoryModel {
@@ -15,10 +15,10 @@ import '../../../core/constant/enum/image_path_enum.dart';
 // }
 
 class CategoryItems {
-  late final List<IngredientModel> categorys;
+  late final List<IngredientModel> categories;
 
   CategoryItems() {
-    categorys = [
+    categories = [
       IngredientModel(
           imagePath: ImagePath.pizza.path,
           title: LocaleKeys.pizza,

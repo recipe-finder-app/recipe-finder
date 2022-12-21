@@ -75,10 +75,11 @@
     "finder": "Tarif Bulucu",
     "likes":"Beğenilenler",
     "basket": "Sepet",
-    "myBasketList":"Sepet Listem", 
+    "findBestRecipesForCooking" : "Pişirmek için en iyi tarifleri bulun",
+    "trendingNow" : "Popüler Tarifler",
+    "all": "Tümü",
+    "myBasketList":"Sepet Listem",
     "toBuyList":"Satın Alma Listesi",
     "myPantry":"Benimkiler",
-    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?",
-    "findBestRecipesForCooking": "Pişirmek için en iyi tarifleri bulun",
-    "trendingNow": "Popüler Tarifler"
+    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?"
 }

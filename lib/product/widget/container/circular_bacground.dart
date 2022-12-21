@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TransparentCircularBackground extends StatelessWidget {
+class CircularBackground extends StatelessWidget {
   final double? circleHeight;
   final double? circleWidth;
   final Widget child;
-  const TransparentCircularBackground(
-      {Key? key, this.circleHeight, this.circleWidth, required this.child})
+  final Color? color;
+  const CircularBackground(
+      {Key? key,
+      this.circleHeight,
+      this.circleWidth,
+      required this.child,
+      this.color})
       : super(key: key);
 
   @override
@@ -18,7 +23,7 @@ class TransparentCircularBackground extends StatelessWidget {
           width: circleWidth ?? 35,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.transparent.withOpacity(0.2),
+            color: color ?? Colors.transparent.withOpacity(0.2),
           ),
         ),
         child

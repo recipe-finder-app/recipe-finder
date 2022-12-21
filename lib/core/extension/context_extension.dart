@@ -171,6 +171,10 @@ extension BorderExtension on BuildContext {
   BorderRadius get radiusAllCircularHigh => BorderRadius.circular(35.0);
   BorderRadius get radiusAllCircularVeryHigh => BorderRadius.circular(50.0);
 
+  BorderRadius get radiusTopCircularVeryHigh => const BorderRadius.only(
+        topLeft: Radius.circular(50),
+        topRight: Radius.circular(50),
+      );
   BorderRadius get radiusTopCircularHigh => const BorderRadius.only(
         topLeft: Radius.circular(35),
         topRight: Radius.circular(35),

@@ -75,10 +75,11 @@
     "finder": "Finder",
     "likes":"Likes",
     "basket": "Basket",
-    "myBasketList":"My Basket List", 
+    "findBestRecipesForCooking" : "Find best recipes for cooking",
+    "trendingNow" : "Trending Now",
+    "all": "All",
+    "myBasketList":"My Basket List",
     "toBuyList":"To - Buy List",
     "myPantry":"My Pantry",
-    "removeCard":"Are you sure you want to remove it from the card?",
-    "findBestRecipesForCooking": "Find best recipes for cooking",
-    "trendingNow": "Trending Now"
+    "removeCard":"Are you sure you want to remove it from the card?"
 }

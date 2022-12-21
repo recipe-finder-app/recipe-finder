@@ -11,6 +11,11 @@ class DiscoverLoading extends IDiscoverState {
   DiscoverLoading(isLoading);
 }
 
+class ChangeSelectedCategoryIndex extends IDiscoverState {
+  int? index;
+  ChangeSelectedCategoryIndex(this.index);
+}
+
 class DiscoverError extends IDiscoverState {
   String errorMessage;
   DiscoverError(this.errorMessage);

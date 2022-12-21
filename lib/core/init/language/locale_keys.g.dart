@@ -83,5 +83,6 @@ abstract class  LocaleKeys {
   static const removeCard = 'removeCard';
   static const findBestRecipesForCooking = 'findBestRecipesForCooking';
   static const trendingNow = 'trendingNow';
+  static const all = 'all';
 
 }
