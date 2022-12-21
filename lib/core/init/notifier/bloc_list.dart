@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/feature/basket_page/cubit/basket_cubit.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
@@ -45,7 +46,13 @@ class ApplicationBloc {
       create: (context) => FinderCubit(),
     ),
     BlocProvider(
-      create: (context) => DiscoverCubit(),
+      create: (context) => BasketCubit(),
+    
     ),
+ BlocProvider(
+     create: (context) => DiscoverCubit(),
+    
+    ),
+      
   ];
 }

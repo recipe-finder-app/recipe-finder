@@ -73,9 +73,13 @@
     "home": "Anasayfa",
     "discover": "Keşfet",
     "finder": "Tarif Bulucu",
-    "likes":"Beğenilen",
+    "likes":"Beğenilenler",
     "basket": "Sepet",
     "findBestRecipesForCooking" : "Pişirmek için en iyi tarifleri bulun",
     "trendingNow" : "Popüler Tarifler",
-    "all": "Tümü"
+    "all": "Tümü",
+    "myBasketList":"Sepet Listem",
+    "toBuyList":"Satın Alma Listesi",
+    "myPantry":"Benimkiler",
+    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?"
 }

@@ -31,7 +31,7 @@ class TinderCard extends StatelessWidget {
             ),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: context.radiusAllCircularMedium,
+              borderRadius: context.radiusAllCircularMedium,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

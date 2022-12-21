@@ -8,6 +8,7 @@ import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
+import '../../model/recipe_model.dart';
 
 class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [

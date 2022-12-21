@@ -86,7 +86,7 @@ class DiscoverCard extends StatelessWidget {
         alignment: Alignment.topRight,
         child: InkWell(
           onTap: likeIconOnPressed,
-          child: TransparentCircularBackground(
+          child: CircularBackground(
             circleHeight: 35,
             circleWidth: 35,
             child: Icon(

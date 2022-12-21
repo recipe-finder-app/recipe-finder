@@ -213,15 +213,12 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               gridDelegate:
                                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 4,
-                                                      childAspectRatio: 0.75,
-                                                      crossAxisSpacing: 10,
-                                                      mainAxisSpacing: 25),
+                                                      childAspectRatio: 0.70,
+                                                      crossAxisSpacing: 30,
+                                                      mainAxisSpacing: 20),
                                               itemBuilder: (context, index) {
-                                                return Padding(
-                                                  padding: context.paddingRight,
-                                                  child: IngredientCircleAvatar(
-                                                    model: state![index],
-                                                  ),
+                                                return IngredientCircleAvatar(
+                                                  model: state![index],
                                                 );
                                               }),
                                         ],
@@ -273,16 +270,13 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               gridDelegate:
                                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                                       crossAxisCount: 4,
-                                                      childAspectRatio: 0.75,
-                                                      crossAxisSpacing: 10,
-                                                      mainAxisSpacing: 25),
+                                                      childAspectRatio: 0.70,
+                                                      crossAxisSpacing: 30,
+                                                      mainAxisSpacing: 20),
                                               itemCount: state?.length ?? 0,
                                               itemBuilder: (context, index) {
-                                                return Padding(
-                                                  padding: context.paddingRight,
-                                                  child: IngredientCircleAvatar(
-                                                    model: state![index],
-                                                  ),
+                                                return IngredientCircleAvatar(
+                                                  model: state![index],
                                                 );
                                               }),
                                         ],
