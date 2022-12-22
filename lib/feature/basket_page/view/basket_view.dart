@@ -79,9 +79,10 @@ class BasketView extends StatelessWidget {
                                                     cubitRead.basketRecipeItems[
                                                         cardIndex]);
 
-                                            cubitRead.selectedCardToBuyDeleted(
-                                                cubitRead.selectCardModel!);
+                                           
+                                                   cubitRead.changeSelectedCardModel(null);
                                           },
+                                       
                                         );
                                       });
                                 }),
@@ -97,7 +98,7 @@ class BasketView extends StatelessWidget {
                                     ? LinearGradient(
                                         begin: Alignment.topCenter,
                                         end: Alignment.bottomCenter,
-                                        stops: const [0, 0, 0.2, 4],
+                                        stops: const [0, 0, 0.2, 1],
                                         colors: [
                                           cubitRead
                                               .selectedCardItemColor(cardIndex),

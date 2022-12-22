@@ -28,7 +28,7 @@ class MyFrizeListLoad extends IBasketState {
 }
 
 class ChangeSelectedCardModel extends IBasketState {
-  late RecipeModel model;
+   RecipeModel? model;
   ChangeSelectedCardModel(this.model);
 }
 

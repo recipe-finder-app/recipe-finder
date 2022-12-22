@@ -82,12 +82,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
    
   }
 
-  void selectedCardToBuyDeleted(RecipeModel model) {
-    selectCardModel = null;
-    emit(ChangeSelectedCardModel(selectCardModel!));
-  }
-
-  void changeSelectedCardModel(RecipeModel model) {
+  void changeSelectedCardModel(RecipeModel? model) {
     selectCardModel = model;
     emit(ChangeSelectedCardModel(selectCardModel!));
   }
