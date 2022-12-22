@@ -62,7 +62,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
     );
   }
 
-  Stack videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
+  Widget videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
     return Stack(
       alignment: AlignmentDirectional.topStart,
       children: [
@@ -137,7 +137,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
     );
   }
 
-  Padding topOfVideoPlayerStack(BuildContext context) {
+  Widget topOfVideoPlayerStack(BuildContext context) {
     return Padding(
       padding: context.paddingNormalAll,
       child: Padding(
@@ -156,146 +156,136 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
   }
 
   Widget recipe(BuildContext context, RecipeDetailCubit cubitRead) {
-    return Container(
-      height: context.screenHeight,
-      color: Colors.white,
+    return Padding(
+      padding: context.paddingMediumEdges,
       child: Padding(
-        padding: context.paddingMediumEdges,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: context.veryHighValue),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              context.lowSizedBox,
-              BoldText(
-                text: widget.recipeModel.title,
-                fontSize: 16,
-                maxLines: 3,
-                textColor: Colors.black,
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-              ),
-              context.lowSizedBox,
-              TabBar(
+        padding: EdgeInsets.only(bottom: context.veryHighValue),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            context.lowSizedBox,
+            BoldText(
+              text: widget.recipeModel.title,
+              fontSize: 16,
+              maxLines: 3,
+              textColor: Colors.black,
+              textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
+            ),
+            context.lowSizedBox,
+            TabBar(
+              controller: _tabController,
+              labelColor: ColorConstants.instance.oriolesOrange,
+              unselectedLabelColor: Colors.black,
+              indicatorColor: ColorConstants.instance.oriolesOrange,
+              indicatorWeight: 1,
+              tabs: [
+                Tab(
+                  text: LocaleKeys.ingredients.locale,
+                ),
+                Tab(
+                  text: LocaleKeys.directions.locale,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: context.screenHeight / 2,
+              child: TabBarView(
                 controller: _tabController,
-                labelColor: ColorConstants.instance.oriolesOrange,
-                unselectedLabelColor: Colors.black,
-                indicatorColor: ColorConstants.instance.oriolesOrange,
-                indicatorWeight: 1,
-                tabs: [
-                  Tab(
-                    text: LocaleKeys.ingredients.locale,
-                  ),
-                  Tab(
-                    text: LocaleKeys.directions.locale,
-                  ),
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  tabBarIngredients(context),
+                  tabBarDirections(context),
                 ],
               ),
-              SizedBox(
-                height: context.screenHeight / 2,
-                child: TabBarView(
-                  controller: _tabController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: [
-                    tabBarIngredients(context),
-                    tabBarDirections(context),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  SingleChildScrollView tabBarDirections(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          context.normalSizedBox,
-          Text(
-            widget.recipeModel.directions ?? '',
-            style: const TextStyle(overflow: TextOverflow.clip),
-          ),
-          context.lowSizedBox,
-        ],
-      ),
+  Widget tabBarDirections(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        context.normalSizedBox,
+        Text(
+          widget.recipeModel.directions ?? '',
+          style: const TextStyle(overflow: TextOverflow.clip),
+        ),
+      ],
     );
   }
 
-  SingleChildScrollView tabBarIngredients(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          context.normalSizedBox,
-          ListView.builder(
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: widget.recipeModel.ingredients?.length,
-              itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(widget.recipeModel.ingredients![recipeIngredientsIndex]
-                        .quantity
-                        .toString()),
-                    context.lowSizedBoxWidth,
-                    Text(widget.recipeModel.ingredients![recipeIngredientsIndex]
-                        .title),
-                  ],
-                );
-              }),
-          context.lowSizedBox,
-          const LocaleBoldText(text: LocaleKeys.yourFrize),
-          context.lowSizedBox,
-          context.read<HomeCubit>().myFrizeItems == null
-              ? const Center()
-              : SizedBox(
-                  height: context.screenHeight / 7,
-                  width: context.screenWidth,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: context.read<HomeCubit>().myFrizeItems.length,
-                      itemBuilder:
-                          (BuildContext context, int missingItemIndex) {
-                        return Padding(
-                          padding: EdgeInsets.only(right: context.lowValue),
-                          child: IngredientCircleAvatar(
-                            color: ColorConstants.instance.russianViolet
-                                .withOpacity(0.1),
-                            model: context
+  Widget tabBarIngredients(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        context.normalSizedBox,
+        ListView.builder(
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: widget.recipeModel.ingredients?.length,
+            itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(widget
+                      .recipeModel.ingredients![recipeIngredientsIndex].quantity
+                      .toString()),
+                  context.lowSizedBoxWidth,
+                  Text(widget
+                      .recipeModel.ingredients![recipeIngredientsIndex].title),
+                ],
+              );
+            }),
+        context.lowSizedBox,
+        const LocaleBoldText(text: LocaleKeys.yourFrize),
+        context.lowSizedBox,
+        context.read<HomeCubit>().myFrizeItems == null
+            ? const Center()
+            : SizedBox(
+                height: context.screenHeight / 7,
+                width: context.screenWidth,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: context.read<HomeCubit>().myFrizeItems.length,
+                    itemBuilder: (BuildContext context, int missingItemIndex) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: context.lowValue),
+                        child: IngredientCircleAvatar(
+                          color: ColorConstants.instance.russianViolet
+                              .withOpacity(0.1),
+                          model: context
+                              .read<HomeCubit>()
+                              .myFrizeItems[missingItemIndex],
+                          iconBottomWidget: Text(
+                            context
                                 .read<HomeCubit>()
-                                .myFrizeItems[missingItemIndex],
-                            iconBottomWidget: Text(
-                              context
-                                  .read<HomeCubit>()
-                                  .myFrizeItems[missingItemIndex]
-                                  .quantity
-                                  .toString(),
-                              style: const TextStyle(color: Colors.white),
-                            ),
+                                .myFrizeItems[missingItemIndex]
+                                .quantity
+                                .toString(),
+                            style: const TextStyle(color: Colors.white),
                           ),
-                        );
-                      }),
-                ),
-          const LocaleBoldText(text: LocaleKeys.description),
-          context.lowSizedBox,
-          Text(
-            widget.recipeModel?.description ?? '',
-            style: const TextStyle(overflow: TextOverflow.ellipsis),
-            maxLines: 3,
-          ),
-          context.lowSizedBox,
-        ],
-      ),
+                        ),
+                      );
+                    }),
+              ),
+        const LocaleBoldText(text: LocaleKeys.description),
+        context.lowSizedBox,
+        Text(
+          widget.recipeModel?.description ?? '',
+          style: const TextStyle(overflow: TextOverflow.ellipsis),
+          maxLines: 3,
+        ),
+      ],
     );
   }
 }

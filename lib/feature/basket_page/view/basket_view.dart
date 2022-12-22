@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/basket_page/view/basket_card.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
@@ -92,56 +88,66 @@ class BasketView extends StatelessWidget {
                           ),
                         ),
                         context.lowSizedBox,
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount:
-                              cubitRead.selectCardModel?.ingredients.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: context.paddingHighOnlyTop,
-                              child: Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      IngredientCircleAvatar(
-                                        color: ColorConstants
-                                            .instance.russianViolet
-                                            .withOpacity(0.1),
-                                        model: cubitRead.selectCardModel!
-                                            .ingredients[index],
-                                      ),
-                                      context.normalSizedBoxWidth,
-                                      Text(cubitRead.selectCardModel!
-                                          .ingredients[index].title),
-                                    ],
-                                  ),
-                                  context.verySizedBoxWidth,
-                                  CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: Colors.grey,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.done,
-                                        color: ColorConstants.instance.white,
-                                      ),
-                                      onPressed: () {},
+                        cubitRead.selectCardModel == null
+                            ? const LocaleText(
+                                text:
+                                    'Satın alım listesini görmek için yukarıdan kart seçin')
+                            : ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: cubitRead
+                                    .selectCardModel?.ingredients.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: context.highValue),
+                                    child: Row(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            IngredientCircleAvatar(
+                                              color: ColorConstants
+                                                  .instance.russianViolet
+                                                  .withOpacity(0.1),
+                                              model: cubitRead.selectCardModel!
+                                                  .ingredients[listViewIndex],
+                                            ),
+                                            context.normalSizedBoxWidth,
+                                            Text(cubitRead
+                                                .selectCardModel!
+                                                .ingredients[listViewIndex]
+                                                .title),
+                                          ],
+                                        ),
+                                        context.verySizedBoxWidth,
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.grey,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.done,
+                                              color:
+                                                  ColorConstants.instance.white,
+                                            ),
+                                            onPressed: () {},
+                                          ),
+                                        ),
+                                        context.lowSizedBoxWidth,
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.red,
+                                          child: IconButton(
+                                            icon: const Icon(
+                                                Icons.shopping_cart,
+                                                color: Colors.white),
+                                            onPressed: () {},
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  context.lowSizedBoxWidth,
-                                  CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: Colors.red,
-                                    child: IconButton(
-                                      icon: const Icon(Icons.shopping_cart,
-                                          color: Colors.white),
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ],
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
                         context.lowSizedBox,
                         LocaleText(
                           text: LocaleKeys.myPantry,
@@ -172,12 +178,16 @@ class BasketView extends StatelessWidget {
             childAspectRatio: 0.75,
             crossAxisSpacing: 30,
             mainAxisSpacing: 25),
-        itemBuilder: (context, index) {
+        itemBuilder: (context, gridViewIndex) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
-            model: context.read<HomeCubit>().myFrizeItems[index],
+            model: context.read<HomeCubit>().myFrizeItems[gridViewIndex],
             iconBottomWidget: Text(
-              context.read<HomeCubit>().myFrizeItems[index].quantity.toString(),
+              context
+                  .read<HomeCubit>()
+                  .myFrizeItems[gridViewIndex]
+                  .quantity
+                  .toString(),
               style: TextStyle(color: ColorConstants.instance.white),
             ),
           );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
@@ -29,7 +28,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample1.path,
-           video: 'asset/video/pizza.mp4',
+          video: 'asset/video/pizza.mp4',
           title:
               'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
               'uzun text deneme',
@@ -54,7 +53,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample2.path,
-           video: 'asset/video/samplevideo.mp4',
+          video: 'asset/video/samplevideo.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -73,7 +72,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       ],
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample3.path,
-           video: 'asset/video/pizza.mp4',
+          video: 'asset/video/pizza.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -87,7 +86,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     LikeRecipeModel(
       recipeModel: RecipeModel(
           imagePath: ImagePath.imageSample4.path,
-           video: 'asset/video/samplevideo.mp4',
+          video: 'asset/video/samplevideo.mp4',
           title: 'Cajun spiced Cauliflower Rice with Chicken',
           ingredients: [
             IngredientModel(title: 'Egg', quantity: 4),
@@ -120,7 +119,19 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
   Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
   Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. """;
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. 
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.""";
 
   LikesCubit() : super(LikesInit());
   @override
