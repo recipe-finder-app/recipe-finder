@@ -18,6 +18,11 @@ class MyFrizeListLoad extends IRecipeDetailState {
   MyFrizeListLoad(this.myFrizeList);
 }
 
+class ChangeSelectedCategoryIndex extends IRecipeDetailState {
+  int? index;
+  ChangeSelectedCategoryIndex(this.index);
+}
+
 class ChangeVideoPlayerState extends IRecipeDetailState {
   late Future<void> controller;
   ChangeVideoPlayerState(this.controller);

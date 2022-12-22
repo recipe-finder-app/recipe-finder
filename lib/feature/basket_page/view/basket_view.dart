@@ -94,6 +94,7 @@ class BasketView extends StatelessWidget {
                                     'Satın alım listesini görmek için yukarıdan kart seçin')
                             : ListView.builder(
                                 padding: EdgeInsets.zero,
+                                physics: const FixedExtentScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: cubitRead
                                     .selectCardModel?.ingredients.length,
