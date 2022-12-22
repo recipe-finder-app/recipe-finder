@@ -1,4 +1,3 @@
-
 import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 
@@ -26,9 +25,15 @@ class MyFrizeListLoad extends IBasketState {
   late List<IngredientModel> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);
 }
+
 class ChangeSelectedCardModel extends IBasketState {
- late RecipeModel model;
+  late RecipeModel model;
   ChangeSelectedCardModel(this.model);
+}
+
+class ChangeSelectedColorIndex extends IBasketState {
+  int? index;
+  ChangeSelectedColorIndex(this.index);
 }
 
 class BasketsError extends IBasketState {

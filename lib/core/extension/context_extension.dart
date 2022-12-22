@@ -15,13 +15,13 @@ extension MediaQueryExtension on BuildContext {
   double get lowValue => screenHeight * 0.01;
   double get normalValue => screenHeight * 0.02;
   double get mediumValue => screenHeight * 0.04;
+  double get minValue => screenHeight * 0.03;
   double get highValue => screenHeight * 0.07;
   double get veryHighValue => screenHeight * 0.1;
   double get textHighValue => screenHeight * 0.30;
   double get veryyHighValue => screenHeight * 0.21;
   double get normalhighValue => screenHeight * 0.16;
   double get cardhighValue => screenHeight * 0.57;
-
   double get topHighValue => screenHeight * 0.47;
   double get maxValue => screenHeight * 0.07;
   double get maxValueWidth => screenWidth * 0.86;
@@ -30,7 +30,7 @@ extension MediaQueryExtension on BuildContext {
   double get normalValueWidth => screenWidth * 0.60;
   double get cardValueWidth => screenWidth * 0.76;
   double get mediumValuee => screenHeight * 0.03;
-  double get highWidth => screenWidth * 0.22;
+  double get highWidth => screenWidth * 0.20;
   double get normalWidth => screenWidth * 0.10;
   double get maxWidth => screenWidth * 0.18;
   double get veryWidth => screenWidth * 0.31;
@@ -108,6 +108,7 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
   EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
   EdgeInsets get paddingHighTop => EdgeInsets.only(top: veryyHighValue);
+  EdgeInsets get paddingHighBottom => EdgeInsets.only(bottom: minValue);
 }
 
 extension PaddingExtensionSymetric on BuildContext {

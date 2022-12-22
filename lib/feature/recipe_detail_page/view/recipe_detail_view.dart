@@ -191,7 +191,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
               ],
             ),
             SizedBox(
-              height: context.screenHeight / 2,
+              height: context.screenHeight * 5,
               child: TabBarView(
                 controller: _tabController,
                 physics: const NeverScrollableScrollPhysics(),

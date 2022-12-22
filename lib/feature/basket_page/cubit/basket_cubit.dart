@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
@@ -55,7 +56,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
 
   BasketCubit() : super(BasketsInit());
   late List<IngredientModel> myFinderFrizeItems;
-
+  int? selectedColorIndex;
   @override
   void init() {
     service = BasketService();
@@ -78,11 +79,26 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
   }
-
+ 
   void changeSelectedCardModel(RecipeModel model) {
-     selectCardModel = model;
-      emit(ChangeSelectedCardModel(selectCardModel!));
+    selectCardModel = model;
+    emit(ChangeSelectedCardModel(selectCardModel!));
   }
+
+  void changeSelectedColorIndex(int index) {
+    selectedColorIndex = index;
+    emit(ChangeSelectedColorIndex(selectedColorIndex));
+  }
+
+  Color selectedCardItemColor(int index) {
+    if (index == selectedColorIndex) {
+      return ColorConstants.instance.oriolesOrange;
+    } else {
+      return ColorConstants.instance.russianViolet;
+    }
+  }
+ 
+ 
 
   @override
   void dispose() {}

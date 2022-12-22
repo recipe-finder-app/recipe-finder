@@ -37,9 +37,8 @@ enum ImagePath {
   desserts('asset/png/desserts.png'),
   lunch('asset/png/lunch.png'),
   drinks('asset/png/drinks.png'),
-
+  basketShop('asset/svg/shop.svg'),
   basket('asset/svg/basket.svg'),
-
   likeWhite('asset/svg/heart_white.svg'),
   imageSample1('asset/png/imageSample1.png'),
   imageSample2('asset/png/imageSample2.png'),
@@ -52,7 +51,6 @@ enum ImagePath {
   searchh('asset/svg/search.svg'),
   microphone('asset/svg/microphone.svg'),
   refrigerator('asset/png/refrigerator.png'),
-
   onboardImage1('asset/svg/onboardImage1.svg'),
   onboardImage2('asset/svg/onboardImage2.svg'),
   onboardImage3('asset/svg/onboardImage3.svg');

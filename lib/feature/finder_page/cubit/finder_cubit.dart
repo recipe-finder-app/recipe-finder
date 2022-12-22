@@ -17,7 +17,53 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
   Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
   Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. """;
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. 
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+ Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
+  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
+  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
+  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
+  """;
 
   FinderCubit() : super(FinderInit());
 

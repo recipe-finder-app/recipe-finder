@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/basket_page/view/basket_card.dart';
+import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
-
 import '../../../core/base/view/base_view.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
@@ -53,10 +54,18 @@ class BasketView extends StatelessWidget {
                             itemCount: cubitRead.basketRecipeItems.length,
                             itemBuilder: (context, int cardIndex) {
                               return BasketRecipeCard(
+                                height:
+                                    cubitRead.selectedColorIndex == cardIndex
+                                        ? 140
+                                        : 120,
+                                width: cubitRead.selectedColorIndex == cardIndex
+                                    ? 140
+                                    : 120,
                                 model: cubitRead.basketRecipeItems[cardIndex],
                                 cardOnPressed: () {
                                   cubitRead.changeSelectedCardModel(
                                       cubitRead.basketRecipeItems[cardIndex]);
+                                  cubitRead.changeSelectedColorIndex(cardIndex);
                                 },
                                 removeIconOnPressed: (() {
                                   showDialog(
@@ -73,6 +82,41 @@ class BasketView extends StatelessWidget {
                                         );
                                       });
                                 }),
+                                border: cubitRead.selectedColorIndex ==
+                                        cardIndex
+                                    ? Border.all(
+                                        color: cubitRead
+                                            .selectedCardItemColor(cardIndex),
+                                        width: 6)
+                                    : null,
+                                gradient: cubitRead.selectedColorIndex ==
+                                        cardIndex
+                                    ? LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        stops: const [0, 0, 0.2, 4],
+                                        colors: [
+                                          cubitRead
+                                              .selectedCardItemColor(cardIndex),
+                                          Colors.transparent,
+                                          Colors.transparent,
+                                          cubitRead
+                                              .selectedCardItemColor(cardIndex),
+                                        ],
+                                      )
+                                    : LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        stops: const [0, 0, 0.2, 1],
+                                        colors: [
+                                          cubitRead
+                                              .selectedCardItemColor(cardIndex),
+                                          Colors.transparent,
+                                          Colors.transparent,
+                                          cubitRead
+                                              .selectedCardItemColor(cardIndex),
+                                        ],
+                                      ),
                               );
                             },
                           ),
@@ -93,58 +137,75 @@ class BasketView extends StatelessWidget {
                                 text:
                                     'Satın alım listesini görmek için yukarıdan kart seçin')
                             : ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 itemCount: cubitRead
                                     .selectCardModel?.ingredients.length,
                                 itemBuilder: (context, listViewIndex) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                        bottom: context.highValue),
-                                    child: Row(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            IngredientCircleAvatar(
-                                              color: ColorConstants
-                                                  .instance.russianViolet
-                                                  .withOpacity(0.1),
-                                              model: cubitRead.selectCardModel!
-                                                  .ingredients[listViewIndex],
+                                  return Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          IngredientCircleAvatar(
+                                            color: ColorConstants
+                                                .instance.russianViolet
+                                                .withOpacity(0.1),
+                                            model: cubitRead.selectCardModel!
+                                                .ingredients[listViewIndex],
+                                            iconBottomWidget: Text(
+                                              cubitRead
+                                                  .selectCardModel!
+                                                  .ingredients[listViewIndex]
+                                                  .quantity
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: ColorConstants
+                                                      .instance.white),
                                             ),
-                                            context.normalSizedBoxWidth,
-                                            Text(cubitRead
+                                          ),
+                                          context.normalSizedBoxWidth,
+                                          Padding(
+                                            padding: context.paddingHighBottom,
+                                            child: Text(cubitRead
                                                 .selectCardModel!
                                                 .ingredients[listViewIndex]
                                                 .title),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: context.paddingHighBottom,
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 20,
+                                              backgroundColor: ColorConstants
+                                                  .instance.chenille,
+                                              child: IconButton(
+                                                icon: Icon(
+                                                  Icons.done,
+                                                  color: ColorConstants
+                                                      .instance.white,
+                                                ),
+                                                onPressed: () {},
+                                              ),
+                                            ),
+                                            context.lowSizedBoxWidth,
+                                            CircleAvatar(
+                                                radius: 20,
+                                                backgroundColor: ColorConstants
+                                                    .instance.oriolesOrange,
+                                                child: ImageSvg(
+                                                  path:
+                                                      ImagePath.basketShop.path,
+                                                )),
                                           ],
                                         ),
-                                        context.verySizedBoxWidth,
-                                        CircleAvatar(
-                                          radius: 20,
-                                          backgroundColor: Colors.grey,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.done,
-                                              color:
-                                                  ColorConstants.instance.white,
-                                            ),
-                                            onPressed: () {},
-                                          ),
-                                        ),
-                                        context.lowSizedBoxWidth,
-                                        CircleAvatar(
-                                          radius: 20,
-                                          backgroundColor: Colors.red,
-                                          child: IconButton(
-                                            icon: const Icon(
-                                                Icons.shopping_cart,
-                                                color: Colors.white),
-                                            onPressed: () {},
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   );
                                 },
                               ),
@@ -170,14 +231,15 @@ class BasketView extends StatelessWidget {
 
   GridView buildGridViewMyPantry(BuildContext context) {
     return GridView.builder(
+        padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: context.read<HomeCubit>().myFrizeItems.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
-            childAspectRatio: 0.75,
+            childAspectRatio: 0.70,
             crossAxisSpacing: 30,
-            mainAxisSpacing: 25),
+            mainAxisSpacing: 35),
         itemBuilder: (context, gridViewIndex) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
