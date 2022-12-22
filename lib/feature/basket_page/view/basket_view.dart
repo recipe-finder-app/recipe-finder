@@ -56,10 +56,10 @@ class BasketView extends StatelessWidget {
                               return BasketRecipeCard(
                                 height:
                                     cubitRead.selectedColorIndex == cardIndex
-                                        ? 140
+                                        ? 130
                                         : 120,
                                 width: cubitRead.selectedColorIndex == cardIndex
-                                    ? 140
+                                    ? 130
                                     : 120,
                                 model: cubitRead.basketRecipeItems[cardIndex],
                                 cardOnPressed: () {
@@ -75,7 +75,7 @@ class BasketView extends StatelessWidget {
                                           explanation: LocaleKeys.removeCard,
                                           onPressedYes: () {
                                             cubitRead
-                                                .deleteItemFromBasketRecipeList(
+                                                .deletedItemFromBasketRecipeList(
                                                     cubitRead.basketRecipeItems[
                                                         cardIndex]);
                                           },
@@ -139,7 +139,6 @@ class BasketView extends StatelessWidget {
                             : ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 padding: EdgeInsets.zero,
-                                physics: const FixedExtentScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: cubitRead
                                     .selectCardModel?.ingredients.length,

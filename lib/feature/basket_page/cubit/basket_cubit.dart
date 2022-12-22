@@ -56,6 +56,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
 
   BasketCubit() : super(BasketsInit());
   late List<IngredientModel> myFinderFrizeItems;
+ 
   int? selectedColorIndex;
   @override
   void init() {
@@ -75,11 +76,12 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     ];
   }
 
-  void deleteItemFromBasketRecipeList(RecipeModel model) {
+  void deletedItemFromBasketRecipeList(RecipeModel model) {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
   }
- 
+
+  
   void changeSelectedCardModel(RecipeModel model) {
     selectCardModel = model;
     emit(ChangeSelectedCardModel(selectCardModel!));
@@ -97,8 +99,6 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       return ColorConstants.instance.russianViolet;
     }
   }
- 
- 
 
   @override
   void dispose() {}

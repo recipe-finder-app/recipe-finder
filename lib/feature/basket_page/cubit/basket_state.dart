@@ -21,6 +21,7 @@ class BasketRecipeItemListLoad extends IBasketState {
   BasketRecipeItemListLoad(this.basketRecipeItemList);
 }
 
+
 class MyFrizeListLoad extends IBasketState {
   late List<IngredientModel> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);
