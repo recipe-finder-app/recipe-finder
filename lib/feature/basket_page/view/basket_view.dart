@@ -78,6 +78,9 @@ class BasketView extends StatelessWidget {
                                                 .deletedItemFromBasketRecipeList(
                                                     cubitRead.basketRecipeItems[
                                                         cardIndex]);
+
+                                            cubitRead.selectedCardToBuyDeleted(
+                                                cubitRead.selectCardModel!);
                                           },
                                         );
                                       });
