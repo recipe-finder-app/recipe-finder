@@ -11,15 +11,17 @@ import '../../component/text/locale_text.dart';
 class IngredientCircleAvatar extends StatelessWidget {
   final IngredientModel model;
   final Color? color;
-  final Widget? iconBottomWidget;
+  final Widget? iconTopWidget;
   final VoidCallback? onPressed;
-  const IngredientCircleAvatar(
-      {Key? key,
-      required this.model,
-      this.color,
-      this.iconBottomWidget,
-      this.onPressed})
-      : super(key: key);
+  final bool? showText;
+  const IngredientCircleAvatar({
+    Key? key,
+    required this.model,
+    this.color,
+    this.iconTopWidget,
+    this.onPressed,
+    this.showText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,9 @@ class IngredientCircleAvatar extends StatelessWidget {
       onTap: onPressed,
       child: Column(
         children: [
-          iconBottomWidget != null
+          iconTopWidget != null
               ? Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
+                  alignment: AlignmentDirectional.center,
                   children: [
                     CircleAvatar(
                       radius: 32,
@@ -38,7 +40,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                         path: model.imagePath ?? ImagePath.like.path,
                       ),
                     ),
-                    iconBottomWidget!,
+                    iconTopWidget!,
                   ],
                 )
               : CircleAvatar(
@@ -49,13 +51,15 @@ class IngredientCircleAvatar extends StatelessWidget {
                   ),
                 ),
           context.veryLowSizedBox,
-          FittedBox(
-            child: LocaleText(
-                locale: context.locale,
-                fontSize: 12,
-                text: model.title,
-                color: ColorConstants.instance.roboticgods),
-          ),
+          showText == false
+              ? const SizedBox()
+              : FittedBox(
+                  child: LocaleText(
+                      locale: context.locale,
+                      fontSize: 12,
+                      text: model.title,
+                      color: ColorConstants.instance.roboticgods),
+                ),
         ],
       ),
     );

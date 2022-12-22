@@ -9,6 +9,7 @@ import 'package:recipe_finder/product/component/image_format/image_svg.dart';
 import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
+
 import '../../../core/base/view/base_view.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
@@ -78,9 +79,10 @@ class BasketView extends StatelessWidget {
                                                 .deletedItemFromBasketRecipeList(
                                                     cubitRead.basketRecipeItems[
                                                         cardIndex]);
-
-                                            cubitRead.selectedCardToBuyDeleted(
-                                                cubitRead.selectCardModel!);
+                                            cubitRead
+                                                .changeSelectedCardModel(null);
+                                            cubitRead
+                                                .changeSelectedColorIndex(null);
                                           },
                                         );
                                       });
@@ -158,7 +160,7 @@ class BasketView extends StatelessWidget {
                                                 .withOpacity(0.1),
                                             model: cubitRead.selectCardModel!
                                                 .ingredients[listViewIndex],
-                                            iconBottomWidget: Text(
+                                            iconTopWidget: Text(
                                               cubitRead
                                                   .selectCardModel!
                                                   .ingredients[listViewIndex]
@@ -247,7 +249,7 @@ class BasketView extends StatelessWidget {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
             model: context.read<HomeCubit>().myFrizeItems[gridViewIndex],
-            iconBottomWidget: Text(
+            iconTopWidget: Text(
               context
                   .read<HomeCubit>()
                   .myFrizeItems[gridViewIndex]

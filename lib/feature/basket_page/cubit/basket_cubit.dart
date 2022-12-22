@@ -5,7 +5,6 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
-import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 
@@ -56,7 +55,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
 
   BasketCubit() : super(BasketsInit());
   late List<IngredientModel> myFinderFrizeItems;
- 
+
   int? selectedColorIndex;
   @override
   void init() {
@@ -79,22 +78,17 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   void deletedItemFromBasketRecipeList(RecipeModel model) {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
-   
   }
 
-  void selectedCardToBuyDeleted(RecipeModel model) {
-    selectCardModel = null;
-    emit(ChangeSelectedCardModel(selectCardModel!));
-  }
-
-  void changeSelectedCardModel(RecipeModel model) {
+  void changeSelectedCardModel(RecipeModel? model) {
     selectCardModel = model;
-    emit(ChangeSelectedCardModel(selectCardModel!));
+    emit(ChangeSelectedCardModel(selectCardModel));
   }
 
-  void changeSelectedColorIndex(int index) {
+  void changeSelectedColorIndex(int? index) {
     selectedColorIndex = index;
     emit(ChangeSelectedColorIndex(selectedColorIndex));
+    print(selectedColorIndex);
   }
 
   Color selectedCardItemColor(int index) {

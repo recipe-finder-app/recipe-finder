@@ -269,7 +269,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
                           model: context
                               .read<HomeCubit>()
                               .myFrizeItems[missingItemIndex],
-                          iconBottomWidget: Text(
+                          iconTopWidget: Text(
                             context
                                 .read<HomeCubit>()
                                 .myFrizeItems[missingItemIndex]
