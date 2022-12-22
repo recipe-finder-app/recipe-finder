@@ -1,8 +1,13 @@
+import 'dart:ui';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
+import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
+import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -10,34 +15,44 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/component/text/bold_text.dart';
 import '../../../product/component/text/locale_bold_text.dart';
+import '../../../product/component/text/locale_text.dart';
 import '../../../product/model/recipe_model.dart';
-import '../../../product/widget/button/recipe_fab_button.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import '../../../product/widget/container/circular_bacground.dart';
 import '../../home_page/cubit/home_cubit.dart';
-import '../cubit/recipe_detail_cubit.dart';
 
-class RecipeDetailView extends StatefulWidget {
+class RecipeDetailView2 extends StatefulWidget {
   RecipeModel recipeModel;
-  RecipeDetailView({Key? key, required this.recipeModel}) : super(key: key);
+  RecipeDetailView2({Key? key, required this.recipeModel}) : super(key: key);
 
   @override
-  State<RecipeDetailView> createState() => _RecipeDetailViewState();
+  State<RecipeDetailView2> createState() => _RecipeDetailView2State();
 }
 
-class _RecipeDetailViewState extends State<RecipeDetailView>
+class _RecipeDetailView2State extends State<RecipeDetailView2>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  void _startAnimation() {
+    _animationController.reset();
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<RecipeDetailCubit>(
       init: (cubitRead) {
         cubitRead.init();
-        _tabController = TabController(vsync: this, length: 2);
+        _animationController = AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 500),
+        );
+        _animation =
+            Tween<double>(begin: 0, end: 1).animate(_animationController);
+        _startAnimation();
       },
       dispose: (cubitRead) {
         cubitRead.dispose();
-        _tabController.dispose();
+        _animationController.dispose();
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
@@ -177,32 +192,82 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
               overflow: TextOverflow.ellipsis,
             ),
             context.lowSizedBox,
-            TabBar(
-              controller: _tabController,
-              labelColor: ColorConstants.instance.oriolesOrange,
-              unselectedLabelColor: Colors.black,
-              indicatorColor: ColorConstants.instance.oriolesOrange,
-              indicatorWeight: 1,
-              tabs: [
-                Tab(
-                  text: LocaleKeys.ingredients.locale,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    cubitRead.changeSelectedCategoryIndex(0);
+                    _startAnimation();
+                  },
+                  child: Container(
+                    height: 45,
+                    width: context.screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      border: cubitRead.selectedCategoryIndex == 0
+                          ? null
+                          : Border.all(color: Colors.black, width: 0.5),
+                      color: cubitRead.categoryItemColor(0),
+                      borderRadius: context.radiusAllCircularMedium,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: context.paddingLowEdges,
+                        child: LocaleText(
+                          text: LocaleKeys.ingredients.locale,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: cubitRead.categoryTextColor(0)),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                Tab(
-                  text: LocaleKeys.directions.locale,
+                InkWell(
+                  onTap: () {
+                    cubitRead.changeSelectedCategoryIndex(1);
+                    _startAnimation();
+                  },
+                  child: Container(
+                    height: 45,
+                    width: context.screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      border: cubitRead.selectedCategoryIndex == 1
+                          ? null
+                          : Border.all(color: Colors.black, width: 0.5),
+                      color: cubitRead.categoryItemColor(1),
+                      borderRadius: context.radiusAllCircularMedium,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: context.paddingLowEdges,
+                        child: LocaleText(
+                          text: LocaleKeys.directions.locale,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: cubitRead.categoryTextColor(1)),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-            SizedBox(
-              height: context.screenHeight * 5,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  SingleChildScrollView(child: tabBarIngredients(context)),
-                  SingleChildScrollView(child: tabBarDirections(context)),
-                  // tabBarDirections(context),
-                ],
-              ),
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _animation.value,
+                  child: FadeTransition(opacity: _animation, child: child),
+                );
+              },
+              child: cubitRead.selectedCategoryIndex == 0
+                  ? tabBarIngredients(context)
+                  : cubitRead.selectedCategoryIndex == 1
+                      ? tabBarDirections(context)
+                      : const SizedBox(),
             ),
           ],
         ),

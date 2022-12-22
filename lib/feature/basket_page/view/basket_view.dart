@@ -139,6 +139,7 @@ class BasketView extends StatelessWidget {
                             : ListView.builder(
                                 physics: const NeverScrollableScrollPhysics(),
                                 padding: EdgeInsets.zero,
+                                physics: const FixedExtentScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: cubitRead
                                     .selectCardModel?.ingredients.length,
