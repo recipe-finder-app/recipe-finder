@@ -50,13 +50,13 @@ class RecipeProgress extends StatelessWidget {
                   padding: context.paddingHighEdges,
                   child: Padding(
                       padding: context.paddingMediumOnlyTop,
-                      child: const LocaleBoldText(
+                      child: LocaleBoldText(
                         text: LocaleKeys.progressText,
                         maxLines: 3,
                         textAlign: TextAlign.center,
-                        textColor: Colors.white,
+                        textColor: ColorConstants.instance.oriolesOrange,
                         fontSize: 16,
-                        style: TextStyle(
+                        style: const TextStyle(
                           decoration: TextDecoration.none,
                         ),
                       )),

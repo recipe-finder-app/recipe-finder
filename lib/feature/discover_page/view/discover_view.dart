@@ -19,6 +19,7 @@ class DiscoverView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseView<DiscoverCubit>(
         init: (cubitRead) {},
+        visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
             Scaffold(
               backgroundColor: Colors.white,

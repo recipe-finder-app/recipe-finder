@@ -22,6 +22,7 @@ class HomeView extends StatelessWidget {
       init: (cubitRead) {
         cubitRead.init();
       },
+      visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: SafeArea(
           child: Padding(

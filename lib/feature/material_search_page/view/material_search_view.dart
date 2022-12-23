@@ -34,6 +34,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
         dispose: (cubitRead) {
           cubitRead.dispose();
         },
+        visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
             Scaffold(
               floatingActionButtonLocation:
