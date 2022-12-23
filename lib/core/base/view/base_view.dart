@@ -46,8 +46,11 @@ class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
   Widget build(BuildContext context) {
     modelRead = context.read<T>();
     modelWatch = context.watch<T>();
-    return RecipeProgress(
-        visible: widget.visibleProgress,
-        child: widget.onPageBuilder(context, modelRead, modelWatch));
+    if (widget.visibleProgress == true) {
+      return RecipeProgress(
+          child: widget.onPageBuilder(context, modelRead, modelWatch));
+    } else {
+      return widget.onPageBuilder(context, modelRead, modelWatch);
+    }
   }
 }

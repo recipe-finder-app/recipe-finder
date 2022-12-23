@@ -23,6 +23,7 @@ class OnboardView extends StatelessWidget {
     return BaseView<OnboardCubit>(
       init: (cubitRead) => cubitRead.init(),
       dispose: (cubitRead) => cubitRead.dispose(),
+      visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
         body: PageView.builder(
