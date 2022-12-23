@@ -1,33 +1,145 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
-import '../../../constant/enum/service_path_enum.dart';
-import 'ICoreDio.dart';
-import 'core_dio.dart';
+import '../../../base/model/base_network_model.dart';
+import '../../../constant/enum/http_request_enum.dart';
+import 'interface/network_manager_interface.dart';
+import 'interface/response_model_interface.dart';
+import 'model/empty_model.dart';
+import 'model/error_model.dart';
+import 'model/response_model.dart';
 
-class NetworkManager {
-  static NetworkManager? _instance;
-  static NetworkManager? get instance {
-    _instance ??= NetworkManager._init();
-    return _instance;
+class NetworkManager<E extends INetworkModel<E>>
+    with DioMixin
+    implements Dio, INetworkManager<E> {
+  @override
+  final BaseOptions options;
+  E? errorModel;
+  E? Function(Map<String, dynamic> data)? errorModelFromData;
+
+  NetworkManager(
+      {required this.options, this.errorModel, this.errorModelFromData}) {
+    options = options;
+    interceptors.add(InterceptorsWrapper());
+    httpClientAdapter = DefaultHttpClientAdapter();
   }
 
-  ICoreDio? coreDio;
+  @override
+  Future<IResponseModel<R?, E>> send<R, T extends INetworkModel>(String path,
+      {required HttpTypes type,
+      required T parseModel,
+      dynamic data,
+      Map<String, dynamic>? queryParameters,
+      void Function(int, int)? onReceiveProgress}) async {
+    final body = _getBodyModel(data);
+    try {
+      final response =
+          await request(path, data: body, options: Options(method: type.name));
+      switch (response.statusCode ?? HttpStatus.notFound) {
+        case HttpStatus.ok:
+        case HttpStatus.accepted:
+          var _response = response.data;
+          return _getResponseResult<T, R>(_response, parseModel);
+        default:
+          return ResponseModel(
+              error: ErrorModel(description: response.data.toString()));
+      }
+    } on DioError catch (error) {
+      return _onError(error);
+    }
+  }
 
-  NetworkManager._init() {
-    final baseOptions = BaseOptions(
-      baseUrl: ServicePath.base.path,
+  dynamic _getBodyModel(dynamic data) {
+    if (data is INetworkModel) {
+      return data.toJson();
+    } else if (data != null) {
+      return jsonEncode(data);
+    } else {
+      return data;
+    }
+  }
+
+  ResponseModel<R, E> _getResponseResult<T extends INetworkModel, R>(
+      dynamic data, T parserModel) {
+    final model = _parseBody<R, T>(data, parserModel);
+
+    return ResponseModel<R, E>(data: model);
+  }
+
+  R? _parseBody<R, T extends INetworkModel>(dynamic responseBody, T model) {
+    try {
+      if (responseBody is List) {
+        return responseBody
+            .map((data) => model.fromJson(data))
+            .cast<T>()
+            .toList() as R;
+      } else if (responseBody is Map<String, dynamic>) {
+        return model.fromJson(responseBody) as R;
+      } else {
+        if (R is EmptyModel || R == EmptyModel) {
+          return EmptyModel(name: responseBody.toString()) as R;
+        } else {
+          /* CustomLogger(isEnabled: isEnableLogger).printError(
+              'Becareful your data $responseBody, I could not parse it');*/
+          return null;
+        }
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      /* CustomLogger(isEnabled: isEnableLogger).printError(
+          'Parse Error: $e - response body: $responseBody T model: $T , R model: $R ');*/
+    }
+    return null;
+  }
+
+  ErrorModel<E> _generateErrorModel(ErrorModel<E> error, dynamic data) {
+    if (errorModel == null) {
+    } else if (data is String || data is Map<String, dynamic>) {
+      final json =
+          data is String ? jsonDecode(data) : data as Map<String, dynamic>;
+
+      if (errorModelFromData != null) {
+        error = error.copyWith(model: errorModelFromData?.call(data));
+      } else {
+        error = error.copyWith(model: errorModel!..fromJson(json));
+      }
+    }
+
+    return error;
+  }
+
+  ResponseModel<R, E> _onError<R>(DioError e) {
+    final errorResponse = e.response;
+    if (kDebugMode) {
+      print(e.message);
+    }
+    var error = ErrorModel<E>(
+        description: e.message,
+        statusCode: errorResponse != null
+            ? errorResponse.statusCode
+            : HttpStatus.internalServerError);
+    if (errorResponse != null) {
+      error = _generateErrorModel(error, errorResponse.data);
+    }
+    return ResponseModel<R, E>(
+      error: ErrorModel<E>(
+          description: error.description,
+          model: error.model,
+          statusCode: error.statusCode),
     );
-    // _dio = Dio(baseOptions);
+  }
 
-    coreDio = CoreDio(baseOptions);
+  dynamic _decodeBody(String body) async {
+    return await compute(_parseAndDecode, body);
+  }
 
-    // _dio.interceptors.add(InterceptorsWrapper(
-    //   onRequest: (options) {
-    //     options.path += "veli";
-    //   },
-    //   onError: (e) {
-    //     return BaseError(e.message);
-    //   },
-    // ));
+  dynamic _parseAndDecode(String response) {
+    return jsonDecode(response);
   }
 }

@@ -1,4 +1,4 @@
-import '../../init/network/dio/IResponseModel.dart';
+import '../../init/network/dio/interface/error_model_interface.dart';
 
 class BaseError extends IErrorModel {
   final String message;
