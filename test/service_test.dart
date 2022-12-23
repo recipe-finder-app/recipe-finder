@@ -5,7 +5,6 @@ import 'package:recipe_finder/core/constant/enum/http_request_enum.dart';
 import 'package:recipe_finder/core/init/network/dio/interface/network_manager_interface.dart';
 import 'package:recipe_finder/core/init/network/dio/network_manager.dart';
 
-// ignore: always_declare_return_types
 main() {
   late INetworkManager networkManager;
   setUp(() {
@@ -15,12 +14,10 @@ main() {
     ));
   });
   test('service', () async {
-    final response = await networkManager.send<List<UserModel>, UserModel>(
-        '/posts',
-        parseModel: UserModel(),
-        type: HttpTypes.GET);
+    final response = await networkManager.send<UserModel, UserModel>('/posts/1',
+        parseModel: UserModel(), type: HttpTypes.GET);
 
-    expect(response.data, isNotNull);
+    expect(response.model, isNotNull);
   });
 }
 

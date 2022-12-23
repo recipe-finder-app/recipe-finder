@@ -11,7 +11,7 @@ import 'interface/network_manager_interface.dart';
 import 'interface/response_model_interface.dart';
 import 'model/empty_model.dart';
 import 'model/error_model.dart';
-import 'model/response_model.dart';
+import 'model/responseModel.dart';
 
 class NetworkManager<E extends INetworkModel<E>>
     with DioMixin
@@ -67,7 +67,7 @@ class NetworkManager<E extends INetworkModel<E>>
       dynamic data, T parserModel) {
     final model = _parseBody<R, T>(data, parserModel);
 
-    return ResponseModel<R, E>(data: model);
+    return ResponseModel<R, E>(model: model);
   }
 
   R? _parseBody<R, T extends INetworkModel>(dynamic responseBody, T model) {
