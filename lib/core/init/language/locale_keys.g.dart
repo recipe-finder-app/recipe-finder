@@ -77,12 +77,12 @@ abstract class  LocaleKeys {
   static const finder = 'finder';
   static const likes = 'likes';
   static const basket = 'basket';
+  static const findBestRecipesForCooking = 'findBestRecipesForCooking';
+  static const trendingNow = 'trendingNow';
+  static const all = 'all';
   static const myBasketList = 'myBasketList';
   static const toBuyList = 'toBuyList';
   static const myPantry = 'myPantry';
   static const removeCard = 'removeCard';
-  static const findBestRecipesForCooking = 'findBestRecipesForCooking';
-  static const trendingNow = 'trendingNow';
-  static const all = 'all';
 
 }
