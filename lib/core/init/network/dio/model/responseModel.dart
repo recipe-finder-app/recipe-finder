@@ -5,10 +5,10 @@ import '../interface/response_model_interface.dart';
 class ResponseModel<T, E extends INetworkModel<E>>
     extends IResponseModel<T, E> {
   @override
-  final T? data;
+  final T? model;
 
   @override
   final IErrorModel<E>? error;
 
-  ResponseModel({this.data, this.error});
+  ResponseModel({this.model, this.error});
 }

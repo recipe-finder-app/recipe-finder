@@ -255,7 +255,14 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                 ),
               ],
             ),
-            AnimatedBuilder(
+            cubitRead.selectedCategoryIndex == 0
+                ? FadeTransition(
+                    opacity: _animation, child: tabBarIngredients(context))
+                : cubitRead.selectedCategoryIndex == 1
+                    ? FadeTransition(
+                        opacity: _animation, child: tabBarDirections(context))
+                    : const SizedBox(),
+            /*  AnimatedBuilder(
               animation: _animation,
               builder: (context, child) {
                 return Transform.scale(
@@ -268,7 +275,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                   : cubitRead.selectedCategoryIndex == 1
                       ? tabBarDirections(context)
                       : const SizedBox(),
-            ),
+            ),*/
           ],
         ),
       ),
