@@ -10,6 +10,7 @@ class BasketRecipeCard extends StatelessWidget {
   final Gradient? gradient;
   final double? width;
   final double? height;
+  final BorderRadius? borderRadius;
 
   final VoidCallback? removeIconOnPressed;
   const BasketRecipeCard({
@@ -19,7 +20,8 @@ class BasketRecipeCard extends StatelessWidget {
     this.removeIconOnPressed,
     required this.border,
     required this.gradient,
-    required this.height, this.width,
+    required this.height,
+    this.width, required this.borderRadius,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class BasketRecipeCard extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: context.radiusAllCircularMedium,
+            borderRadius: borderRadius,
             gradient: gradient,
           ),
         ),

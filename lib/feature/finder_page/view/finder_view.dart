@@ -233,7 +233,10 @@ class _FinderViewState extends State<FinderView> {
         ),
         TextButton(
           onPressed: () {
-            context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
+            NavigationService.instance
+                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+
+            //  context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
           },
           child: LocaleText(
               style: TextStyle(

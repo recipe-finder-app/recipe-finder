@@ -55,6 +55,10 @@ class BasketView extends StatelessWidget {
                             itemCount: cubitRead.basketRecipeItems.length,
                             itemBuilder: (context, int cardIndex) {
                               return BasketRecipeCard(
+                                borderRadius:
+                                    cubitRead.selectedColorIndex == cardIndex
+                                        ? null
+                                        : context.radiusAllCircularMedium,
                                 height:
                                     cubitRead.selectedColorIndex == cardIndex
                                         ? 130
@@ -148,69 +152,77 @@ class BasketView extends StatelessWidget {
                                 itemCount: cubitRead
                                     .selectCardModel?.ingredients.length,
                                 itemBuilder: (context, listViewIndex) {
-                                  return Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          IngredientCircleAvatar(
-                                            color: ColorConstants
-                                                .instance.russianViolet
-                                                .withOpacity(0.1),
-                                            model: cubitRead.selectCardModel!
-                                                .ingredients[listViewIndex],
-                                            iconTopWidget: Text(
-                                              cubitRead
-                                                  .selectCardModel!
-                                                  .ingredients[listViewIndex]
-                                                  .quantity
-                                                  .toString(),
-                                              style: TextStyle(
-                                                  color: ColorConstants
-                                                      .instance.white),
-                                            ),
-                                          ),
-                                          context.normalSizedBoxWidth,
-                                          Padding(
-                                            padding: context.paddingHighBottom,
-                                            child: Text(cubitRead
-                                                .selectCardModel!
-                                                .ingredients[listViewIndex]
-                                                .title),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: context.paddingHighBottom,
-                                        child: Row(
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        top: context.lowValue,
+                                        bottom: context.lowValue),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
                                           children: [
-                                            CircleAvatar(
-                                              radius: 20,
-                                              backgroundColor: ColorConstants
-                                                  .instance.chenille,
-                                              child: IconButton(
-                                                icon: Icon(
-                                                  Icons.done,
-                                                  color: ColorConstants
-                                                      .instance.white,
-                                                ),
-                                                onPressed: () {},
+                                            IngredientCircleAvatar(
+                                              showText: false,
+                                              color: ColorConstants
+                                                  .instance.russianViolet
+                                                  .withOpacity(0.1),
+                                              model: cubitRead.selectCardModel!
+                                                  .ingredients[listViewIndex],
+                                              iconTopWidget: Text(
+                                                cubitRead
+                                                    .selectCardModel!
+                                                    .ingredients[listViewIndex]
+                                                    .quantity
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    color: ColorConstants
+                                                        .instance.white),
                                               ),
                                             ),
-                                            context.lowSizedBoxWidth,
-                                            CircleAvatar(
-                                                radius: 20,
-                                                backgroundColor: ColorConstants
-                                                    .instance.oriolesOrange,
-                                                child: ImageSvg(
-                                                  path:
-                                                      ImagePath.basketShop.path,
-                                                )),
+                                            context.normalSizedBoxWidth,
+                                            Padding(
+                                              padding:
+                                                  context.paddingHighBottom,
+                                              child: Text(cubitRead
+                                                  .selectCardModel!
+                                                  .ingredients[listViewIndex]
+                                                  .title),
+                                            ),
                                           ],
                                         ),
-                                      )
-                                    ],
+                                        Padding(
+                                          padding: context.paddingHighBottom,
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 20,
+                                                backgroundColor: ColorConstants
+                                                    .instance.chenille,
+                                                child: IconButton(
+                                                  icon: Icon(
+                                                    Icons.done,
+                                                    color: ColorConstants
+                                                        .instance.white,
+                                                  ),
+                                                  onPressed: () {},
+                                                ),
+                                              ),
+                                              context.lowSizedBoxWidth,
+                                              CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundColor:
+                                                      ColorConstants.instance
+                                                          .oriolesOrange,
+                                                  child: ImageSvg(
+                                                    path: ImagePath
+                                                        .basketShop.path,
+                                                  )),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   );
                                 },
                               ),
