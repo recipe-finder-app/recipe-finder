@@ -81,13 +81,24 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   }
 
   void changeSelectedCardModel(RecipeModel? model) {
-    selectCardModel = model;
-    emit(ChangeSelectedCardModel(selectCardModel));
+    if (selectCardModel == model) {
+      selectCardModel = null;
+      emit(ChangeSelectedCardModel(selectCardModel));
+    } else {
+      selectCardModel = model;
+      emit(ChangeSelectedCardModel(selectCardModel));
+    }
   }
 
   void changeSelectedColorIndex(int? index) {
-    selectedColorIndex = index;
-    emit(ChangeSelectedColorIndex(selectedColorIndex));
+    if (selectedColorIndex == index) {
+      selectedColorIndex = null;
+      emit(ChangeSelectedColorIndex(selectedColorIndex));
+    } else {
+      selectedColorIndex = index;
+      emit(ChangeSelectedColorIndex(selectedColorIndex));
+    }
+
     print(selectedColorIndex);
   }
 
