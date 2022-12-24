@@ -88,7 +88,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
             ? const SizedBox()
             : videoPlayerStack(context),
         Positioned(
-          bottom: -1,
+          bottom: -5,
           height: 50,
           width: context.screenWidth,
           child: Container(
