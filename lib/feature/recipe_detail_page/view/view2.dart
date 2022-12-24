@@ -77,7 +77,6 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
 
   Widget videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
     return Stack(
-      alignment: AlignmentDirectional.topStart,
       children: [
         AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
@@ -87,12 +86,12 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
         ),
         cubitRead.chewieController.isPlaying == true
             ? const SizedBox()
-            : topOfVideoPlayerStack(context),
+            : videoPlayerStack(context),
         Positioned(
-          bottom: 0,
+          bottom: -1,
+          height: 50,
+          width: context.screenWidth,
           child: Container(
-            height: 50,
-            width: context.screenWidth,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: context.radiusTopCircularVeryHigh,
@@ -101,50 +100,44 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
               padding: EdgeInsets.only(
                   left: context.mediumValue, top: context.lowValue),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          String ingredientsText = '';
-                          for (var ingredient
-                              in widget.recipeModel.ingredients!) {
-                            ingredientsText =
-                                '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
-                          }
+                  InkWell(
+                    onTap: () {
+                      String ingredientsText = '';
+                      for (var ingredient in widget.recipeModel.ingredients!) {
+                        ingredientsText =
+                            '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+                      }
 
-                          String message = '${LocaleKeys.ingredients.locale}\n'
-                              '$ingredientsText\n\n'
-                              '${LocaleKeys.description}\n\n'
-                              '${widget.recipeModel.description}\n\n'
-                              '${LocaleKeys.directions}\n\n'
-                              '${widget.recipeModel.directions}\n\n';
-                          Share.share(message);
-                        },
-                        child: CircularBackground(
-                          circleHeight: 30,
-                          circleWidth: 30,
-                          color: ColorConstants.instance.russianViolet,
-                          child: const Icon(
-                            Icons.share_outlined,
-                            color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
+                      String message = '${LocaleKeys.ingredients.locale}\n'
+                          '$ingredientsText\n\n'
+                          '${LocaleKeys.description}\n\n'
+                          '${widget.recipeModel.description}\n\n'
+                          '${LocaleKeys.directions}\n\n'
+                          '${widget.recipeModel.directions}\n\n';
+                      Share.share(message);
+                    },
+                    child: CircularBackground(
+                      circleHeight: 30,
+                      circleWidth: 30,
+                      color: ColorConstants.instance.russianViolet,
+                      child: const Icon(
+                        Icons.share_outlined,
+                        color: Colors.white,
+                        size: 15,
                       ),
-                      context.lowSizedBoxWidth,
-                      CircularBackground(
-                          circleHeight: 30,
-                          circleWidth: 30,
-                          color: ColorConstants.instance.russianViolet,
-                          child: const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 15,
-                          )),
-                    ],
+                    ),
                   ),
+                  context.lowSizedBoxWidth,
+                  CircularBackground(
+                      circleHeight: 30,
+                      circleWidth: 30,
+                      color: ColorConstants.instance.russianViolet,
+                      child: const Icon(
+                        Icons.favorite,
+                        color: Colors.white,
+                        size: 15,
+                      )),
                 ],
               ),
             ),
@@ -154,7 +147,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
     );
   }
 
-  Widget topOfVideoPlayerStack(BuildContext context) {
+  Widget videoPlayerStack(BuildContext context) {
     return Padding(
       padding: context.paddingNormalAll,
       child: Padding(
