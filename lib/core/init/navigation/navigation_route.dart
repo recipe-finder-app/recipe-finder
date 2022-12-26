@@ -11,8 +11,8 @@ import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
 import '../../../feature/material_search_page/view/material_search_view.dart';
 import '../../../feature/recipe_detail_page/view/view2.dart';
-import '../../../product/component/no_navigation/no_navigation_view.dart';
 import '../../../product/widget/bottom_nav_bar_controller/recipe_bottom_navigation_bar.dart';
+import '../../../product/widget_core/no_navigation/no_navigation_view.dart';
 
 class NavigationRoute {
   static final NavigationRoute _instance = NavigationRoute._init();

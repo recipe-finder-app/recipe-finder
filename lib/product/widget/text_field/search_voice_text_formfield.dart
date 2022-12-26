@@ -5,7 +5,8 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/text_field/standard_text_formfield.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../core/constant/enum/supported_languages_enum.dart';
@@ -15,12 +16,14 @@ class SearchVoiceTextFormField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final double? width;
   final TextEditingController? controller;
-  SearchVoiceTextFormField({
-    Key? key,
-    this.width,
-    this.onChanged,
-    this.controller,
-  }) : super(key: key);
+  final VoidCallback? onPressedClear;
+  SearchVoiceTextFormField(
+      {Key? key,
+      this.width,
+      this.onChanged,
+      this.controller,
+      this.onPressedClear})
+      : super(key: key);
 
   @override
   State<SearchVoiceTextFormField> createState() =>
@@ -73,12 +76,15 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
         setState(() => _isListening = true);
         speech.listen(
           localeId: _currentLocaleId,
-          listenFor: const Duration(seconds: 10),
+          listenFor: const Duration(seconds: 7),
           pauseFor: const Duration(seconds: 4),
           cancelOnError: true,
           listenMode: ListenMode.confirmation,
           onResult: (val) => setState(() {
             widget.controller?.text = val.recognizedWords;
+            if (widget.onChanged != null) {
+              widget.onChanged!.call(val.recognizedWords);
+            }
             print(val.recognizedWords);
           }),
         );
@@ -93,7 +99,36 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
   @override
   Widget build(BuildContext context) {
     setLanguage();
-    return Container(
+    return StandardTextFormField(
+      controller: widget.controller,
+      hintText: LocaleKeys.search.locale,
+      prefixIcon: ImageSvg(
+          path: ImagePath.searchh.path,
+          color: ColorConstants.instance.russianViolet),
+      suffixIcon: Padding(
+        padding: context.paddingLowRightLow,
+        child: AvatarGlow(
+          endRadius: 25,
+          showTwoGlows: true,
+          glowColor: ColorConstants.instance.brightNavyBlue,
+          animate: _isListening,
+          child: InkWell(
+            onTap: _listen,
+            child: ImageSvg(
+              path: ImagePath.microphone.path,
+              color: ColorConstants.instance.russianViolet,
+            ),
+          ),
+        ),
+      ),
+      onpressedClear: widget.onPressedClear,
+      onChanged: (data) {
+        if (widget.onChanged != null) {
+          widget.onChanged!.call(data.toString());
+        }
+      },
+    );
+    /* return Container(
       width: widget.width ?? context.screenWidth / 1.2,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -101,10 +136,14 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
             color: ColorConstants.instance.roboticgods.withOpacity(0.9),
             width: 1.0,
             style: BorderStyle.solid),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: context.radiusAllCircularMedium,
       ),
       child: TextFormField(
-        onChanged: widget.onChanged,
+        onChanged: (data) {
+          if (widget.onChanged != null) {
+            widget.onChanged!.call(data.toString());
+          }
+        },
         controller: widget.controller,
         decoration: InputDecoration(
           border: InputBorder.none,
@@ -135,6 +174,6 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
           ),
         ),
       ),
-    );
+    );*/
   }
 }

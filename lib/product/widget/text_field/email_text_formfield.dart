@@ -1,8 +1,10 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
-import 'package:recipe_finder/product/component/text_field/standard_text_formfield.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/text_field/standard_text_formfield.dart';
 
 import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
@@ -33,7 +35,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
                   ? 80
                   : 50,
       width: context.screenWidth / 1.2,
-      hintText: 'Enter Email Address',
+      hintText: LocaleKeys.emailAddress.locale,
       maxLines: 1,
       prefixIcon: ImageSvg(
         path: ImagePath.email.path,

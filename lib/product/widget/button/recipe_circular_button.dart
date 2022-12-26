@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 class RecipeCircularButton extends StatelessWidget {
   final String text;

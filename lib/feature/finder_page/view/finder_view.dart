@@ -7,16 +7,14 @@ import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'package:recipe_finder/feature/basket_page/cubit/basket_cubit.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
-import 'package:recipe_finder/product/component/card/card_overlay.dart';
-import 'package:recipe_finder/product/component/card/tinder_card.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget_core/card/card_overlay.dart';
+import 'package:recipe_finder/product/widget_core/card/tinder_card.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
 
 class FinderView extends StatefulWidget {
   const FinderView({Key? key}) : super(key: key);

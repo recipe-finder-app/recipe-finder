@@ -4,13 +4,13 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
 import 'package:recipe_finder/feature/discover_page/model/discover_model.dart';
-import 'package:recipe_finder/product/component/text/locale_bold_text.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/card/discover_card.dart';
+import '../../../product/widget_core/card/discover_card.dart';
 
 class DiscoverView extends StatelessWidget {
   const DiscoverView({Key? key}) : super(key: key);

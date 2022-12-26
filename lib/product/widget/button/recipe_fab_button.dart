@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/constant/enum/device_size_enum.dart';
-import '../../component/text/locale_text.dart';
+import '../../widget_core/text/locale_text.dart';
 
 class RecipeFabButton extends StatelessWidget {
   final String text;

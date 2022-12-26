@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/component/text_field/standard_text_formfield.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+import 'package:recipe_finder/product/widget_core/text_field/standard_text_formfield.dart';
 
-import '../../component/image_format/image_svg.dart';
 import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
+import '../../widget_core/image_format/image_svg.dart';
 
 class UserTextFormField extends StatefulWidget {
   const UserTextFormField({Key? key}) : super(key: key);
@@ -30,7 +32,7 @@ class _UserTextFormFieldState extends State<UserTextFormField> {
                   ? 80
                   : 50,
       width: context.screenWidth / 1.2,
-      hintText: 'Enter Username',
+      hintText: LocaleKeys.userName.locale,
       maxLines: 1,
       prefixIcon: ImageSvg(
         path: ImagePath.user.path,

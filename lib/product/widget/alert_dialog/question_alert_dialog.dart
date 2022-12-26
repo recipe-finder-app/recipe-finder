@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/init/language/locale_keys.g.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../product/component/alert_dialog/alert_dialog_no_connection.dart';
-
+import '../../../product/widget_core/alert_dialog/alert_dialog_no_connection.dart';
 
 class MainBuild {
   MainBuild._();

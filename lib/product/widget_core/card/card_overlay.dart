@@ -1,10 +1,8 @@
 import 'dart:math' as math;
 
-
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/product/component/card/card_label.dart';
+import 'package:recipe_finder/product/widget_core/card/card_label.dart';
 import 'package:swipable_stack/swipable_stack.dart';
-
 
 class CardOverlay extends StatelessWidget {
   const CardOverlay({
@@ -39,7 +37,7 @@ class CardOverlay extends StatelessWidget {
         ),
         Opacity(
           opacity: isDown ? opacity : 0,
-         // child: CardLabel.down(),
+          // child: CardLabel.down(),
         ),
       ],
     );

@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
+import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/component/text/locale_bold_text.dart';
-import '../../../product/component/text/locale_text.dart';
 import '../../../product/widget/button/login_button.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
+import '../../../product/widget_core/text/locale_text.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -155,7 +155,9 @@ class LoginView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: LocaleBoldText(text: LocaleKeys.password)),
                     context.lowSizedBox,
-                    const PasswordTextFormField(),
+                    PasswordTextFormField(
+                      controller: TextEditingController(),
+                    ),
                   ]),
                   Align(
                       alignment: Alignment.centerRight,

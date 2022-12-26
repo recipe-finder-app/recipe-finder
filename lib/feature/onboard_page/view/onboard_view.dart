@@ -9,10 +9,10 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/component/pop_up_menu_button/language_popup_menu_button.dart';
-import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
+import '../../../product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/onboard_cubit.dart';
 
 class OnboardView extends StatelessWidget {

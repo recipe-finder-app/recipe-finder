@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 
 const _labelAngle = math.pi / 2 * 0.2;
 
