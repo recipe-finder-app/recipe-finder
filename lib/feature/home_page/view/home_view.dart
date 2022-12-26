@@ -35,9 +35,15 @@ class HomeView extends StatelessWidget {
                 context.mediumSizedBox,
                 Center(
                     child: SearchVoiceTextFormField(
-                  controller: TextEditingController(),
-                  width: context.veryValueWidth,
-                  onChanged: (String data) {},
+                  controller: cubitRead.searchTextController,
+                  onPressedClear: () {},
+                  onChanged: (String data) {
+                    if (data.isEmpty) {
+                      print('liste yüklendi');
+                    } else {
+                      print('liste search yüklendi');
+                    }
+                  },
                 )),
                 context.mediumSizedBox,
                 SizedBox(

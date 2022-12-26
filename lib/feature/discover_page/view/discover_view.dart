@@ -41,6 +41,7 @@ class DiscoverView extends StatelessWidget {
                         ),
                         context.normalSizedBox,
                         SearchVoiceTextFormField(
+                          controller: TextEditingController(),
                           width: context.screenWidth,
                         ),
                         context.normalSizedBox,

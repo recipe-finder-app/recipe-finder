@@ -148,7 +148,9 @@ class LoginView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: LocaleBoldText(text: LocaleKeys.userName)),
                     context.lowSizedBox,
-                    const UserTextFormField(),
+                    UserTextFormField(
+                      controller: TextEditingController(),
+                    ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                     const Align(
@@ -254,7 +256,9 @@ class LoginView extends StatelessWidget {
                           child:
                               LocaleBoldText(text: LocaleKeys.userName.locale)),
                       context.lowSizedBox,
-                      const UserTextFormField(),
+                      UserTextFormField(
+                        controller: TextEditingController(),
+                      ),
                     ],
                   ),
                   Column(
@@ -264,7 +268,8 @@ class LoginView extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: LocaleBoldText(text: LocaleKeys.email.locale)),
                       context.lowSizedBox,
-                      const EmailTextFormField(
+                      EmailTextFormField(
+                        controller: TextEditingController(),
                         validator: true,
                       ),
                     ],
@@ -277,7 +282,9 @@ class LoginView extends StatelessWidget {
                           child:
                               LocaleBoldText(text: LocaleKeys.password.locale)),
                       context.lowSizedBox,
-                      const PasswordTextFormField(),
+                      PasswordTextFormField(
+                        controller: TextEditingController(),
+                      ),
                     ],
                   ),
                   LoginButton(
@@ -375,7 +382,8 @@ class LoginView extends StatelessWidget {
                       text: LocaleKeys.emailAddress.locale,
                     )),
                 context.lowSizedBox,
-                const EmailTextFormField(
+                EmailTextFormField(
+                  controller: TextEditingController(),
                   validator: true,
                 ),
               ],

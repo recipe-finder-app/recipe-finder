@@ -67,7 +67,6 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                         context.mediumSizedBox,
                         SearchVoiceTextFormField(
                           controller: cubitRead.searchTextController,
-                          width: context.screenWidth / 1.2,
                           onPressedClear: () {
                             cubitRead.ingredientListLoad();
                           },

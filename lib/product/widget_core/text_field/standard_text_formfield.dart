@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 typedef StringFunction = String? Function(String? value);
-/*
+
 class StandardTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
@@ -23,6 +23,7 @@ class StandardTextFormField extends StatefulWidget {
   final bool? borderEnable;
   final Color? textColor;
   final ValueChanged<String>? onChanged;
+  final VoidCallback? onPressedClear;
 
   const StandardTextFormField(
       {Key? key,
@@ -44,7 +45,8 @@ class StandardTextFormField extends StatefulWidget {
       this.obscureText,
       this.borderEnable,
       this.textColor,
-      this.onChanged})
+      this.onChanged,
+      this.onPressedClear})
       : super(key: key);
 
   @override
@@ -68,6 +70,8 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
         obscureText: widget.obscureText ?? false,
         style: TextStyle(color: widget.textColor),
         textDirection: TextDirection.ltr,
+        cursorColor: Colors.black,
+        cursorWidth: 1,
         decoration: InputDecoration(
           prefixIcon: widget.prefixIcon,
           suffixIcon: Row(
@@ -79,9 +83,11 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
                       ? const Center()
                       : IconButton(
                           onPressed: () {
-                            setState(() {
-                              widget.controller!;
-                            });
+                            widget.controller!.clear();
+                            setState(() {});
+                            if (widget.onPressedClear != null) {
+                              widget.onPressedClear!();
+                            }
                           },
                           icon: const Icon(
                             Icons.close,
@@ -117,21 +123,19 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
             fontSize: 14,
             color: Colors.grey,
           ),
-
+          focusedBorder: widget.borderEnable == false
+              ? null
+              : buildOutlineInputBorder(context),
+          enabledBorder: widget.borderEnable == false
+              ? null
+              : buildOutlineInputBorder(context),
           border: widget.borderEnable == false
               ? null
-              : OutlineInputBorder(
-                  borderRadius: context.radiusAllCircularMedium,
-                ),
+              : buildOutlineInputBorder(context),
 
           disabledBorder: widget.borderEnable == false
               ? null
-              : OutlineInputBorder(
-                  borderRadius: context.radiusAllCircularMin,
-                  borderSide: const BorderSide(
-                    width: 0.5,
-                    color: Colors.black,
-                  )),
+              : buildOutlineInputBorder(context),
         ),
         validator: (tfInput) {
           if (widget.validator != null) {
@@ -140,12 +144,31 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
             return null;
           }
         },
-        onChanged: widget.onChanged,
+        onChanged: (data) {
+          if (widget.controller != null &&
+              (widget.controller!.text.length == 1 ||
+                  widget.controller!.text.isEmpty)) {
+            setState(() {});
+          }
+          if (widget.onChanged != null) {
+            widget.onChanged!.call(data);
+          }
+        },
       ),
     );
   }
-}*/
 
+  OutlineInputBorder buildOutlineInputBorder(BuildContext context) {
+    return OutlineInputBorder(
+        borderRadius: context.radiusAllCircularMin,
+        borderSide: const BorderSide(
+          width: 0.5,
+          color: Colors.black,
+        ));
+  }
+}
+
+/*
 class StandardTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final String? hintText;
@@ -295,3 +318,4 @@ class StandardTextFormField extends StatelessWidget {
         ));
   }
 }
+*/

@@ -9,12 +9,12 @@ import '../../../core/constant/enum/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 
 class PasswordTextFormField extends StatefulWidget {
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String? hintText;
 
   const PasswordTextFormField({
     Key? key,
-    this.controller,
+    required this.controller,
     this.hintText,
   }) : super(key: key);
 

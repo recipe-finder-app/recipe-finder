@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
+
 import '../../../core/base/model/base_view_model.dart';
 import '../service/home_service.dart';
 
 class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   IHomeService? service;
-
+  late TextEditingController searchTextController;
   HomeCubit() : super(HomeInit());
 
   List<IngredientModel> searchByMeal = [];
@@ -31,6 +32,7 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   @override
   void init() {
     service = HomeService();
+    searchTextController = TextEditingController();
     searchByMeal = service!.fetchSearchByMealList();
     category = service!.fetchCategoryList();
     essentialsItem = service!.fetchEssetialsList();

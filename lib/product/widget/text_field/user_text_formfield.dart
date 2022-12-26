@@ -9,7 +9,9 @@ import '../../../core/constant/enum/image_path_enum.dart';
 import '../../widget_core/image_format/image_svg.dart';
 
 class UserTextFormField extends StatefulWidget {
-  const UserTextFormField({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const UserTextFormField({Key? key, required this.controller})
+      : super(key: key);
 
   @override
   State<UserTextFormField> createState() => _UserTextFormFieldState();
@@ -20,6 +22,7 @@ class _UserTextFormFieldState extends State<UserTextFormField> {
   @override
   Widget build(BuildContext context) {
     return StandardTextFormField(
+      controller: widget.controller,
       height: context.screenHeight < DeviceSizeEnum.inch_5.size
           ? isValid == false
               ? 70

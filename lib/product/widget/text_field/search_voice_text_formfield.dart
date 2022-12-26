@@ -15,13 +15,13 @@ import '../../../core/init/language/locale_keys.g.dart';
 class SearchVoiceTextFormField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final double? width;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final VoidCallback? onPressedClear;
   SearchVoiceTextFormField(
       {Key? key,
       this.width,
       this.onChanged,
-      this.controller,
+      required this.controller,
       this.onPressedClear})
       : super(key: key);
 
@@ -121,7 +121,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
           ),
         ),
       ),
-      onpressedClear: widget.onPressedClear,
+      onPressedClear: widget.onPressedClear,
       onChanged: (data) {
         if (widget.onChanged != null) {
           widget.onChanged!.call(data.toString());

@@ -10,8 +10,10 @@ import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 
 class EmailTextFormField extends StatefulWidget {
+  final TextEditingController controller;
   final bool? validator;
-  const EmailTextFormField({Key? key, this.validator}) : super(key: key);
+  const EmailTextFormField({Key? key, this.validator, required this.controller})
+      : super(key: key);
 
   @override
   State<EmailTextFormField> createState() => _EmailTextFormFieldState();
@@ -23,6 +25,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
   @override
   Widget build(BuildContext context) {
     return StandardTextFormField(
+      controller: widget.controller,
       height: context.screenHeight < DeviceSizeEnum.inch_5.size
           ? isValid == false
               ? 70
