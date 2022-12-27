@@ -45,7 +45,7 @@ class CircularBottomSheet {
                           ? context.screenHeight / 1.1
                           : context.screenHeight / 1.2,
           child: Padding(
-            padding: context.paddingMediumTopBottom,
+            padding: context.paddingNormalTopBottom,
             child: Padding(
               padding: context.paddingMediumEdges,
               child: scrollable == true
@@ -65,12 +65,17 @@ class CircularBottomSheet {
   Widget buildChild(BuildContext context, Widget child) {
     return Column(
       children: [
-        Flexible(
-          flex: 1,
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
           child: Container(
             height: 5,
             width: 50,
-            color: ColorConstants.instance.brightGraySolid,
+            decoration: BoxDecoration(
+              color: ColorConstants.instance.brightGraySolid,
+              borderRadius: context.radiusAllCircularVeryHigh,
+            ),
           ),
         ),
         Flexible(flex: 100, child: child),
@@ -81,10 +86,18 @@ class CircularBottomSheet {
   Widget buildChildScrollable(BuildContext context, Widget child) {
     return Column(
       children: [
-        Container(
-          height: 5,
-          width: 50,
-          color: ColorConstants.instance.brightGraySolid,
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            height: 5,
+            width: 50,
+            decoration: BoxDecoration(
+              color: ColorConstants.instance.brightGraySolid,
+              borderRadius: context.radiusAllCircularVeryHigh,
+            ),
+          ),
         ),
         context.mediumSizedBox,
         child,
