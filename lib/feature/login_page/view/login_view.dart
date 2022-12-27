@@ -160,18 +160,19 @@ class LoginView extends StatelessWidget {
                     PasswordTextFormField(
                       controller: TextEditingController(),
                     ),
+                    context.lowSizedBox,
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          child: const LocaleBoldText(
+                            text: LocaleKeys.forgotPassword,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            forgotPasswordBottomSheet(context, cubitRead);
+                          },
+                        )),
                   ]),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        child: const LocaleBoldText(
-                          text: LocaleKeys.forgotPassword,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          forgotPasswordBottomSheet(context, cubitRead);
-                        },
-                      )),
                   LoginButton(
                     text: LocaleKeys.login.locale,
                     onPressed: () {
