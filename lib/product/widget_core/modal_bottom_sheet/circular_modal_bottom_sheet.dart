@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/extension/border_extension.dart';
@@ -45,21 +46,49 @@ class CircularBottomSheet {
                           : context.screenHeight / 1.2,
           child: Padding(
             padding: context.paddingMediumTopBottom,
-            child: Center(
-              child: Padding(
-                padding: context.paddingMediumEdges,
-                child: scrollable == true
-                    ? SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        child: child,
-                      )
-                    : child,
-              ),
+            child: Padding(
+              padding: context.paddingMediumEdges,
+              child: scrollable == true
+                  ? SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      child: buildChildScrollable(context, child),
+                    )
+                  : buildChild(context, child),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildChild(BuildContext context, Widget child) {
+    return Column(
+      children: [
+        Flexible(
+          flex: 1,
+          child: Container(
+            height: 5,
+            width: 50,
+            color: ColorConstants.instance.brightGraySolid,
+          ),
+        ),
+        Flexible(flex: 100, child: child),
+      ],
+    );
+  }
+
+  Widget buildChildScrollable(BuildContext context, Widget child) {
+    return Column(
+      children: [
+        Container(
+          height: 5,
+          width: 50,
+          color: ColorConstants.instance.brightGraySolid,
+        ),
+        context.mediumSizedBox,
+        child,
+      ],
     );
   }
 }

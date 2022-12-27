@@ -55,6 +55,11 @@ class StandardTextFormField extends StatefulWidget {
 
 class _StandardTextFormFieldState extends State<StandardTextFormField> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
@@ -92,6 +97,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
                           icon: const Icon(
                             Icons.close,
                             color: Colors.black,
+                            size: 20,
                           ),
                         )
                   : const Center(),

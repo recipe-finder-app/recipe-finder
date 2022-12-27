@@ -6,7 +6,7 @@ class MainBuild {
   MainBuild._();
   static Widget build(BuildContext context, Widget? child) {
     return Stack(
-      alignment: Alignment.center,
+      alignment: AlignmentDirectional.center,
       children: [
         child ?? const Center(),
         NoNetworkAlertDialog(),

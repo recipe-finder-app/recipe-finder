@@ -30,7 +30,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
       autoPlay: false,
       looping: false,
       aspectRatio: 1.30,
-      progressIndicatorDelay: const Duration(seconds: 5),
+      progressIndicatorDelay: const Duration(seconds: 2),
       customControls: const Padding(
         padding: EdgeInsets.only(bottom: 55, top: 35, right: 15, left: 15),
         child: CupertinoControls(
