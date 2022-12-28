@@ -228,7 +228,7 @@ class LikesView extends StatelessWidget {
                 print('my frize drag ended');
                 cubitRead.myFrizeItemDragging(false);
               },
-              iconBottomWidget: BoldText(
+              iconTopWidget: BoldText(
                 text: state[myFrizeItemIndex].quantity.toString(),
                 textColor: Colors.white,
               ),
@@ -257,7 +257,7 @@ class LikesView extends StatelessWidget {
                 print('missing item drag ended');
                 cubitRead.missingItemDragging(false);
               },
-              iconBottomWidget: BoldText(
+              iconTopWidget: BoldText(
                 text: state[missingItemIndex].quantity.toString(),
                 textColor: Colors.white,
               ),

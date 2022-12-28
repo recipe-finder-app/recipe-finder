@@ -6,10 +6,11 @@ import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 
 import '../../widget_core/text/locale_text.dart';
 
-class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
+class DraggableIngredientCircleAvatar<T extends Object>
+    extends StatelessWidget {
   final IngredientModel model;
   final Color? color;
-  final Widget? iconBottomWidget;
+  final Widget? iconTopWidget;
   final VoidCallback? onDragStarted;
   final Function(DraggableDetails)? onDragEnd;
   final Function(Velocity, Offset)? onDraggableCanceled;
@@ -20,7 +21,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
       {Key? key,
       required this.model,
       this.color,
-      this.iconBottomWidget,
+      this.iconTopWidget,
       this.onDragStarted,
       this.onDragEnd,
       this.onDraggableCanceled,
@@ -30,48 +31,41 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DraggableIngredientCircleAvatar> createState() =>
-      _DraggableIngredientCircleAvatarState();
-}
-
-class _DraggableIngredientCircleAvatarState
-    extends State<DraggableIngredientCircleAvatar> {
-  @override
   Widget build(BuildContext context) {
     return Draggable(
-      data: widget.data,
-      onDragStarted: widget.onDragStarted,
-      onDragEnd: widget.onDragEnd,
-      onDraggableCanceled: widget.onDraggableCanceled,
-      onDragCompleted: widget.onDragCompleted,
-      onDragUpdate: widget.onDragUpdate,
+      data: data,
+      onDragStarted: onDragStarted,
+      onDragEnd: onDragEnd,
+      onDraggableCanceled: onDraggableCanceled,
+      onDragCompleted: onDragCompleted,
+      onDragUpdate: onDragUpdate,
       feedback: Column(
         children: [
-          widget.iconBottomWidget != null
+          iconTopWidget != null
               ? Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
+                  alignment: AlignmentDirectional.center,
                   children: [
                     CircleAvatar(
                       radius: 32,
-                      backgroundColor: widget.color,
+                      backgroundColor: color,
                       child: ImageSvg(
-                        path: widget.model.imagePath ?? ImagePath.like.path,
+                        path: model.imagePath ?? ImagePath.like.path,
                       ),
                     ),
-                    widget.iconBottomWidget!,
+                    iconTopWidget!,
                   ],
                 )
               : CircleAvatar(
                   radius: 32,
-                  backgroundColor: widget.color,
+                  backgroundColor: color,
                   child: ImageSvg(
-                    path: widget.model.imagePath ?? ImagePath.like.path,
+                    path: model.imagePath ?? ImagePath.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
-              text: widget.model.title,
+              text: model.title,
             ),
           ),
         ],
@@ -79,131 +73,31 @@ class _DraggableIngredientCircleAvatarState
       childWhenDragging: const Center(),
       child: Column(
         children: [
-          widget.iconBottomWidget != null
+          iconTopWidget != null
               ? Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
+                  alignment: AlignmentDirectional.center,
                   children: [
                     CircleAvatar(
                       radius: 32,
-                      backgroundColor: widget.color,
+                      backgroundColor: color,
                       child: ImageSvg(
-                        path: widget.model.imagePath ?? ImagePath.like.path,
+                        path: model.imagePath ?? ImagePath.like.path,
                       ),
                     ),
-                    widget.iconBottomWidget!,
+                    iconTopWidget!,
                   ],
                 )
               : CircleAvatar(
                   radius: 32,
-                  backgroundColor: widget.color,
+                  backgroundColor: color,
                   child: ImageSvg(
-                    path: widget.model.imagePath ?? ImagePath.like.path,
+                    path: model.imagePath ?? ImagePath.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
               fontSize: 12,
-              text: widget.model.title,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/*class DraggableIngredientCircleAvatar<T extends Object>
-    extends StatelessWidget {
-  final IngredientModel model;
-  final Color? color;
-  final Widget? widgetOnIcon;
-  final VoidCallback? onDragStarted;
-  final Function(DraggableDetails)? onDragEnd;
-  final Function(Velocity, Offset)? onDraggableCanceled;
-  final VoidCallback? onDragCompleted;
-  final Function(DragUpdateDetails)? onDragUpdate;
-  final T? data;
-  const DraggableIngredientCircleAvatar({
-    Key? key,
-    required this.model,
-    this.color,
-    this.widgetOnIcon,
-    this.onDragStarted,
-    this.onDragEnd,
-    this.onDraggableCanceled,
-    this.onDragCompleted,
-    this.onDragUpdate,
-    this.data,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Draggable<T>(
-      data: data,
-      onDragStarted: onDragStarted,
-      onDragEnd: onDragEnd,
-      onDraggableCanceled: onDraggableCanceled,
-      onDragCompleted: onDragStarted,
-      onDragUpdate: onDragUpdate,
-      feedback: Column(
-        children: [
-          widgetOnIcon != null
-              ? Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor: color,
-                      child: ImageSvg(
-                        path: model.imagePath ?? ImagePath.like.path,
-                      ),
-                    ),
-                    widgetOnIcon!,
-                  ],
-                )
-              : CircleAvatar(
-                  radius: 32,
-                  backgroundColor: color,
-                  child: ImageSvg(
-                    path: model.imagePath ?? ImagePath.like.path,
-                  ),
-                ),
-          context.veryLowSizedBox,
-          FittedBox(
-            child: LocaleText(
-              text: model.title,
-            ),
-          ),
-        ],
-      ),
-      childWhenDragging: Container(),
-      child: Column(
-        children: [
-          widgetOnIcon != null
-              ? Stack(
-                  alignment: AlignmentDirectional.bottomCenter,
-                  children: [
-                    CircleAvatar(
-                      radius: 32,
-                      backgroundColor: color,
-                      child: ImageSvg(
-                        path: model.imagePath ?? ImagePath.like.path,
-                      ),
-                    ),
-                    widgetOnIcon!,
-                  ],
-                )
-              : CircleAvatar(
-                  radius: 32,
-                  backgroundColor: color,
-                  child: ImageSvg(
-                    path: model.imagePath ?? ImagePath.like.path,
-                  ),
-                ),
-          context.veryLowSizedBox,
-          FittedBox(
-            child: LocaleText(
               text: model.title,
             ),
           ),
@@ -212,4 +106,3 @@ class _DraggableIngredientCircleAvatarState
     );
   }
 }
-*/

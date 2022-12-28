@@ -48,6 +48,7 @@ class LocaleText extends StatelessWidget {
             fontFamily: 'Poppins',
             fontWeight: fontWeight ?? FontWeight.normal,
             fontSize: fontSize ?? 14,
+            decoration: TextDecoration.none,
           ),
       strutStyle: strutStyle,
       textAlign: textAlign,
