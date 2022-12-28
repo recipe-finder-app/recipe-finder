@@ -11,7 +11,8 @@ import 'likes_state.dart';
 
 class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   ILikesService? service;
-
+  bool? missingItemIsDragging;
+  bool? myFrizeItemIsDragging;
   late List<LikeRecipeModel> likeRecipeItems = [
     LikeRecipeModel(
       missingItems: [
@@ -202,6 +203,25 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   void missingItemLoad(int cardIndex) {
     emit(MissingItemListLoad(
         likeRecipeItems[cardIndex].missingItems!.toSet().toList()));
+  }
+
+  void myFrizeListLoad() {
+    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
+  }
+
+  void missingItemDragging(bool isDragging) {
+    missingItemIsDragging = isDragging;
+    emit(MissingItemDragging(missingItemIsDragging!));
+  }
+
+  void myFrizeItemDragging(bool isDragging) {
+    myFrizeItemIsDragging = isDragging;
+    emit(MyFrizeItemDragging(myFrizeItemIsDragging!));
+  }
+
+  void clearState() {
+    emit(LikesInit());
+    print('state clear');
   }
 
   void deleteItemFromLikedRecipeList(LikeRecipeModel model) {

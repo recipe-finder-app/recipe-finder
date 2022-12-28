@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -132,27 +133,28 @@ class LikesView extends StatelessWidget {
                     cubitRead.removeMyFrizeItem(data);
                   }, builder: (BuildContext context,
                       List<Object?> candidateData, List<dynamic> rejectedData) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.length,
-                        itemBuilder:
-                            (BuildContext context, int missingItemIndex) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: context.lowValue),
-                            child: DraggableIngredientCircleAvatar<
-                                IngredientModel>(
-                              data: state[missingItemIndex],
-                              iconBottomWidget: BoldText(
-                                text:
-                                    state[missingItemIndex].quantity.toString(),
-                                textColor: Colors.white,
-                              ),
-                              color: ColorConstants.instance.oriolesOrange
-                                  .withOpacity(0.4),
-                              model: state[missingItemIndex],
-                            ),
-                          );
-                        });
+                    return BlocSelector<LikesCubit, ILikesState, bool>(
+                        selector: (draggingState) {
+                      if (draggingState is MyFrizeItemDragging) {
+                        return draggingState.isDragging;
+                      } else {
+                        return false;
+                      }
+                    }, builder: (context, draggingState) {
+                      if (draggingState == true) {
+                        return DottedBorder(
+                            borderType: BorderType.RRect,
+                            dashPattern: const [8, 4],
+                            radius: const Radius.circular(12),
+                            padding: const EdgeInsets.all(6),
+                            child: missingItemsListView(
+                                state, cubitRead, cardIndex));
+                      } else {
+                        print('missing item without dot');
+                        return missingItemsListView(
+                            state, cubitRead, cardIndex);
+                      }
+                    });
                   }),
                 );
               },
@@ -171,39 +173,33 @@ class LikesView extends StatelessWidget {
               flex: 4,
               child: cubitRead.myFrizeItems == null
                   ? const Center()
-                  : DragTarget<IngredientModel>(
-                      onAccept: (data) {
-                        cubitRead.addItemToMyFrizeList(data);
-                        cubitRead.removeMissingItem(cardIndex, data);
-                      },
-                      builder: (BuildContext context,
-                          List<Object?> candidateData,
-                          List<dynamic> rejectedData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.length,
-                            itemBuilder:
-                                (BuildContext context, int myFrizeItemIndex) {
-                              return Padding(
-                                padding:
-                                    EdgeInsets.only(right: context.lowValue),
-                                child: DraggableIngredientCircleAvatar<
-                                    IngredientModel>(
-                                  data: state[myFrizeItemIndex],
-                                  iconBottomWidget: BoldText(
-                                    text: state[myFrizeItemIndex]
-                                        .quantity
-                                        .toString(),
-                                    textColor: Colors.white,
-                                  ),
-                                  color:
-                                      ColorConstants.instance.brightGraySolid2,
-                                  model: state[myFrizeItemIndex],
-                                ),
-                              );
-                            });
-                      },
-                    ),
+                  : DragTarget<IngredientModel>(onAccept: (data) {
+                      cubitRead.addItemToMyFrizeList(data);
+                      cubitRead.removeMissingItem(cardIndex, data);
+                    }, builder: (BuildContext context,
+                      List<Object?> candidateData, List<dynamic> rejectedData) {
+                      return BlocSelector<LikesCubit, ILikesState, bool>(
+                          selector: (draggingState) {
+                        if (draggingState is MissingItemDragging) {
+                          return draggingState.isDragging;
+                        } else {
+                          return false;
+                        }
+                      }, builder: (context, draggingState) {
+                        if (draggingState == true) {
+                          print('my frize item with dot');
+                          return DottedBorder(
+                              borderType: BorderType.RRect,
+                              dashPattern: const [8, 4],
+                              radius: const Radius.circular(12),
+                              padding: const EdgeInsets.all(6),
+                              child: myFrizeItemListView(state, cubitRead));
+                        } else {
+                          print('my frize item without dot');
+                          return myFrizeItemListView(state, cubitRead);
+                        }
+                      });
+                    }),
             );
           }),
           RecipeCircularButton(
@@ -212,5 +208,63 @@ class LikesView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  ListView myFrizeItemListView(
+      List<IngredientModel> state, LikesCubit cubitRead) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: state.length,
+        itemBuilder: (BuildContext context, int myFrizeItemIndex) {
+          return Padding(
+            padding: EdgeInsets.only(right: context.lowValue),
+            child: DraggableIngredientCircleAvatar<IngredientModel>(
+              data: state[myFrizeItemIndex],
+              onDragStarted: () {
+                print('my frize drag started');
+                cubitRead.myFrizeItemDragging(true);
+              },
+              onDragEnd: (value) {
+                print('my frize drag ended');
+                cubitRead.myFrizeItemDragging(false);
+              },
+              iconBottomWidget: BoldText(
+                text: state[myFrizeItemIndex].quantity.toString(),
+                textColor: Colors.white,
+              ),
+              color: ColorConstants.instance.brightGraySolid2,
+              model: state[myFrizeItemIndex],
+            ),
+          );
+        });
+  }
+
+  ListView missingItemsListView(
+      List<IngredientModel> state, LikesCubit cubitRead, int cardIndex) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: state.length,
+        itemBuilder: (BuildContext context, int missingItemIndex) {
+          return Padding(
+            padding: EdgeInsets.only(right: context.lowValue),
+            child: DraggableIngredientCircleAvatar<IngredientModel>(
+              data: state[missingItemIndex],
+              onDragStarted: () {
+                print('missing item drag started');
+                cubitRead.missingItemDragging(true);
+              },
+              onDragEnd: (value) {
+                print('missing item drag ended');
+                cubitRead.missingItemDragging(false);
+              },
+              iconBottomWidget: BoldText(
+                text: state[missingItemIndex].quantity.toString(),
+                textColor: Colors.white,
+              ),
+              color: ColorConstants.instance.oriolesOrange.withOpacity(0.4),
+              model: state[missingItemIndex],
+            ),
+          );
+        });
   }
 }

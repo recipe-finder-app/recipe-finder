@@ -24,6 +24,16 @@ class MissingItemListLoad extends ILikesState {
   MissingItemListLoad(this.missingItemList);
 }
 
+class MissingItemDragging extends ILikesState {
+  late bool isDragging;
+  MissingItemDragging(this.isDragging);
+}
+
+class MyFrizeItemDragging extends ILikesState {
+  late bool isDragging;
+  MyFrizeItemDragging(this.isDragging);
+}
+
 class MyFrizeListLoad extends ILikesState {
   late List<IngredientModel> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);

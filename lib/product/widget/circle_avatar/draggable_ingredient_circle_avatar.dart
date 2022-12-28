@@ -41,15 +41,9 @@ class _DraggableIngredientCircleAvatarState
     return Draggable(
       data: widget.data,
       onDragStarted: widget.onDragStarted,
-      onDragEnd: (DraggableDetails draggableDetails) {
-        if (draggableDetails.wasAccepted) {
-          if (widget.onDragEnd != null) {
-            widget.onDragEnd!(draggableDetails);
-          }
-        }
-      },
+      onDragEnd: widget.onDragEnd,
       onDraggableCanceled: widget.onDraggableCanceled,
-      onDragCompleted: widget.onDragStarted,
+      onDragCompleted: widget.onDragCompleted,
       onDragUpdate: widget.onDragUpdate,
       feedback: Column(
         children: [
