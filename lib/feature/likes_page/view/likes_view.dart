@@ -6,7 +6,6 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
-import 'package:recipe_finder/product/widget_core/card/saved_recipe_card.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -14,6 +13,7 @@ import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/model/ingradient_model.dart';
+import '../../../product/widget/card/saved_recipe_card.dart';
 import '../../../product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';

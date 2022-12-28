@@ -10,7 +10,7 @@ import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/widget_core/card/discover_card.dart';
+import '../../../product/widget/card/discover_card.dart';
 
 class DiscoverView extends StatelessWidget {
   const DiscoverView({Key? key}) : super(key: key);

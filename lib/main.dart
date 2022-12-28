@@ -18,8 +18,9 @@ import 'core/init/notifier/bloc_list.dart';
 import 'product/widget_core/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
-  HttpOverrides.global = MyHttpOverrides();
-
+  if (Platform.isAndroid) {
+    HttpOverrides.global = MyHttpOverrides();
+  }
   await _init();
   runApp(EasyLocalization(
       path: ApplicationConstants.LANGUAGE_ASSET_PATH,

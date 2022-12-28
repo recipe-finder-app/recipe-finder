@@ -6,11 +6,11 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import 'package:recipe_finder/product/widget_core/card/basket_card.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/base/view/base_view.dart';
+import '../../../product/widget/card/basket_card.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
 

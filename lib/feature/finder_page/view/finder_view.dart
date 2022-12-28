@@ -9,11 +9,11 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
-import 'package:recipe_finder/product/widget_core/card/card_overlay.dart';
-import 'package:recipe_finder/product/widget_core/card/tinder_card.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
+import '../../../product/widget/card/card_overlay.dart';
+import '../../../product/widget/card/tinder_card.dart';
 import '../../../product/widget_core/image_format/image_svg.dart';
 
 class FinderView extends StatefulWidget {
@@ -229,7 +229,7 @@ class _FinderViewState extends State<FinderView> {
             text: LocaleKeys.finderText,
           ),
         ),
-        TextButton(
+        /* TextButton(
           onPressed: () {
             NavigationService.instance
                 .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
@@ -247,7 +247,7 @@ class _FinderViewState extends State<FinderView> {
                 decorationThickness: 2,
               ),
               text: LocaleKeys.close),
-        ),
+        ),*/
       ]),
     );
   }

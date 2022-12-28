@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -27,6 +28,8 @@ class OnboardView extends StatelessWidget {
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
         body: PageView.builder(
+            physics: const ClampingScrollPhysics(),
+            pageSnapping: true,
             controller: cubitRead.pageController,
             itemCount: cubitRead.onboardItems.length,
             onPageChanged: (value) async {
@@ -36,13 +39,15 @@ class OnboardView extends StatelessWidget {
               return Column(
                 children: [
                   Flexible(
-                    flex: 13,
+                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size
+                        ? 18
+                        : 13,
                     child: Stack(
                       alignment: AlignmentDirectional.topStart,
                       children: [
                         CustomPaint(
                           size: Size.fromHeight(context.screenHeight / 1.8),
-                          painter: ShapesPainter(),
+                          painter: ShapesPainter(context),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -268,10 +273,15 @@ class OnboardView extends StatelessWidget {
 }
 
 class ShapesPainter extends CustomPainter {
+  final BuildContext context;
+  ShapesPainter(this.context);
   @override
   void paint(Canvas canvas, Size size) {
     final p = Path();
-    p.lineTo(0, size.height - 50);
+    p.lineTo(
+        0,
+        size.height -
+            (context.screenHeight < DeviceSizeEnum.inch_5.size ? 0 : 50));
     p.relativeQuadraticBezierTo(size.width / 2, 2 * 80, size.width, 0);
     p.lineTo(size.width, 0);
     p.close();
