@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
@@ -74,7 +75,9 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 5,
+                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size
+                        ? 8
+                        : 5,
                     child: ImageSvg(
                       path: ImagePath.group5357.path,
                     ),
