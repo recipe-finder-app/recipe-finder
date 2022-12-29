@@ -25,13 +25,15 @@ class CategoryListView extends StatefulWidget {
   final VoidCallback? onPressedLunch;
   final VoidCallback? onPressedDinner;
   final VoidCallback? onPressedDesserts;
+  final int? initialCategoryIndex;
   const CategoryListView(
       {Key? key,
       this.onPressedAll,
       this.onPressedBreakfast,
       this.onPressedLunch,
       this.onPressedDinner,
-      this.onPressedDesserts})
+      this.onPressedDesserts,
+      this.initialCategoryIndex})
       : super(key: key);
 
   @override
@@ -39,7 +41,15 @@ class CategoryListView extends StatefulWidget {
 }
 
 class _CategoryListViewState extends State<CategoryListView> {
-  int? _selectedCategoryIndex;
+  int? _selectedCategoryIndex = 0;
+
+  @override
+  void initState() {
+    _selectedCategoryIndex = widget.initialCategoryIndex ?? 0;
+    onPressed(_selectedCategoryIndex!);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
