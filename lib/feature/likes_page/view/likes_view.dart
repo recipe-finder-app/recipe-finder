@@ -63,9 +63,7 @@ class LikesView extends StatelessWidget {
                     width: context.screenWidth,
                   ),
                   context.normalSizedBox,
-                  CategoryListView(
-                    initialCategoryIndex: 0,
-                  ),
+                  CategoryListView(),
                   context.normalSizedBox,
                   GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),

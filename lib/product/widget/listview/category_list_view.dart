@@ -5,10 +5,10 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../widget_core/text/locale_text.dart';
 
-class DiscoverCategoryItems {
+class RecipeCategoryItems {
   late final List<String> categories;
 
-  DiscoverCategoryItems() {
+  RecipeCategoryItems() {
     categories = [
       LocaleKeys.all,
       LocaleKeys.breakfast,
@@ -19,13 +19,24 @@ class DiscoverCategoryItems {
   }
 }
 
+enum RecipeCategory {
+  All(LocaleKeys.all),
+  Breakfast(LocaleKeys.breakfast),
+  Lunch(LocaleKeys.lunch),
+  Dinner(LocaleKeys.dinner),
+  Desserts(LocaleKeys.desserts);
+
+  const RecipeCategory(this.locale);
+  final String locale;
+}
+
 class CategoryListView extends StatefulWidget {
   final VoidCallback? onPressedAll;
   final VoidCallback? onPressedBreakfast;
   final VoidCallback? onPressedLunch;
   final VoidCallback? onPressedDinner;
   final VoidCallback? onPressedDesserts;
-  final int? initialCategoryIndex;
+  final RecipeCategory? initialSelectedCategory;
   const CategoryListView(
       {Key? key,
       this.onPressedAll,
@@ -33,7 +44,7 @@ class CategoryListView extends StatefulWidget {
       this.onPressedLunch,
       this.onPressedDinner,
       this.onPressedDesserts,
-      this.initialCategoryIndex})
+      this.initialSelectedCategory})
       : super(key: key);
 
   @override
@@ -41,12 +52,12 @@ class CategoryListView extends StatefulWidget {
 }
 
 class _CategoryListViewState extends State<CategoryListView> {
-  int? _selectedCategoryIndex = 0;
+  late RecipeCategory _selectedCategory;
 
   @override
   void initState() {
-    _selectedCategoryIndex = widget.initialCategoryIndex ?? 0;
-    onPressed(_selectedCategoryIndex!);
+    _selectedCategory = widget.initialSelectedCategory ?? RecipeCategory.All;
+    onPressed(_selectedCategory);
     super.initState();
   }
 
@@ -57,23 +68,24 @@ class _CategoryListViewState extends State<CategoryListView> {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           physics: const BouncingScrollPhysics(),
-          itemCount: DiscoverCategoryItems().categories.length,
+          itemCount: RecipeCategory.values.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: EdgeInsets.only(right: context.lowValue),
               child: InkWell(
                 onTap: () {
-                  onPressed(index);
+                  onPressed(calculateSelectedCategory(index));
                 },
                 child: Container(
                   constraints: const BoxConstraints(
                       maxWidth: double.infinity, minWidth: 50),
                   decoration: BoxDecoration(
-                    border: _selectedCategoryIndex == index
-                        ? null
-                        : Border.all(color: Colors.black, width: 0.5),
-                    color: categoryItemColor(index),
+                    border:
+                        _selectedCategory == calculateSelectedCategory(index)
+                            ? null
+                            : Border.all(color: Colors.black, width: 0.5),
+                    color: categoryItemColor(calculateSelectedCategory(index)),
                     borderRadius: context.radiusAllCircularMedium,
                   ),
                   child: Align(
@@ -81,9 +93,11 @@ class _CategoryListViewState extends State<CategoryListView> {
                     child: Padding(
                       padding: context.paddingLowEdges,
                       child: LocaleText(
-                        text: DiscoverCategoryItems().categories[index],
+                        text: RecipeCategory.values[index].locale,
                         style: TextStyle(
-                            fontSize: 16, color: categoryTextColor(index)),
+                            fontSize: 16,
+                            color: categoryTextColor(
+                                calculateSelectedCategory(index))),
                       ),
                     ),
                   ),
@@ -94,40 +108,60 @@ class _CategoryListViewState extends State<CategoryListView> {
     );
   }
 
-  void changeSelectedCategoryIndex(int index) {
+  void changeSelectedCategory(RecipeCategory category) {
     setState(() {
-      _selectedCategoryIndex = index;
+      _selectedCategory = category;
     });
   }
 
-  void onPressed(int index) {
-    changeSelectedCategoryIndex(index);
+  RecipeCategory calculateSelectedCategory(int index) {
     switch (index) {
       case 0:
+        return RecipeCategory.All;
+      case 1:
+        return RecipeCategory.Breakfast;
+      case 2:
+        return RecipeCategory.Lunch;
+      case 3:
+        return RecipeCategory.Dinner;
+      case 4:
+        return RecipeCategory.Desserts;
+      default:
+        return RecipeCategory.All;
+    }
+  }
+
+  void onPressed(RecipeCategory category) {
+    changeSelectedCategory(category);
+    switch (category.name) {
+      case 'All':
         widget.onPressedAll != null ? widget.onPressedAll!() : null;
         break;
-      case 1:
+      case 'Breakfasst':
+        widget.onPressedBreakfast != null ? widget.onPressedBreakfast!() : null;
+        break;
+      case 'Lunch':
         widget.onPressedLunch != null ? widget.onPressedLunch!() : null;
         break;
-      case 2:
+      case 'Dinner':
         widget.onPressedDinner != null ? widget.onPressedDinner!() : null;
         break;
-      case 3:
+      case 'Desserts':
         widget.onPressedDesserts != null ? widget.onPressedDesserts!() : null;
         break;
     }
   }
 
-  Color categoryItemColor(int index) {
-    if (index == _selectedCategoryIndex) {
+  Color categoryItemColor(RecipeCategory category) {
+    if (category == _selectedCategory) {
       return ColorConstants.instance.oriolesOrange;
     } else {
       return Colors.white;
     }
   }
 
-  Color categoryTextColor(int index) {
-    if (index == _selectedCategoryIndex) {
+  Color categoryTextColor(RecipeCategory category) {
+    if (category == _selectedCategory) {
       return Colors.white;
     } else {
       return Colors.black;
