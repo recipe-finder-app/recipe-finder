@@ -45,9 +45,11 @@ class LikesView extends StatelessWidget {
             controller: cubitRead.scrollController,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: context.mediumValue,
-                  left: context.normalValue,
-                  right: context.normalValue),
+                top: context.mediumValue,
+                left: context.normalValue,
+                right: context.normalValue,
+                bottom: context.highValue,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
