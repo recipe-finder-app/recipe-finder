@@ -49,15 +49,15 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       prefixIcon: ImageSvg(
         path: ImagePath.password.path,
       ),
-      suffixIcon: InkWell(
-        onTap: () {
-          setState(() {
-            showPassword = !showPassword;
-          });
-        },
-        child: Padding(
-          padding: EdgeInsets.only(right: context.normalValue),
-          child: Icon(
+      suffixIcon: Padding(
+        padding: EdgeInsets.only(right: context.normalValue),
+        child: IconButton(
+          onPressed: () {
+            setState(() {
+              showPassword = !showPassword;
+            });
+          },
+          icon: Icon(
             showPassword
                 ? Icons.visibility_off_outlined
                 : Icons.visibility_outlined,
