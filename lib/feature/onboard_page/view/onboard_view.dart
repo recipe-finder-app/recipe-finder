@@ -53,39 +53,42 @@ class OnboardView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Flexible(
-                                flex: 5,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: context.normalValue * 2.5,
-                                      right: context.normalValue * 2.5),
-                                  child: Padding(
-                                    padding: context.paddingHighOnlyTop,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const LanguagePopupMenuButton(),
-                                        TextButton(
-                                          onPressed: () {
-                                            NavigationService.instance
-                                                .navigateToPageClear(
-                                                    path: NavigationConstants
-                                                        .LOGIN);
-                                          },
-                                          child: LocaleBoldText(
-                                            text: LocaleKeys.skip,
-                                            fontWeight: FontWeight.w500,
-                                            locale: context.locale,
-                                            style: const TextStyle(
-                                                decoration:
-                                                    TextDecoration.underline),
-                                          ),
+                            index == cubitRead.onboardItems.length - 1
+                                ? SizedBox()
+                                : Flexible(
+                                    flex: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: context.normalValue * 2.5,
+                                          right: context.normalValue * 2.5),
+                                      child: Padding(
+                                        padding: context.paddingHighOnlyTop,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const LanguagePopupMenuButton(),
+                                            TextButton(
+                                              onPressed: () {
+                                                NavigationService.instance
+                                                    .navigateToPageClear(
+                                                        path:
+                                                            NavigationConstants
+                                                                .LOGIN);
+                                              },
+                                              child: LocaleBoldText(
+                                                text: LocaleKeys.skip,
+                                                fontWeight: FontWeight.w500,
+                                                locale: context.locale,
+                                                style: const TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                )),
+                                      ),
+                                    )),
                             Flexible(
                               flex: 17,
                               child: ImageSvg(
