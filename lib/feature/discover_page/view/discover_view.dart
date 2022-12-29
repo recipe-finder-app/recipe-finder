@@ -3,10 +3,9 @@ import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
-import 'package:recipe_finder/feature/discover_page/model/discover_model.dart';
+import 'package:recipe_finder/product/widget/listview/category_list_view.dart';
 import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
@@ -45,60 +44,7 @@ class DiscoverView extends StatelessWidget {
                           width: context.screenWidth,
                         ),
                         context.normalSizedBox,
-                        SizedBox(
-                          height: 40,
-                          width: context.screenWidth,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount:
-                                  DiscoverCategoryItems().categories.length,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding:
-                                      EdgeInsets.only(right: context.lowValue),
-                                  child: InkWell(
-                                    onTap: () {
-                                      cubitRead
-                                          .changeSelectedCategoryIndex(index);
-                                    },
-                                    child: Container(
-                                      constraints: const BoxConstraints(
-                                          maxWidth: double.infinity,
-                                          minWidth: 50),
-                                      decoration: BoxDecoration(
-                                        border:
-                                            cubitRead.selectedCategoryIndex ==
-                                                    index
-                                                ? null
-                                                : Border.all(
-                                                    color: Colors.black,
-                                                    width: 0.5),
-                                        color:
-                                            cubitRead.categoryItemColor(index),
-                                        borderRadius:
-                                            context.radiusAllCircularMedium,
-                                      ),
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Padding(
-                                          padding: context.paddingLowEdges,
-                                          child: LocaleText(
-                                            text: DiscoverCategoryItems()
-                                                .categories[index],
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: cubitRead
-                                                    .categoryTextColor(index)),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }),
-                        ),
+                        CategoryListView(),
                         context.normalSizedBox,
                         const LocaleBoldText(
                           text: LocaleKeys.trendingNow,

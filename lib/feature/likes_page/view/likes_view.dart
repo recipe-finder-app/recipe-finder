@@ -16,6 +16,8 @@ import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/model/ingradient_model.dart';
 import '../../../product/widget/card/saved_recipe_card.dart';
 import '../../../product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
+import '../../../product/widget/listview/category_list_view.dart';
+import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/likes_cubit.dart';
@@ -53,6 +55,13 @@ class LikesView extends StatelessWidget {
                     text: LocaleKeys.mySavedRecipes,
                     fontSize: 29,
                   ),
+                  context.normalSizedBox,
+                  SearchVoiceTextFormField(
+                    controller: TextEditingController(),
+                    width: context.screenWidth,
+                  ),
+                  context.normalSizedBox,
+                  CategoryListView(),
                   context.normalSizedBox,
                   GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),

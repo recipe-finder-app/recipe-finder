@@ -18,7 +18,7 @@ class _GoToTopFabButtonState extends State<GoToTopFabButton> {
   void initState() {
     // TODO: implement initState
     widget.scrollController.addListener(() {
-      if (widget.scrollController.offset >= 200) {
+      if (widget.scrollController.offset >= 350) {
         setState(() {
           _visible = true;
         });
@@ -55,7 +55,7 @@ class _GoToTopFabButtonState extends State<GoToTopFabButton> {
             child: Icon(
               Icons.arrow_drop_up,
               color: Colors.white,
-              size: 40,
+              size: 45,
             )),
       ),
     );
