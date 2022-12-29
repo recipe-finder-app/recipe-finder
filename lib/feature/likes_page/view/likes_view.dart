@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
+import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 
@@ -34,8 +35,12 @@ class LikesView extends StatelessWidget {
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton: GoToTopFabButton(
+          scrollController: cubitRead.scrollController,
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
+            controller: cubitRead.scrollController,
             child: Padding(
               padding: EdgeInsets.only(
                   top: context.mediumValue,

@@ -17,12 +17,14 @@ class SearchVoiceTextFormField extends StatefulWidget {
   final double? width;
   final TextEditingController controller;
   final VoidCallback? onPressedClear;
+  final bool? borderEnable;
   SearchVoiceTextFormField(
       {Key? key,
       this.width,
       this.onChanged,
       required this.controller,
-      this.onPressedClear})
+      this.onPressedClear,
+      this.borderEnable})
       : super(key: key);
 
   @override
@@ -102,6 +104,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
     return StandardTextFormField(
       controller: widget.controller,
       hintText: LocaleKeys.search.locale,
+      borderEnable: widget.borderEnable,
       prefixIcon: ImageSvg(
           path: ImagePath.searchh.path,
           color: ColorConstants.instance.russianViolet),
