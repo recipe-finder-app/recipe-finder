@@ -25,7 +25,7 @@ Future<void> main() async {
   runApp(EasyLocalization(
       path: ApplicationConstants.LANGUAGE_ASSET_PATH,
       supportedLocales: LanguageManager.instance.supportedLocalesList,
-      startLocale: LanguageManager.instance.enLocale,
+      startLocale: LanguageManager.instance.startLocale(),
       child: const MyApp()));
 }
 
@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
+        localeResolutionCallback: (deviceLocale, supportedLocales) {},
         builder: MainBuild.build,
 
         onGenerateRoute: NavigationRoute.instance.generateRoute,
