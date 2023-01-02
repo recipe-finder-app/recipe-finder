@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
@@ -26,7 +28,8 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           fit: StackFit.loose,
           children: [
             SizedBox(
-              height: 105,
+              height:
+                  context.screenHeight < DeviceSizeEnum.inch_5.size ? 70 : 105,
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 selectedIconTheme:
@@ -118,18 +121,21 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 onTap: () {
                   cubitRead.clickFinderButton();
                 },
-                child: Container(
-                  height: 56,
-                  width: 56,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: cubitRead.selectedPageIndex == 2
-                        ? ColorConstants.instance.russianViolet
-                        : ColorConstants.instance.oriolesOrange,
-                  ),
-                  child: ImageSvg(
-                    path: ImagePath.search.path,
-                    height: 24,
+                child: Tooltip(
+                  message: LocaleKeys.finder.locale,
+                  child: Container(
+                    height: 56,
+                    width: 56,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: cubitRead.selectedPageIndex == 2
+                          ? ColorConstants.instance.russianViolet
+                          : ColorConstants.instance.oriolesOrange,
+                    ),
+                    child: ImageSvg(
+                      path: ImagePath.search.path,
+                      height: 24,
+                    ),
                   ),
                 ),
               ),
