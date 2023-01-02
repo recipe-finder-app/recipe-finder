@@ -1,4 +1,3 @@
-import '../../../../../feature/likes_page/model/like_recipe_model.dart';
 import '../../../../model/ingradient_model.dart';
 
 abstract class IAddToBasketState {
@@ -12,11 +11,6 @@ class AddToBasketInit extends IAddToBasketState {
 class AddToBasketLoading extends IAddToBasketState {
   late bool isLoading;
   AddToBasketLoading(this.isLoading);
-}
-
-class LikesRecipeItemListLoad extends IAddToBasketState {
-  late List<LikeRecipeModel> likesRecipeItemList;
-  LikesRecipeItemListLoad(this.likesRecipeItemList);
 }
 
 class MissingItemListLoad extends IAddToBasketState {

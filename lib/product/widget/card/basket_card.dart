@@ -21,7 +21,8 @@ class BasketRecipeCard extends StatelessWidget {
     required this.border,
     required this.gradient,
     required this.height,
-    this.width, required this.borderRadius,
+    this.width,
+    required this.borderRadius,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class BasketRecipeCard extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                model.imagePath,
+                model.imagePath ?? '',
               )),
           border: border,
           borderRadius: context.radiusAllCircularMedium,

@@ -1,5 +1,4 @@
-import '../../../product/model/ingradient_model.dart';
-import '../model/like_recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe_model.dart';
 
 abstract class ILikesState {
   ILikesState();
@@ -15,28 +14,8 @@ class OnLikesLoading extends ILikesState {
 }
 
 class LikesRecipeItemListLoad extends ILikesState {
-  late List<LikeRecipeModel> likesRecipeItemList;
+  late List<RecipeModel> likesRecipeItemList;
   LikesRecipeItemListLoad(this.likesRecipeItemList);
-}
-
-class MissingItemListLoad extends ILikesState {
-  late List<IngredientModel> missingItemList;
-  MissingItemListLoad(this.missingItemList);
-}
-
-class MissingItemDragging extends ILikesState {
-  late bool isDragging;
-  MissingItemDragging(this.isDragging);
-}
-
-class MyFrizeItemDragging extends ILikesState {
-  late bool isDragging;
-  MyFrizeItemDragging(this.isDragging);
-}
-
-class MyFrizeListLoad extends ILikesState {
-  late List<IngredientModel> myFrizeList;
-  MyFrizeListLoad(this.myFrizeList);
 }
 
 class LikesError extends ILikesState {

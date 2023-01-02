@@ -101,7 +101,7 @@ class _FinderViewState extends State<FinderView> {
           width: context.cardValueWidth,
           child: SwipableStack(
             controller: _controller,
-            itemCount: cubitRead.finderRecipeItems!.length,
+            itemCount: cubitRead.recipeList!.length,
             stackClipBehaviour: Clip.none,
             swipeAnchor: SwipeAnchor.bottom,
             onWillMoveNext: (
@@ -122,13 +122,11 @@ class _FinderViewState extends State<FinderView> {
               if (direction == SwipeDirection.right) {
                 context
                     .read<LikesCubit>()
-                    .likeRecipeItems
-                    .add(cubitRead.finderRecipeItems![index]);
+                    .recipeList
+                    .add(cubitRead.recipeList![index]);
               } else if (direction == SwipeDirection.up) {
-                AddToBasketBottomSheet.instance.show(
-                    context,
-                    cubitRead
-                        .finderRecipeItems![index].recipeModel.ingredients);
+                AddToBasketBottomSheet.instance
+                    .show(context, cubitRead.recipeList![index].ingredients);
               } else if (direction == SwipeDirection.left) {}
             },
             horizontalSwipeThreshold: 0.8,
@@ -146,12 +144,11 @@ class _FinderViewState extends State<FinderView> {
               properties,
             ) {
               return TinderCard(
-                  model: cubitRead.finderRecipeItems![properties.index],
+                  model: cubitRead.recipeList![properties.index],
                   recipeOnPressed: () {
                     NavigationService.instance.navigateToPage(
                         path: NavigationConstants.RECIPE_DETAIL,
-                        data: cubitRead
-                            .finderRecipeItems![properties.index].recipeModel);
+                        data: cubitRead.recipeList![properties.index]);
                   });
             },
           ),
@@ -190,8 +187,8 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              AddToBasketBottomSheet.instance.show(context,
-                  cubitRead.finderRecipeItems![1].recipeModel.ingredients);
+              AddToBasketBottomSheet.instance
+                  .show(context, cubitRead.recipeList![1].ingredients);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,
@@ -203,8 +200,8 @@ class _FinderViewState extends State<FinderView> {
             onPressed: () {
               context
                   .read<LikesCubit>()
-                  .likeRecipeItems
-                  .add(cubitRead.finderRecipeItems!.first);
+                  .recipeList
+                  .add(cubitRead.recipeList!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(

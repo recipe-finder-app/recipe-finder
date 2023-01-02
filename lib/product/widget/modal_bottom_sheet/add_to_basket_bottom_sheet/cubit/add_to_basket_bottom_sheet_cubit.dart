@@ -100,16 +100,24 @@ class AddToBasketCubit extends Cubit<IAddToBasketState>
     missingItemList.clear();
     for (var myFrizeIngredient in myFrizeList) {
       for (var recipeIngredient in recipeIngredientList) {
-        if ((myFrizeIngredient.title.toLowerCase() ==
-                    recipeIngredient.title.toLowerCase() ||
-                !myFrizeList.contains(recipeIngredient)) &&
-            ((myFrizeIngredient.quantity ?? 0) <
-                (recipeIngredient.quantity ?? 0)) &&
-            !(missingItemList.contains(recipeIngredient))) {
+        if (!myFrizeItems.contains(recipeIngredient) &&
+            ((myFrizeIngredient.title.toLowerCase() ==
+                    recipeIngredient.title.toLowerCase()) &&
+                ((myFrizeIngredient.quantity?.toDouble() ?? 0) <
+                    (recipeIngredient.quantity?.toDouble() ?? 0))) &&
+            !missingItemList.contains(recipeIngredient)) {
           missingItemList.add(recipeIngredient);
         }
       }
     }
+    /* for (var myFrizeIngredient in myFrizeList) {
+      for (var recipeIngredient in recipeIngredientList) {
+        if ((myFrizeIngredient.title.toLowerCase() == recipeIngredient.title.toLowerCase() && !myFrizeList.contains(recipeIngredient)) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0)) &&
+            !(missingItemList.contains(recipeIngredient))) {
+          missingItemList.add(recipeIngredient);
+        }
+      }
+    }*/
     missingItemLoad(missingItemList);
   }
 

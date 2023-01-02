@@ -96,7 +96,7 @@ class LikesRecipeCard extends StatelessWidget {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              model.imagePath,
+              model.imagePath ?? '',
             )),
         borderRadius: context.radiusTopCircularMin,
       ),
