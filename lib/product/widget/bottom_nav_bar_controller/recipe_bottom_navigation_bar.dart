@@ -25,77 +25,95 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           clipBehavior: Clip.none,
           fit: StackFit.loose,
           children: [
-            BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              selectedIconTheme:
-                  IconThemeData(color: ColorConstants.instance.russianViolet),
-              unselectedIconTheme: IconThemeData(
-                color: ColorConstants.instance.roboticgods,
+            SizedBox(
+              height: 105,
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                selectedIconTheme:
+                    IconThemeData(color: ColorConstants.instance.russianViolet),
+                unselectedIconTheme: IconThemeData(
+                  color: ColorConstants.instance.roboticgods,
+                ),
+                selectedItemColor: ColorConstants.instance.russianViolet,
+                unselectedItemColor: ColorConstants.instance.roboticgods,
+                backgroundColor: ColorConstants.instance.white,
+                iconSize: 24,
+                showSelectedLabels: true,
+                showUnselectedLabels: true,
+                selectedLabelStyle: const TextStyle(
+                  fontSize: 13,
+                ),
+                onTap: (index) {
+                  cubitRead.changeCurrentIndex(index);
+                },
+                currentIndex: cubitRead.selectedPageIndex,
+                items: [
+                  BottomNavigationBarItem(
+                      label: LocaleKeys.home.locale,
+                      icon: Padding(
+                        padding: bottomNavBarLabelPadding(),
+                        child: ImageSvg(
+                          path: cubitRead.selectedPageIndex == 0
+                              ? ImagePath.homeBlack.path
+                              : ImagePath.home.path,
+                          color: cubitRead.itemColor(0),
+                          height: 24,
+                        ),
+                      )),
+                  BottomNavigationBarItem(
+                      label: LocaleKeys.discover.locale,
+                      icon: Padding(
+                        padding: bottomNavBarLabelPadding(),
+                        child: ImageSvg(
+                          path: cubitRead.selectedPageIndex == 1
+                              ? ImagePath.discoverBlack.path
+                              : ImagePath.discover.path,
+                          color: cubitRead.itemColor(1),
+                          height: 24,
+                        ),
+                      )),
+                  BottomNavigationBarItem(
+                      label: LocaleKeys.finder.locale,
+                      icon: Padding(
+                        padding: bottomNavBarLabelPadding(),
+                        child: const SizedBox(
+                          height: 24,
+                          child: Icon(
+                            Icons.home,
+                            size: 0,
+                            color: Colors.transparent,
+                          ),
+                        ),
+                      )),
+                  BottomNavigationBarItem(
+                      label: LocaleKeys.likes.locale,
+                      icon: Padding(
+                        padding: bottomNavBarLabelPadding(),
+                        child: ImageSvg(
+                          path: cubitRead.selectedPageIndex == 3
+                              ? ImagePath.likeBlack.path
+                              : ImagePath.like.path,
+                          color: cubitRead.itemColor(3),
+                          height: 24,
+                        ),
+                      )),
+                  BottomNavigationBarItem(
+                      label: LocaleKeys.basket.locale,
+                      icon: Padding(
+                        padding: bottomNavBarLabelPadding(),
+                        child: ImageSvg(
+                          path: cubitRead.selectedPageIndex == 4
+                              ? ImagePath.shoppingBagBlack.path
+                              : ImagePath.shoppingBag.path,
+                          color: cubitRead.itemColor(4),
+                          height: 24,
+                        ),
+                      )),
+                ],
               ),
-              selectedItemColor: ColorConstants.instance.russianViolet,
-              unselectedItemColor: ColorConstants.instance.roboticgods,
-              backgroundColor: ColorConstants.instance.white,
-              iconSize: 24,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              selectedLabelStyle: const TextStyle(
-                fontSize: 13,
-              ),
-              onTap: (index) {
-                cubitRead.changeCurrentIndex(index);
-              },
-              currentIndex: cubitRead.selectedPageIndex,
-              items: [
-                BottomNavigationBarItem(
-                    label: LocaleKeys.home.locale,
-                    icon: ImageSvg(
-                      path: cubitRead.selectedPageIndex == 0
-                          ? ImagePath.homeBlack.path
-                          : ImagePath.home.path,
-                      color: cubitRead.itemColor(0),
-                      height: 24,
-                    )),
-                BottomNavigationBarItem(
-                    label: LocaleKeys.discover.locale,
-                    icon: ImageSvg(
-                      path: cubitRead.selectedPageIndex == 1
-                          ? ImagePath.discoverBlack.path
-                          : ImagePath.discover.path,
-                      color: cubitRead.itemColor(1),
-                      height: 24,
-                    )),
-                BottomNavigationBarItem(
-                    label: LocaleKeys.finder.locale,
-                    icon: const SizedBox(
-                      height: 24,
-                      child: Icon(
-                        Icons.home,
-                        size: 0,
-                        color: Colors.transparent,
-                      ),
-                    )),
-                BottomNavigationBarItem(
-                    label: LocaleKeys.likes.locale,
-                    icon: ImageSvg(
-                      path: cubitRead.selectedPageIndex == 3
-                          ? ImagePath.likeBlack.path
-                          : ImagePath.like.path,
-                      color: cubitRead.itemColor(3),
-                      height: 24,
-                    )),
-                BottomNavigationBarItem(
-                    label: LocaleKeys.basket.locale,
-                    icon: ImageSvg(
-                      path: cubitRead.selectedPageIndex == 4
-                          ? ImagePath.shoppingBagBlack.path
-                          : ImagePath.shoppingBag.path,
-                      color: cubitRead.itemColor(4),
-                      height: 24,
-                    )),
-              ],
             ),
             Positioned(
-              top: -30,
+              top: -20,
               child: InkWell(
                 onTap: () {
                   cubitRead.clickFinderButton();
@@ -127,3 +145,5 @@ class RecipeBottomNavigationBar extends StatelessWidget {
     );
   }
 }
+
+EdgeInsets bottomNavBarLabelPadding() => EdgeInsets.only(bottom: 7);
