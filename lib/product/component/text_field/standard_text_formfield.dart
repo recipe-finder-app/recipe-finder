@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 typedef StringFunction = String? Function(String? value);
@@ -62,6 +61,7 @@ class StandardTextFormField extends StatelessWidget {
         obscureText: obscureText ?? false,
         style: TextStyle(color: textColor),
         decoration: InputDecoration(
+          //border: InputBorder.none,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           enabled: enabled ?? true,

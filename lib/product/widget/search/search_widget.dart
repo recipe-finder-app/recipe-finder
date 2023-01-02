@@ -21,7 +21,7 @@ class SearchWidget extends StatelessWidget {
             color: ColorConstants.instance.roboticgods.withOpacity(0.9),
             width: 2.0,
             style: BorderStyle.solid),
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: context.radiusAllCircularMin,
       ),
       child: TextFormField(
         controller: controller,
