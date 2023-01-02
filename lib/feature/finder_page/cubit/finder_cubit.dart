@@ -125,6 +125,7 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         directions: directionText),
   ];
   late int recipeListItemCount;
+  late int topCardIndex;
   String directionText =
       """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
   Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
@@ -137,12 +138,18 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   void init() {
     service = FinderService();
     recipeListItemCount = recipeList?.length ?? 0;
+    topCardIndex = 0;
+  }
+
+  changeTopCardIndex(int index) {
+    topCardIndex = index + 1;
+    print(topCardIndex);
+    emit(TopCardIndex(topCardIndex));
   }
 
   void changeRecipeListItemCount() {
     recipeListItemCount -= 1;
     emit(RecipeListItemCountCounter(recipeListItemCount));
-    print(recipeListItemCount);
   }
 
   @override
