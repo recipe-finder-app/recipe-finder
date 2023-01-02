@@ -119,8 +119,8 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                   cubitRead.clickFinderButton();
                 },
                 child: Container(
-                  height: 60,
-                  width: 60,
+                  height: 56,
+                  width: 56,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: cubitRead.selectedPageIndex == 2
@@ -146,4 +146,4 @@ class RecipeBottomNavigationBar extends StatelessWidget {
   }
 }
 
-EdgeInsets bottomNavBarLabelPadding() => EdgeInsets.only(bottom: 7);
+EdgeInsets bottomNavBarLabelPadding() => EdgeInsets.only(bottom: 8);
