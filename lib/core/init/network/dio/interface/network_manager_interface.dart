@@ -5,7 +5,7 @@ import '../../../../constant/enum/http_request_enum.dart';
 
 abstract class INetworkManager<E extends INetworkModel<E>> {
   Future<IResponseModel<R?, E>> send<R, T extends INetworkModel>(String path,
-      {required HttpTypes type,
+      {required HttpTypes httpType,
       required T parseModel,
       dynamic data,
       Map<String, Object>? queryParameters,

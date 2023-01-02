@@ -1,6 +1,28 @@
-/*class AddToBasketBottomSheet{
-  Future<void> show<T extends Cubit>(
-      BuildContext context, LikesCubit cubitRead, int cardIndex) {
+import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/extension/context_extension.dart';
+
+import '../../../../../core/constant/design/color_constant.dart';
+import '../../../../../core/init/language/locale_keys.g.dart';
+import '../../../../model/ingradient_model.dart';
+import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import '../../../../widget_core/text/bold_text.dart';
+import '../../../../widget_core/text/locale_bold_text.dart';
+import '../../../button/recipe_circular_button.dart';
+import '../../../circle_avatar/draggable_ingredient_circle_avatar.dart';
+import '../cubit/add_to_basket_bottom_sheet_cubit.dart';
+import '../cubit/add_to_basket_bottom_sheet_state.dart';
+
+class AddToBasketBottomSheet {
+  static AddToBasketBottomSheet instance = AddToBasketBottomSheet._init();
+  AddToBasketBottomSheet._init();
+
+  Future<void> show(
+      BuildContext context, List<IngredientModel> recipeIngredientList) {
+    context.read<AddToBasketCubit>().calculateMissingItemList(
+        recipeIngredientList, context.read<AddToBasketCubit>().myFrizeItems);
+
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.short,
@@ -8,100 +30,95 @@
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           const Flexible(
+          Flexible(
               flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
-          if (cubitRead.likeRecipeItems[cardIndex].missingItems == null)
+          if (context.read<AddToBasketCubit>().missingItemList.isEmpty)
             const Center()
           else
-            BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
+            BlocSelector<AddToBasketCubit, IAddToBasketState,
+                List<IngredientModel>>(
               selector: (state) {
                 if (state is MissingItemListLoad) {
                   return state.missingItemList;
                 } else {
-                  return cubitRead.likeRecipeItems[cardIndex].missingItems ??
-                      [];
+                  return context.read<AddToBasketCubit>().missingItemList;
                 }
               },
               builder: (BuildContext context, state) {
                 return Flexible(
                   flex: 4,
                   child: DragTarget<IngredientModel>(onAccept: (data) {
-                    cubitRead.addItemToMissingList(cardIndex, data);
-                    cubitRead.removeMyFrizeItem(data);
+                    context.read<AddToBasketCubit>().addItemToMissingList(data);
+                    context.read<AddToBasketCubit>().removeMyFrizeItem(data);
                   }, builder: (BuildContext context,
                       List<Object?> candidateData, List<dynamic> rejectedData) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.length,
-                        itemBuilder:
-                            (BuildContext context, int missingItemIndex) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: context.lowValue),
-                            child: DraggableIngredientCircleAvatar<
-                                IngredientModel>(
-                              data: state[missingItemIndex],
-                              iconBottomWidget: BoldText(
-                                text:
-                                state[missingItemIndex].quantity.toString(),
-                                textColor: Colors.white,
-                              ),
-                              color: ColorConstants.instance.oriolesOrange
-                                  .withOpacity(0.4),
-                              model: state[missingItemIndex],
-                            ),
-                          );
-                        });
+                    return BlocSelector<AddToBasketCubit, IAddToBasketState,
+                        bool>(selector: (draggingState) {
+                      if (draggingState is MyFrizeItemDragging) {
+                        return draggingState.isDragging;
+                      } else {
+                        return false;
+                      }
+                    }, builder: (context, draggingState) {
+                      if (draggingState == true) {
+                        return DottedBorder(
+                            borderType: BorderType.RRect,
+                            dashPattern: const [8, 4],
+                            radius: const Radius.circular(12),
+                            padding: const EdgeInsets.all(6),
+                            child: missingItemsListView(state));
+                      } else {
+                        print('missing item without dot');
+                        return missingItemsListView(state);
+                      }
+                    });
                   }),
                 );
               },
             ),
           const Flexible(
               flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
-          BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
-              selector: (state) {
-                if (state is MyFrizeListLoad) {
-                  return state.myFrizeList;
-                } else {
-                  return cubitRead.myFrizeItems ?? [];
-                }
-              }, builder: (BuildContext context, state) {
+          BlocSelector<AddToBasketCubit, IAddToBasketState,
+              List<IngredientModel>>(selector: (state) {
+            if (state is MyFrizeListLoad) {
+              return state.myFrizeList;
+            } else {
+              return context.read<AddToBasketCubit>().myFrizeItems ?? [];
+            }
+          }, builder: (BuildContext context, state) {
             return Flexible(
               flex: 4,
-              child: cubitRead.myFrizeItems == null
+              child: context.read<AddToBasketCubit>().myFrizeItems == null
                   ? const Center()
-                  : DragTarget<IngredientModel>(
-                onAccept: (data) {
-                  cubitRead.addItemToMyFrizeList(data);
-                  cubitRead.removeMissingItem(cardIndex, data);
-                },
-                builder: (BuildContext context,
-                    List<Object?> candidateData,
-                    List<dynamic> rejectedData) {
-                  return ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state.length,
-                      itemBuilder:
-                          (BuildContext context, int myFrizeItemIndex) {
-                        return Padding(
-                          padding:
-                          EdgeInsets.only(right: context.lowValue),
-                          child: DraggableIngredientCircleAvatar<
-                              IngredientModel>(
-                            data: state[myFrizeItemIndex],
-                            iconBottomWidget: BoldText(
-                              text: state[myFrizeItemIndex]
-                                  .quantity
-                                  .toString(),
-                              textColor: Colors.white,
-                            ),
-                            color:
-                            ColorConstants.instance.brightGraySolid2,
-                            model: state[myFrizeItemIndex],
-                          ),
-                        );
+                  : DragTarget<IngredientModel>(onAccept: (data) {
+                      context
+                          .read<AddToBasketCubit>()
+                          .addItemToMyFrizeList(data);
+                      context.read<AddToBasketCubit>().removeMissingItem(data);
+                    }, builder: (BuildContext context,
+                      List<Object?> candidateData, List<dynamic> rejectedData) {
+                      return BlocSelector<AddToBasketCubit, IAddToBasketState,
+                          bool>(selector: (draggingState) {
+                        if (draggingState is MissingItemDragging) {
+                          return draggingState.isDragging;
+                        } else {
+                          return false;
+                        }
+                      }, builder: (context, draggingState) {
+                        if (draggingState == true) {
+                          print('my frize item with dot');
+                          return DottedBorder(
+                              borderType: BorderType.RRect,
+                              dashPattern: const [8, 4],
+                              radius: const Radius.circular(12),
+                              padding: const EdgeInsets.all(6),
+                              child: myFrizeItemListView(state));
+                        } else {
+                          print('my frize item without dot');
+                          return myFrizeItemListView(state);
+                        }
                       });
-                },
-              ),
+                    }),
             );
           }),
           RecipeCircularButton(
@@ -111,5 +128,56 @@
       ),
     );
   }
+
+  ListView myFrizeItemListView(List<IngredientModel> state) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: state.length,
+        itemBuilder: (BuildContext context, int myFrizeItemIndex) {
+          return Padding(
+            padding: EdgeInsets.only(right: context.lowValue),
+            child: DraggableIngredientCircleAvatar<IngredientModel>(
+              data: state[myFrizeItemIndex],
+              onDragStarted: () {
+                context.read<AddToBasketCubit>().myFrizeItemDragging(true);
+              },
+              onDragEnd: (value) {
+                context.read<AddToBasketCubit>().myFrizeItemDragging(false);
+              },
+              iconTopWidget: BoldText(
+                text: state[myFrizeItemIndex].quantity.toString(),
+                textColor: Colors.white,
+              ),
+              color: ColorConstants.instance.brightGraySolid2,
+              model: state[myFrizeItemIndex],
+            ),
+          );
+        });
+  }
+
+  ListView missingItemsListView(List<IngredientModel> state) {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: state.length,
+        itemBuilder: (BuildContext context, int missingItemIndex) {
+          return Padding(
+            padding: EdgeInsets.only(right: context.lowValue),
+            child: DraggableIngredientCircleAvatar<IngredientModel>(
+              data: state[missingItemIndex],
+              onDragStarted: () {
+                context.read<AddToBasketCubit>().missingItemDragging(true);
+              },
+              onDragEnd: (value) {
+                context.read<AddToBasketCubit>().missingItemDragging(false);
+              },
+              iconTopWidget: BoldText(
+                text: state[missingItemIndex].quantity.toString(),
+                textColor: Colors.white,
+              ),
+              color: ColorConstants.instance.oriolesOrange.withOpacity(0.4),
+              model: state[missingItemIndex],
+            ),
+          );
+        });
+  }
 }
-*/

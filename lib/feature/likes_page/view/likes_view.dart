@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/component/card/saved_recipe_card.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/text/bold_text.dart';
-import '../../../product/component/text/locale_bold_text.dart';
-import '../../../product/model/ingradient_model.dart';
-import '../../../product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
+import '../../../product/widget/card/saved_recipe_card.dart';
+import '../../../product/widget/listview/category_list_view.dart';
+import '../../../product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
+import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/likes_cubit.dart';
-import '../cubit/likes_state.dart';
 
 class LikesView extends StatelessWidget {
   const LikesView({
@@ -33,13 +29,19 @@ class LikesView extends StatelessWidget {
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton: GoToTopFabButton(
+          scrollController: cubitRead.scrollController,
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
+            controller: cubitRead.scrollController,
             child: Padding(
               padding: EdgeInsets.only(
-                  top: context.mediumValue,
-                  left: context.normalValue,
-                  right: context.normalValue),
+                top: context.mediumValue,
+                left: context.normalValue,
+                right: context.normalValue,
+                bottom: context.highValue,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -48,10 +50,17 @@ class LikesView extends StatelessWidget {
                     fontSize: 29,
                   ),
                   context.normalSizedBox,
+                  SearchVoiceTextFormField(
+                    controller: TextEditingController(),
+                    width: context.screenWidth,
+                  ),
+                  context.normalSizedBox,
+                  CategoryListView(),
+                  context.normalSizedBox,
                   GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: cubitRead.likeRecipeItems.length,
+                      itemCount: cubitRead.recipeList.length,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -61,18 +70,15 @@ class LikesView extends StatelessWidget {
                       ),
                       itemBuilder: (BuildContext context, int cardIndex) {
                         return LikesRecipeCard(
-                          model:
-                              cubitRead.likeRecipeItems[cardIndex].recipeModel,
+                          model: cubitRead.recipeList[cardIndex],
                           addToBasketOnPressed: () {
-                            cubitRead.missingItemLoad(cardIndex);
-                            addToBasketBottomSheet(
-                                context, cubitRead, cardIndex);
+                            AddToBasketBottomSheet.instance.show(context,
+                                cubitRead.recipeList![cardIndex].ingredients);
                           },
                           recipeOnPressed: () {
                             NavigationService.instance.navigateToPage(
                                 path: NavigationConstants.RECIPE_DETAIL,
-                                data: cubitRead
-                                    .likeRecipeItems[cardIndex].recipeModel);
+                                data: cubitRead.recipeList[cardIndex]);
                             /* recipeBottomSheet(
                                 context, cubitRead, cardIndex);*/
                           },
@@ -85,7 +91,7 @@ class LikesView extends StatelessWidget {
                                         LocaleKeys.deleteSavedRecipeQuestion,
                                     onPressedYes: () {
                                       cubitRead.deleteItemFromLikedRecipeList(
-                                          cubitRead.likeRecipeItems[cardIndex]);
+                                          cubitRead.recipeList[cardIndex]);
                                     },
                                   );
                                 });
@@ -97,119 +103,6 @@ class LikesView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Future<void> addToBasketBottomSheet(
-      BuildContext context, LikesCubit cubitRead, int cardIndex) {
-    return CircularBottomSheet.instance.show(
-      context,
-      bottomSheetHeight: CircularBottomSheetHeight.short,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
-          if (cubitRead.likeRecipeItems[cardIndex].missingItems == null)
-            const Center()
-          else
-            BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
-              selector: (state) {
-                if (state is MissingItemListLoad) {
-                  return state.missingItemList;
-                } else {
-                  return cubitRead.likeRecipeItems[cardIndex].missingItems ??
-                      [];
-                }
-              },
-              builder: (BuildContext context, state) {
-                return Flexible(
-                  flex: 4,
-                  child: DragTarget<IngredientModel>(onAccept: (data) {
-                    cubitRead.addItemToMissingList(cardIndex, data);
-                    cubitRead.removeMyFrizeItem(data);
-                  }, builder: (BuildContext context,
-                      List<Object?> candidateData, List<dynamic> rejectedData) {
-                    return ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: state.length,
-                        itemBuilder:
-                            (BuildContext context, int missingItemIndex) {
-                          return Padding(
-                            padding: EdgeInsets.only(right: context.lowValue),
-                            child: DraggableIngredientCircleAvatar<
-                                IngredientModel>(
-                              data: state[missingItemIndex],
-                              iconBottomWidget: BoldText(
-                                text:
-                                    state[missingItemIndex].quantity.toString(),
-                                textColor: Colors.white,
-                              ),
-                              color: ColorConstants.instance.oriolesOrange
-                                  .withOpacity(0.4),
-                              model: state[missingItemIndex],
-                            ),
-                          );
-                        });
-                  }),
-                );
-              },
-            ),
-          const Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
-          BlocSelector<LikesCubit, ILikesState, List<IngredientModel>>(
-              selector: (state) {
-            if (state is MyFrizeListLoad) {
-              return state.myFrizeList;
-            } else {
-              return cubitRead.myFrizeItems ?? [];
-            }
-          }, builder: (BuildContext context, state) {
-            return Flexible(
-              flex: 4,
-              child: cubitRead.myFrizeItems == null
-                  ? const Center()
-                  : DragTarget<IngredientModel>(
-                      onAccept: (data) {
-                        cubitRead.addItemToMyFrizeList(data);
-                        cubitRead.removeMissingItem(cardIndex, data);
-                      },
-                      builder: (BuildContext context,
-                          List<Object?> candidateData,
-                          List<dynamic> rejectedData) {
-                        return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: state.length,
-                            itemBuilder:
-                                (BuildContext context, int myFrizeItemIndex) {
-                              return Padding(
-                                padding:
-                                    EdgeInsets.only(right: context.lowValue),
-                                child: DraggableIngredientCircleAvatar<
-                                    IngredientModel>(
-                                  data: state[myFrizeItemIndex],
-                                  iconBottomWidget: BoldText(
-                                    text: state[myFrizeItemIndex]
-                                        .quantity
-                                        .toString(),
-                                    textColor: Colors.white,
-                                  ),
-                                  color:
-                                      ColorConstants.instance.brightGraySolid2,
-                                  model: state[myFrizeItemIndex],
-                                ),
-                              );
-                            });
-                      },
-                    ),
-            );
-          }),
-          RecipeCircularButton(
-              color: ColorConstants.instance.oriolesOrange,
-              text: LocaleKeys.confirm),
-        ],
       ),
     );
   }

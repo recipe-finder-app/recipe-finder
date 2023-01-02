@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/feature/likes_page/model/like_recipe_model.dart';
+
+import '../../model/recipe_model.dart';
 
 class TinderCard extends StatelessWidget {
   const TinderCard({
@@ -10,7 +11,7 @@ class TinderCard extends StatelessWidget {
     this.recipeOnPressed,
   });
 
-  final LikeRecipeModel model;
+  final RecipeModel model;
   final VoidCallback? recipeOnPressed;
 
   @override
@@ -24,14 +25,14 @@ class TinderCard extends StatelessWidget {
             width: context.cardValueWidth,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(model.recipeModel.imagePath),
+                image: AssetImage(model.imagePath ?? ''),
                 fit: BoxFit.cover,
               ),
               borderRadius: context.radiusAllCircularMedium,
             ),
             child: Container(
               decoration: BoxDecoration(
-              borderRadius: context.radiusAllCircularMedium,
+                borderRadius: context.radiusAllCircularMedium,
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -51,7 +52,7 @@ class TinderCard extends StatelessWidget {
             child: Padding(
               padding: context.paddingNormalOnlyTop,
               child: Text(
-                model.recipeModel.title,
+                model.title,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,

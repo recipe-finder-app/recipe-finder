@@ -15,7 +15,7 @@ main() {
   });
   test('service', () async {
     final response = await networkManager.send<UserModel, UserModel>('/posts/1',
-        parseModel: UserModel(), type: HttpTypes.GET);
+        parseModel: UserModel(), httpType: HttpTypes.GET);
 
     expect(response.model, isNotNull);
   });

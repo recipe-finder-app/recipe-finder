@@ -16,8 +16,12 @@ class RecipeListItemCountCounter extends IFinderState {
   RecipeListItemCountCounter(this.count);
 }
 
+class TopCardIndex extends IFinderState {
+  late int index;
+  TopCardIndex(this.index);
+}
+
 class FinderError extends IFinderState {
   String errorMessage;
   FinderError(this.errorMessage);
 }
-

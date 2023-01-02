@@ -48,12 +48,14 @@ class LocaleBoldText extends StatelessWidget {
               fontFamily: 'Poppins',
               fontWeight: fontWeight ?? FontWeight.w500,
               fontSize: fontSize ?? 14,
+              decoration: TextDecoration.none,
             )
           : style!.copyWith(
               color: textColor ?? Colors.black,
               fontFamily: 'Poppins',
               fontWeight: fontWeight ?? FontWeight.w500,
               fontSize: fontSize ?? 14,
+              decoration: TextDecoration.none,
             ),
       strutStyle: strutStyle,
       textAlign: textAlign,

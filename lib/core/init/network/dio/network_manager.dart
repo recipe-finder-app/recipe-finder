@@ -30,15 +30,18 @@ class NetworkManager<E extends INetworkModel<E>>
 
   @override
   Future<IResponseModel<R?, E>> send<R, T extends INetworkModel>(String path,
-      {required HttpTypes type,
+      {required HttpTypes httpType,
       required T parseModel,
       dynamic data,
       Map<String, dynamic>? queryParameters,
       void Function(int, int)? onReceiveProgress}) async {
     final body = _getBodyModel(data);
     try {
-      final response =
-          await request(path, data: body, options: Options(method: type.name));
+      final response = await request(path,
+          data: body,
+          options: Options(
+            method: httpType.name,
+          ));
       switch (response.statusCode ?? HttpStatus.notFound) {
         case HttpStatus.ok:
         case HttpStatus.accepted:

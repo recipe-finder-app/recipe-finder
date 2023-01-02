@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -9,10 +10,10 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/component/pop_up_menu_button/language_popup_menu_button.dart';
-import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
+import '../../../product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/onboard_cubit.dart';
 
 class OnboardView extends StatelessWidget {
@@ -27,6 +28,8 @@ class OnboardView extends StatelessWidget {
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
         body: PageView.builder(
+            physics: const ClampingScrollPhysics(),
+            pageSnapping: true,
             controller: cubitRead.pageController,
             itemCount: cubitRead.onboardItems.length,
             onPageChanged: (value) async {
@@ -36,51 +39,56 @@ class OnboardView extends StatelessWidget {
               return Column(
                 children: [
                   Flexible(
-                    flex: 13,
+                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size
+                        ? 18
+                        : 13,
                     child: Stack(
                       alignment: AlignmentDirectional.topStart,
                       children: [
                         CustomPaint(
                           size: Size.fromHeight(context.screenHeight / 1.8),
-                          painter: ShapesPainter(),
+                          painter: ShapesPainter(context),
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Flexible(
-                                flex: 5,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      left: context.normalValue * 2.5,
-                                      right: context.normalValue * 2.5),
-                                  child: Padding(
-                                    padding: context.paddingHighOnlyTop,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const LanguagePopupMenuButton(),
-                                        TextButton(
-                                          onPressed: () {
-                                            NavigationService.instance
-                                                .navigateToPageClear(
-                                                    path: NavigationConstants
-                                                        .LOGIN);
-                                          },
-                                          child: LocaleBoldText(
-                                            text: LocaleKeys.skip,
-                                            fontWeight: FontWeight.w500,
-                                            locale: context.locale,
-                                            style: const TextStyle(
-                                                decoration:
-                                                    TextDecoration.underline),
-                                          ),
+                            index == cubitRead.onboardItems.length - 1
+                                ? SizedBox()
+                                : Flexible(
+                                    flex: 5,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: context.normalValue * 2.5,
+                                          right: context.normalValue * 2.5),
+                                      child: Padding(
+                                        padding: context.paddingHighOnlyTop,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            const LanguagePopupMenuButton(),
+                                            TextButton(
+                                              onPressed: () {
+                                                NavigationService.instance
+                                                    .navigateToPageClear(
+                                                        path:
+                                                            NavigationConstants
+                                                                .LOGIN);
+                                              },
+                                              child: LocaleBoldText(
+                                                text: LocaleKeys.skip,
+                                                fontWeight: FontWeight.w500,
+                                                locale: context.locale,
+                                                style: const TextStyle(
+                                                    decoration: TextDecoration
+                                                        .underline),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                )),
+                                      ),
+                                    )),
                             Flexible(
                               flex: 17,
                               child: ImageSvg(
@@ -268,10 +276,15 @@ class OnboardView extends StatelessWidget {
 }
 
 class ShapesPainter extends CustomPainter {
+  final BuildContext context;
+  ShapesPainter(this.context);
   @override
   void paint(Canvas canvas, Size size) {
     final p = Path();
-    p.lineTo(0, size.height - 50);
+    p.lineTo(
+        0,
+        size.height -
+            (context.screenHeight < DeviceSizeEnum.inch_5.size ? 0 : 50));
     p.relativeQuadraticBezierTo(size.width / 2, 2 * 80, size.width, 0);
     p.lineTo(size.width, 0);
     p.close();

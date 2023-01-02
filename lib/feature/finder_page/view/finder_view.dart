@@ -7,16 +7,15 @@ import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'package:recipe_finder/feature/basket_page/cubit/basket_cubit.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
-import 'package:recipe_finder/product/component/card/card_overlay.dart';
-import 'package:recipe_finder/product/component/card/tinder_card.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
+import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
+import '../../../product/widget/card/card_overlay.dart';
+import '../../../product/widget/card/tinder_card.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
 
 class FinderView extends StatefulWidget {
   const FinderView({Key? key}) : super(key: key);
@@ -102,7 +101,7 @@ class _FinderViewState extends State<FinderView> {
           width: context.cardValueWidth,
           child: SwipableStack(
             controller: _controller,
-            itemCount: cubitRead.finderRecipeItems!.length,
+            itemCount: cubitRead.recipeList!.length,
             stackClipBehaviour: Clip.none,
             swipeAnchor: SwipeAnchor.bottom,
             onWillMoveNext: (
@@ -112,25 +111,29 @@ class _FinderViewState extends State<FinderView> {
               switch (swipeDirection) {
                 case SwipeDirection.left:
                 case SwipeDirection.right:
-                case SwipeDirection.up:
                   return true;
+                case SwipeDirection.up:
+                  AddToBasketBottomSheet.instance
+                      .show(context, cubitRead.recipeList![index].ingredients);
+                  return false;
                 case SwipeDirection.down:
+                  AddToBasketBottomSheet.instance
+                      .show(context, cubitRead.recipeList![index].ingredients);
                   return false;
               }
             },
             onSwipeCompleted: (index, direction) {
               cubitRead.changeRecipeListItemCount();
+              cubitRead.changeTopCardIndex(index);
               if (direction == SwipeDirection.right) {
                 context
                     .read<LikesCubit>()
-                    .likeRecipeItems
-                    .add(cubitRead.finderRecipeItems![index]);
-                // } else if (direction == SwipeDirection.up) {
-                //   context
-                //       .read<BasketCubit>()
-                //       .basketRecipeItems
-                //       .add(cubitRead.finderRecipeItems![index]);
-              } else {}
+                    .recipeList
+                    .add(cubitRead.recipeList![index]);
+              } else if (direction == SwipeDirection.up) {
+                AddToBasketBottomSheet.instance
+                    .show(context, cubitRead.recipeList![index].ingredients);
+              } else if (direction == SwipeDirection.left) {}
             },
             horizontalSwipeThreshold: 0.8,
             verticalSwipeThreshold: 1,
@@ -147,12 +150,11 @@ class _FinderViewState extends State<FinderView> {
               properties,
             ) {
               return TinderCard(
-                  model: cubitRead.finderRecipeItems![properties.index],
+                  model: cubitRead.recipeList![properties.index],
                   recipeOnPressed: () {
                     NavigationService.instance.navigateToPage(
                         path: NavigationConstants.RECIPE_DETAIL,
-                        data: cubitRead
-                            .finderRecipeItems![properties.index].recipeModel);
+                        data: cubitRead.recipeList![properties.index]);
                   });
             },
           ),
@@ -161,6 +163,7 @@ class _FinderViewState extends State<FinderView> {
         buildRowButton(
           context,
           cubitRead,
+          1,
         ),
       ],
     );
@@ -169,6 +172,7 @@ class _FinderViewState extends State<FinderView> {
   SizedBox buildRowButton(
     BuildContext context,
     FinderCubit cubitRead,
+    int index,
   ) {
     return SizedBox(
       width: context.cardValueWidth,
@@ -189,7 +193,8 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              //  addToBasketBottomSheet(context,cubitRead,cardIndex);
+              AddToBasketBottomSheet.instance.show(context,
+                  cubitRead.recipeList![cubitRead.topCardIndex].ingredients);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,
@@ -201,8 +206,8 @@ class _FinderViewState extends State<FinderView> {
             onPressed: () {
               context
                   .read<LikesCubit>()
-                  .likeRecipeItems
-                  .add(cubitRead.finderRecipeItems!.first);
+                  .recipeList
+                  .add(cubitRead.recipeList!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(
@@ -231,7 +236,7 @@ class _FinderViewState extends State<FinderView> {
             text: LocaleKeys.finderText,
           ),
         ),
-        TextButton(
+        /* TextButton(
           onPressed: () {
             NavigationService.instance
                 .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
@@ -249,7 +254,7 @@ class _FinderViewState extends State<FinderView> {
                 decorationThickness: 2,
               ),
               text: LocaleKeys.close),
-        ),
+        ),*/
       ]),
     );
   }

@@ -8,6 +8,7 @@ import 'package:recipe_finder/feature/material_search_page/cubit/material_cubit.
 import 'package:recipe_finder/feature/onboard_page/cubit/onboard_cubit.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
 import 'package:recipe_finder/product/widget/bottom_nav_bar_controller/bottom_nav_bar_cubit.dart';
+import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_cubit.dart';
 
 import '../../../feature/login_page/cubit/login_cubit.dart';
 
@@ -47,12 +48,12 @@ class ApplicationBloc {
     ),
     BlocProvider(
       create: (context) => BasketCubit(),
-    
     ),
- BlocProvider(
-     create: (context) => DiscoverCubit(),
-    
+    BlocProvider(
+      create: (context) => DiscoverCubit(),
     ),
-      
+    BlocProvider(
+      create: (context) => AddToBasketCubit(),
+    ),
   ];
 }

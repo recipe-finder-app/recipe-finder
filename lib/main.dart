@@ -15,16 +15,17 @@ import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
 import 'core/init/notifier/bloc_list.dart';
-import 'product/component/alert_dialog/alert_dialog_no_connection.dart';
+import 'product/widget_core/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
-  HttpOverrides.global = MyHttpOverrides();
-
+  if (Platform.isAndroid) {
+    HttpOverrides.global = MyHttpOverrides();
+  }
   await _init();
   runApp(EasyLocalization(
       path: ApplicationConstants.LANGUAGE_ASSET_PATH,
       supportedLocales: LanguageManager.instance.supportedLocalesList,
-      startLocale: LanguageManager.instance.enLocale,
+      startLocale: LanguageManager.instance.startLocale(),
       child: const MyApp()));
 }
 
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
+        localeResolutionCallback: (deviceLocale, supportedLocales) {},
         builder: MainBuild.build,
 
         onGenerateRoute: NavigationRoute.instance.generateRoute,

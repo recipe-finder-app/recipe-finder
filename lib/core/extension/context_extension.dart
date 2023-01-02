@@ -91,7 +91,8 @@ extension PaddingExtensionAll on BuildContext {
 
   EdgeInsets get paddingNormalTopLeftRight =>
       EdgeInsets.only(top: normalValue, left: lowWidth, right: lowWidth);
-
+  EdgeInsets get paddingNormalTopBottom =>
+      EdgeInsets.only(top: normalValue, bottom: normalValue);
   EdgeInsets get paddingMediumTopBottom =>
       EdgeInsets.only(top: mediumValue, bottom: mediumValue);
   EdgeInsets get paddingHighTopBottom =>

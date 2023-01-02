@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/component/text/bold_text.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
+import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 
 class DiscoverCard extends StatelessWidget {
   final RecipeModel model;
@@ -55,7 +55,7 @@ class DiscoverCard extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                model.imagePath,
+                model.imagePath ?? '',
               )),
           borderRadius: context.radiusAllCircularMin,
         ),

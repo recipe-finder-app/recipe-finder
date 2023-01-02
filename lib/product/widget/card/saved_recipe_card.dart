@@ -3,11 +3,11 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
-import 'package:recipe_finder/product/component/text/bold_text.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 class LikesRecipeCard extends StatelessWidget {
   final RecipeModel model;
@@ -96,7 +96,7 @@ class LikesRecipeCard extends StatelessWidget {
         image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              model.imagePath,
+              model.imagePath ?? '',
             )),
         borderRadius: context.radiusTopCircularMin,
       ),

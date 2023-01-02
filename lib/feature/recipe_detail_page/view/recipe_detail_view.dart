@@ -8,12 +8,12 @@ import 'package:share_plus/share_plus.dart';
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
-import '../../../product/component/text/bold_text.dart';
-import '../../../product/component/text/locale_bold_text.dart';
 import '../../../product/model/recipe_model.dart';
 import '../../../product/widget/button/recipe_fab_button.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import '../../../product/widget/container/circular_bacground.dart';
+import '../../../product/widget_core/text/bold_text.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/recipe_detail_cubit.dart';
 

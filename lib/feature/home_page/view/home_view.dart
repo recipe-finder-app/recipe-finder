@@ -5,11 +5,11 @@ import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
-import 'package:recipe_finder/product/component/image_format/image_png.dart';
-import 'package:recipe_finder/product/component/image_format/image_svg.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_png.dart';
+import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
+import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 
@@ -35,9 +35,15 @@ class HomeView extends StatelessWidget {
                 context.mediumSizedBox,
                 Center(
                     child: SearchVoiceTextFormField(
-                  controller: TextEditingController(),
-                  width: context.veryValueWidth,
-                  onChanged: (String data) {},
+                  controller: cubitRead.searchTextController,
+                  onPressedClear: () {},
+                  onChanged: (String data) {
+                    if (data.isEmpty) {
+                      print('liste yüklendi');
+                    } else {
+                      print('liste search yüklendi');
+                    }
+                  },
                 )),
                 context.mediumSizedBox,
                 SizedBox(

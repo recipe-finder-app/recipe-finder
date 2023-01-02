@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/extension/border_extension.dart';
@@ -22,7 +23,7 @@ class CircularBottomSheet {
     bool? scrollable,
     AnimationController? controller,
   }) {
-    return showModalBottomSheet(
+    return showModalBottomSheet<void>(
       transitionAnimationController: controller,
       shape: RoundedRectangleBorder(
           borderRadius: BorderConstant.instance.radiusAllCircularHigh),
@@ -44,20 +45,56 @@ class CircularBottomSheet {
                           ? context.screenHeight / 1.1
                           : context.screenHeight / 1.2,
           child: Padding(
-            padding: context.paddingMediumTopBottom,
-            child: Center(
-              child: Padding(
-                padding: context.paddingMediumEdges,
-                child: scrollable == true
-                    ? SingleChildScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        child: child,
-                      )
-                    : child,
-              ),
+            padding: context.paddingNormalTopBottom,
+            child: Padding(
+              padding: context.paddingMediumEdges,
+              child: scrollable == true
+                  ? buildChildScrollable(context, child)
+                  : buildChild(context, child),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildChild(BuildContext context, Widget child) {
+    return Column(
+      children: [
+        Flexible(
+          flex: 1,
+          child: buildDivider(context),
+        ),
+        Flexible(flex: 100, child: child),
+      ],
+    );
+  }
+
+  Widget buildChildScrollable(BuildContext context, Widget child) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          buildDivider(context),
+          context.mediumSizedBox,
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget buildDivider(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Container(
+        height: 5,
+        width: 50,
+        decoration: BoxDecoration(
+          color: ColorConstants.instance.brightGraySolid,
+          borderRadius: context.radiusAllCircularVeryHigh,
         ),
       ),
     );

@@ -1,25 +1,26 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/product/component/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/component/pop_up_menu_button/language_popup_menu_button.dart';
+import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/component/image_format/image_svg.dart';
-import '../../../product/component/text/locale_bold_text.dart';
-import '../../../product/component/text/locale_text.dart';
 import '../../../product/widget/button/login_button.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
+import '../../../product/widget_core/image_format/image_svg.dart';
+import '../../../product/widget_core/text/locale_bold_text.dart';
+import '../../../product/widget_core/text/locale_text.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -74,7 +75,9 @@ class LoginView extends StatelessWidget {
                     ),
                   ),
                   Flexible(
-                    flex: 5,
+                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size
+                        ? 8
+                        : 5,
                     child: ImageSvg(
                       path: ImagePath.group5357.path,
                     ),
@@ -148,26 +151,31 @@ class LoginView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: LocaleBoldText(text: LocaleKeys.userName)),
                     context.lowSizedBox,
-                    const UserTextFormField(),
+                    UserTextFormField(
+                      controller: TextEditingController(),
+                    ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                     const Align(
                         alignment: Alignment.centerLeft,
                         child: LocaleBoldText(text: LocaleKeys.password)),
                     context.lowSizedBox,
-                    const PasswordTextFormField(),
+                    PasswordTextFormField(
+                      controller: TextEditingController(),
+                    ),
+                    context.lowSizedBox,
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          child: const LocaleBoldText(
+                            text: LocaleKeys.forgotPassword,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            forgotPasswordBottomSheet(context, cubitRead);
+                          },
+                        )),
                   ]),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        child: const LocaleBoldText(
-                          text: LocaleKeys.forgotPassword,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          forgotPasswordBottomSheet(context, cubitRead);
-                        },
-                      )),
                   LoginButton(
                     text: LocaleKeys.login.locale,
                     onPressed: () {
@@ -252,7 +260,9 @@ class LoginView extends StatelessWidget {
                           child:
                               LocaleBoldText(text: LocaleKeys.userName.locale)),
                       context.lowSizedBox,
-                      const UserTextFormField(),
+                      UserTextFormField(
+                        controller: TextEditingController(),
+                      ),
                     ],
                   ),
                   Column(
@@ -262,7 +272,8 @@ class LoginView extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: LocaleBoldText(text: LocaleKeys.email.locale)),
                       context.lowSizedBox,
-                      const EmailTextFormField(
+                      EmailTextFormField(
+                        controller: TextEditingController(),
                         validator: true,
                       ),
                     ],
@@ -275,7 +286,9 @@ class LoginView extends StatelessWidget {
                           child:
                               LocaleBoldText(text: LocaleKeys.password.locale)),
                       context.lowSizedBox,
-                      const PasswordTextFormField(),
+                      PasswordTextFormField(
+                        controller: TextEditingController(),
+                      ),
                     ],
                   ),
                   LoginButton(
@@ -373,7 +386,8 @@ class LoginView extends StatelessWidget {
                       text: LocaleKeys.emailAddress.locale,
                     )),
                 context.lowSizedBox,
-                const EmailTextFormField(
+                EmailTextFormField(
+                  controller: TextEditingController(),
                   validator: true,
                 ),
               ],

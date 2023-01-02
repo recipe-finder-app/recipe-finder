@@ -8,8 +8,8 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_model.dart';
-import 'package:recipe_finder/product/component/text/locale_text.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
@@ -67,12 +67,16 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                         context.mediumSizedBox,
                         SearchVoiceTextFormField(
                           controller: cubitRead.searchTextController,
-                          width: context.screenWidth / 1.2,
+                          onPressedClear: () {
+                            cubitRead.ingredientListLoad();
+                          },
                           onChanged: (String data) {
                             if (data.isEmpty) {
                               cubitRead.ingredientListLoad();
+                              print('liste yüklendi');
                             } else {
                               cubitRead.searchData(data);
+                              print('liste search yüklendi');
                             }
                           },
                         ),
