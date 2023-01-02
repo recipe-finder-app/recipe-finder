@@ -54,8 +54,8 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
         }
       }
       if (isContainTitle == true) {
-        IngredientModel newElement = IngredientModel(title: model.title, imagePath: model.imagePath, color: model.color, quantity: model.quantity);
-        //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
+        IngredientModel newElement = IngredientModel(title: model.title, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
+        //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));   quantity: model.quantity
         int index = myFrizeItems.indexOf(containModel!);
         myFrizeItems[index] = newElement;
         emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
