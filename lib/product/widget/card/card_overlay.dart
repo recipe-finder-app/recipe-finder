@@ -38,6 +38,7 @@ class CardOverlay extends StatelessWidget {
         ),
         Opacity(
           opacity: isDown ? opacity : 0,
+          child: CardLabel.up(),
           // child: CardLabel.down(),
         ),
       ],
