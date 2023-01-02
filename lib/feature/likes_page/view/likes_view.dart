@@ -1,13 +1,9 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
-import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
@@ -17,11 +13,11 @@ import '../../../product/model/ingradient_model.dart';
 import '../../../product/widget/card/saved_recipe_card.dart';
 import '../../../product/widget/circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../../../product/widget/listview/category_list_view.dart';
+import '../../../product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
 import '../../../product/widget/text_field/search_voice_text_formfield.dart';
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/likes_cubit.dart';
-import '../cubit/likes_state.dart';
 
 class LikesView extends StatelessWidget {
   const LikesView({
@@ -82,8 +78,10 @@ class LikesView extends StatelessWidget {
                               cubitRead.likeRecipeItems[cardIndex].recipeModel,
                           addToBasketOnPressed: () {
                             cubitRead.missingItemLoad(cardIndex);
-                            addToBasketBottomSheet(
-                                context, cubitRead, cardIndex);
+                            AddToBasketBottomSheet.instance.show(
+                                context,
+                                cubitRead.likeRecipeItems![cardIndex]
+                                    .recipeModel.ingredients);
                           },
                           recipeOnPressed: () {
                             NavigationService.instance.navigateToPage(
@@ -118,7 +116,7 @@ class LikesView extends StatelessWidget {
     );
   }
 
-  Future<void> addToBasketBottomSheet(
+  /* Future<void> addToBasketBottomSheet(
       BuildContext context, LikesCubit cubitRead, int cardIndex) {
     return CircularBottomSheet.instance.show(
       context,
@@ -224,7 +222,7 @@ class LikesView extends StatelessWidget {
         ],
       ),
     );
-  }
+  }*/
 
   ListView myFrizeItemListView(
       List<IngredientModel> state, LikesCubit cubitRead) {

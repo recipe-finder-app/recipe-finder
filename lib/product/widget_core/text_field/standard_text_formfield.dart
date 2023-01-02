@@ -114,10 +114,11 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
           label: Text(
             widget.labelText ?? '',
             style: const TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
-                fontSize: 14),
+              fontFamily: 'Poppins',
+              color: Colors.black,
+              fontWeight: FontWeight.w400,
+              fontSize: 14,
+            ),
           ),
           labelStyle: const TextStyle(
               fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 14),

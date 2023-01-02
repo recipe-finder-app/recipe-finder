@@ -907,11 +907,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     emit(MyFrizeItemDragging(myFrizeItemIsDragging!));
   }
 
-  void clearState() {
-    emit(LikesInit());
-    print('state clear');
-  }
-
   void deleteItemFromLikedRecipeList(LikeRecipeModel model) {
     likeRecipeItems.remove(model);
     emit(LikesRecipeItemListLoad(likeRecipeItems.toSet().toList()));

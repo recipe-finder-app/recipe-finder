@@ -39,20 +39,30 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
               title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
         ],
         recipeModel: RecipeModel(
-          imagePath: 'asset/png/image.png',
-          title: 'Deneme Text 1',
-          ingredients: [
-            IngredientModel(title: 'Egg', quantity: 4),
-            IngredientModel(title: 'Butter', quantity: 1 / 2),
-            IngredientModel(title: 'Butter', quantity: 1 / 2),
-            IngredientModel(title: 'Egg', quantity: 4),
-            IngredientModel(title: 'Butter', quantity: 1 / 2),
-            IngredientModel(title: 'Butter', quantity: 1 / 2),
-          ],
-          description:
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-          directions: directionText,
-        ),
+            imagePath: ImagePath.imageSample1.path,
+            video: 'asset/video/pizza.mp4',
+            title:
+                'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+                'uzun text deneme',
+            ingredients: [
+              IngredientModel(
+                  title: 'Egg', imagePath: ImagePath.egg.path, quantity: 5),
+              IngredientModel(
+                  title: 'Milk', imagePath: ImagePath.milk.path, quantity: 2),
+              IngredientModel(
+                  title: 'salad', imagePath: ImagePath.salad.path, quantity: 3),
+              IngredientModel(
+                  title: 'chicken',
+                  imagePath: ImagePath.chicken.path,
+                  quantity: 1),
+              IngredientModel(
+                  title: 'Potato',
+                  imagePath: ImagePath.potato.path,
+                  quantity: 3),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
       ),
       LikeRecipeModel(
         missingItems: [
@@ -62,8 +72,9 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
               title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
         ],
         recipeModel: RecipeModel(
-            imagePath: 'asset/png/image1.png',
-            title: 'Deneme Text 2',
+            imagePath: ImagePath.imageSample2.path,
+            video: 'asset/video/samplevideo.mp4',
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),
@@ -80,8 +91,23 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
           IngredientModel(title: 'milk'),
         ],
         recipeModel: RecipeModel(
-            imagePath: 'asset/png/image.png',
-            title: 'Deneme Text 3',
+            imagePath: ImagePath.imageSample3.path,
+            video: 'asset/video/pizza.mp4',
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
+            ingredients: [
+              IngredientModel(title: 'Egg', quantity: 4),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+              IngredientModel(title: 'Butter', quantity: 1 / 2),
+            ],
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+            directions: directionText),
+      ),
+      LikeRecipeModel(
+        recipeModel: RecipeModel(
+            imagePath: ImagePath.imageSample4.path,
+            video: 'asset/video/samplevideo.mp4',
+            title: 'Cajun spiced Cauliflower Rice with Chicken',
             ingredients: [
               IngredientModel(title: 'Egg', quantity: 4),
               IngredientModel(title: 'Butter', quantity: 1 / 2),

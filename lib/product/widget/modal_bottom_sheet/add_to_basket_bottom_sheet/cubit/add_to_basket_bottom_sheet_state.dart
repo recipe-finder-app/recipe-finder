@@ -1,4 +1,6 @@
-/*
+import '../../../../../feature/likes_page/model/like_recipe_model.dart';
+import '../../../../model/ingradient_model.dart';
+
 abstract class IAddToBasketState {
   IAddToBasketState();
 }
@@ -12,10 +14,24 @@ class AddToBasketLoading extends IAddToBasketState {
   AddToBasketLoading(this.isLoading);
 }
 
+class LikesRecipeItemListLoad extends IAddToBasketState {
+  late List<LikeRecipeModel> likesRecipeItemList;
+  LikesRecipeItemListLoad(this.likesRecipeItemList);
+}
 
 class MissingItemListLoad extends IAddToBasketState {
   late List<IngredientModel> missingItemList;
   MissingItemListLoad(this.missingItemList);
+}
+
+class MissingItemDragging extends IAddToBasketState {
+  late bool isDragging;
+  MissingItemDragging(this.isDragging);
+}
+
+class MyFrizeItemDragging extends IAddToBasketState {
+  late bool isDragging;
+  MyFrizeItemDragging(this.isDragging);
 }
 
 class MyFrizeListLoad extends IAddToBasketState {
@@ -23,7 +39,7 @@ class MyFrizeListLoad extends IAddToBasketState {
   MyFrizeListLoad(this.myFrizeList);
 }
 
-class LikesError extends IAddToBasketState {
+class AddToBasketError extends IAddToBasketState {
   String errorMessage;
-  LikesError(this.errorMessage);
-}*/
+  AddToBasketError(this.errorMessage);
+}

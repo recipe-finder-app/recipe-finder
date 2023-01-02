@@ -9,6 +9,7 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
+import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
@@ -123,12 +124,12 @@ class _FinderViewState extends State<FinderView> {
                     .read<LikesCubit>()
                     .likeRecipeItems
                     .add(cubitRead.finderRecipeItems![index]);
-                // } else if (direction == SwipeDirection.up) {
-                //   context
-                //       .read<BasketCubit>()
-                //       .basketRecipeItems
-                //       .add(cubitRead.finderRecipeItems![index]);
-              } else {}
+              } else if (direction == SwipeDirection.up) {
+                AddToBasketBottomSheet.instance.show(
+                    context,
+                    cubitRead
+                        .finderRecipeItems![index].recipeModel.ingredients);
+              } else if (direction == SwipeDirection.left) {}
             },
             horizontalSwipeThreshold: 0.8,
             verticalSwipeThreshold: 1,
@@ -159,6 +160,7 @@ class _FinderViewState extends State<FinderView> {
         buildRowButton(
           context,
           cubitRead,
+          1,
         ),
       ],
     );
@@ -167,6 +169,7 @@ class _FinderViewState extends State<FinderView> {
   SizedBox buildRowButton(
     BuildContext context,
     FinderCubit cubitRead,
+    int index,
   ) {
     return SizedBox(
       width: context.cardValueWidth,
@@ -187,7 +190,8 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              //  addToBasketBottomSheet(context,cubitRead,cardIndex);
+              AddToBasketBottomSheet.instance.show(context,
+                  cubitRead.finderRecipeItems![1].recipeModel.ingredients);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,

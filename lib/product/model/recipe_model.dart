@@ -15,8 +15,4 @@ class RecipeModel {
       this.video,
       this.description,
       this.directions});
-
-  void remove(RecipeModel model) {}
-
-  toSet() {}
 }
