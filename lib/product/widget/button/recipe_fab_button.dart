@@ -12,15 +12,8 @@ class RecipeFabButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final double? width;
   final TextDirection? textDirection;
-  const RecipeFabButton(
-      {Key? key,
-      required this.text,
-      this.color,
-      this.textColor,
-      this.onPressed,
-      this.width,
-      this.textDirection})
-      : super(key: key);
+  final Object? heroTag;
+  const RecipeFabButton({Key? key, required this.text, this.color, this.textColor, this.onPressed, this.width, this.textDirection, this.heroTag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +27,7 @@ class RecipeFabButton extends StatelessWidget {
       child: Directionality(
         textDirection: textDirection ?? TextDirection.ltr,
         child: FloatingActionButton(
+            heroTag: heroTag,
             elevation: 5,
             highlightElevation: 5,
             focusElevation: 5,
@@ -47,13 +41,7 @@ class RecipeFabButton extends StatelessWidget {
                 )),
             onPressed: onPressed,
             child: FittedBox(
-              child: LocaleText(
-                  textAlign: TextAlign.center,
-                  text: text,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: textColor ?? Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16)),
+              child: LocaleText(textAlign: TextAlign.center, text: text, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: textColor ?? Colors.white, fontWeight: FontWeight.w500, fontSize: 16)),
             )),
       ),
     );
