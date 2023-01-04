@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 import '../../../../../core/constant/design/color_constant.dart';
 import '../../../../../core/init/language/locale_keys.g.dart';
@@ -9,7 +10,6 @@ import '../../../../model/ingradient_model.dart';
 import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import '../../../../widget_core/text/bold_text.dart';
 import '../../../../widget_core/text/locale_bold_text.dart';
-import '../../../../widget_core/text/locale_text.dart';
 import '../../../button/recipe_circular_button.dart';
 import '../../../circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../cubit/add_to_basket_bottom_sheet_cubit.dart';
@@ -34,14 +34,14 @@ class AddToBasketBottomSheet {
             children: [
               TextButton(
                   onPressed: () {
-                    context.read<AddToBasketCubit>().undo();
-                  },
-                  child: LocaleText(text: LocaleKeys.undo)),
-              TextButton(
-                  onPressed: () {
                     context.read<AddToBasketCubit>().firstItemListsLoad();
                   },
-                  child: LocaleText(text: LocaleKeys.undoAll)),
+                  child: LocaleBoldText(text: LocaleKeys.undoAll)),
+              TextButton(
+                  onPressed: () {
+                    context.read<AddToBasketCubit>().undo();
+                  },
+                  child: LocaleBoldText(text: LocaleKeys.undo)),
             ],
           ),
           Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
@@ -128,7 +128,15 @@ class AddToBasketBottomSheet {
         itemBuilder: (BuildContext context, int myFrizeItemIndex) {
           return Padding(
             padding: EdgeInsets.only(right: context.lowValue),
-            child: DraggableIngredientCircleAvatar<IngredientModel>(
+            child: IngredientCircleAvatar(
+              iconTopWidget: BoldText(
+                text: state[myFrizeItemIndex].quantity.toString(),
+                textColor: Colors.white,
+              ),
+              color: ColorConstants.instance.brightGraySolid2,
+              model: state[myFrizeItemIndex],
+            ),
+            /*DraggableIngredientCircleAvatar<IngredientModel>(
               data: state[myFrizeItemIndex],
               onDragStarted: () {
                 context.read<AddToBasketCubit>().myFrizeItemDragging(true);
@@ -142,7 +150,7 @@ class AddToBasketBottomSheet {
               ),
               color: ColorConstants.instance.brightGraySolid2,
               model: state[myFrizeItemIndex],
-            ),
+            ),*/
           );
         });
   }

@@ -82,6 +82,6 @@
     "toBuyList":"To - Buy List",
     "myPantry":"My Pantry",
     "removeCard":"Are you sure you want to remove it from the card?",
-    "undo": "Undo",
-    "undoAll": "Undo all"
+    "undo": "UNDO",
+    "undoAll": "UNDO ALL"
 }

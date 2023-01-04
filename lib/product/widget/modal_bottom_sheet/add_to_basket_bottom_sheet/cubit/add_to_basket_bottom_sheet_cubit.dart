@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
-import '../../../../../core/base/model/base_view_model.dart';
 import '../../../../../core/constant/enum/image_path_enum.dart';
 import '../../../../model/ingradient_model.dart';
 
-class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewModel {
+class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
   late List<IngredientModel> myFrizeItemList = [
@@ -27,8 +26,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
   List<IngredientModel> firstMyFrizeItemList = [];
 
   AddToBasketCubit() : super(AddToBasketInit());
-  @override
-  void init() {}
+
   void setFirstItemLists(List<IngredientModel> myFrizeList, List<IngredientModel> missingList) {
     firstMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
     firstMyFrizeItemList.addAll(myFrizeList.toSet().toList());
@@ -148,12 +146,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
     emit(MyFrizeItemDragging(myFrizeItemIsDragging!));
   }
 
-  @override
   BuildContext? context;
 
-  @override
   void setContext(BuildContext context) => this.context = context;
-
-  @override
-  void dispose() {}
 }
