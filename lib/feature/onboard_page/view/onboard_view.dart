@@ -39,9 +39,7 @@ class OnboardView extends StatelessWidget {
               return Column(
                 children: [
                   Flexible(
-                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size
-                        ? 18
-                        : 13,
+                    flex: context.screenHeight < DeviceSizeEnum.inch_5.size ? 18 : 13,
                     child: Stack(
                       alignment: AlignmentDirectional.topStart,
                       children: [
@@ -53,47 +51,36 @@ class OnboardView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            index == cubitRead.onboardItems.length - 1
-                                ? SizedBox()
-                                : Flexible(
-                                    flex: 5,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: context.normalValue * 2.5,
-                                          right: context.normalValue * 2.5),
-                                      child: Padding(
-                                        padding: context.paddingHighOnlyTop,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            const LanguagePopupMenuButton(),
-                                            TextButton(
-                                              onPressed: () {
-                                                NavigationService.instance
-                                                    .navigateToPageClear(
-                                                        path:
-                                                            NavigationConstants
-                                                                .LOGIN);
-                                              },
-                                              child: LocaleBoldText(
-                                                text: LocaleKeys.skip,
-                                                fontWeight: FontWeight.w500,
-                                                locale: context.locale,
-                                                style: const TextStyle(
-                                                    decoration: TextDecoration
-                                                        .underline),
+                            Flexible(
+                                flex: 5,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: context.normalValue * 2.5, right: context.normalValue * 2.5),
+                                  child: Padding(
+                                    padding: context.paddingHighOnlyTop,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const LanguagePopupMenuButton(),
+                                        index == cubitRead.onboardItems.length - 1
+                                            ? SizedBox()
+                                            : TextButton(
+                                                onPressed: () {
+                                                  NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+                                                },
+                                                child: LocaleBoldText(
+                                                  text: LocaleKeys.skip,
+                                                  fontWeight: FontWeight.w500,
+                                                  locale: context.locale,
+                                                  style: const TextStyle(decoration: TextDecoration.underline),
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )),
+                                      ],
+                                    ),
+                                  ),
+                                )),
                             Flexible(
                               flex: 17,
-                              child: ImageSvg(
-                                  path:
-                                      cubitRead.onboardItems[index].imagePath),
+                              child: ImageSvg(path: cubitRead.onboardItems[index].imagePath),
                             ),
                             Flexible(
                               flex: 1,
@@ -111,26 +98,13 @@ class OnboardView extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: Colors.white,
-                                                  border: Border.all(
-                                                      color: ColorConstants
-                                                          .instance
-                                                          .russianViolet,
-                                                      width: 1.5),
+                                                  border: Border.all(color: ColorConstants.instance.russianViolet, width: 1.5),
                                                 ),
                                               )
                                             : const Center(),
                                         CircleAvatar(
-                                          backgroundColor:
-                                              index == cubitRead.currentIndex
-                                                  ? ColorConstants
-                                                      .instance.russianViolet
-                                                  : ColorConstants
-                                                      .instance.russianViolet
-                                                      .withOpacity(0.2),
-                                          radius:
-                                              index == cubitRead.currentIndex
-                                                  ? 4.5
-                                                  : 6,
+                                          backgroundColor: index == cubitRead.currentIndex ? ColorConstants.instance.russianViolet : ColorConstants.instance.russianViolet.withOpacity(0.2),
+                                          radius: index == cubitRead.currentIndex ? 4.5 : 6,
                                         ),
                                       ],
                                     ),
@@ -174,34 +148,27 @@ class OnboardView extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                     textDirection: ui.TextDirection.rtl,
-                                    color:
-                                        ColorConstants.instance.russianViolet,
+                                    color: ColorConstants.instance.russianViolet,
                                     onPressed: () {
-                                      cubitRead.changeCurrentIndex(
-                                          cubitRead.currentIndex + 1);
+                                      cubitRead.changeCurrentIndex(cubitRead.currentIndex + 1);
                                     },
                                   )
                                 : index == cubitRead.onboardItems.length - 1
                                     ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           RecipeCircularButton(
                                             width: context.screenWidth / 2.7,
                                             icon: Icon(
                                               Icons.arrow_back_sharp,
-                                              color: ColorConstants
-                                                  .instance.russianViolet,
+                                              color: ColorConstants.instance.russianViolet,
                                             ),
                                             textDirection: ui.TextDirection.ltr,
-                                            color: ColorConstants
-                                                .instance.brightGraySolid2,
+                                            color: ColorConstants.instance.brightGraySolid2,
                                             text: LocaleKeys.back,
-                                            textColor: ColorConstants
-                                                .instance.russianViolet,
+                                            textColor: ColorConstants.instance.russianViolet,
                                             onPressed: () {
-                                              cubitRead.changeCurrentIndex(
-                                                  cubitRead.currentIndex - 1);
+                                              cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
                                             },
                                           ),
                                           RecipeCircularButton(
@@ -211,38 +178,29 @@ class OnboardView extends StatelessWidget {
                                               color: Colors.white,
                                             ),
                                             textDirection: ui.TextDirection.rtl,
-                                            color: ColorConstants
-                                                .instance.oriolesOrange,
+                                            color: ColorConstants.instance.oriolesOrange,
                                             text: LocaleKeys.getStarted,
                                             onPressed: () {
-                                              NavigationService.instance
-                                                  .navigateToPage(
-                                                      path: NavigationConstants
-                                                          .LOGIN);
+                                              NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
                                             },
                                           ),
                                         ],
                                       )
                                     : Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                                         children: [
                                           RecipeCircularButton(
                                             icon: Icon(
                                               Icons.arrow_back_sharp,
-                                              color: ColorConstants
-                                                  .instance.russianViolet,
+                                              color: ColorConstants.instance.russianViolet,
                                             ),
                                             textDirection: ui.TextDirection.ltr,
-                                            color: ColorConstants
-                                                .instance.brightGraySolid2,
+                                            color: ColorConstants.instance.brightGraySolid2,
                                             width: context.screenWidth / 2.7,
                                             text: LocaleKeys.back,
-                                            textColor: ColorConstants
-                                                .instance.russianViolet,
+                                            textColor: ColorConstants.instance.russianViolet,
                                             onPressed: () {
-                                              cubitRead.changeCurrentIndex(
-                                                  cubitRead.currentIndex - 1);
+                                              cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
                                             },
                                           ),
                                           RecipeCircularButton(
@@ -252,12 +210,10 @@ class OnboardView extends StatelessWidget {
                                             ),
                                             textDirection: ui.TextDirection.rtl,
                                             width: context.screenWidth / 2.7,
-                                            color: ColorConstants
-                                                .instance.russianViolet,
+                                            color: ColorConstants.instance.russianViolet,
                                             text: LocaleKeys.next,
                                             onPressed: () {
-                                              cubitRead.changeCurrentIndex(
-                                                  cubitRead.currentIndex + 1);
+                                              cubitRead.changeCurrentIndex(cubitRead.currentIndex + 1);
                                             },
                                           ),
                                         ],
@@ -281,18 +237,12 @@ class ShapesPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final p = Path();
-    p.lineTo(
-        0,
-        size.height -
-            (context.screenHeight < DeviceSizeEnum.inch_5.size ? 0 : 50));
+    p.lineTo(0, size.height - (context.screenHeight < DeviceSizeEnum.inch_5.size ? 0 : 50));
     p.relativeQuadraticBezierTo(size.width / 2, 2 * 80, size.width, 0);
     p.lineTo(size.width, 0);
     p.close();
 
-    canvas.drawPath(
-        p,
-        Paint()
-          ..color = ColorConstants.instance.oriolesOrange.withOpacity(0.05));
+    canvas.drawPath(p, Paint()..color = ColorConstants.instance.oriolesOrange.withOpacity(0.05));
   }
 
   @override
