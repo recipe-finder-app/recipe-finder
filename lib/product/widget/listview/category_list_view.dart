@@ -9,13 +9,7 @@ class RecipeCategoryItems {
   late final List<String> categories;
 
   RecipeCategoryItems() {
-    categories = [
-      LocaleKeys.all,
-      LocaleKeys.breakfast,
-      LocaleKeys.lunch,
-      LocaleKeys.dinner,
-      LocaleKeys.desserts
-    ];
+    categories = [LocaleKeys.all, LocaleKeys.breakfast, LocaleKeys.lunch, LocaleKeys.dinner, LocaleKeys.desserts];
   }
 }
 
@@ -37,15 +31,7 @@ class CategoryListView extends StatefulWidget {
   final VoidCallback? onPressedDinner;
   final VoidCallback? onPressedDesserts;
   final RecipeCategory? initialSelectedCategory;
-  const CategoryListView(
-      {Key? key,
-      this.onPressedAll,
-      this.onPressedBreakfast,
-      this.onPressedLunch,
-      this.onPressedDinner,
-      this.onPressedDesserts,
-      this.initialSelectedCategory})
-      : super(key: key);
+  const CategoryListView({Key? key, this.onPressedAll, this.onPressedBreakfast, this.onPressedLunch, this.onPressedDinner, this.onPressedDesserts, this.initialSelectedCategory}) : super(key: key);
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
@@ -78,13 +64,9 @@ class _CategoryListViewState extends State<CategoryListView> {
                   onPressed(calculateSelectedCategory(index));
                 },
                 child: Container(
-                  constraints: const BoxConstraints(
-                      maxWidth: double.infinity, minWidth: 50),
+                  constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
                   decoration: BoxDecoration(
-                    border:
-                        _selectedCategory == calculateSelectedCategory(index)
-                            ? null
-                            : Border.all(color: Colors.black, width: 0.5),
+                    border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
                     color: categoryItemColor(calculateSelectedCategory(index)),
                     borderRadius: context.radiusAllCircularMedium,
                   ),
@@ -94,10 +76,7 @@ class _CategoryListViewState extends State<CategoryListView> {
                       padding: context.paddingLowEdges,
                       child: LocaleText(
                         text: RecipeCategory.values[index].locale,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: categoryTextColor(
-                                calculateSelectedCategory(index))),
+                        style: TextStyle(fontSize: 16, color: categoryTextColor(calculateSelectedCategory(index))),
                       ),
                     ),
                   ),
@@ -137,7 +116,7 @@ class _CategoryListViewState extends State<CategoryListView> {
       case 'All':
         widget.onPressedAll != null ? widget.onPressedAll!() : null;
         break;
-      case 'Breakfasst':
+      case 'Breakfast':
         widget.onPressedBreakfast != null ? widget.onPressedBreakfast!() : null;
         break;
       case 'Lunch':

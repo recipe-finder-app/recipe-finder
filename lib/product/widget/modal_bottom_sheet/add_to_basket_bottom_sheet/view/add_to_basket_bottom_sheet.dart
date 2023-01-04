@@ -9,6 +9,7 @@ import '../../../../model/ingradient_model.dart';
 import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import '../../../../widget_core/text/bold_text.dart';
 import '../../../../widget_core/text/locale_bold_text.dart';
+import '../../../../widget_core/text/locale_text.dart';
 import '../../../button/recipe_circular_button.dart';
 import '../../../circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../cubit/add_to_basket_bottom_sheet_cubit.dart';
@@ -18,11 +19,9 @@ class AddToBasketBottomSheet {
   static AddToBasketBottomSheet instance = AddToBasketBottomSheet._init();
   AddToBasketBottomSheet._init();
 
-  Future<void> show(
-      BuildContext context, List<IngredientModel> recipeIngredientList) {
-    context.read<AddToBasketCubit>().calculateMissingItemList(
-        recipeIngredientList, context.read<AddToBasketCubit>().myFrizeItems);
-
+  Future<void> show(BuildContext context, List<IngredientModel> recipeIngredientList) {
+    context.read<AddToBasketCubit>().calculateMissingItemList(recipeIngredientList, context.read<AddToBasketCubit>().myFrizeItemList);
+    context.read<AddToBasketCubit>().setFirstItemLists(context.read<AddToBasketCubit>().myFrizeItemList, context.read<AddToBasketCubit>().missingItemList);
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.short,
@@ -30,100 +29,93 @@ class AddToBasketBottomSheet {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    context.read<AddToBasketCubit>().undo();
+                  },
+                  child: LocaleText(text: LocaleKeys.undo)),
+              TextButton(
+                  onPressed: () {
+                    context.read<AddToBasketCubit>().firstItemListsLoad();
+                  },
+                  child: LocaleText(text: LocaleKeys.undoAll)),
+            ],
+          ),
+          Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
           if (context.read<AddToBasketCubit>().missingItemList.isEmpty)
             const Center()
           else
-            BlocSelector<AddToBasketCubit, IAddToBasketState,
-                List<IngredientModel>>(
-              selector: (state) {
-                if (state is MissingItemListLoad) {
-                  return state.missingItemList;
+            BlocSelector<AddToBasketCubit, IAddToBasketState, bool>(
+              selector: (draggingState) {
+                if (draggingState is MyFrizeItemDragging) {
+                  return draggingState.isDragging;
                 } else {
-                  return context.read<AddToBasketCubit>().missingItemList;
+                  return false;
                 }
               },
-              builder: (BuildContext context, state) {
-                return Flexible(
-                  flex: 4,
-                  child: DragTarget<IngredientModel>(onAccept: (data) {
-                    context.read<AddToBasketCubit>().addItemToMissingList(data);
-                    context.read<AddToBasketCubit>().removeMyFrizeItem(data);
-                  }, builder: (BuildContext context,
-                      List<Object?> candidateData, List<dynamic> rejectedData) {
-                    return BlocSelector<AddToBasketCubit, IAddToBasketState,
-                        bool>(selector: (draggingState) {
-                      if (draggingState is MyFrizeItemDragging) {
-                        return draggingState.isDragging;
-                      } else {
-                        return false;
-                      }
-                    }, builder: (context, draggingState) {
-                      if (draggingState == true) {
-                        return DottedBorder(
-                            borderType: BorderType.RRect,
-                            dashPattern: const [8, 4],
-                            radius: const Radius.circular(12),
-                            padding: const EdgeInsets.all(6),
-                            child: missingItemsListView(state));
-                      } else {
-                        print('missing item without dot');
-                        return missingItemsListView(state);
-                      }
-                    });
-                  }),
+              builder: (context, draggingState) {
+                return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientModel>>(
+                  selector: (state) {
+                    if (state is MissingItemListLoad) {
+                      return state.missingItemList;
+                    } else {
+                      return context.read<AddToBasketCubit>().missingItemList;
+                    }
+                  },
+                  builder: (BuildContext context, state) {
+                    return Flexible(
+                      flex: 4,
+                      child: DragTarget<IngredientModel>(onAccept: (data) {
+                        context.read<AddToBasketCubit>().addItemToMissingList(data);
+                        context.read<AddToBasketCubit>().removeMyFrizeItem(data);
+                      }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
+                        if (draggingState == true) {
+                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: missingItemsListView(state));
+                        } else {
+                          return missingItemsListView(state);
+                        }
+                      }),
+                    );
+                  },
                 );
               },
             ),
-          const Flexible(
-              flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
-          BlocSelector<AddToBasketCubit, IAddToBasketState,
-              List<IngredientModel>>(selector: (state) {
-            if (state is MyFrizeListLoad) {
-              return state.myFrizeList;
+          const Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
+          BlocSelector<AddToBasketCubit, IAddToBasketState, bool>(selector: (draggingState) {
+            if (draggingState is MissingItemDragging) {
+              return draggingState.isDragging;
             } else {
-              return context.read<AddToBasketCubit>().myFrizeItems ?? [];
+              return false;
             }
-          }, builder: (BuildContext context, state) {
-            return Flexible(
-              flex: 4,
-              child: context.read<AddToBasketCubit>().myFrizeItems == null
-                  ? const Center()
-                  : DragTarget<IngredientModel>(onAccept: (data) {
-                      context
-                          .read<AddToBasketCubit>()
-                          .addItemToMyFrizeList(data);
-                      context.read<AddToBasketCubit>().removeMissingItem(data);
-                    }, builder: (BuildContext context,
-                      List<Object?> candidateData, List<dynamic> rejectedData) {
-                      return BlocSelector<AddToBasketCubit, IAddToBasketState,
-                          bool>(selector: (draggingState) {
-                        if (draggingState is MissingItemDragging) {
-                          return draggingState.isDragging;
-                        } else {
-                          return false;
-                        }
-                      }, builder: (context, draggingState) {
+          }, builder: (context, draggingState) {
+            return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientModel>>(selector: (state) {
+              if (state is MyFrizeListLoad) {
+                return state.myFrizeItemList;
+              } else {
+                return context.read<AddToBasketCubit>().myFrizeItemList ?? [];
+              }
+            }, builder: (BuildContext context, state) {
+              return Flexible(
+                flex: 4,
+                child: context.read<AddToBasketCubit>().myFrizeItemList == null
+                    ? const Center()
+                    : DragTarget<IngredientModel>(onAccept: (data) {
+                        context.read<AddToBasketCubit>().addItemToMyFrizeList(data);
+                        context.read<AddToBasketCubit>().removeMissingItem(data);
+                      }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
                         if (draggingState == true) {
-                          print('my frize item with dot');
-                          return DottedBorder(
-                              borderType: BorderType.RRect,
-                              dashPattern: const [8, 4],
-                              radius: const Radius.circular(12),
-                              padding: const EdgeInsets.all(6),
-                              child: myFrizeItemListView(state));
+                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: myFrizeItemListView(state));
                         } else {
-                          print('my frize item without dot');
                           return myFrizeItemListView(state);
                         }
-                      });
-                    }),
-            );
+                      }),
+              );
+            });
           }),
-          RecipeCircularButton(
-              color: ColorConstants.instance.oriolesOrange,
-              text: LocaleKeys.confirm),
+          RecipeCircularButton(color: ColorConstants.instance.oriolesOrange, text: LocaleKeys.confirm),
         ],
       ),
     );

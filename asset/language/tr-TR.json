@@ -81,5 +81,7 @@
     "myBasketList":"Sepet Listem",
     "toBuyList":"Satın Alma Listesi",
     "myPantry":"Benimkiler",
-    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?"
+    "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?",
+    "undo": "Geri al",
+    "undoAll": "Tümünü geri al"
 }

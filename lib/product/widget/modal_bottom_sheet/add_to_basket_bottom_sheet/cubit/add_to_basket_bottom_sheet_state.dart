@@ -23,14 +23,14 @@ class MissingItemDragging extends IAddToBasketState {
   MissingItemDragging(this.isDragging);
 }
 
+class MyFrizeListLoad extends IAddToBasketState {
+  late List<IngredientModel> myFrizeItemList;
+  MyFrizeListLoad(this.myFrizeItemList);
+}
+
 class MyFrizeItemDragging extends IAddToBasketState {
   late bool isDragging;
   MyFrizeItemDragging(this.isDragging);
-}
-
-class MyFrizeListLoad extends IAddToBasketState {
-  late List<IngredientModel> myFrizeList;
-  MyFrizeListLoad(this.myFrizeList);
 }
 
 class AddToBasketError extends IAddToBasketState {
