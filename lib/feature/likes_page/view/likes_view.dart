@@ -57,47 +57,7 @@ class LikesView extends StatelessWidget {
                   context.normalSizedBox,
                   CategoryListView(),
                   context.normalSizedBox,
-                  GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: cubitRead.recipeList.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 15,
-                        crossAxisSpacing: 15,
-                        childAspectRatio: 3 / 4,
-                      ),
-                      itemBuilder: (BuildContext context, int cardIndex) {
-                        return LikesRecipeCard(
-                          model: cubitRead.recipeList[cardIndex],
-                          addToBasketOnPressed: () {
-                            AddToBasketBottomSheet.instance.show(context,
-                                cubitRead.recipeList![cardIndex].ingredients);
-                          },
-                          recipeOnPressed: () {
-                            NavigationService.instance.navigateToPage(
-                                path: NavigationConstants.RECIPE_DETAIL,
-                                data: cubitRead.recipeList[cardIndex]);
-                            /* recipeBottomSheet(
-                                context, cubitRead, cardIndex);*/
-                          },
-                          likeIconOnPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return QuestionAlertDialog(
-                                    explanation:
-                                        LocaleKeys.deleteSavedRecipeQuestion,
-                                    onPressedYes: () {
-                                      cubitRead.deleteItemFromLikedRecipeList(
-                                          cubitRead.recipeList[cardIndex]);
-                                    },
-                                  );
-                                });
-                          },
-                        );
-                      }),
+                  buildLikesRecipeGrid(cubitRead),
                 ],
               ),
             ),
@@ -105,5 +65,43 @@ class LikesView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  GridView buildLikesRecipeGrid(LikesCubit cubitRead) {
+    return GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: cubitRead.recipeList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15,
+          crossAxisSpacing: 15,
+          childAspectRatio: 3 / 4,
+        ),
+        itemBuilder: (BuildContext context, int cardIndex) {
+          return LikesRecipeCard(
+            model: cubitRead.recipeList[cardIndex],
+            addToBasketOnPressed: () {
+              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex].ingredients);
+            },
+            recipeOnPressed: () {
+              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
+              /* recipeBottomSheet(
+                              context, cubitRead, cardIndex);*/
+            },
+            likeIconOnPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return QuestionAlertDialog(
+                      explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                      onPressedYes: () {
+                        cubitRead.deleteItemFromLikedRecipeList(cubitRead.recipeList[cardIndex]);
+                      },
+                    );
+                  });
+            },
+          );
+        });
   }
 }

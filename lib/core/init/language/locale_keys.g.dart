@@ -84,5 +84,7 @@ abstract class  LocaleKeys {
   static const toBuyList = 'toBuyList';
   static const myPantry = 'myPantry';
   static const removeCard = 'removeCard';
+  static const undo = 'undo';
+  static const undoAll = 'undoAll';
 
 }

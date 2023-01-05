@@ -28,8 +28,7 @@ class RecipeDetailView2 extends StatefulWidget {
   State<RecipeDetailView2> createState() => _RecipeDetailView2State();
 }
 
-class _RecipeDetailView2State extends State<RecipeDetailView2>
-    with SingleTickerProviderStateMixin {
+class _RecipeDetailView2State extends State<RecipeDetailView2> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
   void _startAnimation() {
@@ -46,8 +45,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
           vsync: this,
           duration: const Duration(milliseconds: 500),
         );
-        _animation =
-            Tween<double>(begin: 0, end: 1).animate(_animationController);
+        _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
         _startAnimation();
       },
       dispose: (cubitRead) {
@@ -57,6 +55,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         floatingActionButton: const RecipeFabButton(
+          heroTag: 'recipeFabButton',
           text: LocaleKeys.addToBasket,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -82,9 +81,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
             controller: cubitRead.chewieController,
           ),
         ),
-        cubitRead.chewieController.isPlaying == true
-            ? const SizedBox()
-            : videoPlayerStack(context),
+        cubitRead.chewieController.isPlaying == true ? const SizedBox() : videoPlayerStack(context),
         Positioned(
           bottom: -5,
           height: 50,
@@ -95,16 +92,14 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
               borderRadius: context.radiusTopCircularVeryHigh,
             ),
             child: Padding(
-              padding: EdgeInsets.only(
-                  left: context.mediumValue, top: context.lowValue),
+              padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
               child: Row(
                 children: [
                   InkWell(
                     onTap: () {
                       String ingredientsText = '';
                       for (var ingredient in widget.recipeModel.ingredients!) {
-                        ingredientsText =
-                            '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+                        ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
                       }
 
                       String message = '${LocaleKeys.ingredients.locale}\n'
@@ -195,9 +190,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                     height: 45,
                     width: context.screenWidth / 2.5,
                     decoration: BoxDecoration(
-                      border: cubitRead.selectedCategoryIndex == 0
-                          ? null
-                          : Border.all(color: Colors.black, width: 0.5),
+                      border: cubitRead.selectedCategoryIndex == 0 ? null : Border.all(color: Colors.black, width: 0.5),
                       color: cubitRead.categoryItemColor(0),
                       borderRadius: context.radiusAllCircularMedium,
                     ),
@@ -207,9 +200,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                         padding: context.paddingLowEdges,
                         child: LocaleText(
                           text: LocaleKeys.ingredients.locale,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: cubitRead.categoryTextColor(0)),
+                          style: TextStyle(fontSize: 16, color: cubitRead.categoryTextColor(0)),
                         ),
                       ),
                     ),
@@ -224,9 +215,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                     height: 45,
                     width: context.screenWidth / 2.5,
                     decoration: BoxDecoration(
-                      border: cubitRead.selectedCategoryIndex == 1
-                          ? null
-                          : Border.all(color: Colors.black, width: 0.5),
+                      border: cubitRead.selectedCategoryIndex == 1 ? null : Border.all(color: Colors.black, width: 0.5),
                       color: cubitRead.categoryItemColor(1),
                       borderRadius: context.radiusAllCircularMedium,
                     ),
@@ -236,9 +225,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                         padding: context.paddingLowEdges,
                         child: LocaleText(
                           text: LocaleKeys.directions.locale,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: cubitRead.categoryTextColor(1)),
+                          style: TextStyle(fontSize: 16, color: cubitRead.categoryTextColor(1)),
                         ),
                       ),
                     ),
@@ -247,11 +234,9 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
               ],
             ),
             cubitRead.selectedCategoryIndex == 0
-                ? FadeTransition(
-                    opacity: _animation, child: tabBarIngredients(context))
-                : cubitRead.selectedCategoryIndex == 1
-                    ? FadeTransition(
-                        opacity: _animation, child: tabBarDirections(context))
+                ? Hero(tag: 'tabBarIngredients', child: FadeTransition(opacity: _animation, child: tabBarIngredients(context)))
+                : cubitRead.selectedCategoryIndex == 1 //bu hero widget'ını fab button tag değeriyle bu animasyonların tag değeri çakıştığı için veriyoruz.Fab butona da farklı tag verdik.
+                    ? Hero(tag: 'tabBarDirections', child: FadeTransition(opacity: _animation, child: tabBarDirections(context)))
                     : const SizedBox(),
             /*  AnimatedBuilder(
               animation: _animation,
@@ -301,12 +286,9 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(widget
-                      .recipeModel.ingredients![recipeIngredientsIndex].quantity
-                      .toString()),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex].quantity.toString()),
                   context.lowSizedBoxWidth,
-                  Text(widget
-                      .recipeModel.ingredients![recipeIngredientsIndex].title),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex].title),
                 ],
               );
             }),
@@ -327,17 +309,10 @@ class _RecipeDetailView2State extends State<RecipeDetailView2>
                       return Padding(
                         padding: EdgeInsets.only(right: context.lowValue),
                         child: IngredientCircleAvatar(
-                          color: ColorConstants.instance.russianViolet
-                              .withOpacity(0.1),
-                          model: context
-                              .read<HomeCubit>()
-                              .myFrizeItems[missingItemIndex],
+                          color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                          model: context.read<HomeCubit>().myFrizeItems[missingItemIndex],
                           iconTopWidget: Text(
-                            context
-                                .read<HomeCubit>()
-                                .myFrizeItems[missingItemIndex]
-                                .quantity
-                                .toString(),
+                            context.read<HomeCubit>().myFrizeItems[missingItemIndex].quantity.toString(),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),

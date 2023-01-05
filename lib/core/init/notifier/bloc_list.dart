@@ -13,13 +13,13 @@ import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bo
 import '../../../feature/login_page/cubit/login_cubit.dart';
 
 class ApplicationBloc {
-  static ApplicationBloc? _instance;
-  static ApplicationBloc get instance {
-    _instance ??= ApplicationBloc._init();
-    return _instance!;
-  }
-
+  static final ApplicationBloc _instance = ApplicationBloc._init();
+  static ApplicationBloc get instance => _instance;
   ApplicationBloc._init();
+
+  /*static ApplicationBloc? _instance;
+  static ApplicationBloc get instance => _instance ??= ApplicationBloc._init();
+  ApplicationBloc._init();*/
 
   List<dynamic> dependItems = [
     BlocProvider(

@@ -9,13 +9,7 @@ class RecipeCategoryItems {
   late final List<String> categories;
 
   RecipeCategoryItems() {
-    categories = [
-      LocaleKeys.all,
-      LocaleKeys.breakfast,
-      LocaleKeys.lunch,
-      LocaleKeys.dinner,
-      LocaleKeys.desserts
-    ];
+    categories = [LocaleKeys.all, LocaleKeys.breakfast, LocaleKeys.lunch, LocaleKeys.dinner, LocaleKeys.desserts];
   }
 }
 
@@ -37,15 +31,7 @@ class CategoryListView extends StatefulWidget {
   final VoidCallback? onPressedDinner;
   final VoidCallback? onPressedDesserts;
   final RecipeCategory? initialSelectedCategory;
-  const CategoryListView(
-      {Key? key,
-      this.onPressedAll,
-      this.onPressedBreakfast,
-      this.onPressedLunch,
-      this.onPressedDinner,
-      this.onPressedDesserts,
-      this.initialSelectedCategory})
-      : super(key: key);
+  const CategoryListView({Key? key, this.onPressedAll, this.onPressedBreakfast, this.onPressedLunch, this.onPressedDinner, this.onPressedDesserts, this.initialSelectedCategory}) : super(key: key);
 
   @override
   State<CategoryListView> createState() => _CategoryListViewState();
@@ -53,11 +39,12 @@ class CategoryListView extends StatefulWidget {
 
 class _CategoryListViewState extends State<CategoryListView> {
   late RecipeCategory _selectedCategory;
-
+  late List<GlobalKey> _keys;
   @override
   void initState() {
     _selectedCategory = widget.initialSelectedCategory ?? RecipeCategory.All;
     onPressed(_selectedCategory);
+    _keys = List.generate(RecipeCategory.values.length, (index) => GlobalKey());
     super.initState();
   }
 
@@ -76,15 +63,13 @@ class _CategoryListViewState extends State<CategoryListView> {
               child: InkWell(
                 onTap: () {
                   onPressed(calculateSelectedCategory(index));
+                  scrollToCategory(index);
                 },
                 child: Container(
-                  constraints: const BoxConstraints(
-                      maxWidth: double.infinity, minWidth: 50),
+                  key: _keys[index],
+                  constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
                   decoration: BoxDecoration(
-                    border:
-                        _selectedCategory == calculateSelectedCategory(index)
-                            ? null
-                            : Border.all(color: Colors.black, width: 0.5),
+                    border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
                     color: categoryItemColor(calculateSelectedCategory(index)),
                     borderRadius: context.radiusAllCircularMedium,
                   ),
@@ -94,10 +79,7 @@ class _CategoryListViewState extends State<CategoryListView> {
                       padding: context.paddingLowEdges,
                       child: LocaleText(
                         text: RecipeCategory.values[index].locale,
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: categoryTextColor(
-                                calculateSelectedCategory(index))),
+                        style: TextStyle(fontSize: 16, color: categoryTextColor(calculateSelectedCategory(index))),
                       ),
                     ),
                   ),
@@ -112,6 +94,14 @@ class _CategoryListViewState extends State<CategoryListView> {
     setState(() {
       _selectedCategory = category;
     });
+  }
+
+  void scrollToCategory(int index) {
+    Scrollable.ensureVisible(
+      _keys[index].currentContext!,
+      duration: Duration(seconds: 1),
+      alignment: 0.5, // Scroll to the middle of the item.
+    );
   }
 
   RecipeCategory calculateSelectedCategory(int index) {
@@ -137,7 +127,7 @@ class _CategoryListViewState extends State<CategoryListView> {
       case 'All':
         widget.onPressedAll != null ? widget.onPressedAll!() : null;
         break;
-      case 'Breakfasst':
+      case 'Breakfast':
         widget.onPressedBreakfast != null ? widget.onPressedBreakfast!() : null;
         break;
       case 'Lunch':

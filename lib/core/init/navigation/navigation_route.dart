@@ -28,24 +28,19 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:
-        return normalNavigate(const RecipeBottomNavigationBar(),
-            NavigationConstants.NAV_CONTROLLER);
+        return normalNavigate(const RecipeBottomNavigationBar(), NavigationConstants.NAV_CONTROLLER);
       case NavigationConstants.HOME:
         return normalNavigate(const HomeView(), NavigationConstants.HOME);
       case NavigationConstants.DISCOVER:
-        return normalNavigate(
-            const DiscoverView(), NavigationConstants.DISCOVER);
+        return normalNavigate(const DiscoverView(), NavigationConstants.DISCOVER);
       case NavigationConstants.LIKES:
         return normalNavigate(const LikesView(), NavigationConstants.LIKES);
       case NavigationConstants.BASKET:
         return normalNavigate(BasketView(), NavigationConstants.BASKET);
       case NavigationConstants.MATERIALSEARCH:
-        return normalNavigate(
-            const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
+        return normalNavigate(const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
       case NavigationConstants.RECIPE_DETAIL:
-        return normalNavigate(
-            RecipeDetailView2(recipeModel: args.arguments as RecipeModel),
-            NavigationConstants.RECIPE_DETAIL);
+        return normalNavigate(RecipeDetailView2(recipeModel: args.arguments as RecipeModel), NavigationConstants.RECIPE_DETAIL);
       case NavigationConstants.FINDER:
         return normalNavigate(const FinderView(), NavigationConstants.FINDER);
 

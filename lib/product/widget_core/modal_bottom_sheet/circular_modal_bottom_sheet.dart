@@ -13,7 +13,13 @@ enum CircularBottomSheetHeight {
 }
 
 class CircularBottomSheet {
-  static CircularBottomSheet instance = CircularBottomSheet._init();
+  static CircularBottomSheet? _instance;
+  static CircularBottomSheet get instance {
+    _instance ??= CircularBottomSheet._init();
+    return _instance!;
+  }
+
+  //static CircularBottomSheet instance = CircularBottomSheet._init();
   CircularBottomSheet._init();
   Future<void> show(
     context, {
@@ -25,15 +31,11 @@ class CircularBottomSheet {
   }) {
     return showModalBottomSheet<void>(
       transitionAnimationController: controller,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderConstant.instance.radiusAllCircularHigh),
+      shape: RoundedRectangleBorder(borderRadius: BorderConstant.instance.radiusAllCircularHigh),
       context: context,
       isScrollControlled: true,
       builder: (context) => Padding(
-        padding: EdgeInsets.only(
-            bottom: resizeToAvoidBottomInset == true
-                ? MediaQuery.of(context).viewInsets.bottom
-                : 0),
+        padding: EdgeInsets.only(bottom: resizeToAvoidBottomInset == true ? MediaQuery.of(context).viewInsets.bottom : 0),
         child: SizedBox(
           height: bottomSheetHeight == CircularBottomSheetHeight.short
               ? context.screenHeight / 1.8
@@ -48,9 +50,7 @@ class CircularBottomSheet {
             padding: context.paddingNormalTopBottom,
             child: Padding(
               padding: context.paddingMediumEdges,
-              child: scrollable == true
-                  ? buildChildScrollable(context, child)
-                  : buildChild(context, child),
+              child: scrollable == true ? buildChildScrollable(context, child) : buildChild(context, child),
             ),
           ),
         ),

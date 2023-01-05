@@ -81,5 +81,7 @@
     "myBasketList":"My Basket List",
     "toBuyList":"To - Buy List",
     "myPantry":"My Pantry",
-    "removeCard":"Are you sure you want to remove it from the card?"
+    "removeCard":"Are you sure you want to remove it from the card?",
+    "undo": "UNDO",
+    "undoAll": "UNDO ALL"
 }

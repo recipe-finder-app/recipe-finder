@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
-import '../../../../../core/base/model/base_view_model.dart';
 import '../../../../../core/constant/enum/image_path_enum.dart';
 import '../../../../model/ingradient_model.dart';
 
-class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewModel {
+class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
-  late List<IngredientModel> myFrizeItems = [
+  late List<IngredientModel> myFrizeItemList = [
     IngredientModel(title: 'Egg', imagePath: ImagePath.egg.path, quantity: 1),
     IngredientModel(title: 'Milk', imagePath: ImagePath.milk.path, quantity: 0.25),
     IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 1),
@@ -20,13 +19,49 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
   ];
   List<IngredientModel> missingItemList = [];
 
+  List<List<IngredientModel>> previousMissingItemList = [];
+  List<List<IngredientModel>> previousMyFrizeItemList = [];
+
+  List<IngredientModel> firstMissingItemList = [];
+  List<IngredientModel> firstMyFrizeItemList = [];
+
   AddToBasketCubit() : super(AddToBasketInit());
-  @override
-  void init() {}
+
+  void setFirstItemLists(List<IngredientModel> myFrizeList, List<IngredientModel> missingList) {
+    firstMissingItemList.clear();
+    firstMyFrizeItemList.clear();
+    firstMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
+    firstMyFrizeItemList.addAll(myFrizeList.toSet().toList());
+  }
+
+  void firstItemListsLoad() {
+    missingItemList.clear();
+    myFrizeItemList.clear();
+    missingItemList.addAll(firstMissingItemList.toSet().toList());
+    myFrizeItemList.addAll(firstMyFrizeItemList.toSet().toList());
+    missingItemLoad(missingItemList);
+    myFrizeListLoad();
+  }
+
+  void undo() {
+    if (previousMissingItemList.length > 0) {
+      missingItemList.clear();
+      missingItemList.addAll(previousMissingItemList.last.toSet().toList());
+      previousMissingItemList.removeLast();
+      missingItemLoad(missingItemList);
+    }
+    if (previousMyFrizeItemList.length > 0) {
+      myFrizeItemList.clear();
+      myFrizeItemList.addAll(previousMyFrizeItemList.last.toSet().toList());
+      previousMyFrizeItemList.removeLast();
+      myFrizeListLoad();
+    }
+  }
 
   void addItemToMissingList(IngredientModel model) {
     List<IngredientModel> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
+      previousMissingItemList.add(missingItemList.toSet().toList());
       missingItemList.add(model);
       emit(MissingItemListLoad(missingItemList.toSet().toList()!));
     }
@@ -35,18 +70,19 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
   void removeMissingItem(IngredientModel model) {
     List<IngredientModel> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
+      previousMissingItemList.add(missingItemList.toSet().toList());
       missingItemList.remove(model);
-
       emit(MissingItemListLoad(missingItemList.toSet().toList()!));
     }
   }
 
   void addItemToMyFrizeList(IngredientModel model) {
-    List<IngredientModel> value = myFrizeItems.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientModel> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
+      previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
       bool isContainTitle = false;
       IngredientModel? containModel;
-      for (var item in myFrizeItems) {
+      for (var item in myFrizeItemList) {
         if (item.title.toLowerCase() == model.title.toLowerCase()) {
           isContainTitle = true;
           containModel = item;
@@ -55,23 +91,24 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
       }
       if (isContainTitle == true) {
         IngredientModel newElement = IngredientModel(title: model.title, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
-        //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));   quantity: model.quantity
-        int index = myFrizeItems.indexOf(containModel!);
-        myFrizeItems[index] = newElement;
-        emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+        //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));//quantity: model.quantity
+
+        int index = myFrizeItemList.indexOf(containModel!);
+        myFrizeItemList[index] = newElement;
+        emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()));
       } else {
-        myFrizeItems.add(model);
-        emit(MyFrizeListLoad(myFrizeItems.toSet().toList()));
+        myFrizeItemList.add(model);
+        emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()));
       }
     }
   }
 
   void removeMyFrizeItem(IngredientModel model) {
-    List<IngredientModel> value = myFrizeItems.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientModel> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
-      myFrizeItems.remove(model);
-
-      emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
+      previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
+      myFrizeItemList.remove(model);
+      emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()!));
     }
   }
 
@@ -98,7 +135,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
   }
 
   void myFrizeListLoad() {
-    emit(MyFrizeListLoad(myFrizeItems.toSet().toList()!));
+    emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()!));
   }
 
   void missingItemDragging(bool isDragging) {
@@ -111,12 +148,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> implements IBaseViewMode
     emit(MyFrizeItemDragging(myFrizeItemIsDragging!));
   }
 
-  @override
   BuildContext? context;
 
-  @override
   void setContext(BuildContext context) => this.context = context;
-
-  @override
-  void dispose() {}
 }

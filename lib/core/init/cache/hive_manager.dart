@@ -27,7 +27,7 @@ abstract class IHiveManager<T> {
 }
 
 class HiveManager<T> extends IHiveManager<T> {
-  HiveManager(super.key);
+  HiveManager(super.hiveBoxName);
 
   @override
   Future<void> addItems(List<T> items) async {
