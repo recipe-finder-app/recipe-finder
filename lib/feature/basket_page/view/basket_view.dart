@@ -26,8 +26,7 @@ class BasketView extends StatelessWidget {
           cubitRead.init();
         },
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
-            Scaffold(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               body: SafeArea(
                 child: Padding(
                   padding: context.paddingNormalTopLeftRight,
@@ -46,90 +45,7 @@ class BasketView extends StatelessWidget {
                           text: LocaleKeys.myBasketList,
                         ),
                         context.lowSizedBox,
-                        SizedBox(
-                          height: context.normalhighValue,
-                          width: context.screenWidth,
-                          child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: cubitRead.basketRecipeItems.length,
-                            itemBuilder: (context, int cardIndex) {
-                              return BasketRecipeCard(
-                                borderRadius:
-                                    cubitRead.selectedColorIndex == cardIndex
-                                        ? null
-                                        : context.radiusAllCircularMedium,
-                                height:
-                                    cubitRead.selectedColorIndex == cardIndex
-                                        ? 130
-                                        : 120,
-                                width: cubitRead.selectedColorIndex == cardIndex
-                                    ? 130
-                                    : 120,
-                                model: cubitRead.basketRecipeItems[cardIndex],
-                                cardOnPressed: () {
-                                  cubitRead.changeSelectedCardModel(
-                                      cubitRead.basketRecipeItems[cardIndex]);
-                                  cubitRead.changeSelectedColorIndex(cardIndex);
-                                },
-                                removeIconOnPressed: (() {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return QuestionAlertDialog(
-                                          explanation: LocaleKeys.removeCard,
-                                          onPressedYes: () {
-                                            cubitRead
-                                                .deletedItemFromBasketRecipeList(
-                                                    cubitRead.basketRecipeItems[
-                                                        cardIndex]);
-                                            cubitRead
-                                                .changeSelectedCardModel(null);
-                                            cubitRead
-                                                .changeSelectedColorIndex(null);
-                                          },
-                                        );
-                                      });
-                                }),
-                                border: cubitRead.selectedColorIndex ==
-                                        cardIndex
-                                    ? Border.all(
-                                        color: cubitRead
-                                            .selectedCardItemColor(cardIndex),
-                                        width: 6)
-                                    : null,
-                                gradient: cubitRead.selectedColorIndex ==
-                                        cardIndex
-                                    ? LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        stops: const [0, 0, 0.2, 4],
-                                        colors: [
-                                          cubitRead
-                                              .selectedCardItemColor(cardIndex),
-                                          Colors.transparent,
-                                          Colors.transparent,
-                                          cubitRead
-                                              .selectedCardItemColor(cardIndex),
-                                        ],
-                                      )
-                                    : LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        stops: const [0, 0, 0.2, 1],
-                                        colors: [
-                                          cubitRead
-                                              .selectedCardItemColor(cardIndex),
-                                          Colors.transparent,
-                                          Colors.transparent,
-                                          cubitRead
-                                              .selectedCardItemColor(cardIndex),
-                                        ],
-                                      ),
-                              );
-                            },
-                          ),
-                        ),
+                        myBasketListView(context, cubitRead),
                         context.lowSizedBox,
                         LocaleText(
                           text: LocaleKeys.toBuyList,
@@ -141,91 +57,7 @@ class BasketView extends StatelessWidget {
                           ),
                         ),
                         context.lowSizedBox,
-                        cubitRead.selectCardModel == null
-                            ? const LocaleText(
-                                text:
-                                    'Satın alım listesini görmek için yukarıdan kart seçin')
-                            : ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                itemCount: cubitRead
-                                    .selectCardModel?.ingredients.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                        top: context.lowValue,
-                                        bottom: context.lowValue),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            IngredientCircleAvatar(
-                                              showText: false,
-                                              color: ColorConstants
-                                                  .instance.russianViolet
-                                                  .withOpacity(0.1),
-                                              model: cubitRead.selectCardModel!
-                                                  .ingredients[listViewIndex],
-                                              iconTopWidget: Text(
-                                                cubitRead
-                                                    .selectCardModel!
-                                                    .ingredients[listViewIndex]
-                                                    .quantity
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: ColorConstants
-                                                        .instance.white),
-                                              ),
-                                            ),
-                                            context.normalSizedBoxWidth,
-                                            Padding(
-                                              padding:
-                                                  context.paddingHighBottom,
-                                              child: Text(cubitRead
-                                                  .selectCardModel!
-                                                  .ingredients[listViewIndex]
-                                                  .title),
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding: context.paddingHighBottom,
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(
-                                                radius: 20,
-                                                backgroundColor: ColorConstants
-                                                    .instance.chenille,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.done,
-                                                    color: ColorConstants
-                                                        .instance.white,
-                                                  ),
-                                                  onPressed: () {},
-                                                ),
-                                              ),
-                                              context.lowSizedBoxWidth,
-                                              CircleAvatar(
-                                                  radius: 20,
-                                                  backgroundColor:
-                                                      ColorConstants.instance
-                                                          .oriolesOrange,
-                                                  child: ImageSvg(
-                                                    path: ImagePath
-                                                        .basketShop.path,
-                                                  )),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
+                        cubitRead.selectCardModel == null ? const LocaleText(text: 'Satın alım listesini görmek için yukarıdan kart seçin') : buildToBuyList(cubitRead),
                         context.lowSizedBox,
                         LocaleText(
                           text: LocaleKeys.myPantry,
@@ -246,27 +78,143 @@ class BasketView extends StatelessWidget {
             ));
   }
 
+  ListView buildToBuyList(BasketCubit cubitRead) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.zero,
+      shrinkWrap: true,
+      itemCount: cubitRead.selectCardModel?.ingredients.length,
+      itemBuilder: (context, listViewIndex) {
+        return Padding(
+          padding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  IngredientCircleAvatar(
+                    showText: false,
+                    color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                    model: cubitRead.selectCardModel!.ingredients[listViewIndex],
+                    iconTopWidget: Text(
+                      cubitRead.selectCardModel!.ingredients[listViewIndex].quantity.toString(),
+                      style: TextStyle(color: ColorConstants.instance.white),
+                    ),
+                  ),
+                  context.normalSizedBoxWidth,
+                  Padding(
+                    padding: context.paddingHighBottom,
+                    child: Text(cubitRead.selectCardModel!.ingredients[listViewIndex].title),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: context.paddingHighBottom,
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: ColorConstants.instance.chenille,
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.done,
+                          color: ColorConstants.instance.white,
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    context.lowSizedBoxWidth,
+                    CircleAvatar(
+                        radius: 20,
+                        backgroundColor: ColorConstants.instance.oriolesOrange,
+                        child: ImageSvg(
+                          path: ImagePath.basketShop.path,
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  SizedBox myBasketListView(BuildContext context, BasketCubit cubitRead) {
+    return SizedBox(
+      height: context.normalhighValue,
+      width: context.screenWidth,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemCount: cubitRead.basketRecipeItems.length,
+        itemBuilder: (context, int cardIndex) {
+          return BasketRecipeCard(
+            borderRadius: cubitRead.selectedColorIndex == cardIndex ? null : context.radiusAllCircularMedium,
+            height: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
+            width: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
+            model: cubitRead.basketRecipeItems[cardIndex],
+            cardOnPressed: () {
+              cubitRead.changeSelectedCardModel(cubitRead.basketRecipeItems[cardIndex]);
+              cubitRead.changeSelectedColorIndex(cardIndex);
+            },
+            removeIconOnPressed: (() {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return QuestionAlertDialog(
+                      explanation: LocaleKeys.removeCard,
+                      onPressedYes: () {
+                        cubitRead.deletedItemFromBasketRecipeList(cubitRead.basketRecipeItems[cardIndex]);
+                        cubitRead.changeSelectedCardModel(null);
+                        cubitRead.changeSelectedColorIndex(null);
+                      },
+                    );
+                  });
+            }),
+            border: cubitRead.selectedColorIndex == cardIndex ? Border.all(color: cubitRead.selectedCardItemColor(cardIndex), width: 6) : null,
+            gradient: cubitRead.selectedColorIndex == cardIndex
+                ? LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0, 0, 0.2, 4],
+                    colors: [
+                      cubitRead.selectedCardItemColor(cardIndex),
+                      Colors.transparent,
+                      Colors.transparent,
+                      cubitRead.selectedCardItemColor(cardIndex),
+                    ],
+                  )
+                : LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0, 0, 0.2, 1],
+                    colors: [
+                      cubitRead.selectedCardItemColor(cardIndex),
+                      Colors.transparent,
+                      Colors.transparent,
+                      cubitRead.selectedCardItemColor(cardIndex),
+                    ],
+                  ),
+          );
+        },
+      ),
+    );
+  }
+
   GridView buildGridViewMyPantry(BuildContext context) {
     return GridView.builder(
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: context.read<HomeCubit>().myFrizeItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            childAspectRatio: 0.70,
-            crossAxisSpacing: 30,
-            mainAxisSpacing: 35),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 35),
         itemBuilder: (context, gridViewIndex) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
             model: context.read<HomeCubit>().myFrizeItems[gridViewIndex],
             iconTopWidget: Text(
-              context
-                  .read<HomeCubit>()
-                  .myFrizeItems[gridViewIndex]
-                  .quantity
-                  .toString(),
+              context.read<HomeCubit>().myFrizeItems[gridViewIndex].quantity.toString(),
               style: TextStyle(color: ColorConstants.instance.white),
             ),
           );

@@ -19,16 +19,12 @@ class DiscoverView extends StatelessWidget {
     return BaseView<DiscoverCubit>(
         init: (cubitRead) {},
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
-            Scaffold(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.only(
-                        top: context.mediumValue,
-                        left: context.normalValue,
-                        right: context.normalValue),
+                    padding: EdgeInsets.only(top: context.mediumValue, left: context.normalValue, right: context.normalValue),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,37 +48,37 @@ class DiscoverView extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                         context.lowSizedBox,
-                        GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: cubitRead.discoverRecipeList.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 15,
-                              crossAxisSpacing: 15,
-                              childAspectRatio: 1 / 1,
-                            ),
-                            itemBuilder: (BuildContext context, int cardIndex) {
-                              return DiscoverCard(
-                                model: cubitRead.discoverRecipeList[cardIndex],
-                                addToBasketOnPressed: () {},
-                                recipeOnPressed: () {
-                                  NavigationService.instance.navigateToPage(
-                                      path: NavigationConstants.RECIPE_DETAIL,
-                                      data: cubitRead
-                                          .discoverRecipeList[cardIndex]);
-                                  /* recipeBottomSheet(
-                                context, cubitRead, cardIndex);*/
-                                },
-                                likeIconOnPressed: () {},
-                              );
-                            }),
+                        buildTrendingNowGrid(cubitRead),
                       ],
                     ),
                   ),
                 ),
               ),
             ));
+  }
+
+  GridView buildTrendingNowGrid(DiscoverCubit cubitRead) {
+    return GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: cubitRead.discoverRecipeList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 15,
+          crossAxisSpacing: 15,
+          childAspectRatio: 1 / 1,
+        ),
+        itemBuilder: (BuildContext context, int cardIndex) {
+          return DiscoverCard(
+            model: cubitRead.discoverRecipeList[cardIndex],
+            addToBasketOnPressed: () {},
+            recipeOnPressed: () {
+              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
+              /* recipeBottomSheet(
+                              context, cubitRead, cardIndex);*/
+            },
+            likeIconOnPressed: () {},
+          );
+        });
   }
 }
