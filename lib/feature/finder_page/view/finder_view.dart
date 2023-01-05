@@ -236,7 +236,7 @@ class _FinderViewState extends State<FinderView> {
             text: LocaleKeys.finderText,
           ),
         ),
-        /* TextButton(
+        TextButton(
           onPressed: () {
             NavigationService.instance
                 .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
@@ -254,7 +254,7 @@ class _FinderViewState extends State<FinderView> {
                 decorationThickness: 2,
               ),
               text: LocaleKeys.close),
-        ),*/
+        ),
       ]),
     );
   }
