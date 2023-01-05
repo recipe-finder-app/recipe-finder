@@ -27,22 +27,25 @@ class OnboardView extends StatelessWidget {
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
-        body: PageView.builder(
-            physics: const ClampingScrollPhysics(),
-            pageSnapping: true,
-            controller: cubitRead.pageController,
-            itemCount: cubitRead.onboardItems.length,
-            onPageChanged: (value) async {
-              cubitRead.changeCurrentIndex(value);
-            },
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  buildImagePart(context, index, cubitRead),
-                  buildWritingPart(context, cubitRead, index),
-                ],
-              );
-            }),
+        body: WillPopScope(
+          onWillPop: () => Future<bool>.value(false),
+          child: PageView.builder(
+              physics: const ClampingScrollPhysics(),
+              pageSnapping: true,
+              controller: cubitRead.pageController,
+              itemCount: cubitRead.onboardItems.length,
+              onPageChanged: (value) async {
+                cubitRead.changeCurrentIndex(value);
+              },
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    buildImagePart(context, index, cubitRead),
+                    buildWritingPart(context, cubitRead, index),
+                  ],
+                );
+              }),
+        ),
       ),
     );
   }
