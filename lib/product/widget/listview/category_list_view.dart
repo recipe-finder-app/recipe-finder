@@ -39,11 +39,12 @@ class CategoryListView extends StatefulWidget {
 
 class _CategoryListViewState extends State<CategoryListView> {
   late RecipeCategory _selectedCategory;
-
+  late List<GlobalKey> _keys;
   @override
   void initState() {
     _selectedCategory = widget.initialSelectedCategory ?? RecipeCategory.All;
     onPressed(_selectedCategory);
+    _keys = List.generate(RecipeCategory.values.length, (index) => GlobalKey());
     super.initState();
   }
 
@@ -62,8 +63,10 @@ class _CategoryListViewState extends State<CategoryListView> {
               child: InkWell(
                 onTap: () {
                   onPressed(calculateSelectedCategory(index));
+                  scrollToCategory(index);
                 },
                 child: Container(
+                  key: _keys[index],
                   constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
                   decoration: BoxDecoration(
                     border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
@@ -91,6 +94,14 @@ class _CategoryListViewState extends State<CategoryListView> {
     setState(() {
       _selectedCategory = category;
     });
+  }
+
+  void scrollToCategory(int index) {
+    Scrollable.ensureVisible(
+      _keys[index].currentContext!,
+      duration: Duration(seconds: 1),
+      alignment: 0.5, // Scroll to the middle of the item.
+    );
   }
 
   RecipeCategory calculateSelectedCategory(int index) {

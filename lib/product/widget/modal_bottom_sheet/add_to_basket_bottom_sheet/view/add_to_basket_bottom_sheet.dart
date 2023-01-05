@@ -36,12 +36,18 @@ class AddToBasketBottomSheet {
                   onPressed: () {
                     context.read<AddToBasketCubit>().firstItemListsLoad();
                   },
-                  child: LocaleBoldText(text: LocaleKeys.undoAll)),
+                  child: LocaleBoldText(
+                    text: LocaleKeys.undoAll,
+                    fontSize: 12,
+                  )),
               TextButton(
                   onPressed: () {
                     context.read<AddToBasketCubit>().undo();
                   },
-                  child: LocaleBoldText(text: LocaleKeys.undo)),
+                  child: LocaleBoldText(
+                    text: LocaleKeys.undo,
+                    fontSize: 12,
+                  )),
             ],
           ),
           Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),

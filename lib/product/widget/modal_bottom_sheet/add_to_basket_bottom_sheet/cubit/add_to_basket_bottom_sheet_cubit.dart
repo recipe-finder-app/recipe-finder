@@ -28,6 +28,8 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
   AddToBasketCubit() : super(AddToBasketInit());
 
   void setFirstItemLists(List<IngredientModel> myFrizeList, List<IngredientModel> missingList) {
+    firstMissingItemList.clear();
+    firstMyFrizeItemList.clear();
     firstMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
     firstMyFrizeItemList.addAll(myFrizeList.toSet().toList());
   }
