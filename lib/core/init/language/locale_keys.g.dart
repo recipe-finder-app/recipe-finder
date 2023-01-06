@@ -86,5 +86,10 @@ abstract class  LocaleKeys {
   static const removeCard = 'removeCard';
   static const undo = 'undo';
   static const undoAll = 'undoAll';
+  static const add = 'add';
+  static const amount = 'amount';
+  static const dontEmptyThisField = 'dontEmptyThisField';
+  static const dontEnterNegativeValue = 'dontEnterNegativeValue';
+  static const enterValidEmailAddress = 'enterValidEmailAddress';
 
 }

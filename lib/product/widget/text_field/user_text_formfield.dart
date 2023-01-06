@@ -10,8 +10,7 @@ import '../../widget_core/image_format/image_svg.dart';
 
 class UserTextFormField extends StatefulWidget {
   final TextEditingController controller;
-  const UserTextFormField({Key? key, required this.controller})
-      : super(key: key);
+  const UserTextFormField({Key? key, required this.controller}) : super(key: key);
 
   @override
   State<UserTextFormField> createState() => _UserTextFormFieldState();
@@ -45,7 +44,7 @@ class _UserTextFormFieldState extends State<UserTextFormField> {
           setState(() {
             isValid = false;
           });
-          return "Bu Alanı Boş Bırakmayınız!";
+          return LocaleKeys.dontEmptyThisField.locale;
         } else {
           setState(() {
             isValid = true;
