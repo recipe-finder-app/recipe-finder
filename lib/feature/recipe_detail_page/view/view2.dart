@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
+import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
@@ -20,6 +21,8 @@ import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../../../product/widget_core/text/locale_text.dart';
 import '../../home_page/cubit/home_cubit.dart';
+import '../../likes_page/cubit/likes_cubit.dart';
+import '../../likes_page/cubit/likes_state.dart';
 
 class RecipeDetailView2 extends StatefulWidget {
   RecipeModel recipeModel;
@@ -41,6 +44,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2> with SingleTicker
   Widget build(BuildContext context) {
     return BaseView<RecipeDetailCubit>(
       init: (cubitRead) {
+        cubitRead.setContext(context);
         cubitRead.init();
         _animationController = AnimationController(
           vsync: this,
@@ -125,16 +129,53 @@ class _RecipeDetailView2State extends State<RecipeDetailView2> with SingleTicker
                       ),
                     ),
                   ),
-                  context.lowSizedBoxWidth,
-                  CircularBackground(
-                      circleHeight: 30,
-                      circleWidth: 30,
-                      color: ColorConstants.instance.russianViolet,
-                      child: const Icon(
-                        Icons.favorite,
-                        color: Colors.white,
-                        size: 15,
-                      )),
+                  context.normalSizedBoxWidth,
+                  BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
+                    if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
+                      print(context.read<LikesCubit>().recipeList.length);
+                      return InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return QuestionAlertDialog(
+                                  explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                                  onPressedYes: () {
+                                    context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
+                                    print(context.read<LikesCubit>().recipeList.length);
+                                  },
+                                );
+                              });
+                        },
+                        child: CircularBackground(
+                            circleHeight: 30,
+                            circleWidth: 30,
+                            color: ColorConstants.instance.russianViolet,
+                            child: const Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                              size: 15,
+                            )),
+                      );
+                    } else {
+                      print(context.read<LikesCubit>().recipeList.length);
+                      return InkWell(
+                        onTap: () {
+                          context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
+                          print(context.read<LikesCubit>().recipeList.length);
+                        },
+                        child: CircularBackground(
+                            circleHeight: 30,
+                            circleWidth: 30,
+                            color: ColorConstants.instance.russianViolet,
+                            child: const Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                              size: 15,
+                            )),
+                      );
+                    }
+                  }),
                 ],
               ),
             ),

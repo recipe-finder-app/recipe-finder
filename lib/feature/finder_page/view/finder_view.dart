@@ -189,7 +189,7 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
-              context.read<LikesCubit>().recipeList.add(cubitRead.recipeList!.first);
+              context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.recipeList!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(

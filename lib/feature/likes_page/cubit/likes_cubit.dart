@@ -16,21 +16,18 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   late List<RecipeModel> recipeList = [
     RecipeModel(
         ingredients: [
-          IngredientModel(
-              title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
+          IngredientModel(title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Egg', quantity: 4),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        title:
-            'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+        title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
             'uzun text deneme',
         imagePath: ImagePath.imageSample1.path,
         videoPath: 'asset/video/samplevideo.mp4',
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample2.path,
@@ -41,8 +38,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample3.path,
@@ -53,8 +49,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample4.path,
@@ -65,8 +60,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample1.path,
@@ -77,8 +71,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample1.path,
@@ -89,14 +82,12 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample1.path,
         videoPath: 'asset/video/pizza.mp4',
-        title:
-            'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+        title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
             'uzun text deneme',
         ingredients: [
           IngredientModel(title: 'Egg', quantity: 4),
@@ -106,25 +97,18 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
           IngredientModel(title: 'Butter', quantity: 1 / 2),
           IngredientModel(title: 'Butter', quantity: 1 / 2),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
         imagePath: ImagePath.imageSample3.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(
-              title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
-          IngredientModel(
-              title: 'Milk', quantity: 1 / 2, imagePath: ImagePath.milk.name),
-          IngredientModel(
-              title: 'Butter',
-              quantity: 1 / 2,
-              imagePath: ImagePath.salad.path),
+          IngredientModel(title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
+          IngredientModel(title: 'Milk', quantity: 1 / 2, imagePath: ImagePath.milk.name),
+          IngredientModel(title: 'Butter', quantity: 1 / 2, imagePath: ImagePath.salad.path),
         ],
-        description:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
   ];
 
@@ -154,22 +138,22 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
     service = LikesService();
     scrollController = ScrollController();
     myFrizeItems = [
-      IngredientModel(
-          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-      IngredientModel(
-          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-      IngredientModel(
-          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+      IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+      IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+      IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
       IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-      IngredientModel(
-          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-      IngredientModel(
-          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+      IngredientModel(title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
+      IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
   }
 
   void deleteItemFromLikedRecipeList(RecipeModel model) {
     recipeList.remove(model);
+    emit(LikesRecipeItemListLoad(recipeList.toSet().toList()));
+  }
+
+  void addItemFromLikedRecipeList(RecipeModel model) {
+    recipeList.add(model);
     emit(LikesRecipeItemListLoad(recipeList.toSet().toList()));
   }
 
