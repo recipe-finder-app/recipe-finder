@@ -79,9 +79,9 @@ class AddToBasketBottomSheet {
                         context.read<AddToBasketCubit>().removeMyFrizeItem(data);
                       }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
                         if (draggingState == true) {
-                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: missingItemsListView(state));
+                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: _missingItemsListView(state));
                         } else {
-                          return missingItemsListView(state);
+                          return _missingItemsListView(state);
                         }
                       }),
                     );
@@ -113,9 +113,9 @@ class AddToBasketBottomSheet {
                         context.read<AddToBasketCubit>().removeMissingItem(data);
                       }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
                         if (draggingState == true) {
-                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: myFrizeItemListView(state));
+                          return DottedBorder(borderType: BorderType.RRect, dashPattern: const [8, 4], radius: const Radius.circular(12), padding: const EdgeInsets.all(6), child: _myFrizeItemListView(state));
                         } else {
-                          return myFrizeItemListView(state);
+                          return _myFrizeItemListView(state);
                         }
                       }),
               );
@@ -127,7 +127,7 @@ class AddToBasketBottomSheet {
     );
   }
 
-  ListView myFrizeItemListView(List<IngredientModel> state) {
+  ListView _myFrizeItemListView(List<IngredientModel> state) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: state.length,
@@ -161,7 +161,7 @@ class AddToBasketBottomSheet {
         });
   }
 
-  ListView missingItemsListView(List<IngredientModel> state) {
+  ListView _missingItemsListView(List<IngredientModel> state) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: state.length,

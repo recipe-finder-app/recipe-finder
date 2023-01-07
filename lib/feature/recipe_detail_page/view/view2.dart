@@ -8,6 +8,7 @@ import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
+import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/base/view/base_view.dart';
@@ -54,9 +55,12 @@ class _RecipeDetailView2State extends State<RecipeDetailView2> with SingleTicker
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-        floatingActionButton: const RecipeFabButton(
+        floatingActionButton: RecipeFabButton(
           heroTag: 'recipeFabButton',
           text: LocaleKeys.addToBasket,
+          onPressed: () {
+            AddToBasketBottomSheet.instance.show(context, widget.recipeModel.ingredients);
+          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: Colors.white,
@@ -162,7 +166,7 @@ class _RecipeDetailView2State extends State<RecipeDetailView2> with SingleTicker
     return Padding(
       padding: context.paddingMediumEdges,
       child: Padding(
-        padding: EdgeInsets.only(bottom: context.highValue),
+        padding: EdgeInsets.only(bottom: context.veryHighValue * 1.25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
