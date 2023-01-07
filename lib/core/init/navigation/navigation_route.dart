@@ -10,7 +10,7 @@ import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
 import '../../../feature/material_search_page/view/material_search_view.dart';
-import '../../../feature/recipe_detail_page/view/view2.dart';
+import '../../../feature/recipe_detail_page/view/recipe_detail_view.dart';
 import '../../../product/widget/bottom_nav_bar_controller/recipe_bottom_navigation_bar.dart';
 import '../../../product/widget_core/no_navigation/no_navigation_view.dart';
 
@@ -40,7 +40,7 @@ class NavigationRoute {
       case NavigationConstants.MATERIALSEARCH:
         return normalNavigate(const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
       case NavigationConstants.RECIPE_DETAIL:
-        return normalNavigate(RecipeDetailView2(recipeModel: args.arguments as RecipeModel), NavigationConstants.RECIPE_DETAIL);
+        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as RecipeModel), NavigationConstants.RECIPE_DETAIL);
       case NavigationConstants.FINDER:
         return normalNavigate(const FinderView(), NavigationConstants.FINDER);
 

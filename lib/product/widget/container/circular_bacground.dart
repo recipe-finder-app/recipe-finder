@@ -5,13 +5,8 @@ class CircularBackground extends StatelessWidget {
   final double? circleWidth;
   final Widget child;
   final Color? color;
-  const CircularBackground(
-      {Key? key,
-      this.circleHeight,
-      this.circleWidth,
-      required this.child,
-      this.color})
-      : super(key: key);
+  final Border? border;
+  const CircularBackground({Key? key, this.circleHeight, this.circleWidth, required this.child, this.color, this.border}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +19,7 @@ class CircularBackground extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: color ?? Colors.transparent.withOpacity(0.2),
+            border: border,
           ),
         ),
         child

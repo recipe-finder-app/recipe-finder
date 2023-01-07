@@ -20,15 +20,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   void init() {
     service = RecipeDetailService();
     videoPlayerInit();
-  }
-
-  bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {
-    bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
-    return result;
-  }
-
-  void videoPlayerInit() {
-    videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
       showControlsOnInitialize: true,
@@ -36,7 +27,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
       looping: false,
       aspectRatio: 1.30,
       progressIndicatorDelay: const Duration(seconds: 2),
-      customControls: const Padding(
+      customControls: Padding(
         padding: EdgeInsets.only(bottom: 55, top: 35, right: 15, left: 15),
         child: CupertinoControls(
           backgroundColor: Colors.grey,
@@ -44,6 +35,53 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
         ),
       ),
     );
+  }
+
+  bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {
+    bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
+    return result;
+  }
+
+  void adJustChewieControllerMode(bool isFullScreen) {
+    if (isFullScreen) {
+      chewieController = ChewieController(
+        videoPlayerController: videoPlayerController,
+        showControlsOnInitialize: true,
+        autoPlay: false,
+        looping: false,
+        aspectRatio: 1.30,
+        progressIndicatorDelay: const Duration(seconds: 2),
+        customControls: const Padding(
+          padding: EdgeInsets.only(bottom: 25, top: 35, right: 15, left: 15),
+          child: CupertinoControls(
+            backgroundColor: Colors.grey,
+            iconColor: Colors.white,
+          ),
+        ),
+      );
+      emit(ChangeVideoPlayerModeState(chewieController));
+    } else {
+      chewieController = ChewieController(
+        videoPlayerController: videoPlayerController,
+        showControlsOnInitialize: true,
+        autoPlay: false,
+        looping: false,
+        aspectRatio: 1.30,
+        progressIndicatorDelay: const Duration(seconds: 2),
+        customControls: const Padding(
+          padding: EdgeInsets.only(bottom: 55, top: 35, right: 15, left: 15),
+          child: CupertinoControls(
+            backgroundColor: Colors.grey,
+            iconColor: Colors.white,
+          ),
+        ),
+      );
+      emit(ChangeVideoPlayerModeState(chewieController));
+    }
+  }
+
+  void videoPlayerInit() {
+    videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')..initialize();
     /* Padding(
       padding: EdgeInsets.all(50),
       child: Column(

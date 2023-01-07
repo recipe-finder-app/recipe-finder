@@ -1,21 +1,29 @@
-/*import 'package:chewie/chewie.dart';
+import 'dart:ui';
+
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
+import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_state.dart';
+import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
+import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
+import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
+import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/model/recipe_model.dart';
-import '../../../product/widget/button/recipe_fab_button.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import '../../../product/widget/container/circular_bacground.dart';
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
+import '../../../product/widget_core/text/locale_text.dart';
 import '../../home_page/cubit/home_cubit.dart';
-import '../cubit/recipe_detail_cubit.dart';
+import '../../likes_page/cubit/likes_cubit.dart';
+import '../../likes_page/cubit/likes_state.dart';
 
 class RecipeDetailView extends StatefulWidget {
   RecipeModel recipeModel;
@@ -25,35 +33,49 @@ class RecipeDetailView extends StatefulWidget {
   State<RecipeDetailView> createState() => _RecipeDetailViewState();
 }
 
-class _RecipeDetailViewState extends State<RecipeDetailView>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  void _startAnimation() {
+    _animationController.reset();
+    _animationController.forward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<RecipeDetailCubit>(
       init: (cubitRead) {
+        cubitRead.setContext(context);
         cubitRead.init();
-        _tabController = TabController(vsync: this, length: 2);
+
+        _animationController = AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 500),
+        );
+        _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+        _startAnimation();
       },
       dispose: (cubitRead) {
         cubitRead.dispose();
-        _tabController.dispose();
+        _animationController.dispose();
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-        floatingActionButton: const RecipeFabButton(
+        floatingActionButton: RecipeFabButton(
+          heroTag: 'recipeFabButton',
           text: LocaleKeys.addToBasket,
+          onPressed: () {
+            AddToBasketBottomSheet.instance.show(context, widget.recipeModel.ingredients);
+          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         backgroundColor: Colors.white,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                videoPlayer(cubitRead, context),
-                recipe(context, cubitRead),
-              ],
-            ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              videoPlayer(cubitRead, context),
+              recipe(context, cubitRead),
+            ],
           ),
         ),
       ),
@@ -61,42 +83,42 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
   }
 
   Widget videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional.topStart,
-      children: [
-        AspectRatio(
-          aspectRatio: cubitRead.chewieController.aspectRatio!,
-          child: Chewie(
-            controller: cubitRead.chewieController,
-          ),
-        ),
-        cubitRead.chewieController.isPlaying == true
-            ? const SizedBox()
-            : topOfVideoPlayerStack(context),
-        Positioned(
-          bottom: 0,
-          child: Container(
-            height: 50,
-            width: context.screenWidth,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: context.radiusTopCircularVeryHigh,
+    return BlocSelector<RecipeDetailCubit, IRecipeDetailState, ChewieController>(
+      selector: (state) {
+        if (state is ChangeVideoPlayerModeState) {
+          return state.controller;
+        } else {
+          return cubitRead.chewieController;
+        }
+      },
+      builder: (context, state) {
+        return Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: cubitRead.chewieController.aspectRatio!,
+              child: Chewie(
+                controller: cubitRead.chewieController,
+              ),
             ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  left: context.mediumValue, top: context.lowValue),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Row(
+            cubitRead.chewieController.isPlaying == true ? const SizedBox() : videoPlayerStack(context),
+            Positioned(
+              bottom: -5,
+              height: 50,
+              width: context.screenWidth,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: context.radiusTopCircularVeryHigh,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
+                  child: Row(
                     children: [
                       InkWell(
                         onTap: () {
                           String ingredientsText = '';
-                          for (var ingredient
-                              in widget.recipeModel.ingredients!) {
-                            ingredientsText =
-                                '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+                          for (var ingredient in widget.recipeModel.ingredients!) {
+                            ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
                           }
 
                           String message = '${LocaleKeys.ingredients.locale}\n'
@@ -118,28 +140,66 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
                           ),
                         ),
                       ),
-                      context.lowSizedBoxWidth,
-                      CircularBackground(
-                          circleHeight: 30,
-                          circleWidth: 30,
-                          color: ColorConstants.instance.russianViolet,
-                          child: const Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                            size: 15,
-                          )),
+                      context.normalSizedBoxWidth,
+                      BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
+                        if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
+                          print(context.read<LikesCubit>().recipeList.length);
+                          return InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return QuestionAlertDialog(
+                                      explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                                      onPressedYes: () {
+                                        context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
+                                        print(context.read<LikesCubit>().recipeList.length);
+                                      },
+                                    );
+                                  });
+                            },
+                            child: CircularBackground(
+                                circleHeight: 30,
+                                circleWidth: 30,
+                                color: ColorConstants.instance.russianViolet,
+                                child: const Icon(
+                                  Icons.favorite_outlined,
+                                  color: Colors.white,
+                                  size: 15,
+                                )),
+                          );
+                        } else {
+                          print(context.read<LikesCubit>().recipeList.length);
+                          return InkWell(
+                            onTap: () {
+                              context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
+                              print(context.read<LikesCubit>().recipeList.length);
+                            },
+                            child: CircularBackground(
+                                circleHeight: 30,
+                                circleWidth: 30,
+                                color: Colors.white,
+                                border: Border.all(width: 1, color: ColorConstants.instance.russianViolet),
+                                child: Icon(
+                                  Icons.favorite_outline_outlined,
+                                  color: ColorConstants.instance.russianViolet,
+                                  size: 18,
+                                )),
+                          );
+                        }
+                      }),
                     ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 
-  Widget topOfVideoPlayerStack(BuildContext context) {
+  Widget videoPlayerStack(BuildContext context) {
     return Padding(
       padding: context.paddingNormalAll,
       child: Padding(
@@ -161,7 +221,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
     return Padding(
       padding: context.paddingMediumEdges,
       child: Padding(
-        padding: EdgeInsets.only(bottom: context.highValue),
+        padding: EdgeInsets.only(bottom: context.veryHighValue * 1.25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,33 +237,80 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
               overflow: TextOverflow.ellipsis,
             ),
             context.lowSizedBox,
-            TabBar(
-              controller: _tabController,
-              labelColor: ColorConstants.instance.oriolesOrange,
-              unselectedLabelColor: Colors.black,
-              indicatorColor: ColorConstants.instance.oriolesOrange,
-              indicatorWeight: 1,
-              tabs: [
-                Tab(
-                  text: LocaleKeys.ingredients.locale,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InkWell(
+                  onTap: () {
+                    cubitRead.changeSelectedCategoryIndex(0);
+                    _startAnimation();
+                  },
+                  child: Container(
+                    height: 45,
+                    width: context.screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      border: cubitRead.selectedCategoryIndex == 0 ? null : Border.all(color: Colors.black, width: 0.5),
+                      color: cubitRead.categoryItemColor(0),
+                      borderRadius: context.radiusAllCircularMedium,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: context.paddingLowEdges,
+                        child: LocaleText(
+                          text: LocaleKeys.ingredients.locale,
+                          style: TextStyle(fontSize: 16, color: cubitRead.categoryTextColor(0)),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                Tab(
-                  text: LocaleKeys.directions.locale,
+                InkWell(
+                  onTap: () {
+                    cubitRead.changeSelectedCategoryIndex(1);
+                    _startAnimation();
+                  },
+                  child: Container(
+                    height: 45,
+                    width: context.screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      border: cubitRead.selectedCategoryIndex == 1 ? null : Border.all(color: Colors.black, width: 0.5),
+                      color: cubitRead.categoryItemColor(1),
+                      borderRadius: context.radiusAllCircularMedium,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: context.paddingLowEdges,
+                        child: LocaleText(
+                          text: LocaleKeys.directions.locale,
+                          style: TextStyle(fontSize: 16, color: cubitRead.categoryTextColor(1)),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
-            SizedBox(
-              height: context.screenHeight * 5,
-              child: TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  SingleChildScrollView(child: tabBarIngredients(context)),
-                  SingleChildScrollView(child: tabBarDirections(context)),
-                  // tabBarDirections(context),
-                ],
-              ),
-            ),
+            cubitRead.selectedCategoryIndex == 0
+                ? Hero(tag: 'tabBarIngredients', child: FadeTransition(opacity: _animation, child: tabBarIngredients(context)))
+                : cubitRead.selectedCategoryIndex == 1 //bu hero widget'ını fab button tag değeriyle bu animasyonların tag değeri çakıştığı için veriyoruz.Fab butona da farklı tag verdik.
+                    ? Hero(tag: 'tabBarDirections', child: FadeTransition(opacity: _animation, child: tabBarDirections(context)))
+                    : const SizedBox(),
+            /*  AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Transform.scale(
+                  scale: _animation.value,
+                  child: FadeTransition(opacity: _animation, child: child),
+                );
+              },
+              child: cubitRead.selectedCategoryIndex == 0
+                  ? tabBarIngredients(context)
+                  : cubitRead.selectedCategoryIndex == 1
+                      ? tabBarDirections(context)
+                      : const SizedBox(),
+            ),*/
           ],
         ),
       ),
@@ -238,12 +345,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(widget
-                      .recipeModel.ingredients![recipeIngredientsIndex].quantity
-                      .toString()),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex].quantity.toString()),
                   context.lowSizedBoxWidth,
-                  Text(widget
-                      .recipeModel.ingredients![recipeIngredientsIndex].title),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex].title),
                 ],
               );
             }),
@@ -264,17 +368,10 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
                       return Padding(
                         padding: EdgeInsets.only(right: context.lowValue),
                         child: IngredientCircleAvatar(
-                          color: ColorConstants.instance.russianViolet
-                              .withOpacity(0.1),
-                          model: context
-                              .read<HomeCubit>()
-                              .myFrizeItems[missingItemIndex],
+                          color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                          model: context.read<HomeCubit>().myFrizeItems[missingItemIndex],
                           iconTopWidget: Text(
-                            context
-                                .read<HomeCubit>()
-                                .myFrizeItems[missingItemIndex]
-                                .quantity
-                                .toString(),
+                            context.read<HomeCubit>().myFrizeItems[missingItemIndex].quantity.toString(),
                             style: const TextStyle(color: Colors.white),
                           ),
                         ),
@@ -291,4 +388,4 @@ class _RecipeDetailViewState extends State<RecipeDetailView>
       ],
     );
   }
-}*/
+}
