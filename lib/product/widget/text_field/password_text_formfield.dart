@@ -58,9 +58,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
             });
           },
           icon: Icon(
-            showPassword
-                ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
+            showPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
             color: Colors.black87,
           ),
         ),
@@ -70,7 +68,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           setState(() {
             isValid = false;
           });
-          return "Bu Alanı Boş Bırakmayınız!";
+          return LocaleKeys.dontEmptyThisField.locale;
         } else {
           setState(() {
             isValid = true;

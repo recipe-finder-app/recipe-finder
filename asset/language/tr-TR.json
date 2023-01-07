@@ -83,5 +83,10 @@
     "myPantry":"Benimkiler",
     "removeCard":"Kartı çıkarmak istediğinizden emin misiniz?",
     "undo": "GERİ AL",
-    "undoAll": "TÜMÜNÜ GERİ AL"
+    "undoAll": "TÜMÜNÜ GERİ AL",
+    "add": "Ekle",
+    "amount": "Miktar",
+    "dontEmptyThisField": "Bu alanı boş bırakmayın!",
+    "dontEnterNegativeValue": "Negatif değer girilemez!",
+    "enterValidEmailAddress": "Geçerli bir email adresi girin!"
 }

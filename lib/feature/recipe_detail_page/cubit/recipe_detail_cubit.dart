@@ -5,11 +5,12 @@ import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/design/color_constant.dart';
+import '../../../product/model/recipe_model.dart';
+import '../../likes_page/cubit/likes_cubit.dart';
 import '../service/recipe_detail_service.dart';
 import 'recipe_detail_state.dart';
 
-class RecipeDetailCubit extends Cubit<IRecipeDetailState>
-    implements IBaseViewModel {
+class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewModel {
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
@@ -21,9 +22,13 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState>
     videoPlayerInit();
   }
 
+  bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {
+    bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
+    return result;
+  }
+
   void videoPlayerInit() {
-    videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')
-      ..initialize();
+    videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
       showControlsOnInitialize: true,

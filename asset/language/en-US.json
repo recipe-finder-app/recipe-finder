@@ -83,5 +83,10 @@
     "myPantry":"My Pantry",
     "removeCard":"Are you sure you want to remove it from the card?",
     "undo": "UNDO",
-    "undoAll": "UNDO ALL"
+    "undoAll": "UNDO ALL",
+    "add": "Add",
+    "amount": "Amount",
+    "dontEmptyThisField": "Don't empty this field!",
+    "dontEnterNegativeValue": "Don't enter negative value!",
+    "enterValidEmailAddress": "Enter a valid e-mail address"
 }

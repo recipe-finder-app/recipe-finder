@@ -12,8 +12,7 @@ import '../../../core/constant/enum/image_path_enum.dart';
 class EmailTextFormField extends StatefulWidget {
   final TextEditingController controller;
   final bool? validator;
-  const EmailTextFormField({Key? key, this.validator, required this.controller})
-      : super(key: key);
+  const EmailTextFormField({Key? key, this.validator, required this.controller}) : super(key: key);
 
   @override
   State<EmailTextFormField> createState() => _EmailTextFormFieldState();
@@ -49,7 +48,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
             setState(() {
               isValid = false;
             });
-            return "Bu alanı boş bırakmayınız!";
+            return LocaleKeys.dontEmptyThisField.locale;
           } else {
             return null;
           }
@@ -57,7 +56,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
           setState(() {
             isValid = false;
           });
-          return "Geçerli bir email girin!";
+          return LocaleKeys.enterValidEmailAddress.locale;
         } else {
           setState(() {
             isValid = true;
