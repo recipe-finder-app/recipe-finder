@@ -13,8 +13,7 @@ class LanguagePopupMenuButton extends StatefulWidget {
   const LanguagePopupMenuButton({Key? key, this.color}) : super(key: key);
 
   @override
-  State<LanguagePopupMenuButton> createState() =>
-      _LanguagePopupMenuButtonState();
+  State<LanguagePopupMenuButton> createState() => _LanguagePopupMenuButtonState();
 }
 
 class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
@@ -48,27 +47,20 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
+      offset: selectedLanguageId == 2 ? Offset(0, 50) : Offset(0, 0),
       shape: OutlineInputBorder(borderRadius: context.radiusAllCircularMin),
       position: PopupMenuPosition.under,
       color: Colors.white.withOpacity(0.8),
       initialValue: selectedLanguageId ?? 1,
       itemBuilder: (context) => [
         PopupMenuItem(
-            textStyle: TextStyle(
-                color: context.locale.languageCode ==
-                        SupportedLanguages.EN.name.toLowerCase()
-                    ? ColorConstants.instance.oriolesOrange
-                    : Colors.black),
+            textStyle: TextStyle(color: context.locale.languageCode == SupportedLanguages.EN.name.toLowerCase() ? ColorConstants.instance.oriolesOrange : Colors.black),
             value: 1,
             child: const Text(
               'English (EN)',
             )),
         PopupMenuItem(
-            textStyle: TextStyle(
-                color: context.locale.languageCode ==
-                        SupportedLanguages.TR.name.toLowerCase()
-                    ? ColorConstants.instance.oriolesOrange
-                    : Colors.black),
+            textStyle: TextStyle(color: context.locale.languageCode == SupportedLanguages.TR.name.toLowerCase() ? ColorConstants.instance.oriolesOrange : Colors.black),
             value: 2,
             child: const Text(
               'Türkçe (TR)',
@@ -97,8 +89,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
             ),
             Text(
               selectedLanguage ?? context.locale.languageCode.toUpperCase(),
-              style: TextStyle(
-                  color: widget.color ?? ColorConstants.instance.oriolesOrange),
+              style: TextStyle(color: widget.color ?? ColorConstants.instance.oriolesOrange),
             ),
           ],
         ),

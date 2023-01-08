@@ -1,3 +1,5 @@
+import 'package:chewie/chewie.dart';
+
 import '../../../product/model/ingradient_model.dart';
 
 abstract class IRecipeDetailState {
@@ -23,9 +25,9 @@ class ChangeSelectedCategoryIndex extends IRecipeDetailState {
   ChangeSelectedCategoryIndex(this.index);
 }
 
-class ChangeVideoPlayerState extends IRecipeDetailState {
-  late Future<void> controller;
-  ChangeVideoPlayerState(this.controller);
+class ChangeVideoPlayerModeState extends IRecipeDetailState {
+  late ChewieController controller;
+  ChangeVideoPlayerModeState(this.controller);
 }
 
 class RecipeDetailError extends IRecipeDetailState {
