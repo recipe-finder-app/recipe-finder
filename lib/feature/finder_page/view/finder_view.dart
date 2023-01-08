@@ -42,7 +42,8 @@ class _FinderViewState extends State<FinderView> {
   Widget build(BuildContext context) {
     return BaseView<FinderCubit>(
         init: (cubitRead) {
-          _controller = SwipableStackController()..addListener(_listenController);
+          _controller = SwipableStackController()
+            ..addListener(_listenController);
           cubitRead.init();
         },
         dispose: (cubitRead) {
@@ -52,7 +53,8 @@ class _FinderViewState extends State<FinderView> {
           cubitRead.dispose();
         },
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
+            Scaffold(
               backgroundColor: ColorConstants.instance.ephemeralBlue,
               body: Padding(
                 padding: context.paddingHighOnlyTop,
@@ -73,7 +75,11 @@ class _FinderViewState extends State<FinderView> {
                           children: [
                             _textRow(context),
                             context.normalSizedBox,
-                            cubitRead.recipeListItemCount == 0 ? const Align(alignment: Alignment.center, child: Text('Şimdilik bu kadar...')) : buildTinderCard(context, cubitRead),
+                            cubitRead.recipeListItemCount == 0
+                                ? const Align(
+                                    alignment: Alignment.center,
+                                    child: Text('Şimdilik bu kadar...'))
+                                : buildTinderCard(context, cubitRead),
                           ],
                         ),
                       ),
@@ -107,10 +113,12 @@ class _FinderViewState extends State<FinderView> {
                 case SwipeDirection.right:
                   return true;
                 case SwipeDirection.up:
-                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                  AddToBasketBottomSheet.instance
+                      .show(context, cubitRead.recipeList![index].ingredients);
                   return false;
                 case SwipeDirection.down:
-                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                  AddToBasketBottomSheet.instance
+                      .show(context, cubitRead.recipeList![index].ingredients);
                   return false;
               }
             },
@@ -118,9 +126,13 @@ class _FinderViewState extends State<FinderView> {
               cubitRead.changeRecipeListItemCount();
               cubitRead.changeTopCardIndex(index);
               if (direction == SwipeDirection.right) {
-                context.read<LikesCubit>().recipeList.add(cubitRead.recipeList![index]);
+                context
+                    .read<LikesCubit>()
+                    .recipeList
+                    .add(cubitRead.recipeList![index]);
               } else if (direction == SwipeDirection.up) {
-                AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                AddToBasketBottomSheet.instance
+                    .show(context, cubitRead.recipeList![index].ingredients);
               } else if (direction == SwipeDirection.left) {}
             },
             horizontalSwipeThreshold: 0.8,
@@ -140,7 +152,9 @@ class _FinderViewState extends State<FinderView> {
               return TinderCard(
                   model: cubitRead.recipeList![properties.index],
                   recipeOnPressed: () {
-                    NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
+                    NavigationService.instance.navigateToPage(
+                        path: NavigationConstants.RECIPE_DETAIL,
+                        data: cubitRead.recipeList![properties.index]);
                   });
             },
           ),
@@ -179,7 +193,8 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cubitRead.topCardIndex].ingredients);
+              AddToBasketBottomSheet.instance.show(context,
+                  cubitRead.recipeList![cubitRead.topCardIndex].ingredients);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,
@@ -189,7 +204,9 @@ class _FinderViewState extends State<FinderView> {
           FloatingActionButton(
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
-              context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.recipeList!.first);
+              context
+                  .read<LikesCubit>()
+                  .addItemFromLikedRecipeList(cubitRead.recipeList!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(
@@ -218,25 +235,25 @@ class _FinderViewState extends State<FinderView> {
             text: LocaleKeys.finderText,
           ),
         ),
-        TextButton(
-          onPressed: () {
-            NavigationService.instance
-                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+        // TextButton(
+        //   onPressed: () {
+        //     NavigationService.instance
+        //         .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
 
-            //  context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
-          },
-          child: LocaleText(
-              style: TextStyle(
-                fontSize: 16,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w600,
-                color: ColorConstants.instance.russianViolet,
-                decoration: TextDecoration.underline,
-                decorationColor: ColorConstants.instance.russianViolet,
-                decorationThickness: 2,
-              ),
-              text: LocaleKeys.close),
-        ),
+        //  context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
+        //   },
+        //   child: LocaleText(
+        //       style: TextStyle(
+        //         fontSize: 16,
+        //         fontStyle: FontStyle.normal,
+        //         fontWeight: FontWeight.w600,
+        //         color: ColorConstants.instance.russianViolet,
+        //         decoration: TextDecoration.underline,
+        //         decorationColor: ColorConstants.instance.russianViolet,
+        //         decorationThickness: 2,
+        //       ),
+        //       text: LocaleKeys.close),
+        // ),
       ]),
     );
   }

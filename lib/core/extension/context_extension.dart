@@ -141,6 +141,7 @@ extension DurationExtension on BuildContext {
 extension SizedBoxExtension on BuildContext {
   SizedBox get veryLowSizedBox => SizedBox(height: veryLowValue);
   SizedBox get lowSizedBox => SizedBox(height: lowValue);
+
   SizedBox get normalSizedBox => SizedBox(height: normalValue);
   SizedBox get mediumSizedBox => SizedBox(height: mediumValue);
   SizedBox get highSizedBox => SizedBox(height: highValue);

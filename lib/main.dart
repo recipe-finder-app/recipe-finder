@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
 import 'core/constant/navigation/navigation_constants.dart';

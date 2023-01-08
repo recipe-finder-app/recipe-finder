@@ -32,9 +32,19 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.only(top: context.lowValue, right: context.lowValue, left: context.lowValue),
-      actionsPadding: EdgeInsets.only(bottom: context.normalValue, right: context.lowValue, left: context.lowValue),
-      titlePadding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue, right: context.normalValue, left: context.normalValue),
+      contentPadding: EdgeInsets.only(
+          top: context.lowValue,
+          right: context.lowValue,
+          left: context.lowValue),
+      actionsPadding: EdgeInsets.only(
+          bottom: context.normalValue,
+          right: context.lowValue,
+          left: context.lowValue),
+      titlePadding: EdgeInsets.only(
+          top: context.lowValue,
+          bottom: context.lowValue,
+          right: context.normalValue,
+          left: context.normalValue),
       shape: RoundedRectangleBorder(
         borderRadius: context.radiusAllCircularMedium,
       ),

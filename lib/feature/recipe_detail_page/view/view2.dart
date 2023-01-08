@@ -8,6 +8,7 @@ import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
+import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
 import 'package:share_plus/share_plus.dart';
@@ -16,7 +17,7 @@ import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/model/recipe_model.dart';
-import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
+
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../../../product/widget_core/text/locale_text.dart';

@@ -18,8 +18,8 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
 
   List<IngredientModel> essentials = [];
   List<IngredientModel> vegetables = [];
-
   List<IngredientModel> fruits = [];
+  
   late MaterialSearchModel materialSearchModel;
   late Map<MaterialSearchCategory, List<IngredientModel>>? searchedMap;
   late TextEditingController searchTextController;
@@ -29,38 +29,47 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState>
       IngredientModel(
           imagePath: ImagePath.egg.path,
           title: LocaleKeys.egg.locale,
+          quantity: 5,
           color: const Color(0xff968960).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.milk.path,
           title: LocaleKeys.milk.locale,
+            quantity: 2,
           color: const Color(0xff127aa7).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.bread.path,
           title: LocaleKeys.bread.locale,
+            quantity: 1,
           color: const Color(0xffb7690d).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.fish.path,
           title: LocaleKeys.fish.locale,
+            quantity: 2,
           color: const Color(0xff3388ac).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.milk.path,
           title: LocaleKeys.milk.locale,
+            quantity: 3,
           color: const Color(0xff127aa7).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.bread.path,
           title: LocaleKeys.bread.locale,
+            quantity: 4,
           color: const Color(0xffb7690d).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.fish.path,
           title: LocaleKeys.fish.locale,
+            quantity: 3,
           color: const Color(0xff3388ac).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.milk.path,
           title: LocaleKeys.milk.locale,
+            quantity: 2,
           color: const Color(0xff127aa7).withOpacity(0.1)),
       IngredientModel(
           imagePath: ImagePath.bread.path,
           title: LocaleKeys.bread.locale,
+            quantity: 1,
           color: const Color(0xffb7690d).withOpacity(0.1)),
     ];
     vegetables = [

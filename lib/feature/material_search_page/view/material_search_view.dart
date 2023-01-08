@@ -36,16 +36,21 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
           cubitRead.dispose();
         },
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-              floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
+            Scaffold(
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerFloat,
               floatingActionButton: SizedBox(
                 width: context.floatinValueWidth,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(path: NavigationConstants.FINDER);
+                    NavigationService.instance
+                        .navigateToPage(path: NavigationConstants.FINDER);
                   },
-                  backgroundColor: ColorConstants.instance.roboticgods.withOpacity(1),
-                  shape: RoundedRectangleBorder(borderRadius: context.radiusAllCircularMin),
+                  backgroundColor:
+                      ColorConstants.instance.roboticgods.withOpacity(1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: context.radiusAllCircularMin),
                   label: LocaleText(
                     text: LocaleKeys.findMyRecipe,
                     style: TextStyle(color: ColorConstants.instance.white),
@@ -77,13 +82,18 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           },
                         ),
                         context.mediumSizedBox,
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<MaterialSearchCategory, List<IngredientModel>>?>(selector: (state) {
+                        BlocSelector<
+                            MaterialSearchCubit,
+                            IMaterialSearchState,
+                            Map<MaterialSearchCategory,
+                                List<IngredientModel>>?>(selector: (state) {
                           if (state is SearchedIngredientListLoad) {
                             return state.searchedMap;
                           } else if (state is IngredientListLoad) {
                             return state.materialSearchMap;
                           } else {
-                            return cubitRead.materialSearchModel.materialSearchMap;
+                            return cubitRead
+                                .materialSearchModel.materialSearchMap;
                           }
                         }, builder: (context, state) {
                           if (state!.isEmpty) {
@@ -91,20 +101,31 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               padding: context.paddingHighTop,
                               child: const LocaleText(
                                 text: 'Aranan isimde ürün bulunamadı',
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.normal),
                               ),
                             );
                           } else {
                             return Column(
                               children: [
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.essentials];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.essentials];
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.essentials];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.essentials];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.essentials];
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.essentials];
                                     }
                                   },
                                   builder: (context, state) {
@@ -112,38 +133,50 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       return const SizedBox();
                                     } else {
                                       return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const Align(
                                             alignment: Alignment.centerLeft,
                                             child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
                                               text: LocaleKeys.essentials,
                                             ),
                                           ),
                                           context.normalSizedBox,
                                           SizedBox(
-                                            height: context.normalhighValue,
-                                            width: context.screenWidth,
+                                            height: context.screenHeight / 8,
                                             child: ListView.builder(
-                                                // padding: EdgeInsets.zero,
-                                                physics: const BouncingScrollPhysics(),
+                                                physics:
+                                                    const BouncingScrollPhysics(),
                                                 shrinkWrap: true,
-                                                scrollDirection: Axis.horizontal,
+                                                scrollDirection:
+                                                    Axis.horizontal,
                                                 itemCount: state?.length ?? 0,
                                                 itemBuilder: (context, index) {
                                                   return Padding(
-                                                    padding: context.paddingRight,
-                                                    child: IngredientCircleAvatar(
-                                                      model: state![index],
-                                                      onPressed: () {
-                                                        showDialog(
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return AmountAlertDialog(model: state![index]);
-                                                            });
-                                                      },
-                                                    ),
+                                                    padding:
+                                                        context.paddingRight,
+                                                    child:
+                                                        IngredientCircleAvatar(
+                                                            model:
+                                                                state![index],
+                                                            onPressed: () {
+                                                              showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return AmountAlertDialog(
+                                                                        model: state![
+                                                                            index]);
+                                                                  });
+                                                            },
+                                                           
+                                                            ),
                                                   );
                                                 }),
                                           ),
@@ -152,14 +185,22 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                     }
                                   },
                                 ),
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.vegatables];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.vegatables];
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.vegatables];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.vegatables];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.vegatables];
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.vegatables];
                                     }
                                   },
                                   builder: (context, state) {
@@ -167,24 +208,43 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       return const SizedBox();
                                     } else {
                                       return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const Align(
                                             alignment: Alignment.centerLeft,
                                             child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
                                               text: LocaleKeys.vegatables,
                                             ),
                                           ),
                                           context.normalSizedBox,
                                           GridView.builder(
-                                              physics: const NeverScrollableScrollPhysics(),
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
                                               shrinkWrap: true,
                                               itemCount: state?.length ?? 0,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 20),
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      childAspectRatio: 0.70,
+                                                      crossAxisSpacing: 30,
+                                                      mainAxisSpacing: 20),
                                               itemBuilder: (context, index) {
                                                 return IngredientCircleAvatar(
                                                   model: state![index],
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AmountAlertDialog(
+                                                              model: state![
+                                                                  index]);
+                                                        });
+                                                  },
                                                 );
                                               }),
                                         ],
@@ -192,14 +252,22 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                     }
                                   },
                                 ),
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
+                                BlocSelector<
+                                    MaterialSearchCubit,
+                                    IMaterialSearchState,
+                                    List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.fruits];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.fruits];
+                                      return state.materialSearchMap![
+                                          MaterialSearchCategory.fruits];
+                                    } else if (state
+                                        is SearchedIngredientListLoad) {
+                                      return state.searchedMap![
+                                          MaterialSearchCategory.fruits];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.fruits];
+                                      return cubitRead.materialSearchModel
+                                              .materialSearchMap[
+                                          MaterialSearchCategory.fruits];
                                     }
                                   },
                                   builder: (context, state) {
@@ -207,24 +275,43 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                       return const SizedBox();
                                     } else {
                                       return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const Align(
                                             alignment: Alignment.centerLeft,
                                             child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                                              style: TextStyle(
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal),
                                               text: LocaleKeys.fruits,
                                             ),
                                           ),
                                           context.normalSizedBox,
                                           GridView.builder(
-                                              physics: const BouncingScrollPhysics(),
+                                              physics:
+                                                  const BouncingScrollPhysics(),
                                               shrinkWrap: true,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 20),
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 4,
+                                                      childAspectRatio: 0.70,
+                                                      crossAxisSpacing: 30,
+                                                      mainAxisSpacing: 20),
                                               itemCount: state?.length ?? 0,
                                               itemBuilder: (context, index) {
                                                 return IngredientCircleAvatar(
                                                   model: state![index],
+                                                  onPressed: () {
+                                                    showDialog(
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return AmountAlertDialog(
+                                                              model: state![
+                                                                  index]);
+                                                        });
+                                                  },
                                                 );
                                               }),
                                         ],
@@ -262,7 +349,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
         ),
         TextButton(
           onPressed: () {
-            NavigationService.instance.navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+            NavigationService.instance
+                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
           },
           child: LocaleText(
               style: TextStyle(
