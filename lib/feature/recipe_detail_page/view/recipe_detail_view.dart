@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
-import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_state.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
@@ -47,7 +46,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       init: (cubitRead) {
         cubitRead.setContext(context);
         cubitRead.init();
-
         _animationController = AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 500),
@@ -83,123 +81,111 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
   }
 
   Widget videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
-    return BlocSelector<RecipeDetailCubit, IRecipeDetailState, ChewieController>(
-      selector: (state) {
-        if (state is ChangeVideoPlayerModeState) {
-          return state.controller;
-        } else {
-          return cubitRead.chewieController;
-        }
-      },
-      builder: (context, state) {
-        return Stack(
-          children: [
-            AspectRatio(
-              aspectRatio: cubitRead.chewieController.aspectRatio!,
-              child: Chewie(
-                controller: cubitRead.chewieController,
-              ),
+    return Stack(
+      children: [
+        AspectRatio(
+          aspectRatio: cubitRead.chewieController.aspectRatio!,
+          child: Chewie(
+            controller: cubitRead.chewieController,
+          ),
+        ),
+        Positioned(
+          bottom: -5,
+          height: 50,
+          width: context.screenWidth,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: context.radiusTopCircularVeryHigh,
             ),
-            cubitRead.chewieController.isPlaying == true ? const SizedBox() : videoPlayerStack(context),
-            Positioned(
-              bottom: -5,
-              height: 50,
-              width: context.screenWidth,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: context.radiusTopCircularVeryHigh,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          String ingredientsText = '';
-                          for (var ingredient in widget.recipeModel.ingredients!) {
-                            ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
-                          }
+            child: Padding(
+              padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      String ingredientsText = '';
+                      for (var ingredient in widget.recipeModel.ingredients!) {
+                        ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+                      }
 
-                          String message = '${LocaleKeys.ingredients.locale}\n'
-                              '$ingredientsText\n\n'
-                              '${LocaleKeys.description}\n\n'
-                              '${widget.recipeModel.description}\n\n'
-                              '${LocaleKeys.directions}\n\n'
-                              '${widget.recipeModel.directions}\n\n';
-                          Share.share(message);
+                      String message = '${LocaleKeys.ingredients.locale}\n'
+                          '$ingredientsText\n\n'
+                          '${LocaleKeys.description}\n\n'
+                          '${widget.recipeModel.description}\n\n'
+                          '${LocaleKeys.directions}\n\n'
+                          '${widget.recipeModel.directions}\n\n';
+                      Share.share(message);
+                    },
+                    child: CircularBackground(
+                      circleHeight: 30,
+                      circleWidth: 30,
+                      color: ColorConstants.instance.russianViolet,
+                      child: const Icon(
+                        Icons.share_outlined,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                  context.normalSizedBoxWidth,
+                  BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
+                    if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
+                      print(context.read<LikesCubit>().recipeList.length);
+                      return InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return QuestionAlertDialog(
+                                  explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                                  onPressedYes: () {
+                                    context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
+                                    print(context.read<LikesCubit>().recipeList.length);
+                                  },
+                                );
+                              });
                         },
                         child: CircularBackground(
-                          circleHeight: 30,
-                          circleWidth: 30,
-                          color: ColorConstants.instance.russianViolet,
-                          child: const Icon(
-                            Icons.share_outlined,
+                            circleHeight: 30,
+                            circleWidth: 30,
+                            color: ColorConstants.instance.russianViolet,
+                            child: const Icon(
+                              Icons.favorite_outlined,
+                              color: Colors.white,
+                              size: 15,
+                            )),
+                      );
+                    } else {
+                      print(context.read<LikesCubit>().recipeList.length);
+                      return InkWell(
+                        onTap: () {
+                          context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
+                          print(context.read<LikesCubit>().recipeList.length);
+                        },
+                        child: CircularBackground(
+                            circleHeight: 30,
+                            circleWidth: 30,
                             color: Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                      ),
-                      context.normalSizedBoxWidth,
-                      BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
-                        if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
-                          print(context.read<LikesCubit>().recipeList.length);
-                          return InkWell(
-                            onTap: () {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return QuestionAlertDialog(
-                                      explanation: LocaleKeys.deleteSavedRecipeQuestion,
-                                      onPressedYes: () {
-                                        context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
-                                        print(context.read<LikesCubit>().recipeList.length);
-                                      },
-                                    );
-                                  });
-                            },
-                            child: CircularBackground(
-                                circleHeight: 30,
-                                circleWidth: 30,
-                                color: ColorConstants.instance.russianViolet,
-                                child: const Icon(
-                                  Icons.favorite_outlined,
-                                  color: Colors.white,
-                                  size: 15,
-                                )),
-                          );
-                        } else {
-                          print(context.read<LikesCubit>().recipeList.length);
-                          return InkWell(
-                            onTap: () {
-                              context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
-                              print(context.read<LikesCubit>().recipeList.length);
-                            },
-                            child: CircularBackground(
-                                circleHeight: 30,
-                                circleWidth: 30,
-                                color: Colors.white,
-                                border: Border.all(width: 1, color: ColorConstants.instance.russianViolet),
-                                child: Icon(
-                                  Icons.favorite_outline_outlined,
-                                  color: ColorConstants.instance.russianViolet,
-                                  size: 18,
-                                )),
-                          );
-                        }
-                      }),
-                    ],
-                  ),
-                ),
+                            border: Border.all(width: 1, color: ColorConstants.instance.russianViolet),
+                            child: Icon(
+                              Icons.favorite_outline_outlined,
+                              color: ColorConstants.instance.russianViolet,
+                              size: 18,
+                            )),
+                      );
+                    }
+                  }),
+                ],
               ),
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 
-  Widget videoPlayerStack(BuildContext context) {
+  /*Widget videoPlayerStack(BuildContext context) {
     return Padding(
       padding: context.paddingNormalAll,
       child: Padding(
@@ -215,7 +201,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
         ),
       ),
     );
-  }
+  }*/
 
   Widget recipe(BuildContext context, RecipeDetailCubit cubitRead) {
     return Padding(
