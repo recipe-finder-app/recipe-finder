@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '/core/extension/context_extension.dart';
-
 import '../../../core/constant/enum/network_result_enum.dart';
 import '../../../core/constant/text/error_text_message.dart';
 import '../../../core/init/network/connection_activity/network_change_manager.dart';
@@ -18,8 +17,7 @@ class NoNetworkAlertDialog extends StatefulWidget {
   State<NoNetworkAlertDialog> createState() => _NoNetworkAlertDialogState();
 }
 
-class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog>
-    with StateMixin {
+class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog> with StateMixin {
   Timer? timer;
   late EdgeInsets containerPadding = const EdgeInsets.only(bottom: 0);
   late final INetworkChangeManager _networkChange;
@@ -49,8 +47,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog>
   void _startContainerAnimation() {
     timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
       setState(() {
-        containerPadding =
-            const EdgeInsets.only(bottom: 10, left: 20, right: 20);
+        containerPadding = const EdgeInsets.only(bottom: 10, left: 20, right: 20);
       });
       timer?.cancel();
     });
@@ -97,8 +94,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog>
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              ErrorText
-                                  .instance.noConnectionErrorExplanationText,
+                              ErrorText.instance.noConnectionErrorExplanationText,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 decoration: TextDecoration.none,
@@ -127,8 +123,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog>
                         ),
                         Text(
                           ErrorText.instance.noConnectionErrorText,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ]),
@@ -137,14 +132,12 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog>
                         width: context.screenWidth / 4,
                         child: Text(
                           ErrorText.instance.noConnectionErrorExplanationText,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.white),
+                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           maxLines: null,
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: context.radiusAllCircularHigh),
+                      shape: RoundedRectangleBorder(borderRadius: context.radiusAllCircularHigh),
                     ),
                   ),
                   const ModalBarrier(),

@@ -14,6 +14,27 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
+
+  Widget forFullScreen() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 5, top: 35, right: 15, left: 15),
+      child: CupertinoControls(
+        backgroundColor: ColorConstants.instance.russianViolet,
+        iconColor: Colors.white,
+      ),
+    );
+  }
+
+  Widget forPortrait() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 45, top: 35, right: 15, left: 15),
+      child: CupertinoControls(
+        backgroundColor: ColorConstants.instance.russianViolet,
+        iconColor: Colors.white,
+      ),
+    );
+  }
+
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override

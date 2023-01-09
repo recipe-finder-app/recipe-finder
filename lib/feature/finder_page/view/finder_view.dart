@@ -93,56 +93,59 @@ class _FinderViewState extends State<FinderView> {
         SizedBox(
           height: context.cardhighValue,
           width: context.cardValueWidth,
-          child: SwipableStack(
-            controller: _controller,
-            itemCount: cubitRead.recipeList!.length,
-            stackClipBehaviour: Clip.none,
-            swipeAnchor: SwipeAnchor.bottom,
-            onWillMoveNext: (
-              index,
-              swipeDirection,
-            ) {
-              switch (swipeDirection) {
-                case SwipeDirection.left:
-                case SwipeDirection.right:
-                  return true;
-                case SwipeDirection.up:
+          child: Hero(
+            tag: 'swipableStack',
+            child: SwipableStack(
+              controller: _controller,
+              itemCount: cubitRead.recipeList!.length,
+              stackClipBehaviour: Clip.none,
+              swipeAnchor: SwipeAnchor.bottom,
+              onWillMoveNext: (
+                index,
+                swipeDirection,
+              ) {
+                switch (swipeDirection) {
+                  case SwipeDirection.left:
+                  case SwipeDirection.right:
+                    return true;
+                  case SwipeDirection.up:
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                    return false;
+                  case SwipeDirection.down:
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                    return false;
+                }
+              },
+              onSwipeCompleted: (index, direction) {
+                cubitRead.changeRecipeListItemCount();
+                cubitRead.changeTopCardIndex(index);
+                if (direction == SwipeDirection.right) {
+                  context.read<LikesCubit>().recipeList.add(cubitRead.recipeList![index]);
+                } else if (direction == SwipeDirection.up) {
                   AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
-                  return false;
-                case SwipeDirection.down:
-                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
-                  return false;
-              }
-            },
-            onSwipeCompleted: (index, direction) {
-              cubitRead.changeRecipeListItemCount();
-              cubitRead.changeTopCardIndex(index);
-              if (direction == SwipeDirection.right) {
-                context.read<LikesCubit>().recipeList.add(cubitRead.recipeList![index]);
-              } else if (direction == SwipeDirection.up) {
-                AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
-              } else if (direction == SwipeDirection.left) {}
-            },
-            horizontalSwipeThreshold: 0.8,
-            verticalSwipeThreshold: 1,
-            overlayBuilder: (
-              context,
-              properties,
-            ) =>
-                CardOverlay(
-              swipeProgress: properties.swipeProgress,
-              direction: properties.direction,
+                } else if (direction == SwipeDirection.left) {}
+              },
+              horizontalSwipeThreshold: 0.8,
+              verticalSwipeThreshold: 1,
+              overlayBuilder: (
+                context,
+                properties,
+              ) =>
+                  CardOverlay(
+                swipeProgress: properties.swipeProgress,
+                direction: properties.direction,
+              ),
+              builder: (
+                context,
+                properties,
+              ) {
+                return TinderCard(
+                    model: cubitRead.recipeList![properties.index],
+                    recipeOnPressed: () {
+                      NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
+                    });
+              },
             ),
-            builder: (
-              context,
-              properties,
-            ) {
-              return TinderCard(
-                  model: cubitRead.recipeList![properties.index],
-                  recipeOnPressed: () {
-                    NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
-                  });
-            },
           ),
         ),
         context.normalSizedBox,
@@ -166,6 +169,7 @@ class _FinderViewState extends State<FinderView> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FloatingActionButton(
+            heroTag: 'declineFab',
             backgroundColor: ColorConstants.instance.russianViolet,
             onPressed: () {
               _controller.next(swipeDirection: SwipeDirection.left);
@@ -176,6 +180,7 @@ class _FinderViewState extends State<FinderView> {
             ),
           ),
           FloatingActionButton(
+            heroTag: 'addToBasketFab',
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
@@ -187,6 +192,7 @@ class _FinderViewState extends State<FinderView> {
             ),
           ),
           FloatingActionButton(
+            heroTag: 'favoriteFab',
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
               context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.recipeList!.first);

@@ -46,6 +46,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       init: (cubitRead) {
         cubitRead.setContext(context);
         cubitRead.init();
+
         _animationController = AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 500),
@@ -85,9 +86,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       children: [
         AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
-          child: Chewie(
-            controller: cubitRead.chewieController,
-          ),
+          child: Chewie(controller: cubitRead.chewieController),
         ),
         Positioned(
           bottom: -5,
