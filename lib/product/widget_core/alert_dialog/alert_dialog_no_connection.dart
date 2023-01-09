@@ -3,10 +3,11 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 
 import '/core/extension/context_extension.dart';
 import '../../../core/constant/enum/network_result_enum.dart';
-import '../../../core/constant/text/error_text_message.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/network/connection_activity/network_change_manager.dart';
 
 class NoNetworkAlertDialog extends StatefulWidget {
@@ -94,7 +95,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog> with StateM
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              ErrorText.instance.noConnectionErrorExplanationText,
+                              LocaleKeys.checkYourNetwork.locale,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 decoration: TextDecoration.none,
@@ -122,7 +123,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog> with StateM
                           size: 50,
                         ),
                         Text(
-                          ErrorText.instance.noConnectionErrorText,
+                          LocaleKeys.noConnectionError.locale,
                           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
@@ -131,7 +132,7 @@ class _NoNetworkAlertDialogState extends State<NoNetworkAlertDialog> with StateM
                         height: context.screenHeight / 10,
                         width: context.screenWidth / 4,
                         child: Text(
-                          ErrorText.instance.noConnectionErrorExplanationText,
+                          LocaleKeys.checkYourNetwork.locale,
                           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           maxLines: null,
                           textAlign: TextAlign.center,

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
@@ -140,7 +141,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                                   explanation: LocaleKeys.deleteSavedRecipeQuestion,
                                   onPressedYes: () {
                                     context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
-                                    print(context.read<LikesCubit>().recipeList.length);
                                   },
                                 );
                               });
@@ -160,7 +160,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                       return InkWell(
                         onTap: () {
                           context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
-                          print(context.read<LikesCubit>().recipeList.length);
+                          Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
                         },
                         child: CircularBackground(
                             circleHeight: 30,

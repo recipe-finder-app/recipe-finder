@@ -14,16 +14,35 @@ import '../../../product/widget/card/basket_card.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
 
-class BasketView extends StatelessWidget {
-  const BasketView({
-    Key? key,
-  }) : super(key: key);
+class BasketView extends StatefulWidget {
+  const BasketView({Key? key}) : super(key: key);
+
+  @override
+  State<BasketView> createState() => _BasketViewState();
+}
+
+class _BasketViewState extends State<BasketView> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  void _startAnimation() {
+    _animationController.reset();
+    _animationController.forward();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseView<BasketCubit>(
         init: (cubitRead) {
           cubitRead.init();
+          _animationController = AnimationController(
+            vsync: this,
+            duration: const Duration(milliseconds: 500),
+          );
+          _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+          _startAnimation();
+        },
+        dispose: (cubitRead) {
+          _animationController.dispose();
         },
         visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
@@ -57,7 +76,7 @@ class BasketView extends StatelessWidget {
                           ),
                         ),
                         context.lowSizedBox,
-                        cubitRead.selectCardModel == null ? const LocaleText(text: 'Satın alım listesini görmek için yukarıdan kart seçin') : buildToBuyList(cubitRead),
+                        cubitRead.selectedCardModel == null ? FadeTransition(opacity: _animation, child: const LocaleText(text: 'Satın alım listesini görmek için yukarıdan kart seçin')) : buildToBuyList(cubitRead),
                         context.lowSizedBox,
                         LocaleText(
                           text: LocaleKeys.myPantry,
@@ -78,65 +97,68 @@ class BasketView extends StatelessWidget {
             ));
   }
 
-  ListView buildToBuyList(BasketCubit cubitRead) {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.zero,
-      shrinkWrap: true,
-      itemCount: cubitRead.selectCardModel?.ingredients.length,
-      itemBuilder: (context, listViewIndex) {
-        return Padding(
-          padding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IngredientCircleAvatar(
-                    showText: false,
-                    color: ColorConstants.instance.russianViolet.withOpacity(0.1),
-                    model: cubitRead.selectCardModel!.ingredients[listViewIndex],
-                    iconTopWidget: Text(
-                      cubitRead.selectCardModel!.ingredients[listViewIndex].quantity.toString(),
-                      style: TextStyle(color: ColorConstants.instance.white),
-                    ),
-                  ),
-                  context.normalSizedBoxWidth,
-                  Padding(
-                    padding: context.paddingHighBottom,
-                    child: Text(cubitRead.selectCardModel!.ingredients[listViewIndex].title),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: context.paddingHighBottom,
-                child: Row(
+  Widget buildToBuyList(BasketCubit cubitRead) {
+    return FadeTransition(
+      opacity: _animation,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        itemCount: cubitRead.selectedCardModel?.ingredients.length,
+        itemBuilder: (context, listViewIndex) {
+          return Padding(
+            padding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: ColorConstants.instance.chenille,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.done,
-                          color: ColorConstants.instance.white,
-                        ),
-                        onPressed: () {},
+                    IngredientCircleAvatar(
+                      showText: false,
+                      color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                      model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
+                      iconTopWidget: Text(
+                        cubitRead.selectedCardModel!.ingredients[listViewIndex].quantity.toString(),
+                        style: TextStyle(color: ColorConstants.instance.white),
                       ),
                     ),
-                    context.lowSizedBoxWidth,
-                    CircleAvatar(
-                        radius: 20,
-                        backgroundColor: ColorConstants.instance.oriolesOrange,
-                        child: ImageSvg(
-                          path: ImagePath.basketShop.path,
-                        )),
+                    context.normalSizedBoxWidth,
+                    Padding(
+                      padding: context.paddingHighBottom,
+                      child: Text(cubitRead.selectedCardModel!.ingredients[listViewIndex].title),
+                    ),
                   ],
                 ),
-              )
-            ],
-          ),
-        );
-      },
+                Padding(
+                  padding: context.paddingHighBottom,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundColor: ColorConstants.instance.chenille,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.done,
+                            color: ColorConstants.instance.white,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ),
+                      context.lowSizedBoxWidth,
+                      CircleAvatar(
+                          radius: 20,
+                          backgroundColor: ColorConstants.instance.oriolesOrange,
+                          child: ImageSvg(
+                            path: ImagePath.basketShop.path,
+                          )),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -157,6 +179,7 @@ class BasketView extends StatelessWidget {
             cardOnPressed: () {
               cubitRead.changeSelectedCardModel(cubitRead.basketRecipeItems[cardIndex]);
               cubitRead.changeSelectedColorIndex(cardIndex);
+              _startAnimation();
             },
             removeIconOnPressed: (() {
               showDialog(

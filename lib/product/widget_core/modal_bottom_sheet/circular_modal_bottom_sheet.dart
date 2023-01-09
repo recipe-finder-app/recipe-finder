@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
-import '../../../core/extension/border_extension.dart';
-
 enum CircularBottomSheetHeight {
   short,
   standard,
@@ -31,7 +29,7 @@ class CircularBottomSheet {
   }) {
     return showModalBottomSheet<void>(
       transitionAnimationController: controller,
-      shape: RoundedRectangleBorder(borderRadius: BorderConstant.instance.radiusAllCircularHigh),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(35))),
       context: context,
       isScrollControlled: true,
       builder: (context) => Padding(

@@ -88,5 +88,8 @@
     "amount": "Amount",
     "dontEmptyThisField": "Don't empty this field!",
     "dontEnterNegativeValue": "Don't enter negative value!",
-    "enterValidEmailAddress": "Enter a valid e-mail address"
+    "enterValidEmailAddress": "Enter a valid e-mail address",
+    "noConnectionError": "Internet connection failed!",
+    "checkYourNetwork": "Check your internet connection to continue the application",
+    "favoriteRecipeMessage" : "This recipe is now in my saved recipes!"
 }

@@ -10,23 +10,18 @@ import 'package:recipe_finder/product/model/recipe_model.dart';
 
 class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   IBasketService? service;
-  RecipeModel? selectCardModel;
+  RecipeModel? selectedCardModel;
 
   late List<RecipeModel> basketRecipeItems = [
     RecipeModel(
       imagePath: 'asset/png/foot2.png',
       title: 'Deneme Text 1',
       ingredients: [
-        IngredientModel(
-            title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
-        IngredientModel(
-            title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-        IngredientModel(
-            title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-        IngredientModel(
-            title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-        IngredientModel(
-            title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
+        IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
+        IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+        IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+        IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+        IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
       ],
     ),
     RecipeModel(
@@ -45,8 +40,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       imagePath: 'asset/png/foot2.png',
       title: 'Deneme Text 3',
       ingredients: [
-        IngredientModel(
-            title: 'Egg', imagePath: ImagePath.egg.path, quantity: 4),
+        IngredientModel(title: 'Egg', imagePath: ImagePath.egg.path, quantity: 4),
         IngredientModel(title: 'Butter', quantity: 1 / 2),
         IngredientModel(title: 'Butter', quantity: 1 / 2),
       ],
@@ -59,19 +53,16 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   int? selectedColorIndex;
   @override
   void init() {
+    selectedCardModel = null;
+    selectedColorIndex = null;
     service = BasketService();
     myFinderFrizeItems = [
-      IngredientModel(
-          title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-      IngredientModel(
-          title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-      IngredientModel(
-          title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
+      IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
+      IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
+      IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
       IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-      IngredientModel(
-          title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-      IngredientModel(
-          title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+      IngredientModel(title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
+      IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
     ];
   }
 
@@ -81,12 +72,12 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   }
 
   void changeSelectedCardModel(RecipeModel? model) {
-    if (selectCardModel == model) {
-      selectCardModel = null;
-      emit(ChangeSelectedCardModel(selectCardModel));
+    if (selectedCardModel == model) {
+      selectedCardModel = null;
+      emit(ChangeSelectedCardModel(selectedCardModel));
     } else {
-      selectCardModel = model;
-      emit(ChangeSelectedCardModel(selectCardModel));
+      selectedCardModel = model;
+      emit(ChangeSelectedCardModel(selectedCardModel));
     }
   }
 
@@ -111,7 +102,11 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   }
 
   @override
-  void dispose() {}
+  void dispose() {
+    selectedCardModel = null;
+    selectedColorIndex = null;
+  }
+
   @override
   BuildContext? context;
 
