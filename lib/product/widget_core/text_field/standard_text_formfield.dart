@@ -73,7 +73,8 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
         enableSuggestions: false,
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText ?? false,
-        style: TextStyle(color: widget.textColor),
+        style:
+            TextStyle(color: widget.textColor, decoration: TextDecoration.none),
         textDirection: TextDirection.ltr,
         cursorColor: Colors.black,
         cursorWidth: 1,
@@ -130,6 +131,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
             fontSize: 14,
             color: Colors.grey,
           ),
+
           focusedBorder: widget.borderEnable == false
               ? null
               : buildOutlineInputBorder(context),

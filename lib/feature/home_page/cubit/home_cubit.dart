@@ -16,6 +16,7 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   List<IngredientModel> category = [];
   List<IngredientModel> essentialsItem = [];
   List<IngredientModel> vegateblesItem = [];
+  
   List<IngredientModel> myFrizeItems = [
     IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
     IngredientModel(
@@ -29,6 +30,8 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
         title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
   ];
 
+
+
   @override
   void init() {
     service = HomeService();
@@ -37,6 +40,8 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
     category = service!.fetchCategoryList();
     essentialsItem = service!.fetchEssetialsList();
     vegateblesItem = service!.fetchVegatablesList();
+
+    
   }
 
   @override

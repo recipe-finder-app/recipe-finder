@@ -29,7 +29,7 @@ class CircularBottomSheet {
   }) {
     return showModalBottomSheet<void>(
       transitionAnimationController: controller,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(35))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       context: context,
       isScrollControlled: true,
       builder: (context) => Padding(

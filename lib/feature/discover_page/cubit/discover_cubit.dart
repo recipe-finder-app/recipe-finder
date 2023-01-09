@@ -85,6 +85,10 @@ class DiscoverCubit extends Cubit<IDiscoverState> implements IBaseViewModel {
   DiscoverCubit() : super(DiscoverInit());
   int? selectedCategoryIndex;
 
+void deleteItemFromDiscoverRecipeList(RecipeModel model) {
+    discoverRecipeList.remove(model);
+    emit(DiscoverRecipeItemListLoad(discoverRecipeList.toSet().toList()));
+  }
   @override
   BuildContext? context;
 

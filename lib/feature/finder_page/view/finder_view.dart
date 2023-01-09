@@ -148,12 +148,8 @@ class _FinderViewState extends State<FinderView> {
             ),
           ),
         ),
-        context.normalSizedBox,
-        buildRowButton(
-          context,
-          cubitRead,
-          1,
-        ),
+        context.lowSizedBox,
+        buildRowButton(context, cubitRead, cubitRead.topCardIndex),
       ],
     );
   }
@@ -224,25 +220,25 @@ class _FinderViewState extends State<FinderView> {
             text: LocaleKeys.finderText,
           ),
         ),
-        /* TextButton(
-          onPressed: () {
-            NavigationService.instance
-                .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+        // TextButton(
+        //   onPressed: () {
+        //     NavigationService.instance
+        //         .navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
 
-            //  context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
-          },
-          child: LocaleText(
-              style: TextStyle(
-                fontSize: 16,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w600,
-                color: ColorConstants.instance.russianViolet,
-                decoration: TextDecoration.underline,
-                decorationColor: ColorConstants.instance.russianViolet,
-                decorationThickness: 2,
-              ),
-              text: LocaleKeys.close),
-        ),*/
+        //  context.read<RecipeNavigationBarCubit>().changeCurrentIndex(0);
+        //   },
+        //   child: LocaleText(
+        //       style: TextStyle(
+        //         fontSize: 16,
+        //         fontStyle: FontStyle.normal,
+        //         fontWeight: FontWeight.w600,
+        //         color: ColorConstants.instance.russianViolet,
+        //         decoration: TextDecoration.underline,
+        //         decorationColor: ColorConstants.instance.russianViolet,
+        //         decorationThickness: 2,
+        //       ),
+        //       text: LocaleKeys.close),
+        // ),
       ]),
     );
   }

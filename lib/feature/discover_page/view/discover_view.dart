@@ -3,6 +3,7 @@ import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
+import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/listview/category_list_view.dart';
 import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
@@ -19,12 +20,16 @@ class DiscoverView extends StatelessWidget {
     return BaseView<DiscoverCubit>(
         init: (cubitRead) {},
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
+            Scaffold(
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.only(top: context.mediumValue, left: context.normalValue, right: context.normalValue),
+                    padding: EdgeInsets.only(
+                        top: context.mediumValue,
+                        left: context.normalValue,
+                        right: context.normalValue),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,11 +78,25 @@ class DiscoverView extends StatelessWidget {
             model: cubitRead.discoverRecipeList[cardIndex],
             addToBasketOnPressed: () {},
             recipeOnPressed: () {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
+              NavigationService.instance.navigateToPage(
+                  path: NavigationConstants.RECIPE_DETAIL,
+                  data: cubitRead.discoverRecipeList[cardIndex]);
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/
             },
-            likeIconOnPressed: () {},
+            likeIconOnPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return QuestionAlertDialog(
+                      explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                      onPressedYes: () {
+                        cubitRead.deleteItemFromDiscoverRecipeList(
+                            cubitRead.discoverRecipeList[cardIndex]);
+                      },
+                    );
+                  });
+            },
           );
         });
   }

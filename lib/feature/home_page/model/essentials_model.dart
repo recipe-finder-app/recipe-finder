@@ -2,17 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
-
 import '../../../core/constant/enum/image_path_enum.dart';
-
-// class EssentialModel {
-//   final Widget imagePath;
-//   final String title;
-//   final Color color;
-
-//   EssentialModel(
-//       {required this.color, required this.imagePath, required this.title});
-// }
 
 class EssentialItems {
   late final List<IngredientModel> essentialItems;

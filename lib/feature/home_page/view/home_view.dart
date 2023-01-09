@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -11,7 +13,7 @@ import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
-import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -28,30 +30,33 @@ class HomeView extends StatelessWidget {
           child: Padding(
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(children: [
                 context.mediumSizedBox,
                 _textRow(context, cubitRead),
                 context.mediumSizedBox,
-                Center(
-                    child: SearchVoiceTextFormField(
-                  controller: cubitRead.searchTextController,
-                  onPressedClear: () {},
-                  onChanged: (String data) {
-                    if (data.isEmpty) {
-                    } else {}
-                  },
-                )),
-                context.mediumSizedBox,
+                // Center(
+                //     child: SearchVoiceTextFormField(
+                //   controller: cubitRead.searchTextController,
+                //   onPressedClear: () {},
+                //   onChanged: (String data) {
+                //     if (data.isEmpty) {
+                //     } else {}
+                //   },
+                // )),
+                // context.mediumSizedBox,
                 SizedBox(
-                  height: context.screenHeight / 4.4,
+                  height: context.screenHeight / 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
                         child: LocaleText(
-                          style: TextStyle(fontSize: 25, color: ColorConstants.instance.black, fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: ColorConstants.instance.black,
+                              fontWeight: FontWeight.w400),
                           text: LocaleKeys.category,
                         ),
                       ),
@@ -60,26 +65,23 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: context.screenHeight / 2.5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: LocaleText(
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w400,
-                            color: ColorConstants.instance.black,
-                          ),
-                          text: LocaleKeys.searchbymeal,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleText(
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
+                          color: ColorConstants.instance.black,
                         ),
+                        text: LocaleKeys.searchbymeal,
                       ),
-                      context.lowSizedBox,
-                      _searchByGridView(context, cubitRead)
-                    ],
-                  ),
+                    ),
+                    context.lowSizedBox,
+                    _searchByGridView(context, cubitRead)
+                  ],
                 ),
               ]),
             ),
@@ -96,26 +98,11 @@ class HomeView extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemCount: cubitRead.category.length,
-          itemBuilder: (context, index) {
+          itemBuilder: (context, categoryIndex) {
             return Padding(
               padding: context.paddingLowRight,
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 32,
-                    backgroundColor: cubitRead.category[index].color,
-                    child: ImageSvg(path: cubitRead.category[index].imagePath ?? ''),
-                  ),
-                  context.lowSizedBox,
-                  LocaleText(
-                    text: cubitRead.category[index].title ?? '',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: ColorConstants.instance.roboticgods,
-                    ),
-                  ),
-                ],
+              child: IngredientCircleAvatar(
+                model: context.read<HomeCubit>().category[categoryIndex],
               ),
             );
           }),
@@ -168,20 +155,22 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
-    return SizedBox(
-      height: context.screenHeight / 3,
-      child: GridView.builder(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          itemCount: cubitRead.searchByMeal.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.40, crossAxisSpacing: 25, mainAxisSpacing: 15),
-          itemBuilder: (BuildContext context, index) {
-            return _searchByMealCard(context, cubitRead, index);
-          }),
-    );
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemCount: cubitRead.searchByMeal.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 2.40,
+            crossAxisSpacing: 25,
+            mainAxisSpacing: 15),
+        itemBuilder: (BuildContext context, index) {
+          return _searchByMealCard(context, cubitRead, index);
+        });
   }
 
-  Container _searchByMealCard(BuildContext context, HomeCubit cubitRead, int index) {
+  Container _searchByMealCard(
+      BuildContext context, HomeCubit cubitRead, int index) {
     return Container(
       height: context.veryyHighValue,
       decoration: BoxDecoration(
@@ -227,8 +216,12 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              context.normalSizedBox,
               const LocaleText(
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal),
                 text: LocaleKeys.essentials,
               ),
               context.normalSizedBox,
@@ -239,29 +232,22 @@ class HomeView extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: cubitRead.essentialsItem.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (context, essentialsIndex) {
                       return Padding(
                         padding: context.paddingLowRight,
-                        child: Column(
-                          children: [
-                            CircleAvatar(
-                              radius: 32,
-                              backgroundColor: cubitRead.essentialsItem[index].color,
-                              child: ImageSvg(path: cubitRead.essentialsItem[index].imagePath ?? ''),
-                            ),
-                            context.lowSizedBox,
-                            LocaleText(
-                              text: cubitRead.essentialsItem[index].title ?? '',
-                              style: TextStyle(fontStyle: FontStyle.normal, fontWeight: FontWeight.w400, color: ColorConstants.instance.roboticgods),
-                            ),
-                          ],
+                        child: IngredientCircleAvatar(
+                          model: context
+                              .read<HomeCubit>()
+                              .essentialsItem[essentialsIndex],
                         ),
                       );
                     }),
               ),
-              context.normalSizedBox,
               const LocaleText(
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal),
                 text: LocaleKeys.vegatables,
               ),
               context.normalSizedBox,
@@ -270,32 +256,26 @@ class HomeView extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
                   itemCount: cubitRead.vegateblesItem.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 20, mainAxisSpacing: 10),
-                  itemBuilder: (BuildContext context, index) {
-                    return Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 32,
-                          backgroundColor: cubitRead.vegateblesItem[index].color,
-                          child: ImageSvg(path: cubitRead.vegateblesItem[index].imagePath ?? ''),
-                        ),
-                        context.lowSizedBox,
-                        Align(
-                          alignment: Alignment.center,
-                          child: LocaleText(
-                            text: cubitRead.vegateblesItem[index].title ?? '',
-                            style: TextStyle(fontStyle: FontStyle.normal, fontWeight: FontWeight.w400, color: ColorConstants.instance.roboticgods),
-                          ),
-                        ),
-                      ],
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      childAspectRatio: 0.70,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 10),
+                  itemBuilder: (BuildContext context, vegateblesIndex) {
+                    return IngredientCircleAvatar(
+                      model: context
+                          .read<HomeCubit>()
+                          .vegateblesItem[vegateblesIndex],
                     );
                   }),
             ],
           ),
         ),
         Positioned(
-          bottom: 20,
-          child: RecipeCircularButton(color: ColorConstants.instance.russianViolet, text: LocaleKeys.addIngredients),
+          bottom: 5,
+          child: RecipeCircularButton(
+              color: ColorConstants.instance.russianViolet,
+              text: LocaleKeys.addIngredients),
         ),
       ]),
     );
