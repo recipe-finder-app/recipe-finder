@@ -89,11 +89,8 @@
     "dontEmptyThisField": "Bu alanı boş bırakmayın!",
     "dontEnterNegativeValue": "Negatif değer girilemez!",
     "enterValidEmailAddress": "Geçerli bir email adresi girin!",
-<<<<<<< HEAD
-    "notFoundIngredient":"Üzgünüz, aradığınız içerik bulunamadı."
-=======
+    "notFoundIngredient":"Üzgünüz, aradığınız içerik bulunamadı.",
     "noConnectionError": "İnternet bağlantısı sağlanamadı!",
     "checkYourNetwork": "Uygulamaya devam edebilmek için internet bağlantınızı kontrol edin.",
     "favoriteRecipeMessage" : "Bu tarif artık kaydedilen tariflerimde!"
->>>>>>> 38d2095782b36852ea083e3a7147ef7649621744
 }
