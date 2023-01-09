@@ -88,5 +88,6 @@
     "amount": "Miktar",
     "dontEmptyThisField": "Bu alanı boş bırakmayın!",
     "dontEnterNegativeValue": "Negatif değer girilemez!",
-    "enterValidEmailAddress": "Geçerli bir email adresi girin!"
+    "enterValidEmailAddress": "Geçerli bir email adresi girin!",
+    "notFoundIngredient":"Üzgünüz, aradığınız içerik bulunamadı."
 }

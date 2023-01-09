@@ -88,5 +88,6 @@
     "amount": "Amount",
     "dontEmptyThisField": "Don't empty this field!",
     "dontEnterNegativeValue": "Don't enter negative value!",
-    "enterValidEmailAddress": "Enter a valid e-mail address"
+    "enterValidEmailAddress": "Enter a valid e-mail address",
+    "notFoundIngredient": "Sorry, the content you were looking for could not be found."
 }
