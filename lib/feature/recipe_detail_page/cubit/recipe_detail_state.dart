@@ -20,9 +20,14 @@ class MyFrizeListLoad extends IRecipeDetailState {
   MyFrizeListLoad(this.myFrizeList);
 }
 
-class ChangeSelectedCategoryIndex extends IRecipeDetailState {
+class ChangeSelectedTabBarIndex extends IRecipeDetailState {
   int? index;
-  ChangeSelectedCategoryIndex(this.index);
+  ChangeSelectedTabBarIndex(this.index);
+}
+
+class ChangePreviousClickedTabBarIndex extends IRecipeDetailState {
+  int? index;
+  ChangePreviousClickedTabBarIndex(this.index);
 }
 
 class ChangeVideoPlayerModeState extends IRecipeDetailState {

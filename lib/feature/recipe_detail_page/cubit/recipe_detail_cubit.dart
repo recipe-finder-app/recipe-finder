@@ -14,6 +14,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   IRecipeDetailService? service;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
+
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
@@ -35,6 +36,8 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
         ),
       ),
     );
+    selectedTabBarIndex = 0;
+    selectedPreviousTabBarIndex = 0;
   }
 
   bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {
@@ -46,15 +49,21 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
     videoPlayerController = VideoPlayerController.asset('asset/video/pizza.mp4')..initialize();
   }
 
-  int selectedCategoryIndex = 0;
+  late int selectedTabBarIndex;
+  late int selectedPreviousTabBarIndex;
 
-  void changeSelectedCategoryIndex(int index) {
-    selectedCategoryIndex = index;
-    emit(ChangeSelectedCategoryIndex(selectedCategoryIndex));
+  void changeSelectedTabBarIndex(int index) {
+    selectedTabBarIndex = index;
+    emit(ChangeSelectedTabBarIndex(selectedTabBarIndex));
+  }
+
+  void changePreviousSelectedTabBarIndex(int index) {
+    selectedPreviousTabBarIndex = index;
+    emit(ChangePreviousClickedTabBarIndex(selectedPreviousTabBarIndex));
   }
 
   Color categoryItemColor(int index) {
-    if (index == selectedCategoryIndex) {
+    if (index == selectedTabBarIndex) {
       return ColorConstants.instance.oriolesOrange;
     } else {
       return Colors.white;
@@ -62,7 +71,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   }
 
   Color categoryTextColor(int index) {
-    if (index == selectedCategoryIndex) {
+    if (index == selectedTabBarIndex) {
       return Colors.white;
     } else {
       return Colors.black;

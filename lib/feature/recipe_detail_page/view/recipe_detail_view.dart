@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
@@ -46,6 +47,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       init: (cubitRead) {
         cubitRead.setContext(context);
         cubitRead.init();
+
         _animationController = AnimationController(
           vsync: this,
           duration: const Duration(milliseconds: 500),
@@ -85,9 +87,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       children: [
         AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
-          child: Chewie(
-            controller: cubitRead.chewieController,
-          ),
+          child: Chewie(controller: cubitRead.chewieController),
         ),
         Positioned(
           bottom: -5,
@@ -141,7 +141,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                                   explanation: LocaleKeys.deleteSavedRecipeQuestion,
                                   onPressedYes: () {
                                     context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
-                                    print(context.read<LikesCubit>().recipeList.length);
                                   },
                                 );
                               });
@@ -161,7 +160,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                       return InkWell(
                         onTap: () {
                           context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
-                          print(context.read<LikesCubit>().recipeList.length);
+                          Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
                         },
                         child: CircularBackground(
                             circleHeight: 30,
@@ -228,14 +227,16 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
               children: [
                 InkWell(
                   onTap: () {
-                    cubitRead.changeSelectedCategoryIndex(0);
-                    _startAnimation();
+                    cubitRead.changePreviousSelectedTabBarIndex(cubitRead.selectedTabBarIndex);
+                    cubitRead.changeSelectedTabBarIndex(0);
+
+                    cubitRead.selectedPreviousTabBarIndex == 0 ? null : _startAnimation();
                   },
                   child: Container(
                     height: 45,
                     width: context.screenWidth / 2.5,
                     decoration: BoxDecoration(
-                      border: cubitRead.selectedCategoryIndex == 0 ? null : Border.all(color: Colors.black, width: 0.5),
+                      border: cubitRead.selectedTabBarIndex == 0 ? null : Border.all(color: Colors.black, width: 0.5),
                       color: cubitRead.categoryItemColor(0),
                       borderRadius: context.radiusAllCircularMedium,
                     ),
@@ -253,14 +254,15 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                 ),
                 InkWell(
                   onTap: () {
-                    cubitRead.changeSelectedCategoryIndex(1);
-                    _startAnimation();
+                    cubitRead.changePreviousSelectedTabBarIndex(cubitRead.selectedTabBarIndex);
+                    cubitRead.changeSelectedTabBarIndex(1);
+                    cubitRead.selectedPreviousTabBarIndex == 1 ? null : _startAnimation();
                   },
                   child: Container(
                     height: 45,
                     width: context.screenWidth / 2.5,
                     decoration: BoxDecoration(
-                      border: cubitRead.selectedCategoryIndex == 1 ? null : Border.all(color: Colors.black, width: 0.5),
+                      border: cubitRead.selectedTabBarIndex == 1 ? null : Border.all(color: Colors.black, width: 0.5),
                       color: cubitRead.categoryItemColor(1),
                       borderRadius: context.radiusAllCircularMedium,
                     ),
@@ -278,9 +280,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                 ),
               ],
             ),
-            cubitRead.selectedCategoryIndex == 0
+            cubitRead.selectedTabBarIndex == 0
                 ? Hero(tag: 'tabBarIngredients', child: FadeTransition(opacity: _animation, child: tabBarIngredients(context)))
-                : cubitRead.selectedCategoryIndex == 1 //bu hero widget'ını fab button tag değeriyle bu animasyonların tag değeri çakıştığı için veriyoruz.Fab butona da farklı tag verdik.
+                : cubitRead.selectedTabBarIndex == 1 //bu hero widget'ını fab button tag değeriyle bu animasyonların tag değeri çakıştığı için veriyoruz.Fab butona da farklı tag verdik.
                     ? Hero(tag: 'tabBarDirections', child: FadeTransition(opacity: _animation, child: tabBarDirections(context)))
                     : const SizedBox(),
             /*  AnimatedBuilder(

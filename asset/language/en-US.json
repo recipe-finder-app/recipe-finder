@@ -89,5 +89,11 @@
     "dontEmptyThisField": "Don't empty this field!",
     "dontEnterNegativeValue": "Don't enter negative value!",
     "enterValidEmailAddress": "Enter a valid e-mail address",
+<<<<<<< HEAD
     "notFoundIngredient": "Sorry, the content you were looking for could not be found."
+=======
+    "noConnectionError": "Internet connection failed!",
+    "checkYourNetwork": "Check your internet connection to continue the application",
+    "favoriteRecipeMessage" : "This recipe is now in my saved recipes!"
+>>>>>>> 38d2095782b36852ea083e3a7147ef7649621744
 }
