@@ -268,11 +268,12 @@ class HomeView extends StatelessWidget {
                           .vegateblesItem[vegateblesIndex],
                     );
                   }),
+              context.veryHighSizedBox,
             ],
           ),
         ),
         Positioned(
-          bottom: 5,
+          bottom: 20,
           child: RecipeCircularButton(
               color: ColorConstants.instance.russianViolet,
               text: LocaleKeys.addIngredients),
