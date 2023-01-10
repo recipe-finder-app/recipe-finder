@@ -80,6 +80,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
         cursorWidth: 1,
         decoration: InputDecoration(
           prefixIcon: widget.prefixIcon,
+           
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,

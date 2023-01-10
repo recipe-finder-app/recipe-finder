@@ -99,8 +99,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           if (state!.isEmpty) {
                             return Padding(
                               padding: context.paddingHighTop,
-                              child: const LocaleText(
-                                text: 'Aranan isimde ürün bulunamadı',
+                              child: LocaleText(
+                                text: LocaleKeys.notFoundIngredient,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
@@ -162,21 +162,17 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                                         context.paddingRight,
                                                     child:
                                                         IngredientCircleAvatar(
-                                                            model:
-                                                                state![index],
-                                                            onPressed: () {
-                                                              showDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return AmountAlertDialog(
-                                                                        model: state![
-                                                                            index]);
-                                                                  });
-                                                            },
-                                                           
-                                                            ),
+                                                      model: state![index],
+                                                      onPressed: () {
+                                                        showDialog(
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return AmountAlertDialog(
+                                                                  model: state![
+                                                                      index]);
+                                                            });
+                                                      },
+                                                    ),
                                                   );
                                                 }),
                                           ),

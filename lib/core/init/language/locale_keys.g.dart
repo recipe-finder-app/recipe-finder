@@ -91,6 +91,7 @@ abstract class  LocaleKeys {
   static const dontEmptyThisField = 'dontEmptyThisField';
   static const dontEnterNegativeValue = 'dontEnterNegativeValue';
   static const enterValidEmailAddress = 'enterValidEmailAddress';
+  static const notFoundIngredient = 'notFoundIngredient';
   static const noConnectionError = 'noConnectionError';
   static const checkYourNetwork = 'checkYourNetwork';
   static const favoriteRecipeMessage = 'favoriteRecipeMessage';
