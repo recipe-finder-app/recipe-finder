@@ -25,6 +25,9 @@ class AddToBasketBottomSheet {
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.short,
+      onDismiss: () {
+        context.read<AddToBasketCubit>().undoAll();
+      },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +37,7 @@ class AddToBasketBottomSheet {
             children: [
               TextButton(
                   onPressed: () {
-                    context.read<AddToBasketCubit>().firstItemListsLoad();
+                    context.read<AddToBasketCubit>().undoAll();
                   },
                   child: LocaleBoldText(
                     text: LocaleKeys.undoAll,
@@ -121,7 +124,13 @@ class AddToBasketBottomSheet {
               );
             });
           }),
-          RecipeCircularButton(color: ColorConstants.instance.oriolesOrange, text: LocaleKeys.confirm),
+          RecipeCircularButton(
+            color: ColorConstants.instance.oriolesOrange,
+            text: LocaleKeys.confirm,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );

@@ -26,6 +26,7 @@ class CircularBottomSheet {
     bool? resizeToAvoidBottomInset,
     bool? scrollable,
     AnimationController? controller,
+    VoidCallback? onDismiss,
   }) {
     return showModalBottomSheet<void>(
       transitionAnimationController: controller,
@@ -53,7 +54,7 @@ class CircularBottomSheet {
           ),
         ),
       ),
-    );
+    ).then((value) => onDismiss?.call());
   }
 
   Widget buildChild(BuildContext context, Widget child) {

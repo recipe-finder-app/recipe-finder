@@ -34,7 +34,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     firstMyFrizeItemList.addAll(myFrizeList.toSet().toList());
   }
 
-  void firstItemListsLoad() {
+  void undoAll() {
     missingItemList.clear();
     myFrizeItemList.clear();
     missingItemList.addAll(firstMissingItemList.toSet().toList());
