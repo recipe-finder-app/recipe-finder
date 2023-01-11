@@ -131,7 +131,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                   context.normalSizedBoxWidth,
                   BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
                     if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
-                      print(context.read<LikesCubit>().recipeList.length);
                       return InkWell(
                         onTap: () {
                           showDialog(
@@ -156,7 +155,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                             )),
                       );
                     } else {
-                      print(context.read<LikesCubit>().recipeList.length);
                       return InkWell(
                         onTap: () {
                           context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);

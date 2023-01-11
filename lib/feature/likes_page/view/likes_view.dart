@@ -84,7 +84,7 @@ class LikesView extends StatelessWidget {
             addToBasketOnPressed: () {
               AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex].ingredients);
             },
-            recipeOnPressed: () {
+            onPressed: () {
               NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/

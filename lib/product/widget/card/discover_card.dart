@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
+import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 
 class DiscoverCard extends StatelessWidget {
   final RecipeModel model;
-  final VoidCallback? recipeOnPressed;
-  final VoidCallback? addToBasketOnPressed;
-  final VoidCallback? likeIconOnPressed;
   final double? width;
-  const DiscoverCard(
-      {Key? key,
-      this.recipeOnPressed,
-      this.addToBasketOnPressed,
-      required this.model,
-      this.likeIconOnPressed,
-      this.width})
-      : super(key: key);
+  final VoidCallback? onPressed;
+  final VoidCallback? likeIconOnPressed;
+  const DiscoverCard({Key? key, required this.model, this.width, this.onPressed, this.likeIconOnPressed}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: recipeOnPressed,
+      onTap: onPressed,
       child: Stack(
         children: [
           recipeImage(context),
@@ -86,14 +82,30 @@ class DiscoverCard extends StatelessWidget {
         alignment: Alignment.topRight,
         child: InkWell(
           onTap: likeIconOnPressed,
-          child: CircularBackground(
-            circleHeight: 35,
-            circleWidth: 35,
-            child: Icon(
-              Icons.favorite,
-              color: ColorConstants.instance.white,
-              size: 18,
-            ),
+          child: BlocBuilder<LikesCubit, ILikesState>(
+            builder: (context, state) {
+              if (context.read<LikesCubit>().recipeList.contains(model)) {
+                return CircularBackground(
+                  circleHeight: 35,
+                  circleWidth: 35,
+                  child: Icon(
+                    Icons.favorite_outlined,
+                    color: ColorConstants.instance.white,
+                    size: 18,
+                  ),
+                );
+              } else {
+                return CircularBackground(
+                  circleHeight: 35,
+                  circleWidth: 35,
+                  child: Icon(
+                    Icons.favorite_border_outlined,
+                    color: ColorConstants.instance.white,
+                    size: 18,
+                  ),
+                );
+              }
+            },
           ),
         ),
       ),

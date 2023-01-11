@@ -11,16 +11,10 @@ import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 class LikesRecipeCard extends StatelessWidget {
   final RecipeModel model;
-  final VoidCallback? recipeOnPressed;
+  final VoidCallback? onPressed;
   final VoidCallback? addToBasketOnPressed;
   final VoidCallback? likeIconOnPressed;
-  const LikesRecipeCard(
-      {Key? key,
-      this.recipeOnPressed,
-      this.addToBasketOnPressed,
-      required this.model,
-      this.likeIconOnPressed})
-      : super(key: key);
+  const LikesRecipeCard({Key? key, this.onPressed, this.addToBasketOnPressed, required this.model, this.likeIconOnPressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +22,7 @@ class LikesRecipeCard extends StatelessWidget {
         Flexible(
           flex: 5,
           child: InkWell(
-            onTap: recipeOnPressed,
+            onTap: onPressed,
             child: Stack(
               children: [
                 recipeImage(context),
@@ -57,11 +51,7 @@ class LikesRecipeCard extends StatelessWidget {
           child: GestureDetector(
             onTap: addToBasketOnPressed,
             child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: context.radiusBottomCircularMin,
-                  color: ColorConstants.instance.white,
-                  border:
-                      Border.all(color: ColorConstants.instance.oriolesOrange)),
+              decoration: BoxDecoration(borderRadius: context.radiusBottomCircularMin, color: ColorConstants.instance.white, border: Border.all(color: ColorConstants.instance.oriolesOrange)),
               child: Align(
                 alignment: Alignment.center,
                 child: Row(
@@ -77,8 +67,7 @@ class LikesRecipeCard extends StatelessWidget {
                     LocaleText(
                       textAlign: TextAlign.center,
                       text: LocaleKeys.addToBasket,
-                      style: TextStyle(
-                          color: ColorConstants.instance.oriolesOrange),
+                      style: TextStyle(color: ColorConstants.instance.oriolesOrange),
                     ),
                   ],
                 ),

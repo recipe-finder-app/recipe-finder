@@ -28,12 +28,10 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           fit: StackFit.loose,
           children: [
             SizedBox(
-              height:
-                  context.screenHeight < DeviceSizeEnum.inch_5.size ? 70 : 105,
+              height: context.screenHeight < DeviceSizeEnum.inch_5.size ? 70 : 105,
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
-                selectedIconTheme:
-                    IconThemeData(color: ColorConstants.instance.russianViolet),
+                selectedIconTheme: IconThemeData(color: ColorConstants.instance.russianViolet),
                 unselectedIconTheme: IconThemeData(
                   color: ColorConstants.instance.roboticgods,
                 ),
@@ -56,9 +54,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                       icon: Padding(
                         padding: bottomNavBarLabelPadding(),
                         child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 0
-                              ? ImagePath.homeBlack.path
-                              : ImagePath.home.path,
+                          path: cubitRead.selectedPageIndex == 0 ? ImagePath.homeBlack.path : ImagePath.home.path,
                           color: cubitRead.itemColor(0),
                           height: 24,
                         ),
@@ -68,9 +64,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                       icon: Padding(
                         padding: bottomNavBarLabelPadding(),
                         child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 1
-                              ? ImagePath.discoverBlack.path
-                              : ImagePath.discover.path,
+                          path: cubitRead.selectedPageIndex == 1 ? ImagePath.discoverBlack.path : ImagePath.discover.path,
                           color: cubitRead.itemColor(1),
                           height: 24,
                         ),
@@ -93,9 +87,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                       icon: Padding(
                         padding: bottomNavBarLabelPadding(),
                         child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 3
-                              ? ImagePath.likeBlack.path
-                              : ImagePath.like.path,
+                          path: cubitRead.selectedPageIndex == 3 ? ImagePath.likeBlack.path : ImagePath.like.path,
                           color: cubitRead.itemColor(3),
                           height: 24,
                         ),
@@ -105,9 +97,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                       icon: Padding(
                         padding: bottomNavBarLabelPadding(),
                         child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 4
-                              ? ImagePath.shoppingBagBlack.path
-                              : ImagePath.shoppingBag.path,
+                          path: cubitRead.selectedPageIndex == 4 ? ImagePath.shoppingBagBlack.path : ImagePath.shoppingBag.path,
                           color: cubitRead.itemColor(4),
                           height: 24,
                         ),
@@ -128,9 +118,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                     width: 56,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: cubitRead.selectedPageIndex == 2
-                          ? ColorConstants.instance.russianViolet
-                          : ColorConstants.instance.oriolesOrange,
+                      color: cubitRead.selectedPageIndex == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
                     ),
                     child: ImageSvg(
                       path: ImagePath.search.path,
