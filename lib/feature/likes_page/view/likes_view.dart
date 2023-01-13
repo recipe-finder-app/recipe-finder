@@ -10,7 +10,7 @@ import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/widget/card/animated_saved_recipe_card.dart';
 import '../../../product/widget/list_view/category_list_view.dart';
 import '../../../product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
-import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../../../product/widget/text_field/speech_to_text_formfield.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/likes_cubit.dart';
 
@@ -49,7 +49,7 @@ class LikesView extends StatelessWidget {
                     fontSize: 29,
                   ),
                   context.normalSizedBox,
-                  SearchVoiceTextFormField(
+                  SpeechToTextFormField(
                     controller: TextEditingController(),
                     width: context.screenWidth,
                   ),

@@ -12,38 +12,28 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../../core/constant/enum/supported_languages_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 
-class SearchVoiceTextFormField extends StatefulWidget {
+class SpeechToTextFormField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final double? width;
   final TextEditingController controller;
   final VoidCallback? onPressedClear;
   final bool? borderEnable;
-  SearchVoiceTextFormField(
-      {Key? key,
-      this.width,
-      this.onChanged,
-      required this.controller,
-      this.onPressedClear,
-      this.borderEnable})
-      : super(key: key);
+  SpeechToTextFormField({Key? key, this.width, this.onChanged, required this.controller, this.onPressedClear, this.borderEnable}) : super(key: key);
 
   @override
-  State<SearchVoiceTextFormField> createState() =>
-      _SearchVoiceTextFormFieldState();
+  State<SpeechToTextFormField> createState() => _SpeechToTextFormFieldState();
 }
 
-class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
+class _SpeechToTextFormFieldState extends State<SpeechToTextFormField> {
   bool _isListening = false;
   String? _currentLocaleId;
   final SpeechToText speech = SpeechToText();
 
   void setLanguage() {
-    if (context.locale.languageCode ==
-        SupportedLanguages.TR.name.toLowerCase()) {
+    if (context.locale.languageCode == SupportedLanguages.TR.name.toLowerCase()) {
       _currentLocaleId = 'tr-TR';
       print(_currentLocaleId);
-    } else if (context.locale.languageCode ==
-        SupportedLanguages.EN.name.toLowerCase()) {
+    } else if (context.locale.languageCode == SupportedLanguages.EN.name.toLowerCase()) {
       _currentLocaleId = 'en-GB';
       print(_currentLocaleId);
     }
@@ -105,9 +95,7 @@ class _SearchVoiceTextFormFieldState extends State<SearchVoiceTextFormField> {
       controller: widget.controller,
       hintText: LocaleKeys.search.locale,
       borderEnable: widget.borderEnable,
-      prefixIcon: ImageSvg(
-          path: ImagePath.searchh.path,
-          color: ColorConstants.instance.russianViolet),
+      prefixIcon: ImageSvg(path: ImagePath.searchh.path, color: ColorConstants.instance.russianViolet),
       suffixIcon: Padding(
         padding: context.paddingLowRightLow,
         child: AvatarGlow(

@@ -12,7 +12,7 @@ import 'package:recipe_finder/product/model/ingradient_model.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
-import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../../../product/widget/text_field/speech_to_text_formfield.dart';
 import '../cubit/material_cubit.dart';
 
 class MaterialSearchView extends StatefulWidget {
@@ -60,7 +60,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                         context.mediumSizedBox,
                         _textRow(context),
                         context.mediumSizedBox,
-                        SearchVoiceTextFormField(
+                        SpeechToTextFormField(
                           controller: cubitRead.searchTextController,
                           onPressedClear: () {
                             cubitRead.ingredientListLoad();
