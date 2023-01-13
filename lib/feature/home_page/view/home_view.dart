@@ -13,6 +13,7 @@ import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_mo
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
+import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -220,7 +221,7 @@ class HomeView extends StatelessWidget {
                     itemBuilder: (context, essentialsIndex) {
                       return Padding(
                         padding: context.paddingLowRight,
-                        child: AmountIngredientCircleAvatar(
+                        child: IngredientCircleAvatar(
                           model: context.read<HomeCubit>().essentialsItem[essentialsIndex],
                         ),
                       );
