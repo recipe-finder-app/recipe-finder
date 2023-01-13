@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -13,7 +12,7 @@ import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
-import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
+import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -53,10 +52,7 @@ class HomeView extends StatelessWidget {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: LocaleText(
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: ColorConstants.instance.black,
-                              fontWeight: FontWeight.w400),
+                          style: TextStyle(fontSize: 25, color: ColorConstants.instance.black, fontWeight: FontWeight.w400),
                           text: LocaleKeys.category,
                         ),
                       ),
@@ -101,7 +97,7 @@ class HomeView extends StatelessWidget {
           itemBuilder: (context, categoryIndex) {
             return Padding(
               padding: context.paddingLowRight,
-              child: IngredientCircleAvatar(
+              child: AmountIngredientCircleAvatar(
                 model: context.read<HomeCubit>().category[categoryIndex],
               ),
             );
@@ -127,23 +123,20 @@ class HomeView extends StatelessWidget {
             ),
           ),
         ),
-        Stack(children: [
-          Padding(
-            padding: context.paddingLeftEdges,
-            child: SizedBox(
-              height: context.highValue,
-              child: InkWell(
-                onTap: () {
-                  fridgeBottomSheet(context, cubitRead);
-                },
-                child: ImageSvg(
-                  path: ImagePath.fridge.path,
-                ),
+        Stack(alignment: AlignmentDirectional.topEnd, children: [
+          SizedBox(
+            height: context.highValue,
+            child: InkWell(
+              onTap: () {
+                fridgeBottomSheet(context, cubitRead);
+              },
+              child: ImageSvg(
+                path: ImagePath.fridge.path,
               ),
             ),
           ),
           Padding(
-            padding: context.paddingMaxEdges,
+            padding: EdgeInsets.only(top: 8, right: 8),
             child: CircleAvatar(
               radius: 5,
               backgroundColor: ColorConstants.instance.oriolesOrange,
@@ -159,18 +152,13 @@ class HomeView extends StatelessWidget {
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemCount: cubitRead.searchByMeal.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.40,
-            crossAxisSpacing: 25,
-            mainAxisSpacing: 15),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 2.40, crossAxisSpacing: 25, mainAxisSpacing: 15),
         itemBuilder: (BuildContext context, index) {
           return _searchByMealCard(context, cubitRead, index);
         });
   }
 
-  Container _searchByMealCard(
-      BuildContext context, HomeCubit cubitRead, int index) {
+  Container _searchByMealCard(BuildContext context, HomeCubit cubitRead, int index) {
     return Container(
       height: context.veryyHighValue,
       decoration: BoxDecoration(
@@ -218,10 +206,7 @@ class HomeView extends StatelessWidget {
             children: [
               context.normalSizedBox,
               const LocaleText(
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
                 text: LocaleKeys.essentials,
               ),
               context.normalSizedBox,
@@ -235,19 +220,14 @@ class HomeView extends StatelessWidget {
                     itemBuilder: (context, essentialsIndex) {
                       return Padding(
                         padding: context.paddingLowRight,
-                        child: IngredientCircleAvatar(
-                          model: context
-                              .read<HomeCubit>()
-                              .essentialsItem[essentialsIndex],
+                        child: AmountIngredientCircleAvatar(
+                          model: context.read<HomeCubit>().essentialsItem[essentialsIndex],
                         ),
                       );
                     }),
               ),
               const LocaleText(
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
                 text: LocaleKeys.vegatables,
               ),
               context.normalSizedBox,
@@ -256,16 +236,10 @@ class HomeView extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
                   itemCount: cubitRead.vegateblesItem.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      childAspectRatio: 0.70,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 10),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 20, mainAxisSpacing: 10),
                   itemBuilder: (BuildContext context, vegateblesIndex) {
-                    return IngredientCircleAvatar(
-                      model: context
-                          .read<HomeCubit>()
-                          .vegateblesItem[vegateblesIndex],
+                    return AmountIngredientCircleAvatar(
+                      model: context.read<HomeCubit>().vegateblesItem[vegateblesIndex],
                     );
                   }),
               context.veryHighSizedBox,
@@ -274,9 +248,7 @@ class HomeView extends StatelessWidget {
         ),
         Positioned(
           bottom: 20,
-          child: RecipeCircularButton(
-              color: ColorConstants.instance.russianViolet,
-              text: LocaleKeys.addIngredients),
+          child: RecipeCircularButton(color: ColorConstants.instance.russianViolet, text: LocaleKeys.addIngredients),
         ),
       ]),
     );

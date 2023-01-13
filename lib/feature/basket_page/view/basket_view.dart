@@ -11,6 +11,7 @@ import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../product/widget/card/basket_card.dart';
+import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
 
@@ -113,14 +114,8 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
               children: [
                 Row(
                   children: [
-                    IngredientCircleAvatar(
-                      showText: false,
-                      color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                    AmountIngredientCircleAvatar(
                       model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
-                      iconTopWidget: Text(
-                        cubitRead.selectedCardModel!.ingredients[listViewIndex].quantity.toString(),
-                        style: TextStyle(color: ColorConstants.instance.white),
-                      ),
                     ),
                     context.normalSizedBoxWidth,
                     Padding(

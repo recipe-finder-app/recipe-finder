@@ -129,94 +129,97 @@ class LoginView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
-      child: Column(
-        children: [
-          Flexible(
-            flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName)),
-                  context.lowSizedBox,
-                  UserTextFormField(
-                    controller: TextEditingController(),
-                  ),
-                ]),
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password)),
-                  context.lowSizedBox,
-                  PasswordTextFormField(
-                    controller: TextEditingController(),
-                  ),
-                  context.lowSizedBox,
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        child: const LocaleBoldText(
-                          text: LocaleKeys.forgotPassword,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                          forgotPasswordBottomSheet(context, cubitRead);
-                        },
-                      )),
-                ]),
-                LoginButton(
-                  text: LocaleKeys.login.locale,
-                  onPressed: () {
-                    cubitRead.login();
-                  },
-                  color: ColorConstants.instance.oriolesOrange,
-                ),
-              ],
-            ),
-          ),
-          Flexible(
-            flex: 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const LocaleText(
-                  text: LocaleKeys.orContinueWith,
-                ),
-                Column(
-                  children: [
-                    RecipeCircularButton(
-                      borderColor: Colors.black,
-                      textColor: Colors.black,
-                      text: LocaleKeys.loginWithGoogle.locale,
+      child: Form(
+        key: cubitRead.loginFormKey,
+        child: Column(
+          children: [
+            Flexible(
+              flex: 5,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName)),
+                    context.lowSizedBox,
+                    UserTextFormField(
+                      controller: TextEditingController(),
+                    ),
+                  ]),
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password)),
+                    context.lowSizedBox,
+                    PasswordTextFormField(
+                      controller: TextEditingController(),
                     ),
                     context.lowSizedBox,
-                    RecipeCircularButton(
-                      borderColor: Colors.black,
-                      textColor: ColorConstants.instance.brightNavyBlue,
-                      text: LocaleKeys.loginWithFacebook.locale,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const LocaleBoldText(text: LocaleKeys.dontHaveAnyAccount),
-                    TextButton(
-                      child: LocaleText(
-                          text: LocaleKeys.signUp,
-                          style: TextStyle(
-                            color: ColorConstants.instance.oriolesOrange,
-                          )),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        signUpBottomSheet(context, cubitRead);
-                      },
-                    ),
-                  ],
-                )
-              ],
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          child: const LocaleBoldText(
+                            text: LocaleKeys.forgotPassword,
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            forgotPasswordBottomSheet(context, cubitRead);
+                          },
+                        )),
+                  ]),
+                  LoginButton(
+                    text: LocaleKeys.login.locale,
+                    onPressed: () {
+                      cubitRead.login();
+                    },
+                    color: ColorConstants.instance.oriolesOrange,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Flexible(
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const LocaleText(
+                    text: LocaleKeys.orContinueWith,
+                  ),
+                  Column(
+                    children: [
+                      RecipeCircularButton(
+                        borderColor: Colors.black,
+                        textColor: Colors.black,
+                        text: LocaleKeys.loginWithGoogle.locale,
+                      ),
+                      context.lowSizedBox,
+                      RecipeCircularButton(
+                        borderColor: Colors.black,
+                        textColor: ColorConstants.instance.brightNavyBlue,
+                        text: LocaleKeys.loginWithFacebook.locale,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const LocaleBoldText(text: LocaleKeys.dontHaveAnyAccount),
+                      TextButton(
+                        child: LocaleText(
+                            text: LocaleKeys.signUp,
+                            style: TextStyle(
+                              color: ColorConstants.instance.oriolesOrange,
+                            )),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          signUpBottomSheet(context, cubitRead);
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
