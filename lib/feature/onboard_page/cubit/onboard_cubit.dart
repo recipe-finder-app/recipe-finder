@@ -50,8 +50,8 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
       emit(ChangeCurrentIndex(currentIndex));
       pageController.animateToPage(
         value,
-        duration: const Duration(milliseconds: 850),
-        curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 950),
+        curve: Curves.decelerate,
       );
     }
   }

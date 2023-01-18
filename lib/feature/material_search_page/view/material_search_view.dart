@@ -226,6 +226,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                             );
                           }
                         }),
+                        context.veryHighSizedBox,
                       ]),
                     )),
               ),
@@ -260,9 +261,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 fontStyle: FontStyle.normal,
                 fontWeight: FontWeight.w600,
                 color: ColorConstants.instance.russianViolet,
-                decoration: TextDecoration.underline,
-                decorationColor: ColorConstants.instance.russianViolet,
-                decorationThickness: 2,
+                // decoration: TextDecoration.underline,
+                // decorationColor: ColorConstants.instance.russianViolet,
+                // decorationThickness: 2,
               ),
               text: LocaleKeys.later),
         ),
