@@ -10,7 +10,8 @@ import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 
 class AmountAlertDialog extends StatefulWidget {
   final IngredientModel model;
-  const AmountAlertDialog({Key? key, required this.model}) : super(key: key);
+  final ValueChanged<double>? onPressedAdd;
+  const AmountAlertDialog({Key? key, required this.model, this.onPressedAdd}) : super(key: key);
 
   @override
   State<AmountAlertDialog> createState() => _AmountAlertDialogState();
@@ -32,19 +33,9 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.only(
-          top: context.lowValue,
-          right: context.lowValue,
-          left: context.lowValue),
-      actionsPadding: EdgeInsets.only(
-          bottom: context.normalValue,
-          right: context.lowValue,
-          left: context.lowValue),
-      titlePadding: EdgeInsets.only(
-          top: context.lowValue,
-          bottom: context.lowValue,
-          right: context.normalValue,
-          left: context.normalValue),
+      contentPadding: EdgeInsets.only(top: context.lowValue, right: context.lowValue, left: context.lowValue),
+      actionsPadding: EdgeInsets.only(bottom: context.normalValue, right: context.lowValue, left: context.lowValue),
+      titlePadding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue, right: context.normalValue, left: context.normalValue),
       shape: RoundedRectangleBorder(
         borderRadius: context.radiusAllCircularMedium,
       ),
@@ -88,9 +79,7 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
             color: ColorConstants.instance.oriolesOrange,
             onPressed: () {
               if (formKey.currentState!.validate()) {
-                print('validate');
-              } else {
-                print('validate değil');
+                widget.onPressedAdd != null ? widget.onPressedAdd!(double.parse(controller.text)) : null;
               }
             },
           ),

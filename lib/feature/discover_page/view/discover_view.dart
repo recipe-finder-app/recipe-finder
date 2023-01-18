@@ -6,8 +6,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
-import 'package:recipe_finder/product/widget/listview/category_list_view.dart';
-import 'package:recipe_finder/product/widget/text_field/search_voice_text_formfield.dart';
+import 'package:recipe_finder/product/widget/text_field/speech_to_text_formfield.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
 
 import '../../../core/constant/design/color_constant.dart';
@@ -15,6 +14,7 @@ import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/widget/alert_dialog/question_alert_dialog.dart';
 import '../../../product/widget/card/discover_card.dart';
+import '../../../product/widget/list_view/category_list_view.dart';
 import '../../likes_page/cubit/likes_cubit.dart';
 
 class DiscoverView extends StatelessWidget {
@@ -41,7 +41,7 @@ class DiscoverView extends StatelessWidget {
                           fontSize: 24,
                         ),
                         context.normalSizedBox,
-                        SearchVoiceTextFormField(
+                        SpeechToTextFormField(
                           controller: TextEditingController(),
                           width: context.screenWidth,
                         ),

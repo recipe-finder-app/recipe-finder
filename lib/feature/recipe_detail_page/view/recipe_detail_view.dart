@@ -17,7 +17,7 @@ import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/model/recipe_model.dart';
-import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
+import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget_core/text/bold_text.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../../../product/widget_core/text/locale_text.dart';
@@ -353,13 +353,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                     itemBuilder: (BuildContext context, int missingItemIndex) {
                       return Padding(
                         padding: EdgeInsets.only(right: context.lowValue),
-                        child: IngredientCircleAvatar(
-                          color: ColorConstants.instance.russianViolet.withOpacity(0.1),
+                        child: AmountIngredientCircleAvatar(
                           model: context.read<HomeCubit>().myFrizeItems[missingItemIndex],
-                          iconTopWidget: Text(
-                            context.read<HomeCubit>().myFrizeItems[missingItemIndex].quantity.toString(),
-                            style: const TextStyle(color: Colors.white),
-                          ),
                         ),
                       );
                     }),

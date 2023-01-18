@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/widget/card/saved_recipe_card.dart';
-import '../../../product/widget/listview/category_list_view.dart';
+import '../../../product/widget/card/animated_saved_recipe_card.dart';
+import '../../../product/widget/list_view/category_list_view.dart';
 import '../../../product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
-import '../../../product/widget/text_field/search_voice_text_formfield.dart';
+import '../../../product/widget/text_field/speech_to_text_formfield.dart';
 import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/likes_cubit.dart';
 
@@ -50,7 +49,7 @@ class LikesView extends StatelessWidget {
                     fontSize: 29,
                   ),
                   context.normalSizedBox,
-                  SearchVoiceTextFormField(
+                  SpeechToTextFormField(
                     controller: TextEditingController(),
                     width: context.screenWidth,
                   ),
@@ -79,7 +78,7 @@ class LikesView extends StatelessWidget {
           childAspectRatio: 3 / 4,
         ),
         itemBuilder: (BuildContext context, int cardIndex) {
-          return LikesRecipeCard(
+          return AnimatedLikesRecipeCard(
             model: cubitRead.recipeList[cardIndex],
             addToBasketOnPressed: () {
               AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex].ingredients);
@@ -89,17 +88,8 @@ class LikesView extends StatelessWidget {
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/
             },
-            likeIconOnPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return QuestionAlertDialog(
-                      explanation: LocaleKeys.deleteSavedRecipeQuestion,
-                      onPressedYes: () {
-                        cubitRead.deleteItemFromLikedRecipeList(cubitRead.recipeList[cardIndex]);
-                      },
-                    );
-                  });
+            likeIconOnPressedYes: () {
+              cubitRead.deleteItemFromLikedRecipeList(cubitRead.recipeList[cardIndex]);
             },
           );
         });
