@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
           child: Padding(
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(children: [
                 context.mediumSizedBox,
                 _textRow(context, cubitRead),
@@ -155,18 +155,21 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _searchByGridView(BuildContext context, HomeCubit cubitRead) {
-    return GridView.builder(
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        itemCount: cubitRead.searchByMeal.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2.40,
-            crossAxisSpacing: 25,
-            mainAxisSpacing: 15),
-        itemBuilder: (BuildContext context, index) {
-          return _searchByMealCard(context, cubitRead, index);
-        });
+    return SizedBox(
+      height: context.screenHeight / 2.5,
+      child: GridView.builder(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemCount: cubitRead.searchByMeal.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2.40,
+              crossAxisSpacing: 25,
+              mainAxisSpacing: 15),
+          itemBuilder: (BuildContext context, index) {
+            return _searchByMealCard(context, cubitRead, index);
+          }),
+    );
   }
 
   Container _searchByMealCard(

@@ -145,6 +145,7 @@ extension SizedBoxExtension on BuildContext {
   SizedBox get normalSizedBox => SizedBox(height: normalValue);
   SizedBox get mediumSizedBox => SizedBox(height: mediumValue);
   SizedBox get highSizedBox => SizedBox(height: highValue);
+  
   SizedBox get veryHighSizedBox => SizedBox(height: veryHighValue);
 
   SizedBox get veryLowSizedBoxWidth => SizedBox(width: veryLowValue);
