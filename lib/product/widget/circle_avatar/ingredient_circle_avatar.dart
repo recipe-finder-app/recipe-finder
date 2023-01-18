@@ -14,6 +14,10 @@ class IngredientCircleAvatar extends StatelessWidget {
   final Widget? iconTopWidget;
   final VoidCallback? onPressed;
   final bool? showText;
+  final double? textFontSize;
+  final String? textRowText;
+  final Color? textColor;
+  final FontWeight? textFontWeight;
   const IngredientCircleAvatar({
     Key? key,
     required this.model,
@@ -21,6 +25,10 @@ class IngredientCircleAvatar extends StatelessWidget {
     this.iconTopWidget,
     this.onPressed,
     this.showText,
+    this.textFontSize,
+    this.textRowText,
+    this.textColor,
+    this.textFontWeight,
   }) : super(key: key);
 
   @override
@@ -52,14 +60,29 @@ class IngredientCircleAvatar extends StatelessWidget {
                 ),
           context.veryLowSizedBox,
           showText == false
-              ? const SizedBox()
-              : FittedBox(
-                  child: LocaleText(
-                      locale: context.locale,
-                      fontSize: 12,
-                      text: model.title,
-                      color: ColorConstants.instance.roboticgods),
-                ),
+              ? const SizedBox(
+                  height: 0,
+                  width: 0,
+                )
+              : textRowText != null
+                  ? FittedBox(
+                      child: LocaleText(
+                        locale: context.locale,
+                        fontSize: textFontSize == null ? 12 : textFontSize,
+                        text: '$textRowText ${model.title}',
+                        color: textColor == null ? ColorConstants.instance.roboticgods : textColor,
+                        fontWeight: textFontWeight,
+                      ),
+                    )
+                  : FittedBox(
+                      child: LocaleText(
+                        locale: context.locale,
+                        fontSize: textFontSize == null ? 12 : textFontSize,
+                        text: model.title,
+                        color: textColor == null ? ColorConstants.instance.roboticgods : textColor,
+                        fontWeight: textFontWeight,
+                      ),
+                    ),
         ],
       ),
     );

@@ -6,7 +6,6 @@ import 'package:recipe_finder/product/model/ingradient_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import 'package:recipe_finder/product/widget/text_field/amount_text_field.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 
 class AmountAlertDialog extends StatefulWidget {
   final IngredientModel model;
@@ -60,9 +59,12 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
             children: [
               IngredientCircleAvatar(
                 model: widget.model,
-                showText: false,
+                showText: true,
+                textRowText: controller.text,
+                textFontSize: 14,
+                textColor: Colors.black,
+                textFontWeight: FontWeight.normal,
               ),
-              BoldText(text: '${controller.text} ${widget.model.title}'),
               AmountTextField(model: widget.model, controller: controller),
               Align(
                 alignment: Alignment.center,
