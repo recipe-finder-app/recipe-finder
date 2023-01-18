@@ -28,7 +28,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
           fit: StackFit.loose,
           children: [
             SizedBox(
-              height: context.screenHeight < DeviceSizeEnum.inch_5.size ? 70 : 105,
+              height: context.screenHeight < DeviceSizeEnum.inch_5.size ? 60 : 95,
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
                 selectedIconTheme: IconThemeData(color: ColorConstants.instance.russianViolet),
@@ -51,62 +51,47 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 items: [
                   BottomNavigationBarItem(
                       label: LocaleKeys.home.locale,
-                      icon: Padding(
-                        padding: bottomNavBarLabelPadding(),
-                        child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 0 ? ImagePath.homeBlack.path : ImagePath.home.path,
-                          color: cubitRead.itemColor(0),
-                          height: 24,
-                        ),
+                      icon: ImageSvg(
+                        path: cubitRead.selectedPageIndex == 0 ? ImagePath.homeBlack.path : ImagePath.home.path,
+                        color: cubitRead.itemColor(0),
+                        height: 24,
                       )),
                   BottomNavigationBarItem(
                       label: LocaleKeys.discover.locale,
-                      icon: Padding(
-                        padding: bottomNavBarLabelPadding(),
-                        child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 1 ? ImagePath.discoverBlack.path : ImagePath.discover.path,
-                          color: cubitRead.itemColor(1),
-                          height: 24,
-                        ),
+                      icon: ImageSvg(
+                        path: cubitRead.selectedPageIndex == 1 ? ImagePath.discoverBlack.path : ImagePath.discover.path,
+                        color: cubitRead.itemColor(1),
+                        height: 24,
                       )),
                   BottomNavigationBarItem(
                       label: LocaleKeys.finder.locale,
-                      icon: Padding(
-                        padding: bottomNavBarLabelPadding(),
-                        child: const SizedBox(
-                          height: 24,
-                          child: Icon(
-                            Icons.home,
-                            size: 0,
-                            color: Colors.transparent,
-                          ),
+                      icon: const SizedBox(
+                        height: 24,
+                        child: Icon(
+                          Icons.home,
+                          size: 0,
+                          color: Colors.transparent,
                         ),
                       )),
                   BottomNavigationBarItem(
                       label: LocaleKeys.likes.locale,
-                      icon: Padding(
-                        padding: bottomNavBarLabelPadding(),
-                        child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 3 ? ImagePath.likeBlack.path : ImagePath.like.path,
-                          color: cubitRead.itemColor(3),
-                          height: 24,
-                        ),
+                      icon: ImageSvg(
+                        path: cubitRead.selectedPageIndex == 3 ? ImagePath.likeBlack.path : ImagePath.like.path,
+                        color: cubitRead.itemColor(3),
+                        height: 24,
                       )),
                   BottomNavigationBarItem(
                       label: LocaleKeys.basket.locale,
-                      icon: Padding(
-                        padding: bottomNavBarLabelPadding(),
-                        child: ImageSvg(
-                          path: cubitRead.selectedPageIndex == 4 ? ImagePath.shoppingBagBlack.path : ImagePath.shoppingBag.path,
-                          color: cubitRead.itemColor(4),
-                          height: 24,
-                        ),
+                      icon: ImageSvg(
+                        path: cubitRead.selectedPageIndex == 4 ? ImagePath.shoppingBagBlack.path : ImagePath.shoppingBag.path,
+                        color: cubitRead.itemColor(4),
+                        height: 24,
                       )),
                 ],
               ),
             ),
             Positioned(
-              top: -18,
+              top: -16,
               child: InkWell(
                 onTap: () {
                   cubitRead.clickFinderButton();
@@ -114,8 +99,8 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 child: Tooltip(
                   message: LocaleKeys.finder.locale,
                   child: Container(
-                    height: 56,
-                    width: 56,
+                    height: 50,
+                    width: 50,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: cubitRead.selectedPageIndex == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
@@ -140,4 +125,4 @@ class RecipeBottomNavigationBar extends StatelessWidget {
   }
 }
 
-EdgeInsets bottomNavBarLabelPadding() => EdgeInsets.only(bottom: 8);
+//EdgeInsets bottomNavBarLabelPadding() => EdgeInsets.only(bottom: 8);
