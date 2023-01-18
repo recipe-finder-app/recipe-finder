@@ -33,9 +33,8 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      contentPadding: EdgeInsets.only(top: context.lowValue, right: context.lowValue, left: context.lowValue),
-      actionsPadding: EdgeInsets.only(bottom: context.normalValue, right: context.lowValue, left: context.lowValue),
-      titlePadding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue, right: context.normalValue, left: context.normalValue),
+      contentPadding: EdgeInsets.only(right: context.normalValue, left: context.normalValue),
+      titlePadding: EdgeInsets.only(top: context.lowValue, right: context.normalValue, left: context.normalValue),
       shape: RoundedRectangleBorder(
         borderRadius: context.radiusAllCircularMedium,
       ),
@@ -52,11 +51,11 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
             ),
           )),
       content: SizedBox(
-        height: context.screenHeight / 4,
+        height: context.screenHeight / 3.5,
         child: Form(
           key: formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IngredientCircleAvatar(
@@ -64,27 +63,25 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
                 showText: false,
               ),
               BoldText(text: '${controller.text} ${widget.model.title}'),
-              context.normalSizedBox,
-              AmountTextField(model: widget.model, controller: controller)
+              AmountTextField(model: widget.model, controller: controller),
+              Align(
+                alignment: Alignment.center,
+                child: RecipeCircularButton(
+                  width: context.screenWidth / 2,
+                  text: LocaleKeys.add,
+                  color: ColorConstants.instance.oriolesOrange,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      widget.onPressedAdd != null ? widget.onPressedAdd!(double.parse(controller.text)) : null;
+                    }
+                  },
+                ),
+              ),
             ],
           ),
         ),
       ),
-      actions: [
-        Align(
-          alignment: Alignment.center,
-          child: RecipeCircularButton(
-            width: context.screenWidth / 2,
-            text: LocaleKeys.add,
-            color: ColorConstants.instance.oriolesOrange,
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                widget.onPressedAdd != null ? widget.onPressedAdd!(double.parse(controller.text)) : null;
-              }
-            },
-          ),
-        ),
-      ],
+      actions: [],
     );
   }
 }
