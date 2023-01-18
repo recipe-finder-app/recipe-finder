@@ -91,7 +91,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: -16,
+              top: -18,
               child: InkWell(
                 onTap: () {
                   cubitRead.clickFinderButton();
