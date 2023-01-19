@@ -1,10 +1,13 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/design/color_constant.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/model/recipe_model.dart';
 import '../../likes_page/cubit/likes_cubit.dart';
 import '../service/recipe_detail_service.dart';
@@ -38,6 +41,21 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
     );
     selectedTabBarIndex = 0;
     selectedPreviousTabBarIndex = 0;
+  }
+
+  void share(RecipeModel recipeModel) {
+    String ingredientsText = '';
+    for (var ingredient in recipeModel.ingredients!) {
+      ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+    }
+
+    String message = '${LocaleKeys.ingredients.locale}\n'
+        '$ingredientsText\n\n'
+        '${LocaleKeys.description}\n\n'
+        '${recipeModel.description}\n\n'
+        '${LocaleKeys.directions}\n\n'
+        '${recipeModel.directions}\n\n';
+    Share.share(message);
   }
 
   bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {

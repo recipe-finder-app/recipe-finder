@@ -66,6 +66,11 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     ];
   }
 
+  void addItemFromBasketRecipeList(RecipeModel model) {
+    basketRecipeItems.add(model);
+    emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
+  }
+
   void deletedItemFromBasketRecipeList(RecipeModel model) {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
