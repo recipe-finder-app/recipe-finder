@@ -236,19 +236,18 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   Widget _textRow(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
-              ),
-              text: LocaleKeys.selectIngredients,
+          child: LocaleText(
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color: ColorConstants.instance.blackbox,
             ),
+            text: LocaleKeys.selectIngredients,
           ),
         ),
         TextButton(
