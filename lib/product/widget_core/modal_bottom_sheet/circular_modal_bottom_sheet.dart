@@ -30,14 +30,19 @@ class CircularBottomSheet {
   }) {
     return showModalBottomSheet<void>(
       transitionAnimationController: controller,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       context: context,
       isScrollControlled: true,
       builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: resizeToAvoidBottomInset == true ? MediaQuery.of(context).viewInsets.bottom : 0),
+        padding: EdgeInsets.only(
+            bottom: resizeToAvoidBottomInset == true
+                ? MediaQuery.of(context).viewInsets.bottom
+                : 0),
         child: SizedBox(
           height: bottomSheetHeight == CircularBottomSheetHeight.short
-              ? context.screenHeight / 1.8
+              ? context.screenHeight / 2
               : bottomSheetHeight == CircularBottomSheetHeight.full
                   ? context.screenHeight
                   : bottomSheetHeight == CircularBottomSheetHeight.medium
@@ -49,7 +54,9 @@ class CircularBottomSheet {
             padding: context.paddingNormalTopBottom,
             child: Padding(
               padding: context.paddingMediumEdges,
-              child: scrollable == true ? buildChildScrollable(context, child) : buildChild(context, child),
+              child: scrollable == true
+                  ? buildChildScrollable(context, child)
+                  : buildChild(context, child),
             ),
           ),
         ),
