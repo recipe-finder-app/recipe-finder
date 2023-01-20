@@ -72,13 +72,7 @@ class LoginView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          LocaleText(
-              text: LocaleKeys.recipeIngredients,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24)),
+          LocaleText(text: LocaleKeys.recipeIngredients, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
           LoginButton(
             text: LocaleKeys.login,
             onPressed: () {
@@ -90,13 +84,7 @@ class LoginView extends StatelessWidget {
             onPressed: () {
               signUpBottomSheet(context, cubitRead);
             },
-            child: LocaleText(
-                text: LocaleKeys.createNewAccount,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16)),
+            child: LocaleText(text: LocaleKeys.createNewAccount, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
           ),
         ],
       ),
@@ -122,10 +110,7 @@ class LoginView extends StatelessWidget {
           TextButton(
             child: LocaleText(
               text: LocaleKeys.later,
-              style: TextStyle(
-                  color: ColorConstants.instance.oriolesOrange,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16),
+              style: TextStyle(color: ColorConstants.instance.oriolesOrange, fontWeight: FontWeight.w600, fontSize: 16),
             ),
             onPressed: () {
               NavigationService.instance.navigateToPage(
@@ -190,7 +175,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -258,10 +243,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child:
-                              LocaleBoldText(text: LocaleKeys.userName.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName.locale)),
                       context.lowSizedBox,
                       UserTextFormField(
                         controller: TextEditingController(),
@@ -271,9 +253,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.email.locale)),
                       context.lowSizedBox,
                       EmailTextFormField(
                         controller: TextEditingController(),
@@ -284,10 +264,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child:
-                              LocaleBoldText(text: LocaleKeys.password.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password.locale)),
                       context.lowSizedBox,
                       PasswordTextFormField(
                         controller: TextEditingController(),
@@ -305,7 +282,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 3,
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -329,8 +306,7 @@ class LoginView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LocaleBoldText(
-                          text: LocaleKeys.alreadyHaveAnyAccount.locale),
+                      LocaleBoldText(text: LocaleKeys.alreadyHaveAnyAccount.locale),
                       TextButton(
                         child: LocaleText(
                             text: LocaleKeys.signIn.locale,
