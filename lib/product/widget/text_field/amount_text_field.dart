@@ -30,7 +30,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
       width: context.screenWidth / 2,
       child: TextFormField(
         controller: widget.controller,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
         decoration: InputDecoration(
           hintText: LocaleKeys.amount.locale,
           border: buildOutlineInputBorder(context),
@@ -41,44 +41,58 @@ class _AmountTextFieldState extends State<AmountTextField> {
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
-                onPressed: () {
-                  if (widget.controller.text.isEmpty) {
-                    widget.controller.text = '0';
-                  } else if (double.parse(widget.controller.text) >= 1) {
-                    widget.controller.text = (double.parse(widget.controller.text) - 1).toString();
-                  }
-                },
-                icon: Icon(
-                  Icons.remove_circle_outline,
-                  color: Colors.black87,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  if (widget.controller.text.isEmpty) {
-                    widget.controller.text = 1.toString();
-                  } else {
-                    widget.controller.text = (double.parse(widget.controller.text) + 1).toString();
-                  }
-                },
-                icon: Icon(
-                  Icons.add_circle_outline,
-                  color: Colors.black87,
-                ),
-              ),
+              increaseButton(),
+              decreaseButton(),
             ],
           ),
         ),
         validator: (tfInput) {
           if (tfInput!.isEmpty) {
             return LocaleKeys.dontEmptyThisField.locale;
-          } else if (double.tryParse(tfInput)! < 0) {
+          } else if (double.parse(tfInput) < 0) {
             return LocaleKeys.dontEnterNegativeValue.locale;
           } else {
             return null;
           }
         },
+      ),
+    );
+  }
+
+  IconButton decreaseButton() {
+    return IconButton(
+      onPressed: () {
+        if (widget.controller.text.isEmpty) {
+          widget.controller.text = 1.toString();
+        } else {
+          widget.controller.text = (double.parse(widget.controller.text) + 1).toString();
+          if (widget.controller.text[widget.controller.text.length - 1] == '0') {
+            widget.controller.text = double.parse(widget.controller.text).toInt().toString();
+          }
+        }
+      },
+      icon: Icon(
+        Icons.add_circle_outline,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  IconButton increaseButton() {
+    return IconButton(
+      onPressed: () {
+        if (widget.controller.text.isEmpty) {
+          widget.controller.text = '0';
+        } else if (double.parse(widget.controller.text) >= 1) {
+          widget.controller.text = (double.parse(widget.controller.text) - 1).toString();
+          if (widget.controller.text[widget.controller.text.length - 1] == '0') {
+            widget.controller.text = double.parse(widget.controller.text).toInt().toString();
+          }
+        }
+      },
+      icon: Icon(
+        Icons.remove_circle_outline,
+        color: Colors.black87,
       ),
     );
   }
