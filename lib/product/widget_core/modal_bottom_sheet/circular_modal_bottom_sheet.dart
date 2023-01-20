@@ -42,7 +42,7 @@ class CircularBottomSheet {
                 : 0),
         child: SizedBox(
           height: bottomSheetHeight == CircularBottomSheetHeight.short
-              ? context.screenHeight / 2
+              ? context.screenHeight / 2.4
               : bottomSheetHeight == CircularBottomSheetHeight.full
                   ? context.screenHeight
                   : bottomSheetHeight == CircularBottomSheetHeight.medium

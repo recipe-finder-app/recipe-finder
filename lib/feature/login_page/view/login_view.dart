@@ -367,12 +367,13 @@ class LoginView extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       child: Form(
         key: cubitRead.forgotPasswordFormKey,
-        child: Padding(
-          padding: EdgeInsets.only(bottom: context.textHighValue),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            context.lowSizedBox,
+            Flexible(
+              flex: 3,
+              child: Column(
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
@@ -387,7 +388,10 @@ class LoginView extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
+            ),
+            Flexible(
+              flex: 3,
+              child: Column(
                 children: [
                   Align(
                       alignment: Alignment.centerLeft,
@@ -401,15 +405,18 @@ class LoginView extends StatelessWidget {
                   ),
                 ],
               ),
-              LoginButton(
+            ),
+            Flexible(
+              flex: 2,
+              child: LoginButton(
                 text: LocaleKeys.sendEmail.locale,
                 onPressed: () {
                   cubitRead.forgotPassword();
                 },
                 color: ColorConstants.instance.oriolesOrange,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
