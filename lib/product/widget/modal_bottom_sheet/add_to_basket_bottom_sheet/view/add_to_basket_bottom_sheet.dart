@@ -2,10 +2,12 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 import '../../../../../core/constant/design/color_constant.dart';
 import '../../../../../core/init/language/locale_keys.g.dart';
+import '../../../../../feature/basket_page/cubit/basket_cubit.dart';
 import '../../../../model/ingradient_model.dart';
 import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import '../../../../widget_core/text/bold_text.dart';
@@ -19,8 +21,8 @@ class AddToBasketBottomSheet {
   static AddToBasketBottomSheet instance = AddToBasketBottomSheet._init();
   AddToBasketBottomSheet._init();
 
-  Future<void> show(BuildContext context, List<IngredientModel> recipeIngredientList) {
-    context.read<AddToBasketCubit>().calculateMissingItemList(recipeIngredientList, context.read<AddToBasketCubit>().myFrizeItemList);
+  Future<void> show(BuildContext context, RecipeModel recipeModel) {
+    context.read<AddToBasketCubit>().calculateMissingItemList(recipeModel, context.read<AddToBasketCubit>().myFrizeItemList);
     context.read<AddToBasketCubit>().setFirstItemLists(context.read<AddToBasketCubit>().myFrizeItemList, context.read<AddToBasketCubit>().missingItemList);
     return CircularBottomSheet.instance.show(
       context,
@@ -128,6 +130,7 @@ class AddToBasketBottomSheet {
             color: ColorConstants.instance.oriolesOrange,
             text: LocaleKeys.confirm,
             onPressed: () {
+              context.read<BasketCubit>().addItemFromBasketRecipeList(recipeModel);
               Navigator.pop(context);
             },
           ),

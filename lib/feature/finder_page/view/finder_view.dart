@@ -106,10 +106,10 @@ class _FinderViewState extends State<FinderView> {
                   case SwipeDirection.right:
                     return true;
                   case SwipeDirection.up:
-                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                     return false;
                   case SwipeDirection.down:
-                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                     return false;
                 }
               },
@@ -119,7 +119,7 @@ class _FinderViewState extends State<FinderView> {
                 if (direction == SwipeDirection.right) {
                   context.read<LikesCubit>().recipeList.add(cubitRead.recipeList![index]);
                 } else if (direction == SwipeDirection.up) {
-                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index].ingredients);
+                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                 } else if (direction == SwipeDirection.left) {}
               },
               horizontalSwipeThreshold: 0.8,
@@ -177,7 +177,7 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cubitRead.topCardIndex].ingredients);
+              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cubitRead.topCardIndex]);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,

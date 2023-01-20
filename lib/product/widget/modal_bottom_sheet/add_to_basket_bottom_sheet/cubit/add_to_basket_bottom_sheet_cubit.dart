@@ -4,6 +4,7 @@ import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bo
 
 import '../../../../../core/constant/enum/image_path_enum.dart';
 import '../../../../model/ingradient_model.dart';
+import '../../../../model/recipe_model.dart';
 
 class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
@@ -117,11 +118,11 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     emit(MissingItemListLoad(missingItemList.toSet().toList()));
   }
 
-  void calculateMissingItemList(List<IngredientModel> recipeIngredientList, List<IngredientModel> myFrizeList) {
+  void calculateMissingItemList(RecipeModel recipeModel, List<IngredientModel> myFrizeList) {
     missingItemList.clear();
 
     for (var myFrizeIngredient in myFrizeList) {
-      for (var recipeIngredient in recipeIngredientList) {
+      for (var recipeIngredient in recipeModel.ingredients) {
         List<IngredientModel>? value = myFrizeList.where((element) => element.title.toLowerCase() == recipeIngredient.title.toLowerCase()).toList();
         if (!missingItemList.contains(recipeIngredient) && value.isEmpty) {
           //!missingItemList.contains(recipeIngredient) bu kontrol aynı  malzemenin döngüde tekrar eklenmemesi için konuldu

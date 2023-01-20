@@ -11,7 +11,6 @@ import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
@@ -65,7 +64,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           heroTag: 'recipeFabButton',
           text: LocaleKeys.addToBasket,
           onPressed: () {
-            AddToBasketBottomSheet.instance.show(context, widget.recipeModel.ingredients);
+            AddToBasketBottomSheet.instance.show(context, widget.recipeModel);
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -104,18 +103,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                 children: [
                   InkWell(
                     onTap: () {
-                      String ingredientsText = '';
-                      for (var ingredient in widget.recipeModel.ingredients!) {
-                        ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
-                      }
-
-                      String message = '${LocaleKeys.ingredients.locale}\n'
-                          '$ingredientsText\n\n'
-                          '${LocaleKeys.description}\n\n'
-                          '${widget.recipeModel.description}\n\n'
-                          '${LocaleKeys.directions}\n\n'
-                          '${widget.recipeModel.directions}\n\n';
-                      Share.share(message);
+                      cubitRead.share(widget.recipeModel);
                     },
                     child: CircularBackground(
                       circleHeight: 30,
