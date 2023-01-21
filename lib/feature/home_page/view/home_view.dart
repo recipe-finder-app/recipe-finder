@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
           child: Padding(
             padding: context.paddingNormalEdges,
             child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(children: [
                 context.mediumSizedBox,
                 _textRow(context, cubitRead),
