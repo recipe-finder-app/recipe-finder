@@ -58,7 +58,7 @@ class _FinderViewState extends State<FinderView> {
                 width: context.screenWidth,
                 color: Colors.white,
                 child: Padding(
-                  padding: context.paddingHighOnlyTop,
+                  padding: context.paddingMediumOnlyTop,
                   child: Padding(
                     padding: context.paddingNormalTopLeftRight,
                     child: SingleChildScrollView(
@@ -145,7 +145,7 @@ class _FinderViewState extends State<FinderView> {
             ),
           ),
         ),
-        context.mediumSizedBox,
+        context.isLessThan5Inch ? context.lowSizedBox : context.mediumSizedBox,
         buildRowButton(context, cubitRead, cubitRead.topCardIndex),
       ],
     );

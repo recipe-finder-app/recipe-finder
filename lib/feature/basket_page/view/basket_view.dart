@@ -222,11 +222,10 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
 
   GridView buildGridViewMyPantry(BuildContext context) {
     return GridView.builder(
-        padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: context.read<HomeCubit>().myFrizeItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 35),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 25, mainAxisSpacing: 15),
         itemBuilder: (context, gridViewIndex) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),

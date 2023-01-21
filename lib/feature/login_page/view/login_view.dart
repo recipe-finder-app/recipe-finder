@@ -134,7 +134,7 @@ class LoginView extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              flex: 5,
+              flex: 7,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -236,7 +236,7 @@ class LoginView extends StatelessWidget {
         child: Column(
           children: [
             Flexible(
-              flex: 4,
+              flex: 7,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -282,7 +282,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,

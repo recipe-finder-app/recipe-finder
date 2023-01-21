@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
@@ -68,10 +69,8 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           onChanged: (String data) {
                             if (data.isEmpty) {
                               cubitRead.ingredientListLoad();
-                              print('liste yüklendi');
                             } else {
                               cubitRead.searchData(data);
-                              print('liste search yüklendi');
                             }
                           },
                         ),
@@ -122,7 +121,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                           ),
                                           context.normalSizedBox,
                                           SizedBox(
-                                            height: context.screenHeight / 8,
+                                            height: context.screenHeight < DeviceSizeEnum.inch_5.size ? context.screenHeight / 7.5 : context.screenHeight / 8,
                                             child: ListView.builder(
                                                 physics: const BouncingScrollPhysics(),
                                                 shrinkWrap: true,
@@ -130,7 +129,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                                 itemCount: state?.length ?? 0,
                                                 itemBuilder: (context, index) {
                                                   return Padding(
-                                                    padding: context.paddingRight,
+                                                    padding: EdgeInsets.only(right: 25),
                                                     child: AmountIngredientCircleAvatar(
                                                       model: state![index],
                                                     ),
@@ -142,6 +141,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                     }
                                   },
                                 ),
+                                context.normalSizedBox,
                                 BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
@@ -171,7 +171,12 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                               physics: const NeverScrollableScrollPhysics(),
                                               shrinkWrap: true,
                                               itemCount: state?.length ?? 0,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 20),
+                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 4,
+                                                mainAxisSpacing: 15,
+                                                crossAxisSpacing: 15,
+                                                childAspectRatio: 3 / 4,
+                                              ),
                                               itemBuilder: (context, index) {
                                                 return AmountIngredientCircleAvatar(
                                                   model: state![index],
@@ -182,6 +187,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                     }
                                   },
                                 ),
+                                context.normalSizedBox,
                                 BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
@@ -210,7 +216,12 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                           GridView.builder(
                                               physics: const BouncingScrollPhysics(),
                                               shrinkWrap: true,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 30, mainAxisSpacing: 20),
+                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount: 4,
+                                                mainAxisSpacing: 15,
+                                                crossAxisSpacing: 15,
+                                                childAspectRatio: 3 / 4,
+                                              ),
                                               itemCount: state?.length ?? 0,
                                               itemBuilder: (context, index) {
                                                 return AmountIngredientCircleAvatar(
@@ -222,6 +233,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                     }
                                   },
                                 ),
+                                context.normalSizedBox,
                               ],
                             );
                           }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
@@ -50,7 +51,7 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
             ),
           )),
       content: SizedBox(
-        height: context.screenHeight / 3.5,
+        height: context.screenHeight < DeviceSizeEnum.inch_5.size ? context.screenHeight / 2.8 : context.screenHeight / 3.5,
         child: Form(
           key: formKey,
           child: Column(
