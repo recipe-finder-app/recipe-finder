@@ -24,7 +24,7 @@ class _UserTextFormFieldState extends State<UserTextFormField> {
       } else if (context.screenHeightIsLargerThan9Inch) {
         return 95;
       } else {
-        return 105;
+        return 75;
       }
     } else {
       if (context.screenHeightIsLessThan5Inch) {
