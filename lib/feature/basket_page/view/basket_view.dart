@@ -115,6 +115,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                 Row(
                   children: [
                     AmountIngredientCircleAvatar(
+
                       model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
                     ),
                     context.normalSizedBoxWidth,

@@ -164,24 +164,30 @@ class LoginView extends StatelessWidget {
                           },
                         )),
                   ]),
-                  LoginButton(
-                    text: LocaleKeys.login.locale,
-                    onPressed: () {
-                      cubitRead.login();
-                    },
-                    color: ColorConstants.instance.oriolesOrange,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40),
+                    child: LoginButton(
+                      text: LocaleKeys.login.locale,
+                      onPressed: () {
+                        cubitRead.login();
+                      },
+                      color: ColorConstants.instance.oriolesOrange,
+                    ),
                   ),
                 ],
               ),
             ),
             Flexible(
-              flex: 5,
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const LocaleText(
-                    text: LocaleKeys.orContinueWith,
+                  Padding(
+                    padding: EdgeInsets.only(bottom: context.mediumValue),
+                    child: const LocaleText(
+                      text: LocaleKeys.orContinueWith,
+                    ),
                   ),
                   Column(
                     children: [
@@ -282,7 +288,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 5,
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -340,47 +346,53 @@ class LoginView extends StatelessWidget {
       child: Form(
         key: cubitRead.forgotPasswordFormKey,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            context.mediumSizedBox,
-            Column(
-              children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(
-                      text: LocaleKeys.forgotPassword.locale,
-                      fontSize: 20,
-                    )),
-                context.lowSizedBox,
-                const Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ],
+            context.lowSizedBox,
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(
+                        text: LocaleKeys.forgotPassword.locale,
+                        fontSize: 20,
+                      )),
+                  context.lowSizedBox,
+                  const Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
-            context.mediumSizedBox,
-            Column(
-              children: [
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: LocaleBoldText(
-                      text: LocaleKeys.emailAddress.locale,
-                    )),
-                context.lowSizedBox,
-                EmailTextFormField(
-                  controller: TextEditingController(),
-                  validator: true,
-                ),
-              ],
+            Flexible(
+              flex: 3,
+              child: Column(
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: LocaleBoldText(
+                        text: LocaleKeys.emailAddress.locale,
+                      )),
+                  context.lowSizedBox,
+                  EmailTextFormField(
+                    controller: TextEditingController(),
+                    validator: true,
+                  ),
+                ],
+              ),
             ),
-            context.highSizedBox,
-            LoginButton(
-              text: LocaleKeys.sendEmail.locale,
-              onPressed: () {
-                cubitRead.forgotPassword();
-              },
-              color: ColorConstants.instance.oriolesOrange,
+            Flexible(
+              flex: 2,
+              child: LoginButton(
+                text: LocaleKeys.sendEmail.locale,
+                onPressed: () {
+                  cubitRead.forgotPassword();
+                },
+                color: ColorConstants.instance.oriolesOrange,
+              ),
             ),
           ],
         ),
