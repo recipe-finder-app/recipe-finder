@@ -71,6 +71,7 @@ class LikesView extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: cubitRead.recipeList.length,
+        reverse: true,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 15,
@@ -81,15 +82,19 @@ class LikesView extends StatelessWidget {
           return AnimatedLikesRecipeCard(
             model: cubitRead.recipeList[cardIndex],
             addToBasketOnPressed: () {
-              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex]);
+              AddToBasketBottomSheet.instance
+                  .show(context, cubitRead.recipeList![cardIndex]);
             },
             onPressed: () {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
+              NavigationService.instance.navigateToPage(
+                  path: NavigationConstants.RECIPE_DETAIL,
+                  data: cubitRead.recipeList[cardIndex]);
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/
             },
             likeIconOnPressedYes: () {
-              cubitRead.deleteItemFromLikedRecipeList(cubitRead.recipeList[cardIndex]);
+              cubitRead.deleteItemFromLikedRecipeList(
+                  cubitRead.recipeList[cardIndex]);
             },
           );
         });
