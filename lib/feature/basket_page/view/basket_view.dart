@@ -22,7 +22,8 @@ class BasketView extends StatefulWidget {
   State<BasketView> createState() => _BasketViewState();
 }
 
-class _BasketViewState extends State<BasketView> with SingleTickerProviderStateMixin {
+class _BasketViewState extends State<BasketView>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
   void _startAnimation() {
@@ -39,14 +40,16 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
             vsync: this,
             duration: const Duration(milliseconds: 500),
           );
-          _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
+          _animation =
+              Tween<double>(begin: 0, end: 1).animate(_animationController);
           _startAnimation();
         },
         dispose: (cubitRead) {
           _animationController.dispose();
         },
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
+            Scaffold(
               body: SafeArea(
                 child: Padding(
                   padding: context.paddingNormalTopLeftRight,
@@ -77,7 +80,13 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                           ),
                         ),
                         context.lowSizedBox,
-                        cubitRead.selectedCardModel == null ? FadeTransition(opacity: _animation, child: const LocaleText(text: 'Satın alım listesini görmek için yukarıdan kart seçin')) : buildToBuyList(cubitRead),
+                        cubitRead.selectedCardModel == null
+                            ? FadeTransition(
+                                opacity: _animation,
+                                child: const LocaleText(
+                                    text:
+                                        'Satın alım listesini görmek için yukarıdan kart seçin'))
+                            : buildToBuyList(cubitRead),
                         context.lowSizedBox,
                         LocaleText(
                           text: LocaleKeys.myPantry,
@@ -108,20 +117,23 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         itemCount: cubitRead.selectedCardModel?.ingredients.length,
         itemBuilder: (context, listViewIndex) {
           return Padding(
-            padding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue),
+            padding: EdgeInsets.only(
+                top: context.lowValue, bottom: context.lowValue),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   children: [
-                    AmountIngredientCircleAvatar(
-
-                      model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
+                    IngredientCircleAvatar(
+                      showText: false,
+                      model: cubitRead
+                          .selectedCardModel!.ingredients[listViewIndex],
                     ),
                     context.normalSizedBoxWidth,
                     Padding(
                       padding: context.paddingHighBottom,
-                      child: Text(cubitRead.selectedCardModel!.ingredients[listViewIndex].title),
+                      child: Text(cubitRead
+                          .selectedCardModel!.ingredients[listViewIndex].title),
                     ),
                   ],
                 ),
@@ -143,7 +155,8 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                       context.lowSizedBoxWidth,
                       CircleAvatar(
                           radius: 20,
-                          backgroundColor: ColorConstants.instance.oriolesOrange,
+                          backgroundColor:
+                              ColorConstants.instance.oriolesOrange,
                           child: ImageSvg(
                             path: ImagePath.basketShop.path,
                           )),
@@ -168,12 +181,15 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         itemCount: cubitRead.basketRecipeItems.length,
         itemBuilder: (context, int cardIndex) {
           return BasketRecipeCard(
-            borderRadius: cubitRead.selectedColorIndex == cardIndex ? null : context.radiusAllCircularMedium,
+            borderRadius: cubitRead.selectedColorIndex == cardIndex
+                ? null
+                : context.radiusAllCircularMedium,
             height: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
             width: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
             model: cubitRead.basketRecipeItems[cardIndex],
             cardOnPressed: () {
-              cubitRead.changeSelectedCardModel(cubitRead.basketRecipeItems[cardIndex]);
+              cubitRead.changeSelectedCardModel(
+                  cubitRead.basketRecipeItems[cardIndex]);
               cubitRead.changeSelectedColorIndex(cardIndex);
               _startAnimation();
             },
@@ -184,14 +200,18 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                     return QuestionAlertDialog(
                       explanation: LocaleKeys.removeCard,
                       onPressedYes: () {
-                        cubitRead.deletedItemFromBasketRecipeList(cubitRead.basketRecipeItems[cardIndex]);
+                        cubitRead.deletedItemFromBasketRecipeList(
+                            cubitRead.basketRecipeItems[cardIndex]);
                         cubitRead.changeSelectedCardModel(null);
                         cubitRead.changeSelectedColorIndex(null);
                       },
                     );
                   });
             }),
-            border: cubitRead.selectedColorIndex == cardIndex ? Border.all(color: cubitRead.selectedCardItemColor(cardIndex), width: 6) : null,
+            border: cubitRead.selectedColorIndex == cardIndex
+                ? Border.all(
+                    color: cubitRead.selectedCardItemColor(cardIndex), width: 6)
+                : null,
             gradient: cubitRead.selectedColorIndex == cardIndex
                 ? LinearGradient(
                     begin: Alignment.topCenter,
@@ -226,13 +246,21 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: context.read<HomeCubit>().myFrizeItems.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 0.70, crossAxisSpacing: 25, mainAxisSpacing: 15),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            childAspectRatio: 0.70,
+            crossAxisSpacing: 25,
+            mainAxisSpacing: 15),
         itemBuilder: (context, gridViewIndex) {
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
             model: context.read<HomeCubit>().myFrizeItems[gridViewIndex],
             iconTopWidget: Text(
-              context.read<HomeCubit>().myFrizeItems[gridViewIndex].quantity.toString(),
+              context
+                  .read<HomeCubit>()
+                  .myFrizeItems[gridViewIndex]
+                  .quantity
+                  .toString(),
               style: TextStyle(color: ColorConstants.instance.white),
             ),
           );
