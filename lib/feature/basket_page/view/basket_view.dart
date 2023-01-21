@@ -115,7 +115,6 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                 Row(
                   children: [
                     AmountIngredientCircleAvatar(
-
                       model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
                     ),
                     context.normalSizedBoxWidth,
@@ -231,6 +230,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
           return IngredientCircleAvatar(
             color: ColorConstants.instance.russianViolet.withOpacity(0.1),
             model: context.read<HomeCubit>().myFrizeItems[gridViewIndex],
+            showText: false,
             iconTopWidget: Text(
               context.read<HomeCubit>().myFrizeItems[gridViewIndex].quantity.toString(),
               style: TextStyle(color: ColorConstants.instance.white),

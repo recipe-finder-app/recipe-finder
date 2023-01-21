@@ -145,7 +145,7 @@ class _FinderViewState extends State<FinderView> {
             ),
           ),
         ),
-        context.isLessThan5Inch ? context.lowSizedBox : context.mediumSizedBox,
+        context.screenHeightIsLessThan5Inch ? context.lowSizedBox : context.mediumSizedBox,
         buildRowButton(context, cubitRead, cubitRead.topCardIndex),
       ],
     );

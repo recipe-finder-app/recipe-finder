@@ -129,14 +129,16 @@ class LoginView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
+      bottomSheetHeight: CircularBottomSheetHeight.high,
       child: Form(
         key: cubitRead.loginFormKey,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Flexible(
-              flex: 7,
+              flex: 5,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                     const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName)),
@@ -163,31 +165,26 @@ class LoginView extends StatelessWidget {
                             forgotPasswordBottomSheet(context, cubitRead);
                           },
                         )),
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
-                    child: LoginButton(
+                    context.lowSizedBox,
+                    LoginButton(
                       text: LocaleKeys.login.locale,
                       onPressed: () {
                         cubitRead.login();
                       },
                       color: ColorConstants.instance.oriolesOrange,
                     ),
-                  ),
+                  ]),
                 ],
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: context.mediumValue),
-                    child: const LocaleText(
-                      text: LocaleKeys.orContinueWith,
-                    ),
+                  const LocaleText(
+                    text: LocaleKeys.orContinueWith,
                   ),
                   Column(
                     children: [
@@ -288,7 +285,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             Flexible(
-              flex: 4,
+              flex: 5,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,

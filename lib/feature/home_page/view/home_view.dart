@@ -138,7 +138,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: context.isLessThan5Inch ? EdgeInsets.only(right: 5) : EdgeInsets.only(top: 8, right: 8),
+            padding: context.screenHeightIsLessThan5Inch ? EdgeInsets.only(right: 5) : EdgeInsets.only(top: 8, right: 8),
             child: CircleAvatar(
               radius: 5,
               backgroundColor: ColorConstants.instance.oriolesOrange,

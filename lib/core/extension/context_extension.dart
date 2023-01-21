@@ -9,9 +9,10 @@ extension ContextExtension on BuildContext {
 }
 
 extension DeviceSizeExtension on BuildContext {
-  bool get isLessThan5Inch => screenHeight < DeviceSizeEnum.inch_5.size ? true : false;
-  bool get isLessThan7Inch => screenHeight < DeviceSizeEnum.inch_7.size ? true : false;
-  bool get isLargerThan7Inch => screenHeight > DeviceSizeEnum.inch_7.size ? true : false;
+  bool get screenHeightIsLessThan5Inch => screenHeight < DeviceSizeEnum.inch_5.size ? true : false;
+  bool get screenHeightIsLessThan7Inch => screenHeight < DeviceSizeEnum.inch_7.size ? true : false;
+  bool get screenHeightIsLargerThan7Inch => screenHeight > DeviceSizeEnum.inch_7.size ? true : false;
+  bool get screenHeightIsLargerThan9Inch => screenHeight > DeviceSizeEnum.inch_9.size ? true : false;
 }
 
 extension MediaQueryExtension on BuildContext {

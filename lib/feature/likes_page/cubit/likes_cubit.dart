@@ -153,7 +153,7 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
   }
 
   void addItemFromLikedRecipeList(RecipeModel model) {
-    recipeList.add(model);
+    recipeList.insert(0, model);
     emit(LikesRecipeItemListLoad(recipeList.toSet().toList()));
   }
 

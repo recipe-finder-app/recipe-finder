@@ -3,7 +3,6 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/widget_core/text_field/standard_text_formfield.dart';
 
-import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../widget_core/image_format/image_svg.dart';
@@ -25,6 +24,25 @@ class PasswordTextFormField extends StatefulWidget {
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   bool showPassword = false;
   bool? isValid;
+  double calculateTextFieldHeight() {
+    if (isValid == false) {
+      if (context.screenHeightIsLessThan5Inch) {
+        return 65;
+      } else if (context.screenHeightIsLargerThan9Inch) {
+        return 95;
+      } else {
+        return 75;
+      }
+    } else {
+      if (context.screenHeightIsLessThan5Inch) {
+        return 40;
+      } else if (context.screenHeightIsLargerThan9Inch) {
+        return 70;
+      } else {
+        return 50;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +51,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       hintText: LocaleKeys.password.locale,
       maxLines: 1,
       keyboardType: TextInputType.visiblePassword,
-      height: context.screenHeight < DeviceSizeEnum.inch_5.size
-          ? isValid == false
-              ? 70
-              : 40
-          : context.screenHeight > DeviceSizeEnum.inch_9.size
-              ? isValid == false
-                  ? 100
-                  : 70
-              : isValid == false
-                  ? 80
-                  : 50,
+      height: calculateTextFieldHeight(),
       width: context.screenWidth / 1.2,
       obscureText: !showPassword,
       prefixIcon: ImageSvg(
@@ -56,9 +64,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
           });
         },
         icon: Icon(
-          showPassword
-              ? Icons.visibility_off_outlined
-              : Icons.visibility_outlined,
+          showPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
           color: Colors.black87,
         ),
       ),

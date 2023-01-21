@@ -73,14 +73,13 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
         enableSuggestions: false,
         keyboardType: widget.keyboardType,
         obscureText: widget.obscureText ?? false,
-        style:
-            TextStyle(color: widget.textColor, decoration: TextDecoration.none),
+        style: TextStyle(color: widget.textColor, decoration: TextDecoration.none),
         textDirection: TextDirection.ltr,
         cursorColor: Colors.black,
         cursorWidth: 1,
         decoration: InputDecoration(
+          errorMaxLines: 1,
           prefixIcon: widget.prefixIcon,
-           
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
@@ -109,9 +108,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
           enabled: widget.enabled ?? true,
           hintText: widget.hintText,
           contentPadding: context.paddingLowAll,
-          floatingLabelBehavior: widget.upLabel == false
-              ? FloatingLabelBehavior.never
-              : FloatingLabelBehavior.always,
+          floatingLabelBehavior: widget.upLabel == false ? FloatingLabelBehavior.never : FloatingLabelBehavior.always,
           //floatingLabelBehavior: FloatingLabelBehavior.always,
           label: Text(
             widget.labelText ?? '',
@@ -122,8 +119,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
               fontSize: 14,
             ),
           ),
-          labelStyle: const TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 14),
+          labelStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 14),
           filled: widget.filled ?? true,
           fillColor: widget.filledColor ?? Colors.transparent,
           hintStyle: const TextStyle(
@@ -133,19 +129,11 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
             color: Colors.grey,
           ),
 
-          focusedBorder: widget.borderEnable == false
-              ? null
-              : buildOutlineInputBorder(context),
-          enabledBorder: widget.borderEnable == false
-              ? null
-              : buildOutlineInputBorder(context),
-          border: widget.borderEnable == false
-              ? null
-              : buildOutlineInputBorder(context),
+          focusedBorder: widget.borderEnable == false ? null : buildOutlineInputBorder(context),
+          enabledBorder: widget.borderEnable == false ? null : buildOutlineInputBorder(context),
+          border: widget.borderEnable == false ? null : buildOutlineInputBorder(context),
 
-          disabledBorder: widget.borderEnable == false
-              ? null
-              : buildOutlineInputBorder(context),
+          disabledBorder: widget.borderEnable == false ? null : buildOutlineInputBorder(context),
         ),
         validator: (tfInput) {
           if (widget.validator != null) {
@@ -155,9 +143,7 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
           }
         },
         onChanged: (data) {
-          if (widget.controller != null &&
-              (widget.controller!.text.length == 1 ||
-                  widget.controller!.text.isEmpty)) {
+          if (widget.controller != null && (widget.controller!.text.length == 1 || widget.controller!.text.isEmpty)) {
             setState(() {});
           }
           if (widget.onChanged != null) {
