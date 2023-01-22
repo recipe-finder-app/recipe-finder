@@ -6,7 +6,6 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/text_field/standard_text_formfield.dart';
 
-import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
 
 class EmailTextFormField extends StatefulWidget {
@@ -20,22 +19,31 @@ class EmailTextFormField extends StatefulWidget {
 
 class _EmailTextFormFieldState extends State<EmailTextFormField> {
   bool? isValid;
+  double calculateTextFieldHeight() {
+    if (isValid == false) {
+      if (context.screenHeightIsLessThan5Inch) {
+        return 65;
+      } else if (context.screenHeightIsLargerThan9Inch) {
+        return 95;
+      } else {
+        return 75;
+      }
+    } else {
+      if (context.screenHeightIsLessThan5Inch) {
+        return 40;
+      } else if (context.screenHeightIsLargerThan9Inch) {
+        return 70;
+      } else {
+        return 50;
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return StandardTextFormField(
       controller: widget.controller,
-      height: context.screenHeight < DeviceSizeEnum.inch_5.size
-          ? isValid == false
-              ? 70
-              : 40
-          : context.screenHeight > DeviceSizeEnum.inch_9.size
-              ? isValid == false
-                  ? 100
-                  : 70
-              : isValid == false
-                  ? 80
-                  : 50,
+      height: calculateTextFieldHeight(),
       width: context.screenWidth / 1.2,
       hintText: LocaleKeys.emailAddress.locale,
       maxLines: 1,
