@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
+import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 
 import '/core/constant/navigation/navigation_constants.dart';
@@ -23,6 +24,8 @@ class NavigationRoute {
 
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
+      case NavigationConstants.SPLASH:
+        return normalNavigate(const SplashView(), NavigationConstants.SPLASH);
       case NavigationConstants.ONBOARD:
         return normalNavigate(const OnboardView(), NavigationConstants.ONBOARD);
       case NavigationConstants.LOGIN:

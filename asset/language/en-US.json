@@ -92,5 +92,10 @@
     "notFoundIngredient": "Sorry, the content you were looking for could not be found.",
     "noConnectionError": "Internet connection failed!",
     "checkYourNetwork": "Check your internet connection to continue the application",
-    "favoriteRecipeMessage" : "This recipe is now in my saved recipes!"
+    "favoriteRecipeMessage" : "This recipe is now in my saved recipes!",
+    "myAccount": "My Account",
+    "rateUs": "Rate Us",
+    "contact": "Contact",
+    "aboutUs": "About Us"
+
 }

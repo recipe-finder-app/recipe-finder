@@ -7,12 +7,13 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_png.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
-import '../../../core/constant/enum/device_size_enum.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
@@ -27,6 +28,8 @@ class HomeView extends StatelessWidget {
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
+        key: cubitRead.scaffoldKey,
+        drawer: buildDrawer(context),
         body: SafeArea(
           child: Padding(
             padding: context.paddingNormalEdges,
@@ -36,18 +39,8 @@ class HomeView extends StatelessWidget {
                 context.mediumSizedBox,
                 _textRow(context, cubitRead),
                 context.mediumSizedBox,
-                // Center(
-                //     child: SearchVoiceTextFormField(
-                //   controller: cubitRead.searchTextController,
-                //   onPressedClear: () {},
-                //   onChanged: (String data) {
-                //     if (data.isEmpty) {
-                //     } else {}
-                //   },
-                // )),
-                // context.mediumSizedBox,
                 SizedBox(
-                  height: context.screenHeight < DeviceSizeEnum.inch_5.size ? context.screenHeight / 4.5 : context.screenHeight / 5,
+                  height: context.screenHeightIsLessThan5Inch ? context.screenHeight / 4.5 : context.screenHeight / 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -89,6 +82,96 @@ class HomeView extends StatelessWidget {
     );
   }
 
+  Drawer buildDrawer(BuildContext context) {
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            DrawerHeader(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ImageSvg(
+                    path: ImagePath.appIcon.path,
+                  ),
+                  BoldText(
+                    text: 'Recipe',
+                    fontSize: 20,
+                  ),
+                  Text(
+                    'Finder',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: ImageSvg(
+                path: ImagePath.user.path,
+              ),
+              title: LocaleText(text: LocaleKeys.myAccount),
+              onTap: () {},
+            ),
+            buildDrawerDivider(context),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: ImageSvg(
+                path: ImagePath.discover.path,
+                color: Colors.black,
+              ),
+              title: LocaleText(text: LocaleKeys.language),
+              onTap: () {},
+            ),
+            buildDrawerDivider(context),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: Icon(
+                Icons.star_border,
+                color: Colors.black,
+              ),
+              title: LocaleText(text: LocaleKeys.rateUs),
+              onTap: () {},
+            ),
+            buildDrawerDivider(context),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: ImageSvg(
+                path: ImagePath.email.path,
+                color: Colors.black,
+              ),
+              title: LocaleText(text: LocaleKeys.contact),
+              onTap: () {},
+            ),
+            buildDrawerDivider(context),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: ImageSvg(
+                path: ImagePath.persons.path,
+                color: Colors.black,
+              ),
+              title: LocaleText(text: LocaleKeys.aboutUs),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildDrawerDivider(BuildContext context) {
+    return Container(
+      width: context.screenWidth / 1.7,
+      color: ColorConstants.instance.brightGraySolid,
+      height: 1,
+    );
+  }
+
   SizedBox _categoryListView(BuildContext context, HomeCubit cubitRead) {
     return SizedBox(
       height: context.screenHeight / 7,
@@ -111,40 +194,57 @@ class HomeView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: LocaleText(
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                color: ColorConstants.instance.blackbox,
+        Flexible(
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () {
+              cubitRead.scaffoldKey.currentState!.openDrawer();
+            },
+            child: CircularBackground(
+              child: Icon(
+                Icons.dehaze,
+                color: Colors.white,
               ),
-              text: LocaleKeys.findBestRecipesForCooking,
+              color: ColorConstants.instance.oriolesOrange,
             ),
           ),
         ),
-        Stack(alignment: AlignmentDirectional.topEnd, children: [
-          SizedBox(
-            height: context.highValue,
-            child: InkWell(
-              onTap: () {
-                fridgeBottomSheet(context, cubitRead);
-              },
-              child: ImageSvg(
-                path: ImagePath.fridge.path,
+        Flexible(
+          flex: 4,
+          child: LocaleText(
+            maxLines: null,
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              color: ColorConstants.instance.blackbox,
+            ),
+            text: LocaleKeys.findBestRecipesForCooking,
+          ),
+        ),
+        Flexible(
+          child: Stack(alignment: AlignmentDirectional.topEnd, children: [
+            SizedBox(
+              height: context.highValue,
+              child: InkWell(
+                onTap: () {
+                  fridgeBottomSheet(context, cubitRead);
+                },
+                child: ImageSvg(
+                  path: ImagePath.fridge.path,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: context.screenHeightIsLessThan5Inch ? EdgeInsets.only(right: 5) : EdgeInsets.only(top: 8, right: 8),
-            child: CircleAvatar(
-              radius: 5,
-              backgroundColor: ColorConstants.instance.oriolesOrange,
-            ),
-          )
-        ]),
+            Padding(
+              padding: context.screenHeightIsLessThan5Inch ? EdgeInsets.only(top: 5, right: 5) : EdgeInsets.only(top: 15, right: 6),
+              child: CircleAvatar(
+                radius: 5,
+                backgroundColor: ColorConstants.instance.oriolesOrange,
+              ),
+            )
+          ]),
+        ),
       ],
     );
   }

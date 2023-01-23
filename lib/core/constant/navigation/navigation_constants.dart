@@ -1,5 +1,6 @@
 class NavigationConstants {
   static const DEFAULT = '/';
+  static const SPLASH = '/splash';
   static const ONBOARD = '/onboard';
   static const LOGIN = '/login';
   static const NAV_CONTROLLER = '/navigationController';

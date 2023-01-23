@@ -53,7 +53,9 @@ enum ImagePath {
   refrigerator('asset/png/refrigerator.png'),
   onboardImage1('asset/svg/onboardImage1.svg'),
   onboardImage2('asset/svg/onboardImage2.svg'),
-  onboardImage3('asset/svg/onboardImage3.svg');
+  onboardImage3('asset/svg/onboardImage3.svg'),
+  appIcon('asset/svg/app_icon.svg'),
+  persons('asset/svg/persons.svg');
 
   const ImagePath(this.path);
   final String path;
