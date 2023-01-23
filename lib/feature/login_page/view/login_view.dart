@@ -129,7 +129,7 @@ class LoginView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
-      bottomSheetHeight: CircularBottomSheetHeight.high,
+      bottomSheetHeight: context.screenHeightIsLessThan5Inch ? CircularBottomSheetHeight.high : CircularBottomSheetHeight.standard,
       child: Form(
         key: cubitRead.loginFormKey,
         child: Column(

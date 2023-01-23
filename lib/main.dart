@@ -33,7 +33,7 @@ Future<void> _init() async {
     DeviceOrientation.portraitDown,
   ]);
   await Hive.initFlutter();
-  await EasyLocalization.ensureInitialized();
+  //await EasyLocalization.ensureInitialized();
   final result = await networkChange.checkNetworkInitial();
   if (result == NetworkResult.off) {
     NoNetworkAlertDialog();
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         //initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.ONBOARD,
+        initialRoute: NavigationConstants.SPLASH,
       ),
     );
   }

@@ -92,5 +92,9 @@
     "notFoundIngredient":"Üzgünüz, aradığınız içerik bulunamadı.",
     "noConnectionError": "İnternet bağlantısı sağlanamadı!",
     "checkYourNetwork": "Uygulamaya devam edebilmek için internet bağlantınızı kontrol edin.",
-    "favoriteRecipeMessage" : "Bu tarif artık kaydedilen tariflerimde!"
+    "favoriteRecipeMessage" : "Bu tarif artık kaydedilen tariflerimde!",
+    "myAccount": "Hesabım",
+    "rateUs": "Bizi Oylayın",
+    "contact": "İletişim",
+    "aboutUs": "Hakkımızda"
 }

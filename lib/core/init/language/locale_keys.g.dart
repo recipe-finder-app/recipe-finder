@@ -95,5 +95,9 @@ abstract class  LocaleKeys {
   static const noConnectionError = 'noConnectionError';
   static const checkYourNetwork = 'checkYourNetwork';
   static const favoriteRecipeMessage = 'favoriteRecipeMessage';
+  static const myAccount = 'myAccount';
+  static const rateUs = 'rateUs';
+  static const contact = 'contact';
+  static const aboutUs = 'aboutUs';
 
 }
