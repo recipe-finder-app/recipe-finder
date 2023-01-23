@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/feature/drawer_page/view/about_us_view.dart';
+import 'package:recipe_finder/feature/drawer_page/view/change_password.dart';
+import 'package:recipe_finder/feature/drawer_page/view/change_username_view.dart';
+import 'package:recipe_finder/feature/drawer_page/view/my_account_view.dart';
 import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
@@ -31,21 +35,38 @@ class NavigationRoute {
       case NavigationConstants.LOGIN:
         return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:
-        return normalNavigate(const RecipeBottomNavigationBar(), NavigationConstants.NAV_CONTROLLER);
+        return normalNavigate(const RecipeBottomNavigationBar(),
+            NavigationConstants.NAV_CONTROLLER);
       case NavigationConstants.HOME:
         return normalNavigate(const HomeView(), NavigationConstants.HOME);
       case NavigationConstants.DISCOVER:
-        return normalNavigate(const DiscoverView(), NavigationConstants.DISCOVER);
+        return normalNavigate(
+            const DiscoverView(), NavigationConstants.DISCOVER);
       case NavigationConstants.LIKES:
         return normalNavigate(const LikesView(), NavigationConstants.LIKES);
       case NavigationConstants.BASKET:
         return normalNavigate(BasketView(), NavigationConstants.BASKET);
       case NavigationConstants.MATERIALSEARCH:
-        return normalNavigate(const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
+        return normalNavigate(
+            const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
       case NavigationConstants.RECIPE_DETAIL:
-        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as RecipeModel), NavigationConstants.RECIPE_DETAIL);
+        return normalNavigate(
+            RecipeDetailView(recipeModel: args.arguments as RecipeModel),
+            NavigationConstants.RECIPE_DETAIL);
       case NavigationConstants.FINDER:
         return normalNavigate(const FinderView(), NavigationConstants.FINDER);
+      case NavigationConstants.ABOUTUS:
+        return normalNavigate(
+            const DrawerAboutUsView(), NavigationConstants.ABOUTUS);
+      case NavigationConstants.MYACCOUNT:
+        return normalNavigate(
+            const DrawerMyAccountView(), NavigationConstants.MYACCOUNT);
+      case NavigationConstants.CHANGEUSERNAME:
+        return normalNavigate(const DrawerChangeUsernameView(),
+            NavigationConstants.CHANGEUSERNAME);
+              case NavigationConstants.CHANGEPASSWORD:
+        return normalNavigate(const DrawerChangePasswordView(),
+            NavigationConstants.CHANGEPASSWORD);
 
       default:
         return MaterialPageRoute(

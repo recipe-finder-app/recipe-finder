@@ -11,4 +11,8 @@ class NavigationConstants {
   static const MATERIALSEARCH = '/materialSearch';
   static const RECIPE_DETAIL = '/recipeDetail';
   static const FINDER = '/finder';
+  static const ABOUTUS = '/aboutUs';
+  static const MYACCOUNT = '/myAccount';
+  static const CHANGEUSERNAME = '/changeUsername';
+   static const CHANGEPASSWORD = '/changePassword';
 }

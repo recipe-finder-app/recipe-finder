@@ -14,6 +14,8 @@ import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_mo
 import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
+import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
@@ -116,7 +118,9 @@ class HomeView extends StatelessWidget {
                 path: ImagePath.user.path,
               ),
               title: LocaleText(text: LocaleKeys.myAccount),
-              onTap: () {},
+              onTap: () {
+                  NavigationService.instance.navigateToPage(path: NavigationConstants.MYACCOUNT);
+              },
             ),
             buildDrawerDivider(context),
             ListTile(
@@ -156,7 +160,9 @@ class HomeView extends StatelessWidget {
                 color: Colors.black,
               ),
               title: LocaleText(text: LocaleKeys.aboutUs),
-              onTap: () {},
+              onTap: () {
+  NavigationService.instance.navigateToPage(path: NavigationConstants.ABOUTUS);
+              },
             ),
           ],
         ),
@@ -355,4 +361,5 @@ class HomeView extends StatelessWidget {
       ]),
     );
   }
+  
 }

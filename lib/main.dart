@@ -22,7 +22,11 @@ Future<void> main() async {
     HttpOverrides.global = MyHttpOverrides();
   }
   await _init();
-  runApp(EasyLocalization(path: ApplicationConstants.LANGUAGE_ASSET_PATH, supportedLocales: LanguageManager.instance.supportedLocalesList, startLocale: LanguageManager.instance.startLocale(), child: const MyApp()));
+  runApp(EasyLocalization(
+      path: ApplicationConstants.LANGUAGE_ASSET_PATH,
+      supportedLocales: LanguageManager.instance.supportedLocalesList,
+      startLocale: LanguageManager.instance.startLocale(),
+      child: const MyApp()));
 }
 
 Future<void> _init() async {
@@ -73,6 +77,8 @@ class MyApp extends StatelessWidget {
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
