@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -95,8 +96,12 @@ class HomeView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ImageSvg(
-                    path: ImagePath.appIcon.path,
+                  Expanded(
+                    child: SvgPicture.asset(
+                      ImagePath.appIcon.path,
+                      height: 100,
+                      width: 100,
+                    ),
                   ),
                   BoldText(
                     text: 'Recipe',
