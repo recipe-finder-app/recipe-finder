@@ -12,6 +12,7 @@ import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_png.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
@@ -93,6 +94,7 @@ class HomeView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             DrawerHeader(
+              decoration: BoxDecoration(color: Colors.transparent, border: Border.all(color: Colors.transparent)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -134,7 +136,9 @@ class HomeView extends StatelessWidget {
                 path: ImagePath.discover.path,
                 color: Colors.black,
               ),
-              title: LocaleText(text: LocaleKeys.language),
+              title: LanguagePopupMenuButton(
+                child: LocaleText(text: LocaleKeys.language),
+              ),
               onTap: () {},
             ),
             buildDrawerDivider(context),

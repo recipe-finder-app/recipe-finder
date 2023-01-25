@@ -10,7 +10,8 @@ import '../image_format/image_svg.dart';
 
 class LanguagePopupMenuButton extends StatefulWidget {
   final Color? color;
-  const LanguagePopupMenuButton({Key? key, this.color}) : super(key: key);
+  final Widget? child;
+  const LanguagePopupMenuButton({Key? key, this.color, this.child}) : super(key: key);
 
   @override
   State<LanguagePopupMenuButton> createState() => _LanguagePopupMenuButtonState();
@@ -69,31 +70,32 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
       onSelected: (int? value) {
         changeSelectedLanguage(value);
       },
-      child: Container(
-        height: 36,
-        width: 65,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: context.radiusAllCircularHigh,
-          border: Border.all(
-            color: ColorConstants.instance.oriolesOrange,
+      child: widget.child ??
+          Container(
+            height: 36,
+            width: 65,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: context.radiusAllCircularHigh,
+              border: Border.all(
+                color: ColorConstants.instance.oriolesOrange,
+              ),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ImageSvg(
+                  color: widget.color ?? ColorConstants.instance.oriolesOrange,
+                  path: ImagePath.discover.path,
+                ),
+                Text(
+                  selectedLanguage ?? context.locale.languageCode.toUpperCase(),
+                  style: TextStyle(color: widget.color ?? ColorConstants.instance.oriolesOrange),
+                ),
+              ],
+            ),
           ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ImageSvg(
-              color: widget.color ?? ColorConstants.instance.oriolesOrange,
-              path: ImagePath.discover.path,
-            ),
-            Text(
-              selectedLanguage ?? context.locale.languageCode.toUpperCase(),
-              style: TextStyle(color: widget.color ?? ColorConstants.instance.oriolesOrange),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

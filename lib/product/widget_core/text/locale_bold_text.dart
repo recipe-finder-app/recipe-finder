@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
@@ -59,8 +60,8 @@ class LocaleBoldText extends StatelessWidget {
             ),
       strutStyle: strutStyle,
       textAlign: textAlign,
-      textDirection: textDirection,
-      locale: locale,
+      //textDirection: textDirection,
+      locale: context.locale,
       softWrap: softWrap,
       overflow: overflow,
       textScaleFactor: textScaleFactor,
