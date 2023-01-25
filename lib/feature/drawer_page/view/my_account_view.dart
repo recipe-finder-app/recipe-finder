@@ -75,7 +75,7 @@ class DrawerMyAccountView extends StatelessWidget {
                     builder: (context) {
                       return QuestionAlertDialog(
                         explanation:
-                            'Are you sure want to this account is deleted?',
+                            'Are you sure you want to delete your account ?',
                         onPressedYes: () {},
                       );
                     });
