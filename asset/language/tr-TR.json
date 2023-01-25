@@ -96,5 +96,6 @@
     "myAccount": "Hesabım",
     "rateUs": "Bizi Oylayın",
     "contact": "İletişim",
-    "aboutUs": "Hakkımızda"
+    "aboutUs": "Hakkımızda",
+    "logout":"Çıkış Yap"
 }

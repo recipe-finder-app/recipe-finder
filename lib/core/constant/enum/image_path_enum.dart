@@ -55,7 +55,10 @@ enum ImagePath {
   onboardImage2('asset/svg/onboardImage2.svg'),
   onboardImage3('asset/svg/onboardImage3.svg'),
   appIcon('asset/svg/app_icon.svg'),
-  persons('asset/svg/persons.svg');
+  star('asset/svg/star.svg'),
+  returnBack('asset/svg/return_back.svg'),
+  persons('asset/svg/persons.svg'),
+  recipeGif('asset/gif/recipe.gif');
 
   const ImagePath(this.path);
   final String path;

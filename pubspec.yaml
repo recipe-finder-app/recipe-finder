@@ -99,6 +99,7 @@ flutter:
     - asset/jpg/
     - asset/lotties/
     - asset/video/
+    - asset/gif/
   uses-material-design: true
 
 

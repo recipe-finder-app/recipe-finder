@@ -48,7 +48,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                   shape: RoundedRectangleBorder(borderRadius: context.radiusAllCircularMin),
                   label: LocaleText(
                     text: LocaleKeys.findMyRecipe,
-                    style: TextStyle(color: ColorConstants.instance.white),
+                    style: TextStyle(color: ColorConstants.instance.white, fontSize: 16, fontFamily: 'Poppins'),
                   ),
                 ),
               ),

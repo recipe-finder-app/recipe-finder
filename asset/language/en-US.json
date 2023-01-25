@@ -96,6 +96,7 @@
     "myAccount": "My Account",
     "rateUs": "Rate Us",
     "contact": "Contact",
-    "aboutUs": "About Us"
+    "aboutUs": "About Us",
+    "logout":"Log Out"
 
 }

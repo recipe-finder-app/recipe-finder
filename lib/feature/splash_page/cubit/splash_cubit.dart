@@ -19,7 +19,7 @@ class SplashCubit extends Cubit<int> implements IBaseViewModel {
   @override
   Future<void> init() async {
     await EasyLocalization.ensureInitialized();
-    Future.delayed(Duration(seconds: 2)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN));
+    Future.delayed(Duration(milliseconds: 4500)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN));
   }
 
   @override

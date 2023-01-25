@@ -119,7 +119,7 @@ class HomeView extends StatelessWidget {
               ),
               title: LocaleText(text: LocaleKeys.myAccount),
               onTap: () {
-                  NavigationService.instance.navigateToPage(path: NavigationConstants.MYACCOUNT);
+                NavigationService.instance.navigateToPage(path: NavigationConstants.MYACCOUNT);
               },
             ),
             buildDrawerDivider(context),
@@ -161,7 +161,19 @@ class HomeView extends StatelessWidget {
               ),
               title: LocaleText(text: LocaleKeys.aboutUs),
               onTap: () {
-  NavigationService.instance.navigateToPage(path: NavigationConstants.ABOUTUS);
+                NavigationService.instance.navigateToPage(path: NavigationConstants.ABOUTUS);
+              },
+            ),
+            buildDrawerDivider(context),
+            ListTile(
+              horizontalTitleGap: 0,
+              leading: ImageSvg(
+                path: ImagePath.returnBack.path,
+                color: Colors.black,
+              ),
+              title: LocaleText(text: LocaleKeys.logout),
+              onTap: () {
+                NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
               },
             ),
           ],
@@ -361,5 +373,4 @@ class HomeView extends StatelessWidget {
       ]),
     );
   }
-  
 }

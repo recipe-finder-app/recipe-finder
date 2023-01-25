@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -27,11 +26,8 @@ class SplashView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  ImagePath.appIcon.path,
-                  height: 200,
-                  width: 200,
-                  color: Colors.white,
+                Image(
+                  image: AssetImage(ImagePath.recipeGif.path),
                 ),
                 context.normalSizedBox,
                 Row(
