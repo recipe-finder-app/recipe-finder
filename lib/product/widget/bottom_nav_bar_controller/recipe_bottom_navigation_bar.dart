@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -98,17 +99,24 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 },
                 child: Tooltip(
                   message: LocaleKeys.finder.locale,
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: cubitRead.selectedPageIndex == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
-                    ),
-                    child: ImageSvg(
-                      path: ImagePath.search.path,
-                      height: 24,
-                    ),
+                  child: Stack(
+                    alignment: AlignmentDirectional.center,
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: cubitRead.selectedPageIndex == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
+                        ),
+                      ),
+                      SvgPicture.asset(
+                        ImagePath.appIconLowSize.path,
+                        color: Colors.white,
+                        height: 50,
+                      ),
+                    ],
                   ),
                 ),
               ),

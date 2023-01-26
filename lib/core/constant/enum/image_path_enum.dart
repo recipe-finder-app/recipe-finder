@@ -55,6 +55,7 @@ enum ImagePath {
   onboardImage2('asset/svg/onboardImage2.svg'),
   onboardImage3('asset/svg/onboardImage3.svg'),
   appIcon('asset/svg/app_icon.svg'),
+  appIconLowSize('asset/svg/app_icon_low_size.svg'),
   star('asset/svg/star.svg'),
   returnBack('asset/svg/return_back.svg'),
   persons('asset/svg/persons.svg'),

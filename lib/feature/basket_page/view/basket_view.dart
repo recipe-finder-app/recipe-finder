@@ -160,7 +160,6 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
   SizedBox myBasketListView(BuildContext context, BasketCubit cubitRead) {
     return SizedBox(
       height: context.normalhighValue,
-      width: context.screenWidth,
       child: ListView.builder(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
