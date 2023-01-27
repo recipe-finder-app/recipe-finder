@@ -65,10 +65,9 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
       height: widget.height,
       width: widget.width,
       child: TextFormField(
-        maxLength: 1,
         textAlignVertical: TextAlignVertical.center,
         initialValue: widget.initialValue,
-        maxLines: widget.maxLines,
+        maxLines: widget.maxLines ?? 1,
         controller: widget.controller,
         autocorrect: false,
         enableSuggestions: false,
