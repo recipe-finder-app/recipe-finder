@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
 
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
@@ -22,11 +23,7 @@ Future<void> main() async {
     HttpOverrides.global = MyHttpOverrides();
   }
   await _init();
-  runApp(EasyLocalization(
-      path: ApplicationConstants.LANGUAGE_ASSET_PATH,
-      supportedLocales: LanguageManager.instance.supportedLocalesList,
-      startLocale: LanguageManager.instance.startLocale(),
-      child: const MyApp()));
+  runApp(EasyLocalization(path: ApplicationConstants.LANGUAGE_ASSET_PATH, supportedLocales: LanguageManager.instance.supportedLocalesList, startLocale: LanguageManager.instance.startLocale(), child: const MyApp()));
 }
 
 Future<void> _init() async {
@@ -54,6 +51,7 @@ class MyApp extends StatelessWidget {
       providers: [...ApplicationBloc.instance.dependItems],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        home: SplashView(),
         theme: ThemeData(
           fontFamily: 'Poppins',
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -64,7 +62,6 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
         builder: MainBuild.build,
-
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         //initialRoute: NavigationRoute.instance.initialRoute(),
@@ -77,8 +74,6 @@ class MyApp extends StatelessWidget {
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
   }
 }
