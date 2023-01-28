@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -16,35 +17,26 @@ class SplashView extends StatelessWidget {
         cubitRead.init();
       },
       onPageBuilder: (context, cubitRead, watch) => Scaffold(
-        body: Stack(
-          alignment: AlignmentDirectional.center,
+        backgroundColor: ColorConstants.instance.oriolesOrange,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              color: ColorConstants.instance.oriolesOrange,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Lottie.asset(ImagePath.splashAnimation.path, height: context.screenHeight / 3, width: context.screenWidth / 2),
+            context.normalSizedBox,
+            Row(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image(
-                  image: AssetImage(ImagePath.recipeGif.path),
+                BoldText(
+                  text: 'Recipe',
+                  textColor: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
                 ),
-                context.normalSizedBox,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    BoldText(
-                      text: 'Recipe',
-                      textColor: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    Text(
-                      'Finder',
-                      style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
-                    ),
-                  ],
+                Text(
+                  'Finder',
+                  style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
                 ),
               ],
             ),

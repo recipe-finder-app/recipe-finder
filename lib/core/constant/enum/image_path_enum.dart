@@ -59,7 +59,7 @@ enum ImagePath {
   star('asset/svg/star.svg'),
   returnBack('asset/svg/return_back.svg'),
   persons('asset/svg/persons.svg'),
-  recipeGif('asset/gif/recipe.gif');
+  splashAnimation('asset/lotties/splash_animation.json');
 
   const ImagePath(this.path);
   final String path;
