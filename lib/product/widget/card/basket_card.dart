@@ -32,21 +32,21 @@ class BasketRecipeCard extends StatelessWidget {
         children: [
           imageCard(context),
           removeIcon(context),
-          Padding(
-            padding: context.paddingHighOnlyTopLeft,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                model.title,
-                //  overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                  color: ColorConstants.instance.white,
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: context.paddingHighOnlyTopLeft,
+          //   child: Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Text(
+          //       model.title,
+          //       overflow: TextOverflow.ellipsis,
+          //       style: TextStyle(
+          //         fontWeight: FontWeight.w600,
+          //         fontSize: 12,
+          //         color: ColorConstants.instance.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
