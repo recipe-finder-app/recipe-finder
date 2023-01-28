@@ -9,10 +9,14 @@ extension ContextExtension on BuildContext {
 }
 
 extension DeviceSizeExtension on BuildContext {
-  bool get screenHeightIsLessThan5Inch => screenHeight < DeviceSizeEnum.inch_5.size ? true : false;
-  bool get screenHeightIsLessThan7Inch => screenHeight < DeviceSizeEnum.inch_7.size ? true : false;
-  bool get screenHeightIsLargerThan7Inch => screenHeight > DeviceSizeEnum.inch_7.size ? true : false;
-  bool get screenHeightIsLargerThan9Inch => screenHeight > DeviceSizeEnum.inch_9.size ? true : false;
+  bool get screenHeightIsLessThan5Inch =>
+      screenHeight < DeviceSizeEnum.inch_5.size ? true : false;
+  bool get screenHeightIsLessThan7Inch =>
+      screenHeight < DeviceSizeEnum.inch_7.size ? true : false;
+  bool get screenHeightIsLargerThan7Inch =>
+      screenHeight > DeviceSizeEnum.inch_7.size ? true : false;
+  bool get screenHeightIsLargerThan9Inch =>
+      screenHeight > DeviceSizeEnum.inch_9.size ? true : false;
 }
 
 extension MediaQueryExtension on BuildContext {
@@ -36,7 +40,7 @@ extension MediaQueryExtension on BuildContext {
   double get veryValueWidth => screenWidth * 0.95;
   double get floatinValueWidth => screenWidth * 0.89;
   double get normalValueWidth => screenWidth * 0.60;
-  double get cardValueWidth => screenWidth * 0.76;
+  double get cardValueWidth => screenWidth * 0.84;
   double get highWidth => screenWidth * 0.20;
   double get normalWidth => screenWidth * 0.10;
   double get maxWidth => screenWidth * 0.18;
@@ -64,14 +68,16 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingLowRightLow => EdgeInsets.only(right: lowValue);
   EdgeInsets get paddingRight => EdgeInsets.only(right: mediumValuee);
 
-  EdgeInsets get paddingLowEdges => EdgeInsets.only(left: lowValue, right: lowValue);
+  EdgeInsets get paddingLowEdges =>
+      EdgeInsets.only(left: lowValue, right: lowValue);
 
   EdgeInsets get paddingNormalEdges => EdgeInsets.only(
         left: mediumValuee,
         right: mediumValuee,
       );
 
-  EdgeInsets get paddingMediumEdges => EdgeInsets.only(left: mediumValue, right: mediumValue);
+  EdgeInsets get paddingMediumEdges =>
+      EdgeInsets.only(left: mediumValue, right: mediumValue);
 
   EdgeInsets get paddingHighEdges => EdgeInsets.only(
         left: highValue,
@@ -88,20 +94,28 @@ extension PaddingExtensionAll on BuildContext {
   EdgeInsets get paddingLeftEdges => EdgeInsets.only(
         left: normalWidth,
       );
-  EdgeInsets get paddingLeftlow => EdgeInsets.only(
-        left: normalValue,
+  EdgeInsets get paddingLeftMedium => EdgeInsets.only(
+        left: mediumValue,
       );
 
-  EdgeInsets get paddingLowTopBottom => EdgeInsets.only(top: lowValue, bottom: lowValue);
+  EdgeInsets get paddingLowTopBottom =>
+      EdgeInsets.only(top: lowValue, bottom: lowValue);
 
-  EdgeInsets get paddingNormalTopLeftRight => EdgeInsets.only(top: normalValue, left: lowWidth, right: lowWidth);
-  EdgeInsets get paddingNormalTopBottom => EdgeInsets.only(top: normalValue, bottom: normalValue);
-  EdgeInsets get paddingMediumTopBottom => EdgeInsets.only(top: mediumValue, bottom: mediumValue);
-  EdgeInsets get paddingHighTopBottom => EdgeInsets.only(top: veryHighValue, bottom: veryHighValue);
+  EdgeInsets get paddingNormalTopLeftRight =>
+      EdgeInsets.only(top: normalValue, left: lowWidth, right: lowWidth);
+  EdgeInsets get paddingNormalTopBottom =>
+      EdgeInsets.only(top: normalValue, bottom: normalValue);
+  EdgeInsets get paddingMediumTopBottom =>
+      EdgeInsets.only(top: mediumValue, bottom: mediumValue);
+  EdgeInsets get paddingHighTopBottom =>
+      EdgeInsets.only(top: veryHighValue, bottom: veryHighValue);
 
-  EdgeInsets get paddingLowOnlyTop => EdgeInsets.only(top: lowValue, right: mediumValue);
-  EdgeInsets get paddingHighOnlyTopLeft => EdgeInsets.only(top: highValue, left: mediumWidth);
-  EdgeInsets get paddingNormalOnlyTop => EdgeInsets.only(top: topHighValue, left: lowWidth);
+  EdgeInsets get paddingLowOnlyTop =>
+      EdgeInsets.only(top: lowValue, right: mediumValue);
+  EdgeInsets get paddingHighOnlyTopLeft =>
+      EdgeInsets.only(top: highValue, left: mediumWidth);
+  EdgeInsets get paddingNormalOnlyTop =>
+      EdgeInsets.only(top: topHighValue, left: lowWidth);
   EdgeInsets get paddingMediumOnlyTop => EdgeInsets.only(top: mediumValue);
   EdgeInsets get paddingHighOnlyTop => EdgeInsets.only(top: highValue);
   EdgeInsets get paddingHighTop => EdgeInsets.only(top: veryyHighValue);
@@ -110,14 +124,21 @@ extension PaddingExtensionAll on BuildContext {
 
 extension PaddingExtensionSymetric on BuildContext {
   EdgeInsets get paddingLowVertical => EdgeInsets.symmetric(vertical: lowValue);
-  EdgeInsets get paddingNormalVertical => EdgeInsets.symmetric(vertical: normalValue);
-  EdgeInsets get paddingMediumVertical => EdgeInsets.symmetric(vertical: mediumValue);
-  EdgeInsets get paddingHighVertical => EdgeInsets.symmetric(vertical: veryHighValue);
+  EdgeInsets get paddingNormalVertical =>
+      EdgeInsets.symmetric(vertical: normalValue);
+  EdgeInsets get paddingMediumVertical =>
+      EdgeInsets.symmetric(vertical: mediumValue);
+  EdgeInsets get paddingHighVertical =>
+      EdgeInsets.symmetric(vertical: veryHighValue);
 
-  EdgeInsets get paddingLowHorizontal => EdgeInsets.symmetric(horizontal: lowValue);
-  EdgeInsets get paddingNormalHorizontal => EdgeInsets.symmetric(horizontal: normalValue);
-  EdgeInsets get paddingMediumHorizontal => EdgeInsets.symmetric(horizontal: mediumValue);
-  EdgeInsets get paddingHighHorizontal => EdgeInsets.symmetric(horizontal: veryHighValue);
+  EdgeInsets get paddingLowHorizontal =>
+      EdgeInsets.symmetric(horizontal: lowValue);
+  EdgeInsets get paddingNormalHorizontal =>
+      EdgeInsets.symmetric(horizontal: normalValue);
+  EdgeInsets get paddingMediumHorizontal =>
+      EdgeInsets.symmetric(horizontal: mediumValue);
+  EdgeInsets get paddingHighHorizontal =>
+      EdgeInsets.symmetric(horizontal: veryHighValue);
 }
 
 extension PageExtension on BuildContext {
