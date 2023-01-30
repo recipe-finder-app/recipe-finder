@@ -165,54 +165,57 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         scrollDirection: Axis.horizontal,
         itemCount: cubitRead.basketRecipeItems.length,
         itemBuilder: (context, int cardIndex) {
-          return BasketRecipeCard(
-            borderRadius: cubitRead.selectedColorIndex == cardIndex ? null : context.radiusAllCircularMedium,
-            height: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
-            width: cubitRead.selectedColorIndex == cardIndex ? 130 : 120,
-            model: cubitRead.basketRecipeItems[cardIndex],
-            cardOnPressed: () {
-              cubitRead.changeSelectedCardModel(cubitRead.basketRecipeItems[cardIndex]);
-              cubitRead.changeSelectedColorIndex(cardIndex);
-              _startAnimation();
-            },
-            removeIconOnPressed: (() {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return QuestionAlertDialog(
-                      explanation: LocaleKeys.removeCard,
-                      onPressedYes: () {
-                        cubitRead.deletedItemFromBasketRecipeList(cubitRead.basketRecipeItems[cardIndex]);
-                        cubitRead.changeSelectedCardModel(null);
-                        cubitRead.changeSelectedColorIndex(null);
-                      },
-                    );
-                  });
-            }),
-            border: cubitRead.selectedColorIndex == cardIndex ? Border.all(color: cubitRead.selectedCardItemColor(cardIndex), width: 6) : null,
-            gradient: cubitRead.selectedColorIndex == cardIndex
-                ? LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [0, 0, 0.2, 4],
-                    colors: [
-                      cubitRead.selectedCardItemColor(cardIndex),
-                      Colors.transparent,
-                      Colors.transparent,
-                      cubitRead.selectedCardItemColor(cardIndex),
-                    ],
-                  )
-                : LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [0, 0, 0.2, 1],
-                    colors: [
-                      cubitRead.selectedCardItemColor(cardIndex),
-                      Colors.transparent,
-                      Colors.transparent,
-                      cubitRead.selectedCardItemColor(cardIndex),
-                    ],
-                  ),
+          return Padding(
+            padding: EdgeInsets.only(right: context.normalValue),
+            child: BasketRecipeCard(
+              borderRadius: cubitRead.selectedColorIndex == cardIndex ? null : context.radiusAllCircularMedium,
+              height: cubitRead.selectedColorIndex == cardIndex ? 150 : 140,
+              width: cubitRead.selectedColorIndex == cardIndex ? 150 : 140,
+              model: cubitRead.basketRecipeItems[cardIndex],
+              cardOnPressed: () {
+                cubitRead.changeSelectedCardModel(cubitRead.basketRecipeItems[cardIndex]);
+                cubitRead.changeSelectedColorIndex(cardIndex);
+                _startAnimation();
+              },
+              removeIconOnPressed: (() {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return QuestionAlertDialog(
+                        explanation: LocaleKeys.removeCard,
+                        onPressedYes: () {
+                          cubitRead.deletedItemFromBasketRecipeList(cubitRead.basketRecipeItems[cardIndex]);
+                          cubitRead.changeSelectedCardModel(null);
+                          cubitRead.changeSelectedColorIndex(null);
+                        },
+                      );
+                    });
+              }),
+              border: cubitRead.selectedColorIndex == cardIndex ? Border.all(color: cubitRead.selectedCardItemColor(cardIndex), width: 6) : null,
+              gradient: cubitRead.selectedColorIndex == cardIndex
+                  ? LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0, 0, 0.2, 4],
+                      colors: [
+                        cubitRead.selectedCardItemColor(cardIndex),
+                        Colors.transparent,
+                        Colors.transparent,
+                        cubitRead.selectedCardItemColor(cardIndex),
+                      ],
+                    )
+                  : LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0, 0, 0.2, 1],
+                      colors: [
+                        cubitRead.selectedCardItemColor(cardIndex),
+                        Colors.transparent,
+                        Colors.transparent,
+                        cubitRead.selectedCardItemColor(cardIndex),
+                      ],
+                    ),
+            ),
           );
         },
       ),
