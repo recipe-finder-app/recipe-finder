@@ -23,9 +23,9 @@ dependencies:
   hive_flutter: ^1.1.0
 
   #Network
-  dio: ^4.0.6
   json_serializable: ^6.5.4
   json_annotation: ^4.7.0
+  vexana: ^3.3.2
 
   #Google
   cupertino_icons: ^1.0.2
@@ -46,7 +46,7 @@ dependencies:
 
   #Animation
   flutter_svg: ^1.1.6
-  lottie: ^1.4.2
+  lottie: ^2.2.0
   swipe_cards: ^1.0.0
   swipable_stack: ^2.0.0
 

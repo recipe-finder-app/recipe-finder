@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:recipe_finder/core/base/model/base_network_model.dart';
-import 'package:recipe_finder/core/constant/enum/http_request_enum.dart';
-import 'package:recipe_finder/core/init/network/dio/interface/network_manager_interface.dart';
-import 'package:recipe_finder/core/init/network/dio/network_manager.dart';
+import 'package:vexana/vexana.dart';
 
 main() {
   late INetworkManager networkManager;
@@ -14,10 +11,26 @@ main() {
     ));
   });
   test('service', () async {
-    final response = await networkManager.send<UserModel, UserModel>('/posts/1',
-        parseModel: UserModel(), httpType: HttpTypes.GET);
-
-    expect(response.model, isNotNull);
+    final usermodel = UserModel(
+      title: 'foo',
+      body: 'bar',
+      userId: 1,
+    );
+    var data = {
+      'title': 'foo',
+      'body': 'bar',
+      'userId': 1,
+    };
+    final response = await networkManager.send<UserModel, UserModel>(
+      '/posts',
+      parseModel: UserModel(),
+      method: RequestType.POST,
+      data: data,
+    );
+    print(response.data?.body);
+    print(response.error?.description);
+    print(response.error?.statusCode);
+    expect(response.data, isNotNull);
   });
 }
 

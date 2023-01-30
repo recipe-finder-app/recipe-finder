@@ -144,14 +144,14 @@ class LoginView extends StatelessWidget {
                     const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName)),
                     context.lowSizedBox,
                     UserTextFormField(
-                      controller: TextEditingController(),
+                      controller: cubitRead.userNameController,
                     ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                     const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password)),
                     context.lowSizedBox,
                     PasswordTextFormField(
-                      controller: TextEditingController(),
+                      controller: cubitRead.passwordController,
                     ),
                     context.lowSizedBox,
                     Align(

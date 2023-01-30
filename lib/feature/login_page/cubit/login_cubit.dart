@@ -9,6 +9,8 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late GlobalKey<FormState> loginFormKey;
   late GlobalKey<FormState> createAccountFormKey;
   late GlobalKey<FormState> forgotPasswordFormKey;
+  late TextEditingController userNameController;
+  late TextEditingController passwordController;
   ILoginService? service;
 
   LoginCubit() : super(LoginInit());
@@ -18,7 +20,8 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
     loginFormKey = GlobalKey<FormState>();
     createAccountFormKey = GlobalKey<FormState>();
     forgotPasswordFormKey = GlobalKey<FormState>();
-
+    userNameController = TextEditingController();
+    passwordController = TextEditingController();
     service = LoginService();
   }
 
@@ -31,8 +34,20 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   @override
   void dispose() {}
 
-  void login() {
-    if (loginFormKey.currentState!.validate()) {}
+  void login() async {
+    if (loginFormKey.currentState!.validate()) {
+      final response = await service!.login(userNameController.text, passwordController.text);
+      print(response.data?.success);
+      if (response!.data?.success != null) {
+        if (response!.data!.success == true) {
+          print(response.data!.token);
+        } else if (response.data!.success == false) {
+          print('kullanıcı adı veya şifre yanlış');
+        }
+      } else if (response.error!.description != null) {
+        print('${response.error!.description}');
+      }
+    }
   }
 
   void createAccount() {

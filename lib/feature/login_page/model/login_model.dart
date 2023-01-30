@@ -1,13 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:recipe_finder/core/base/model/base_network_model.dart';
+import 'package:vexana/vexana.dart';
+
+//import 'package:vexana/vexana.dart';
 
 part 'login_model.g.dart';
 
 @JsonSerializable()
 class LoginModel extends INetworkModel<LoginModel> {
-  final String email;
-  final String password;
-  LoginModel({required this.email, required this.password});
+  final String? email;
+  final String? password;
+  LoginModel({this.email, this.password});
   @override
   factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
 
@@ -16,7 +18,6 @@ class LoginModel extends INetworkModel<LoginModel> {
 
   @override
   LoginModel fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+    return _$LoginModelFromJson(json);
   }
 }

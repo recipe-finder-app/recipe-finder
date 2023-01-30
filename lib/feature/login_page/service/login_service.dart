@@ -1,21 +1,30 @@
-import 'package:dio/dio.dart';
-import 'package:recipe_finder/feature/login_page/model/login_response_model.dart';
+import 'package:vexana/vexana.dart';
 
-import '../../../core/constant/enum/http_request_enum.dart';
-import '../../../core/init/network/dio/network_manager.dart';
 import '../model/login_model.dart';
+import '../model/login_response_model.dart';
 
 abstract class ILoginService {
-  void postLogin();
+  late INetworkManager networkManager;
+  Future<IResponseModel<LoginResponseModel?, INetworkModel<dynamic>?>> login(String email, String password);
 }
 
-class LoginService implements ILoginService {
-  final networkManager = NetworkManager<LoginModel>(
-      options: BaseOptions(
-    baseUrl: 'https://jsonplaceholder.typicode.com',
-  ));
+class LoginService extends ILoginService {
   @override
-  Future<void> postLogin() async {
-    final response = await networkManager.send<LoginModel, LoginResponseModel>('/posts/1', parseModel: LoginResponseModel(), httpType: HttpTypes.POST);
+  Future<IResponseModel<LoginResponseModel?, INetworkModel<dynamic>?>> login(String email, String password) async {
+    /* var dio = Dio(BaseOptions(baseUrl: 'https://tarifiyle-bul.onrender.com'));
+    final response = await dio.post('/api/users/login', data: LoginModel(email: email, password: password).toJson());
+    return response;*/
+    networkManager = NetworkManager<Null>(
+        options: BaseOptions(
+      baseUrl: 'https://tarifiyle-bul.onrender.com',
+    ));
+    final response = await networkManager.send<LoginResponseModel, LoginResponseModel>(
+      '/api/users/login',
+      parseModel: LoginResponseModel(),
+      method: RequestType.POST,
+      data: LoginModel(email: email, password: password),
+      // m.kemalgordesli@gmail.com     mustafa123456
+    );
+    return response;
   }
 }

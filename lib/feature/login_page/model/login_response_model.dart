@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:vexana/vexana.dart';
 
-import '../../../core/base/model/base_network_model.dart';
+//import 'package:vexana/vexana.dart';
 
 part 'login_response_model.g.dart';
 
@@ -8,7 +9,8 @@ part 'login_response_model.g.dart';
 class LoginResponseModel extends INetworkModel<LoginResponseModel> {
   final bool? success;
   final String? token;
-  LoginResponseModel({this.success, this.token});
+  final String? message;
+  LoginResponseModel({this.success, this.token, this.message});
 
   @override
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) => _$LoginResponseModelFromJson(json);
@@ -18,7 +20,6 @@ class LoginResponseModel extends INetworkModel<LoginResponseModel> {
 
   @override
   LoginResponseModel fromJson(Map<String, dynamic> json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+    return _$LoginResponseModelFromJson(json);
   }
 }
