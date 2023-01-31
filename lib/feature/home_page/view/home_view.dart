@@ -182,7 +182,7 @@ class HomeView extends StatelessWidget {
               ),
               title: LocaleText(text: LocaleKeys.logout),
               onTap: () {
-                NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
               },
             ),
           ],

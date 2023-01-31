@@ -22,7 +22,7 @@ class SplashView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Lottie.asset(ImagePath.splashAnimation.path, height: context.screenHeight / 3, width: context.screenWidth / 2),
+            Lottie.asset(ImagePath.splashAnimation.path, height: 275, width: 150),
             context.normalSizedBox,
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
