@@ -16,4 +16,7 @@ class ColorConstants {
   Color brightGraySolid2 = const Color(0xFFE6EBF2);
   Color ephemeralBlue = const Color(0xFFCCD4DE);
   Color chenille = const Color(0xFFa7ce8c);
+
+  Color googleColor = const Color(0xffDD4839);
+  Color facebookColor = const Color(0xff385998);
 }

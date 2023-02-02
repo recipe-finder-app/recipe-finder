@@ -5,6 +5,8 @@ import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/product/model/social_adapter.dart';
+import 'package:recipe_finder/product/widget/button/social_button.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 
@@ -14,7 +16,6 @@ import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/widget/button/login_button.dart';
-import '../../../product/widget/button/recipe_circular_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
@@ -188,17 +189,9 @@ class LoginView extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      RecipeCircularButton(
-                        borderColor: Colors.black,
-                        textColor: Colors.black,
-                        text: LocaleKeys.loginWithGoogle.locale,
-                      ),
+                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                      RecipeCircularButton(
-                        borderColor: Colors.black,
-                        textColor: ColorConstants.instance.brightNavyBlue,
-                        text: LocaleKeys.loginWithFacebook.locale,
-                      ),
+                      SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -293,17 +286,9 @@ class LoginView extends StatelessWidget {
                   LocaleText(text: LocaleKeys.orContinueWith.locale),
                   Column(
                     children: [
-                      RecipeCircularButton(
-                        borderColor: Colors.black,
-                        textColor: Colors.black,
-                        text: LocaleKeys.registerWithGoogle.locale,
-                      ),
+                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                      RecipeCircularButton(
-                        borderColor: Colors.black,
-                        textColor: ColorConstants.instance.brightNavyBlue,
-                        text: LocaleKeys.registerWithFacebook.locale,
-                      ),
+                      SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(

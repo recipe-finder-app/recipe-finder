@@ -11,7 +11,7 @@ abstract class ILoginService {
 class LoginService extends ILoginService {
   @override
   Future<IResponseModel<LoginResponseModel?, INetworkModel<dynamic>?>> login(String email, String password) async {
-    /* var dio = Dio(BaseOptions(baseUrl: 'https://tarifiyle-bul.onrender.com'));
+    /*var dio = Dio(BaseOptions(baseUrl: 'https://tarifiyle-bul.onrender.com'));
     final response = await dio.post('/api/users/login', data: LoginModel(email: email, password: password).toJson());
     return response;*/
     networkManager = NetworkManager<Null>(

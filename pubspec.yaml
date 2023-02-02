@@ -26,6 +26,7 @@ dependencies:
   json_serializable: ^6.5.4
   json_annotation: ^4.7.0
   vexana: ^3.3.2
+  dio:
 
   #Google
   cupertino_icons: ^1.0.2
@@ -43,12 +44,15 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_launcher_icons: ^0.11.0
   fluttertoast: ^8.1.2
+  google_sign_in: ^5.4.4
+  font_awesome_flutter:
 
   #Animation
   flutter_svg: ^1.1.6
   lottie: ^2.2.0
   swipe_cards: ^1.0.0
   swipable_stack: ^2.0.0
+
 
 
 
