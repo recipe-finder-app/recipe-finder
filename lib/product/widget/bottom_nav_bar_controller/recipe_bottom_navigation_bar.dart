@@ -110,12 +110,12 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                 child: Tooltip(
                   message: LocaleKeys.finder.locale,
                   child: Stack(
-                    // alignment: AlignmentDirectional.center,
+                    alignment: AlignmentDirectional.center,
                     children: [
                       Container(
                         alignment: Alignment.center,
-                        height: 60,
-                        width: 60,
+                        height: 50,
+                        width: 50,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: cubitRead.selectedPageIndex == 2
@@ -123,13 +123,10 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                               : ColorConstants.instance.oriolesOrange,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 5, top: 10),
-                        child: SvgPicture.asset(
-                          ImagePath.appIconLowSize.path,
-                          color: Colors.white,
-                          height: 60,
-                        ),
+                      SvgPicture.asset(
+                        ImagePath.appIconLowSize.path,
+                        color: Colors.white,
+                        height: 50,
                       ),
                     ],
                   ),
