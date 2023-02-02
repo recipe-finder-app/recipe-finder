@@ -2,13 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/text_field/password_text_formfield.dart';
-import 'package:recipe_finder/product/widget/text_field/user_text_formfield.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
-
-import '../../../core/init/language/locale_keys.g.dart';
-import '../../../product/widget/button/drawer_button.dart';
 
 class DrawerChangePasswordView extends StatelessWidget {
   const DrawerChangePasswordView({super.key});
@@ -26,8 +20,7 @@ class DrawerChangePasswordView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back,
-                    color: ColorConstants.instance.white)),
+                icon: Icon(Icons.arrow_back, color: ColorConstants.instance.white)),
             Text(
               'Change Password',
               style: TextStyle(color: ColorConstants.instance.white),
@@ -60,21 +53,21 @@ class DrawerChangePasswordView extends StatelessWidget {
               context.normalSizedBox,
               PasswordTextFormField(
                 controller: TextEditingController(),
-              ),]),
-               context.normalSizedBox,
+              ),
+            ]),
+            context.normalSizedBox,
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text('Confirm New Password'),
               context.normalSizedBox,
               PasswordTextFormField(
                 controller: TextEditingController(),
-              ),]),
-              context.mediumSizedBox,
-              LoginButton(
-                text: 'Save',
-                onPressed: () {},
-                color: ColorConstants.instance.oriolesOrange,
               ),
-           
+            ]),
+            context.mediumSizedBox,
+            LoginButton(
+              text: 'Save',
+              color: ColorConstants.instance.oriolesOrange,
+            ),
           ]),
         ),
       ),

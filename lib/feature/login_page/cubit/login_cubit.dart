@@ -10,6 +10,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late GlobalKey<FormState> createAccountFormKey;
   late GlobalKey<FormState> forgotPasswordFormKey;
   late TextEditingController userNameController;
+  late TextEditingController emailController;
   late TextEditingController passwordController;
   ILoginService? service;
 
@@ -21,6 +22,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
     createAccountFormKey = GlobalKey<FormState>();
     forgotPasswordFormKey = GlobalKey<FormState>();
     userNameController = TextEditingController();
+    emailController = TextEditingController();
     passwordController = TextEditingController();
     service = LoginService();
   }
@@ -35,18 +37,45 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   void dispose() {}
 
   void login() async {
-    if (loginFormKey.currentState!.validate()) {
-      final response = await service!.login(userNameController.text, passwordController.text);
-      print(response.data?.success);
-      if (response!.data?.success != null) {
-        if (response!.data!.success == true) {
-          print(response.data!.token);
-        } else if (response.data!.success == false) {
-          print('kullanıcı adı veya şifre yanlış');
+    try {
+      if (loginFormKey.currentState!.validate()) {
+        final response = await service!.login(userNameController.text, passwordController.text);
+        if (response!.data?.success != null) {
+          if (response!.data!.success == true) {
+            print(response.data!.token);
+          } else if (response.data!.success == false) {
+            print('kullanıcı adı veya şifre yanlış');
+          }
+        } else if (response.error!.description != null) {
+          print('response.error!.description ${response.error!.description}');
         }
-      } else if (response.error!.description != null) {
-        print('${response.error!.description}');
       }
+      userNameController.clear();
+      passwordController.clear();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void register() async {
+    try {
+      if (createAccountFormKey.currentState!.validate()) {
+        final response = await service!.register(userNameController.text, emailController.text, passwordController.text);
+        if (response!.data?.data != null) {
+          if (response!.data!.data != null) {
+            print(response.data!.token);
+          } else if (response.data!.success == false) {
+            print(response.data?.message);
+          }
+        } else if (response.error!.description != null) {
+          print('response.error!.description ${response.error!.description}');
+        }
+      }
+      userNameController.clear();
+      emailController.clear();
+      passwordController.clear();
+    } catch (e) {
+      print(e);
     }
   }
 

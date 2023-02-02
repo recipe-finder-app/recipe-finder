@@ -7,9 +7,9 @@ part 'login_model.g.dart';
 
 @JsonSerializable()
 class LoginModel extends INetworkModel<LoginModel> {
-  final String? email;
+  final String? username;
   final String? password;
-  LoginModel({this.email, this.password});
+  LoginModel({this.username, this.password});
   @override
   factory LoginModel.fromJson(Map<String, dynamic> json) => _$LoginModelFromJson(json);
 

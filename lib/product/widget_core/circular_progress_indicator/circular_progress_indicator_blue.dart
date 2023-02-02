@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../core/constant/design/color_constant.dart';
 
 class CircularProgressIndicatorBlue extends StatelessWidget {
-  const CircularProgressIndicatorBlue({Key? key}) : super(key: key);
+  final Color? color;
+  final double? strokeWidth;
+  const CircularProgressIndicatorBlue({Key? key, this.color, this.strokeWidth}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,8 +14,8 @@ class CircularProgressIndicatorBlue extends StatelessWidget {
       children: [
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CircularProgressIndicator(
-            strokeWidth: 6,
-            color: ColorConstants.instance.brightNavyBlue,
+            strokeWidth: strokeWidth == null ? 6 : strokeWidth!,
+            color: color == null ? ColorConstants.instance.brightNavyBlue : color,
           ),
         ]),
       ],
