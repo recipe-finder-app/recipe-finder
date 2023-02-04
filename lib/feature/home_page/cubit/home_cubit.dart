@@ -43,8 +43,8 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
     print(user);
     print(hiveManager.getValues()?.first);*/
 
-    final data = LoginCubit.hiveManager2.getItem(HiveKeyEnum.user);
-    print(data);
+    final data = LoginCubit.hiveManager.getItem(HiveKeyEnum.user);
+    print(data?.token);
   }
 
   @override

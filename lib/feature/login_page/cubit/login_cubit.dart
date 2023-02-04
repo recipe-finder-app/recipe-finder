@@ -6,6 +6,7 @@ import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/hive_enum.dart';
 import '../../../core/init/cache/hive_manager.dart';
+import '../../../product/model/user_model.dart';
 import '../service/login_service.dart';
 import 'login_state.dart';
 
@@ -16,7 +17,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late TextEditingController userNameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  static final IHiveManager<String> hiveManager2 = HiveManager<String>(HiveBoxEnum.userModel);
+  static final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
   ILoginService? service;
 
   LoginCubit() : super(LoginInit());
@@ -47,7 +48,6 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
         final response = await service!.login(userNameController.text, passwordController.text);
         if (response!.data?.success != null) {
           if (response!.data!.success == true) {
-            /*final HiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.user);
             await hiveManager.openBox();
             await hiveManager.putItem(
                 HiveKeyEnum.user,
@@ -57,10 +57,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
                   email: response.data!.data!.email!,
                   password: passwordController.text,
                   token: response.data!.token!,
-                ));*/
-            await hiveManager2.openBox();
-            await hiveManager2.putItem(HiveKeyEnum.user, 'urazalkisuserkey');
-            print(hiveManager2.getItem(HiveKeyEnum.user));
+                ));
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');
