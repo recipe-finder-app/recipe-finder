@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
+import 'package:recipe_finder/feature/login_page/cubit/login_cubit.dart';
 import 'package:recipe_finder/product/model/ingradient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
+import '../../../core/constant/enum/hive_enum.dart';
 import '../service/home_service.dart';
 
 class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
@@ -35,6 +37,14 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
     category = service!.fetchCategoryList();
     essentialsItem = service!.fetchEssetialsList();
     vegateblesItem = service!.fetchVegatablesList();
+    /* final HiveManager hiveManager = HiveManager(HiveBoxEnum.user);
+    var user = hiveManager.getItem(HiveKeyEnum.user);
+    print(user?.token);
+    print(user);
+    print(hiveManager.getValues()?.first);*/
+
+    final data = LoginCubit.hiveManager.getItem(HiveKeyEnum.user);
+    print(data?.token);
   }
 
   @override

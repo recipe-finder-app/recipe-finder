@@ -7,6 +7,7 @@ abstract class  LocaleKeys {
   static const later = 'later';
   static const recipeIngredients = 'recipeIngredients';
   static const userName = 'userName';
+  static const userNameOrEmail = 'userNameOrEmail';
   static const email = 'email';
   static const emailAddress = 'emailAddress';
   static const sendEmail = 'sendEmail';

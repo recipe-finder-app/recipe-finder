@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/login_button.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/text_field/user_text_formfield.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
-
-import '../../../core/init/language/locale_keys.g.dart';
-import '../../../product/widget/button/drawer_button.dart';
 
 class DrawerChangeUsernameView extends StatelessWidget {
   const DrawerChangeUsernameView({super.key});
@@ -25,8 +20,7 @@ class DrawerChangeUsernameView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back,
-                    color: ColorConstants.instance.white)),
+                icon: Icon(Icons.arrow_back, color: ColorConstants.instance.white)),
             Text(
               'Change Username',
               style: TextStyle(color: ColorConstants.instance.white),
@@ -64,7 +58,6 @@ class DrawerChangeUsernameView extends StatelessWidget {
             context.mediumSizedBox,
             LoginButton(
               text: 'Save',
-              onPressed: () {},
               color: ColorConstants.instance.oriolesOrange,
             ),
           ]),

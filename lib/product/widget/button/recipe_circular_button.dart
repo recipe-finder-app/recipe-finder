@@ -4,7 +4,8 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 class RecipeCircularButton extends StatelessWidget {
-  final String text;
+  final String? text;
+  final Widget? textWidget;
   final Color? color;
   final Color? textColor;
   final Color? borderColor;
@@ -12,17 +13,7 @@ class RecipeCircularButton extends StatelessWidget {
   final double? width;
   final Icon? icon;
   final TextDirection? textDirection;
-  const RecipeCircularButton(
-      {Key? key,
-      required this.text,
-      this.color,
-      this.onPressed,
-      this.textColor,
-      this.borderColor,
-      this.width,
-      this.icon,
-      this.textDirection})
-      : super(key: key);
+  const RecipeCircularButton({Key? key, this.text, this.color, this.onPressed, this.textColor, this.borderColor, this.width, this.icon, this.textDirection, this.textWidget}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +47,7 @@ class RecipeCircularButton extends StatelessWidget {
                   size: 0,
                 ),
             label: FittedBox(
-              child: LocaleText(
-                  textAlign: TextAlign.center,
-                  text: text,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: textColor ?? Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16)),
+              child: textWidget != null ? textWidget : LocaleText(textAlign: TextAlign.center, text: text ?? '', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: textColor ?? Colors.white, fontWeight: FontWeight.w500, fontSize: 16)),
             )),
       ),
     );

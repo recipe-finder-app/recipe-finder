@@ -1,17 +1,7 @@
 enum HiveBoxEnum {
-  userId,
-  userName,
-  password,
-  department,
-  nameSurname,
-  logIn,
+  userModel,
 }
 
 enum HiveKeyEnum {
-  userId,
-  userName,
-  password,
-  department,
-  nameSurname,
-  logIn,
+  user,
 }

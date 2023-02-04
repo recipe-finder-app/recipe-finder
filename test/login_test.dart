@@ -15,7 +15,7 @@ main() {
     );
   });
   test('service', () async {
-    var loginResponsemodel = LoginModel(email: 'm.kemalgordesli@gmail.comasd', password: 'mustafa123456');
+    var loginResponsemodel = LoginModel(username: 'm.kemalgordesli@gmail.comasd', password: 'mustafa123456');
     final response = await networkManager.send<LoginResponseModel, LoginResponseModel>('/api/users/login', parseModel: LoginResponseModel(), method: RequestType.POST, data: loginResponsemodel);
     print(response.data?.success);
     print(response.data?.token);

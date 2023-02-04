@@ -9,7 +9,8 @@ import '../../widget_core/image_format/image_svg.dart';
 
 class UserTextFormField extends StatefulWidget {
   final TextEditingController controller;
-  const UserTextFormField({Key? key, required this.controller}) : super(key: key);
+  final String? hintText;
+  const UserTextFormField({Key? key, required this.controller, this.hintText}) : super(key: key);
 
   @override
   State<UserTextFormField> createState() => _UserTextFormFieldState();
@@ -43,7 +44,7 @@ class _UserTextFormFieldState extends State<UserTextFormField> {
       controller: widget.controller,
       height: calculateTextFieldHeight(),
       width: context.screenWidth / 1.2,
-      hintText: LocaleKeys.userName.locale,
+      hintText: widget.hintText != null ? widget.hintText : LocaleKeys.userNameOrEmail.locale,
       maxLines: 1,
       prefixIcon: ImageSvg(
         path: ImagePath.user.path,
