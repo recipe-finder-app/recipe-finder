@@ -7,6 +7,7 @@ import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
+import 'package:recipe_finder/product/model/user_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_png.dart';
@@ -16,7 +17,9 @@ import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_po
 import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
+import '../../../core/constant/enum/hive_enum.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
@@ -181,7 +184,9 @@ class HomeView extends StatelessWidget {
                 color: Colors.black,
               ),
               title: LocaleText(text: LocaleKeys.logout),
-              onTap: () {
+              onTap: () async {
+                final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+                await hiveManager.clearAll();
                 NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
               },
             ),
