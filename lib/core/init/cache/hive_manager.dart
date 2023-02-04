@@ -29,7 +29,14 @@ abstract class IHiveManager<T> {
 }
 
 class HiveManager<T> extends IHiveManager<T> {
-  HiveManager(super.hiveBoxName);
+  static HiveManager? _instance;
+
+  HiveManager._init(super.hiveBoxName);
+
+  factory HiveManager(HiveBoxEnum hiveBoxName) {
+    _instance ??= HiveManager<T>._init(hiveBoxName);
+    return _instance! as HiveManager<T>;
+  }
 
   @override
   Future<void> clearAll() async {

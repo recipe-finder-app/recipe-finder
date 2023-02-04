@@ -17,7 +17,6 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late TextEditingController userNameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  static final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
   ILoginService? service;
 
   LoginCubit() : super(LoginInit());
@@ -48,6 +47,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
         final response = await service!.login(userNameController.text, passwordController.text);
         if (response!.data?.success != null) {
           if (response!.data!.success == true) {
+            final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
             await hiveManager.openBox();
             await hiveManager.putItem(
                 HiveKeyEnum.user,
@@ -58,6 +58,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
                   password: passwordController.text,
                   token: response.data!.token!,
                 ));
+            print(hiveManager.getItem(HiveKeyEnum.user)?.username.toString());
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');
