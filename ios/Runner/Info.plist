@@ -2,12 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+<key>GIDClientID</key>
+<string>865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com</string>
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>com.googleusercontent.apps.865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g</string>
+    </array>
+  </dict>
+</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-    	<string>Speech recognition is required</string>
-    	<key>NSMicrophoneUsageDescription</key>
-            	<string>Microphone is required to record audio</string>
 	<key>CFBundleDisplayName</key>
 	<string>Recipe Finder</string>
 	<key>CFBundleExecutable</key>
@@ -28,6 +37,10 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone is required to record audio</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speech recognition is required</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -47,7 +60,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
 </dict>
 </plist>
