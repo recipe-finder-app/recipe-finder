@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -35,7 +37,14 @@ abstract class ISocialAdapter {
 }
 
 class GoogleAdapter implements ISocialAdapter {
-  final GoogleSignIn googleSignIn = GoogleSignIn(clientId: '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
+  GoogleSignIn get googleSignIn {
+    if (Platform.isIOS) {
+      return GoogleSignIn(clientId: '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
+    } else {
+      return GoogleSignIn();
+    }
+  }
+
   @override
   Future<String> login() async {
     try {
