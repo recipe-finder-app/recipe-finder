@@ -98,6 +98,12 @@
     "rateUs": "Rate Us",
     "contact": "Contact",
     "aboutUs": "About Us",
-    "logout":"Log Out"
+    "logout":"Log Out",
+    "verificationCode": "Verification Code",
+    "enterEmailAdressVerificationCode":"Enter the verification code sent to your e-mail address",
+    "resetEmailText" : "Enter your email address for password reset",
+    "verify": "Verify",
+    "anErrorOccured": "An error has occurred. Please try again later.",
+    "emailChangeSuccessText": "Email change done successfully."
 
 }

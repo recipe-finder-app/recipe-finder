@@ -1,15 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-//import 'package:vexana/vexana.dart';
-
-part 'login_model.g.dart';
+part 'create_token_model.g.dart';
 
 @JsonSerializable()
-class CreateTokenModel extends INetworkModel<LoginModel> {
-  final String? username;
-  final String? password;
-  CreateTokenModel({this.username, this.password});
+class CreateTokenModel extends INetworkModel<CreateTokenModel> {
+  final String? email;
+  CreateTokenModel({
+    this.email,
+  });
   @override
   factory CreateTokenModel.fromJson(Map<String, dynamic> json) => _$CreateTokenModelFromJson(json);
 
