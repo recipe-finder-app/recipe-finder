@@ -33,23 +33,26 @@ class CircularBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       context: context,
       isScrollControlled: true,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(bottom: resizeToAvoidBottomInset == true ? MediaQuery.of(context).viewInsets.bottom : 0),
-        child: SizedBox(
-          height: bottomSheetHeight == CircularBottomSheetHeight.short
-              ? context.screenHeight / 1.8
-              : bottomSheetHeight == CircularBottomSheetHeight.full
-                  ? context.screenHeight
-                  : bottomSheetHeight == CircularBottomSheetHeight.medium
-                      ? context.screenHeight / 1.40
-                      : bottomSheetHeight == CircularBottomSheetHeight.high
-                          ? context.screenHeight / 1.1
-                          : context.screenHeight / 1.2,
-          child: Padding(
-            padding: context.paddingNormalTopBottom,
+      builder: (context) => Container(
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+        child: Padding(
+          padding: EdgeInsets.only(bottom: resizeToAvoidBottomInset == true ? MediaQuery.of(context).viewInsets.bottom : 0),
+          child: SizedBox(
+            height: bottomSheetHeight == CircularBottomSheetHeight.short
+                ? context.screenHeight / 1.8
+                : bottomSheetHeight == CircularBottomSheetHeight.full
+                    ? context.screenHeight
+                    : bottomSheetHeight == CircularBottomSheetHeight.medium
+                        ? context.screenHeight / 1.40
+                        : bottomSheetHeight == CircularBottomSheetHeight.high
+                            ? context.screenHeight / 1.1
+                            : context.screenHeight / 1.2,
             child: Padding(
-              padding: context.paddingMediumEdges,
-              child: scrollable == true ? buildChildScrollable(context, child) : buildChild(context, child),
+              padding: context.paddingNormalTopBottom,
+              child: Padding(
+                padding: context.paddingMediumEdges,
+                child: scrollable == true ? buildChildScrollable(context, child) : buildChild(context, child),
+              ),
             ),
           ),
         ),

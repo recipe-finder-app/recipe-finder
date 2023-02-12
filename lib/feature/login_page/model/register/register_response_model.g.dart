@@ -29,7 +29,7 @@ Map<String, dynamic> _$RegisterResponseModelToJson(
 RegisterData _$RegisterDataFromJson(Map<String, dynamic> json) => RegisterData(
       json['email'] as String?,
       json['username'] as String?,
-      json['id'] as String?,
+      json['_id'] as String?,
       json['createdAt'] as String?,
       json['updatedAt'] as String?,
     );
@@ -38,7 +38,7 @@ Map<String, dynamic> _$RegisterDataToJson(RegisterData instance) =>
     <String, dynamic>{
       'email': instance.email,
       'username': instance.username,
-      'id': instance.id,
+      '_id': instance.id,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
     };

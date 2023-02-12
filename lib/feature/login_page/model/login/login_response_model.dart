@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:recipe_finder/feature/login_page/model/register_response_model.dart';
 import 'package:vexana/vexana.dart';
 
 //import 'package:vexana/vexana.dart';

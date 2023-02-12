@@ -8,6 +8,8 @@ import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/model/social_adapter.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/button/social_button.dart';
+import 'package:recipe_finder/product/widget_core/alert_dialog/alert_dialog_error.dart';
+import 'package:recipe_finder/product/widget_core/alert_dialog/alert_dialog_success.dart';
 import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 
@@ -324,7 +326,7 @@ class LoginView extends StatelessWidget {
       bottomSheetHeight: CircularBottomSheetHeight.short,
       resizeToAvoidBottomInset: true,
       child: Form(
-        key: cubitRead.forgotPasswordFormKey,
+        key: cubitRead.createTokenFormKey,
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -332,16 +334,16 @@ class LoginView extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(
-                        text: LocaleKeys.forgotPassword.locale,
-                        fontSize: 20,
-                      )),
+                  LocaleBoldText(
+                    text: LocaleKeys.forgotPassword,
+                    fontSize: 20,
+                  ),
                   context.lowSizedBox,
-                  const Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                  const LocaleText(
+                    text: LocaleKeys.resetEmailText,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -350,12 +352,12 @@ class LoginView extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleBoldText(
-                        text: LocaleKeys.emailAddress.locale,
-                      )),
+                  LocaleBoldText(
+                    text: LocaleKeys.emailAddress,
+                  ),
                   context.lowSizedBox,
                   EmailTextFormField(
                     controller: cubitRead.emailController,
@@ -369,6 +371,106 @@ class LoginView extends StatelessWidget {
               child: LoginButton(
                 text: LocaleKeys.sendEmail.locale,
                 color: ColorConstants.instance.oriolesOrange,
+                onPressed: () async {
+                  final sendEmailResponse = await cubitRead.createToken();
+                  if (sendEmailResponse == true) {
+                    Navigator.pop(context);
+                    verificationCodeBottomSheet(context, cubitRead, cubitRead.emailController.text);
+                  } else if (sendEmailResponse == false) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialogError(text: LocaleKeys.anErrorOccured.locale);
+                        });
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> verificationCodeBottomSheet(
+    BuildContext context,
+    LoginCubit cubitRead,
+    String email,
+  ) {
+    return CircularBottomSheet.instance.show(
+      context,
+      bottomSheetHeight: CircularBottomSheetHeight.short,
+      resizeToAvoidBottomInset: true,
+      child: Form(
+        key: cubitRead.tokenVerificationFormKey,
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            context.lowSizedBox,
+            Flexible(
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LocaleBoldText(
+                    text: LocaleKeys.verificationCode,
+                    fontSize: 20,
+                  ),
+                  context.lowSizedBox,
+                  const LocaleText(
+                    text: LocaleKeys.enterEmailAdressVerificationCode,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 6,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LocaleBoldText(
+                    text: LocaleKeys.verificationCode,
+                  ),
+                  context.lowSizedBox,
+                  PasswordTextFormField(
+                    controller: cubitRead.userNameController,
+                    hintText: LocaleKeys.verificationCode.locale,
+                  ),
+                  LocaleBoldText(
+                    text: LocaleKeys.password,
+                  ),
+                  context.lowSizedBox,
+                  PasswordTextFormField(
+                    controller: cubitRead.passwordController,
+                    hintText: LocaleKeys.password.locale,
+                  ),
+                ],
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: LoginButton(
+                text: LocaleKeys.verify,
+                color: ColorConstants.instance.oriolesOrange,
+                onPressed: () async {
+                  final response = await cubitRead.tokenVerification(email);
+                  if (response?.success == true) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialogSuccess(text: LocaleKeys.emailChangeSuccessText.locale);
+                        });
+                  } else if (response?.success == false) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialogError(text: response?.message ?? LocaleKeys.anErrorOccured.locale);
+                        });
+                  }
+                },
               ),
             ),
           ],

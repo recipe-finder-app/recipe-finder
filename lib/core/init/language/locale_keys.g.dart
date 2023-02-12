@@ -101,5 +101,11 @@ abstract class  LocaleKeys {
   static const contact = 'contact';
   static const aboutUs = 'aboutUs';
   static const logout = 'logout';
+  static const verificationCode = 'verificationCode';
+  static const enterEmailAdressVerificationCode = 'enterEmailAdressVerificationCode';
+  static const resetEmailText = 'resetEmailText';
+  static const verify = 'verify';
+  static const anErrorOccured = 'anErrorOccured';
+  static const emailChangeSuccessText = 'emailChangeSuccessText';
 
 }

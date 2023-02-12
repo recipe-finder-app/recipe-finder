@@ -16,7 +16,7 @@ class SocialButton extends StatelessWidget {
       color: Colors.white,
       borderColor: Colors.black,
       onPressed: () async {
-        final result = await adapter.fetchResponse.call();
+        final result = await adapter.login.call();
         onCompleted.call(result);
       },
     );

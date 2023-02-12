@@ -7,6 +7,7 @@ import 'package:recipe_finder/product/model/user_model.dart';
 main() {
   setUp(() async {
     Hive..init('HiveDatabase');
+    await Hive.initFlutter('HiveDatabase');
   });
   test('service', () async {
     final HiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);

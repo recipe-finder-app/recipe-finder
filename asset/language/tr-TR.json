@@ -16,7 +16,7 @@
     "loginWithFacebook": "Facebook ile Giriş Yap",
     "registerWithGoogle": "Google ile Kaydol",
     "registerWithFacebook": "Facebook ile Kaydol",
-    "dontHaveAnyAccount": "Hesabınız yok mu?",
+    "dontHaveAnyAccount": "Hesabın yok mu?",
     "alreadyHaveAnyAccount": "Zaten bir hesabın var mı?",
     "signUp": "Kaydol",
     "signIn": "Giriş Yap",
@@ -98,5 +98,11 @@
     "rateUs": "Bizi Oylayın",
     "contact": "İletişim",
     "aboutUs": "Hakkımızda",
-    "logout":"Çıkış Yap"
+    "logout":"Çıkış Yap",
+    "verificationCode": "Doğrulama Kodu",
+    "enterEmailAdressVerificationCode":"Mail adresinize gönderilen doğrulama kodunu girin.",
+    "resetEmailText" : "Şifre sıfırlama için mail adresinizi girin",
+    "verify": "Doğrula",
+    "anErrorOccured": "Bir hata meydana geldi.Lütfen daha sonra tekrar deneyin.",
+    "emailChangeSuccessText": "Email değişikliği başarılı bir şekilde gerçekleştirildi."
 }

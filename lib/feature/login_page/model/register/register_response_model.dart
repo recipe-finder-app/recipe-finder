@@ -26,6 +26,7 @@ class RegisterResponseModel extends INetworkModel<RegisterResponseModel> {
 class RegisterData {
   final String? email;
   final String? username;
+  @JsonKey(name: '_id')
   final String? id;
   final String? createdAt;
   final String? updatedAt;

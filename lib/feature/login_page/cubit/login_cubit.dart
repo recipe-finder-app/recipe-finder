@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/feature/login_page/model/token_verification/token_verification_response_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/hive_enum.dart';
@@ -14,10 +15,11 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late GlobalKey<FormState> loginFormKey;
   late GlobalKey<FormState> createAccountFormKey;
   late GlobalKey<FormState> forgotPasswordFormKey;
+  late GlobalKey<FormState> createTokenFormKey;
+  late GlobalKey<FormState> tokenVerificationFormKey;
   late TextEditingController userNameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  static final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
   ILoginService? service;
 
   LoginCubit() : super(LoginInit());
@@ -27,6 +29,8 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
     loginFormKey = GlobalKey<FormState>();
     createAccountFormKey = GlobalKey<FormState>();
     forgotPasswordFormKey = GlobalKey<FormState>();
+    createTokenFormKey = GlobalKey<FormState>();
+    tokenVerificationFormKey = GlobalKey<FormState>();
     userNameController = TextEditingController();
     emailController = TextEditingController();
     passwordController = TextEditingController();
@@ -48,6 +52,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
         final response = await service!.login(userNameController.text, passwordController.text);
         if (response!.data?.success != null) {
           if (response!.data!.success == true) {
+            final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
             await hiveManager.openBox();
             await hiveManager.putItem(
                 HiveKeyEnum.user,
@@ -58,6 +63,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
                   password: passwordController.text,
                   token: response.data!.token!,
                 ));
+            print(hiveManager.getItem(HiveKeyEnum.user)?.username.toString());
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');
@@ -99,7 +105,33 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
     if (createAccountFormKey.currentState!.validate()) {}
   }
 
-  void forgotPassword() {
-    if (forgotPasswordFormKey.currentState!.validate()) {}
+  Future<bool?> createToken() async {
+    try {
+      if (createTokenFormKey!.currentState!.validate()) {
+        final response = await service!.createToken(emailController.text);
+        if (response.data!.success == true) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+
+    return null;
+  }
+
+  Future<TokenVerificationResponseModel?> tokenVerification(String email) async {
+    try {
+      if (tokenVerificationFormKey!.currentState!.validate()) {
+        final response = await service!.tokenVerification(email, userNameController.text, passwordController.text);
+        print(response.data?.message);
+        return response.data;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 }
