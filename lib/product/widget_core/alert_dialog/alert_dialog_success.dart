@@ -24,7 +24,9 @@ class AlertDialogSuccess extends StatelessWidget {
         color: Colors.white,
         size: 50,
       ),
-      shape: RoundedRectangleBorder(borderRadius: context.radiusAllCircularMedium),
+      shape: RoundedRectangleBorder(
+        borderRadius: context.radiusAllCircularMedium,
+      ),
     );
   }
 }

@@ -463,6 +463,7 @@ class LoginView extends StatelessWidget {
                         builder: (context) {
                           return AlertDialogSuccess(text: LocaleKeys.emailChangeSuccessText.locale);
                         });
+                    Navigator.pop(context);
                   } else if (response?.success == false) {
                     showDialog(
                         context: context,

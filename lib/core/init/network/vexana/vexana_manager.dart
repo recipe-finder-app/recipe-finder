@@ -13,5 +13,8 @@ class VexanaManager {
 
   static const String _baseUrl = 'https://tarifiyle-bul.onrender.com';
 
-  INetworkManager networkManager = NetworkManager<Null>(isEnableLogger: true, options: BaseOptions(baseUrl: _baseUrl));
+  INetworkManager networkManager = NetworkManager<Null>(
+    isEnableLogger: true,
+    options: BaseOptions(baseUrl: _baseUrl),
+  );
 }

@@ -107,5 +107,6 @@ abstract class  LocaleKeys {
   static const verify = 'verify';
   static const anErrorOccured = 'anErrorOccured';
   static const emailChangeSuccessText = 'emailChangeSuccessText';
+  static const grabAndDrag = 'grabAndDrag';
 
 }

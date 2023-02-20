@@ -104,6 +104,7 @@
     "resetEmailText" : "Enter your email address for password reset",
     "verify": "Verify",
     "anErrorOccured": "An error has occurred. Please try again later.",
-    "emailChangeSuccessText": "Email change done successfully."
+    "emailChangeSuccessText": "Email change done successfully.",
+    "grabAndDrag": "Grab and drag missing items"
 
 }
