@@ -104,5 +104,6 @@
     "resetEmailText" : "Şifre sıfırlama için mail adresinizi girin",
     "verify": "Doğrula",
     "anErrorOccured": "Bir hata meydana geldi.Lütfen daha sonra tekrar deneyin.",
-    "emailChangeSuccessText": "Email değişikliği başarılı bir şekilde gerçekleştirildi."
+    "emailChangeSuccessText": "Email değişikliği başarılı bir şekilde gerçekleştirildi.",
+    "grabAndDrag": "Sizde bulunmayan malzemeleri tutup sürükleyin"
 }

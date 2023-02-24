@@ -65,14 +65,15 @@ class GoogleAdapter implements ISocialAdapter {
       if (user == null) {
         throw 'Google sign in user is null';
       } else {
-        final GoogleSignInAuthentication? authentication =
-            await user!.authentication;
-        print(authentication?.accessToken);
-        print(user.email);
-        print(user.id);
-        print(user.displayName);
-        print(user.serverAuthCode);
-        print(user.photoUrl);
+        final authentication = await user.authentication;
+        print('email:${user.email}');
+        print('photoUrl:${user.photoUrl}');
+        print('serverAuthCode:${user.serverAuthCode}');
+        print('displayName:${user.displayName}');
+        print('id:${user.id}');
+        print('accessToken:${authentication.accessToken}');
+        print('idToken:${authentication.idToken}');
+
         return user.email;
       }
     } catch (error) {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
+import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../../../core/constant/design/color_constant.dart';
 import '../../../../../core/init/language/locale_keys.g.dart';
@@ -94,6 +95,25 @@ class AddToBasketBottomSheet {
                 );
               },
             ),
+          Visibility(
+            visible: context.read<AddToBasketCubit>().missingItemList.isEmpty ? false : true,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Icon(Icons.arrow_downward),
+                SizedBox(
+                  width: context.screenWidth / 1.5,
+                  child: const LocaleText(
+                    text: LocaleKeys.grabAndDrag,
+                    maxLines: 3,
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
           const Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.yourFrize)),
           BlocSelector<AddToBasketCubit, IAddToBasketState, bool>(selector: (draggingState) {
             if (draggingState is MissingItemDragging) {
