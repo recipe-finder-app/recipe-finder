@@ -1,18 +1,22 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
+import '../../core/constant/navigation/navigation_constants.dart';
 import '../../core/init/language/locale_keys.g.dart';
+import '../../core/init/navigation/navigation_service.dart';
 
 class SocialAdapterModel {
   final String title;
   final Color color;
   final Icon icon;
-  SocialAdapterModel({required this.title, required this.color, required this.icon});
+  SocialAdapterModel(
+      {required this.title, required this.color, required this.icon});
   factory SocialAdapterModel.google() {
     return SocialAdapterModel(
         title: LocaleKeys.loginWithGoogle.locale,
@@ -23,10 +27,17 @@ class SocialAdapterModel {
         ));
   }
   factory SocialAdapterModel.facebook() {
-    return SocialAdapterModel(title: LocaleKeys.loginWithFacebook.locale, color: ColorConstants.instance.facebookColor, icon: Icon(FontAwesomeIcons.facebook, color: ColorConstants.instance.facebookColor));
+    return SocialAdapterModel(
+        title: LocaleKeys.loginWithFacebook.locale,
+        color: ColorConstants.instance.facebookColor,
+        icon: Icon(FontAwesomeIcons.facebook,
+            color: ColorConstants.instance.facebookColor));
   }
   factory SocialAdapterModel.apple() {
-    return SocialAdapterModel(title: 'Sign in with Apple', color: Colors.black, icon: Icon(FontAwesomeIcons.apple));
+    return SocialAdapterModel(
+        title: 'Sign in with Apple',
+        color: Colors.black,
+        icon: Icon(FontAwesomeIcons.apple));
   }
 }
 
@@ -39,7 +50,9 @@ abstract class ISocialAdapter {
 class GoogleAdapter implements ISocialAdapter {
   GoogleSignIn get googleSignIn {
     if (Platform.isIOS) {
-      return GoogleSignIn(clientId: '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
+      return GoogleSignIn(
+          clientId:
+              '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
     } else {
       return GoogleSignIn();
     }
@@ -52,7 +65,8 @@ class GoogleAdapter implements ISocialAdapter {
       if (user == null) {
         throw 'Google sign in user is null';
       } else {
-        final GoogleSignInAuthentication? authentication = await user!.authentication;
+        final GoogleSignInAuthentication? authentication =
+            await user!.authentication;
         print(authentication?.accessToken);
         print(user.email);
         print(user.id);
@@ -77,17 +91,29 @@ class GoogleAdapter implements ISocialAdapter {
 
 class FacebookAdapter implements ISocialAdapter {
   @override
-  Future<String> login() {
-    // TODO: implement fetchResponse
-    throw UnimplementedError();
+  Future<String> login() async {
+    try {
+      final result =
+          await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
+      if (result.status == LoginStatus.success) {
+        final userData = await FacebookAuth.i.getUserData();
+        print('facebook_login_data:-');
+        print(userData);
+        return userData.toString();
+      } else {
+        throw 'Facebook sign in user is null';
+      }
+    } catch (error) {
+      print(error);
+      throw '$error';
+    }
   }
 
   @override
   SocialAdapterModel model = SocialAdapterModel.facebook();
 
   @override
-  Future<void> signOut() {
-    // TODO: implement logout
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    await FacebookAuth.instance.logOut();
   }
 }

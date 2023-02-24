@@ -45,13 +45,16 @@ dependencies:
   flutter_launcher_icons: ^0.11.0
   fluttertoast: ^8.1.2
   google_sign_in: ^5.4.4
+  flutter_facebook_auth: ^5.0.7
   font_awesome_flutter:
+
 
   #Animation
   flutter_svg: ^1.1.6
   lottie: ^2.2.0
   swipe_cards: ^1.0.0
   swipable_stack: ^2.0.0
+  device_preview: ^1.1.0
 
 
 

@@ -14,5 +14,6 @@ class NavigationConstants {
   static const ABOUTUS = '/aboutUs';
   static const MYACCOUNT = '/myAccount';
   static const CHANGEUSERNAME = '/changeUsername';
-   static const CHANGEPASSWORD = '/changePassword';
+  static const CHANGEPASSWORD = '/changePassword';
+  static const HOMEFACEBOOK = '/facebook';
 }

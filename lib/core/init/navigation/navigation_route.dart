@@ -8,7 +8,6 @@ import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
 import 'package:recipe_finder/product/model/recipe_model.dart';
-
 import '/core/constant/navigation/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
@@ -30,6 +29,7 @@ class NavigationRoute {
     switch (args.name) {
       case NavigationConstants.SPLASH:
         return normalNavigate(const SplashView(), NavigationConstants.SPLASH);
+
       case NavigationConstants.ONBOARD:
         return normalNavigate(const OnboardView(), NavigationConstants.ONBOARD);
       case NavigationConstants.LOGIN:
@@ -64,7 +64,7 @@ class NavigationRoute {
       case NavigationConstants.CHANGEUSERNAME:
         return normalNavigate(const DrawerChangeUsernameView(),
             NavigationConstants.CHANGEUSERNAME);
-              case NavigationConstants.CHANGEPASSWORD:
+      case NavigationConstants.CHANGEPASSWORD:
         return normalNavigate(const DrawerChangePasswordView(),
             NavigationConstants.CHANGEPASSWORD);
 

@@ -22,7 +22,8 @@ class SplashView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Lottie.asset(ImagePath.splashAnimation.path, height: 275, width: 150),
+            Lottie.asset(ImagePath.splashAnimation.path,
+                height: 275, width: 150),
             context.normalSizedBox,
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +37,10 @@ class SplashView extends StatelessWidget {
                 ),
                 Text(
                   'Finder',
-                  style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                      fontSize: 24),
                 ),
               ],
             ),
