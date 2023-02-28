@@ -98,6 +98,7 @@ class FacebookAdapter implements ISocialAdapter {
           await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
       if (result.status == LoginStatus.success) {
         final userData = await FacebookAuth.i.getUserData();
+
         print('facebook_login_data:-');
         print(userData);
         return userData.toString();

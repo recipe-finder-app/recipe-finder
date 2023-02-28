@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
@@ -18,6 +21,7 @@ import 'core/init/notifier/bloc_list.dart';
 import 'product/widget_core/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
+  
   if (Platform.isAndroid) {
     HttpOverrides.global = MyHttpOverrides();
   }
@@ -54,8 +58,8 @@ class MyApp extends StatelessWidget {
       child: DevicePreview(
         enabled: true,
         builder: (BuildContext context) {
-        return MaterialApp(
-          useInheritedMediaQuery: true,
+          return MaterialApp(
+            useInheritedMediaQuery: true,
             debugShowCheckedModeBanner: false,
             home: SplashView(),
             theme: ThemeData(
