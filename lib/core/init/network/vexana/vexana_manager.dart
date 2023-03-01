@@ -6,9 +6,6 @@ class VexanaManager {
   static VexanaManager get instance {
     _instance ??= VexanaManager._init();
     return _instance!;
-    if (_instance != null) return _instance!;
-    _instance = VexanaManager._init();
-    return _instance!;
   }
 
   static const String _baseUrl = 'https://tarifiyle-bul.onrender.com';

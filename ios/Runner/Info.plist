@@ -2,21 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-<key>CFBundleURLTypes</key>
-<array>
-  <dict>
-  <key>CFBundleURLSchemes</key>
-  <array>
-    <string>fb582658500419817</string>
-  </array>
-  </dict>
-</array>
-<key>FacebookAppID</key>
-<string>582658500419817</string>
-<key>FacebookClientToken</key>
-<string>a9fedb17defaf38bce372b022eb35856</string>
-<key>FacebookDisplayName</key>
-<string>Recipe App</string>
 <key>GIDClientID</key>
 <string>865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com</string>
 <key>CFBundleURLTypes</key>
@@ -24,10 +9,23 @@
   <dict>
     <key>CFBundleURLSchemes</key>
     <array>
+     <string>fb582658500419817</string>
       <string>com.googleusercontent.apps.865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g</string>
     </array>
   </dict>
 </array>
+
+    <key>FacebookAppID</key>
+    <string>582658500419817</string>
+    <key>FacebookClientToken</key>
+    <string>a9fedb17defaf38bce372b022eb35856</string>
+    <key>FacebookDisplayName</key>
+    <string>Tarifi Bul</string>
+    <key>FacebookAutoLogAppEventsEnabled</key>
+	<string>TRUE</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>TRUE</string>
+
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

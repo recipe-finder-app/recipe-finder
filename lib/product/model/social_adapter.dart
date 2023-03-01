@@ -7,16 +7,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
-import '../../core/constant/navigation/navigation_constants.dart';
 import '../../core/init/language/locale_keys.g.dart';
-import '../../core/init/navigation/navigation_service.dart';
 
 class SocialAdapterModel {
   final String title;
   final Color color;
   final Icon icon;
-  SocialAdapterModel(
-      {required this.title, required this.color, required this.icon});
+  SocialAdapterModel({required this.title, required this.color, required this.icon});
   factory SocialAdapterModel.google() {
     return SocialAdapterModel(
         title: LocaleKeys.loginWithGoogle.locale,
@@ -27,17 +24,10 @@ class SocialAdapterModel {
         ));
   }
   factory SocialAdapterModel.facebook() {
-    return SocialAdapterModel(
-        title: LocaleKeys.loginWithFacebook.locale,
-        color: ColorConstants.instance.facebookColor,
-        icon: Icon(FontAwesomeIcons.facebook,
-            color: ColorConstants.instance.facebookColor));
+    return SocialAdapterModel(title: LocaleKeys.loginWithFacebook.locale, color: ColorConstants.instance.facebookColor, icon: Icon(FontAwesomeIcons.facebook, color: ColorConstants.instance.facebookColor));
   }
   factory SocialAdapterModel.apple() {
-    return SocialAdapterModel(
-        title: 'Sign in with Apple',
-        color: Colors.black,
-        icon: Icon(FontAwesomeIcons.apple));
+    return SocialAdapterModel(title: 'Sign in with Apple', color: Colors.black, icon: Icon(FontAwesomeIcons.apple));
   }
 }
 
@@ -50,9 +40,7 @@ abstract class ISocialAdapter {
 class GoogleAdapter implements ISocialAdapter {
   GoogleSignIn get googleSignIn {
     if (Platform.isIOS) {
-      return GoogleSignIn(
-          clientId:
-              '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
+      return GoogleSignIn(clientId: '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
     } else {
       return GoogleSignIn();
     }
@@ -94,14 +82,11 @@ class FacebookAdapter implements ISocialAdapter {
   @override
   Future<String> login() async {
     try {
-      final result =
-          await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
-      if (result.status == LoginStatus.success) {
-        final userData = await FacebookAuth.i.getUserData();
-
-        print('facebook_login_data:-');
-        print(userData);
-        return userData.toString();
+      final login = await FacebookAuth.instance.login(permissions: ['public_profile', 'email']);
+      if (login.status == LoginStatus.success) {
+        final user = await FacebookAuth.instance.getUserData();
+        print(login.accessToken?.toJson());
+        return user.toString();
       } else {
         throw 'Facebook sign in user is null';
       }

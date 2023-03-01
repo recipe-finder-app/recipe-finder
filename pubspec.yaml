@@ -54,7 +54,6 @@ dependencies:
   lottie: ^2.2.0
   swipe_cards: ^1.0.0
   swipable_stack: ^2.0.0
-  device_preview: ^1.1.0
 
 
 
