@@ -322,11 +322,7 @@ class LoginView extends StatelessWidget {
                           adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
                       SocialButton(
-                          adapter: FacebookAdapter(),
-                          onCompleted: (token) {
-                            
-                          }),
-                      
+                          adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
