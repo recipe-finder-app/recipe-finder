@@ -1,6 +1,6 @@
 <?cml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">Recipe App</string>
+<string name="app_name">Tarifi Bul</string>
 <string name="facebook_app_id">582658500419817</string>
 <string name="fb_login_protocol_scheme">fb582658500419817</string>
 <string name="facebook_client_token">a9fedb17defaf38bce372b022eb35856</string>
