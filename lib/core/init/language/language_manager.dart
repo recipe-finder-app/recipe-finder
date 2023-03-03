@@ -1,7 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
-
 import '../../constant/enum/supported_languages_enum.dart';
 
 class LanguageManager {

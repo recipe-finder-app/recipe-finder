@@ -27,7 +27,7 @@ class SocialAdapterModel {
     return SocialAdapterModel(title: LocaleKeys.loginWithFacebook.locale, color: ColorConstants.instance.facebookColor, icon: Icon(FontAwesomeIcons.facebook, color: ColorConstants.instance.facebookColor));
   }
   factory SocialAdapterModel.apple() {
-    return SocialAdapterModel(title: 'Sign in with Apple', color: Colors.black, icon: Icon(FontAwesomeIcons.apple));
+    return SocialAdapterModel(title: 'Sign in with Apple', color: Colors.black, icon: const Icon(FontAwesomeIcons.apple));
   }
 }
 
@@ -85,14 +85,20 @@ class FacebookAdapter implements ISocialAdapter {
       final login = await FacebookAuth.instance.login(permissions: ['public_profile', 'email']);
       if (login.status == LoginStatus.success) {
         final user = await FacebookAuth.instance.getUserData();
+        final email = user["email"];
+        final name = user["name"];
+        final picture = user["picture"]["data"]["url"];
+        print(email);
+        print(name);
+        print(picture);
         print(login.accessToken?.toJson());
         return user.toString();
       } else {
-        throw 'Facebook sign in user is null';
+        return 'Facebook sign in user is null';
       }
     } catch (error) {
       print(error);
-      throw '$error';
+      return '$error';
     }
   }
 

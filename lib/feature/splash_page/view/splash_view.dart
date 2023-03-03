@@ -22,25 +22,21 @@ class SplashView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Lottie.asset(ImagePath.splashAnimation.path,
-                height: 275, width: 150),
+            Lottie.asset(ImagePath.splashAnimation.path, height: 275, width: 150),
             context.normalSizedBox,
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 BoldText(
-                  text: 'Recipe',
+                  text: 'Tarifi',
                   textColor: Colors.white,
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
                 ),
                 Text(
-                  'Finder',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                      fontSize: 24),
+                  'Bul',
+                  style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
                 ),
               ],
             ),

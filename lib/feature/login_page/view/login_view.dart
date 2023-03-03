@@ -76,13 +76,7 @@ class LoginView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          LocaleText(
-              text: LocaleKeys.recipeIngredients,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24)),
+          LocaleText(text: LocaleKeys.recipeIngredients, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
           RecipeCircularButton(
             text: LocaleKeys.login,
             onPressed: () {
@@ -94,13 +88,7 @@ class LoginView extends StatelessWidget {
             onPressed: () {
               signUpBottomSheet(context, cubitRead);
             },
-            child: LocaleText(
-                text: LocaleKeys.createNewAccount,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16)),
+            child: LocaleText(text: LocaleKeys.createNewAccount, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
           ),
         ],
       ),
@@ -126,10 +114,7 @@ class LoginView extends StatelessWidget {
           TextButton(
             child: LocaleText(
               text: LocaleKeys.later,
-              style: TextStyle(
-                  color: ColorConstants.instance.oriolesOrange,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16),
+              style: TextStyle(color: ColorConstants.instance.oriolesOrange, fontWeight: FontWeight.w600, fontSize: 16),
             ),
             onPressed: () {
               NavigationService.instance.navigateToPage(
@@ -148,9 +133,7 @@ class LoginView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
-      bottomSheetHeight: context.screenHeightIsLessThan5Inch
-          ? CircularBottomSheetHeight.high
-          : CircularBottomSheetHeight.standard,
+      bottomSheetHeight: context.screenHeightIsLessThan5Inch ? CircularBottomSheetHeight.high : CircularBottomSheetHeight.standard,
       child: Form(
         key: cubitRead.loginFormKey,
         child: Column(
@@ -162,19 +145,14 @@ class LoginView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Align(
-                        alignment: Alignment.centerLeft,
-                        child:
-                            LocaleBoldText(text: LocaleKeys.userNameOrEmail)),
+                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userNameOrEmail)),
                     context.lowSizedBox,
                     UserTextFormField(
                       controller: cubitRead.userNameController,
                     ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Align(
-                        alignment: Alignment.centerLeft,
-                        child: LocaleBoldText(text: LocaleKeys.password)),
+                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password)),
                     context.lowSizedBox,
                     PasswordTextFormField(
                       controller: cubitRead.passwordController,
@@ -212,11 +190,9 @@ class LoginView extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      SocialButton(
-                          adapter: GoogleAdapter(), onCompleted: (token) {}),
+                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                      SocialButton(
-                          adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -264,10 +240,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child:
-                              LocaleBoldText(text: LocaleKeys.userName.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName.locale)),
                       context.lowSizedBox,
                       UserTextFormField(
                         controller: cubitRead.userNameController,
@@ -278,9 +251,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.email.locale)),
                       context.lowSizedBox,
                       EmailTextFormField(
                         controller: cubitRead.emailController,
@@ -291,10 +262,7 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child:
-                              LocaleBoldText(text: LocaleKeys.password.locale)),
+                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password.locale)),
                       context.lowSizedBox,
                       PasswordTextFormField(
                         controller: cubitRead.passwordController,
@@ -318,18 +286,15 @@ class LoginView extends StatelessWidget {
                   LocaleText(text: LocaleKeys.orContinueWith.locale),
                   Column(
                     children: [
-                      SocialButton(
-                          adapter: GoogleAdapter(), onCompleted: (token) {}),
+                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                      SocialButton(
-                          adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LocaleBoldText(
-                          text: LocaleKeys.alreadyHaveAnyAccount.locale),
+                      LocaleBoldText(text: LocaleKeys.alreadyHaveAnyAccount.locale),
                       TextButton(
                         child: LocaleText(
                             text: LocaleKeys.signIn.locale,
@@ -410,14 +375,12 @@ class LoginView extends StatelessWidget {
                   final sendEmailResponse = await cubitRead.createToken();
                   if (sendEmailResponse == true) {
                     Navigator.pop(context);
-                    verificationCodeBottomSheet(
-                        context, cubitRead, cubitRead.emailController.text);
+                    verificationCodeBottomSheet(context, cubitRead, cubitRead.emailController.text);
                   } else if (sendEmailResponse == false) {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialogError(
-                              text: LocaleKeys.anErrorOccured.locale);
+                          return AlertDialogError(text: LocaleKeys.anErrorOccured.locale);
                         });
                   }
                 },
@@ -498,17 +461,14 @@ class LoginView extends StatelessWidget {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialogSuccess(
-                              text: LocaleKeys.emailChangeSuccessText.locale);
+                          return AlertDialogSuccess(text: LocaleKeys.emailChangeSuccessText.locale);
                         });
                     Navigator.pop(context);
                   } else if (response?.success == false) {
                     showDialog(
                         context: context,
                         builder: (context) {
-                          return AlertDialogError(
-                              text: response?.message ??
-                                  LocaleKeys.anErrorOccured.locale);
+                          return AlertDialogError(text: response?.message ?? LocaleKeys.anErrorOccured.locale);
                         });
                   }
                 },

@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        home: SplashView(),
+        home: const SplashView(),
         theme: ThemeData(
           fontFamily: 'Poppins',
           scaffoldBackgroundColor: Colors.white,
