@@ -87,7 +87,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           if (state!.isEmpty) {
                             return Padding(
                               padding: context.paddingHighTop,
-                              child: LocaleText(
+                              child: const LocaleText(
                                 text: LocaleKeys.notFoundIngredient,
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
                               ),

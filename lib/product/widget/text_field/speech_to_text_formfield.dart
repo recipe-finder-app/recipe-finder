@@ -115,7 +115,7 @@ class _SpeechToTextFormFieldState extends State<SpeechToTextFormField> {
       onPressedClear: widget.onPressedClear,
       onChanged: (data) {
         if (widget.onChanged != null) {
-          widget.onChanged!.call(data.toString());
+          widget.onChanged!.call(data);
         }
       },
     );

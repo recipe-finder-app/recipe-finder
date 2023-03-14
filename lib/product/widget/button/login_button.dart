@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget_core/circular_progress_indicator/circular_progress_indicator_blue.dart';
@@ -28,7 +27,7 @@ class _LoginButtonState extends State<LoginButton> {
   Widget build(BuildContext context) {
     return RecipeCircularButton(
       textWidget: _processState == true
-          ? CircularProgressIndicatorBlue(
+          ? const CircularProgressIndicatorBlue(
               strokeWidth: 2,
             )
           : LocaleText(textAlign: TextAlign.center, text: widget.text, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: widget.textColor ?? Colors.white, fontWeight: FontWeight.w500, fontSize: 16)),
