@@ -21,7 +21,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
   List<IngredientModel> fruits = [];
 
   late MaterialSearchModel materialSearchModel;
-  late Map<MaterialSearchCategory, List<IngredientModel>>? searchedMap;
+  late Map<IngredientCategoryModel, List<IngredientModel>>? searchedMap;
   late TextEditingController searchTextController;
 
   void setListData() {
@@ -76,9 +76,17 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
     service = MaterialSearchService();
     searchTextController = TextEditingController();
     setListData();
-    materialSearchModel = MaterialSearchModel(materialSearchMap: {MaterialSearchCategory.essentials: essentials, MaterialSearchCategory.vegatables: vegetables, MaterialSearchCategory.fruits: fruits});
+    materialSearchModel = MaterialSearchModel(materialSearchMap: {IngredientCategoryModel.essentials: essentials, IngredientCategoryModel.vegatables: vegetables, IngredientCategoryModel.fruits: fruits});
     searchedMap = {};
     ingredientListLoad();
+    fetchIngredientCategories();
+  }
+
+  Future<void> fetchIngredientCategories() async {
+    final result = await service!.ingredientCategories();
+    for (var i in (result!.data!.ingredientCategoryList!)) {
+      print(i.categoryName);
+    }
   }
 
   void searchData(String data) {

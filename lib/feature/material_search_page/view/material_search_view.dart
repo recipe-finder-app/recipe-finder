@@ -75,7 +75,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           },
                         ),
                         context.mediumSizedBox,
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<MaterialSearchCategory, List<IngredientModel>>?>(selector: (state) {
+                        BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<IngredientCategoryModel, List<IngredientModel>>?>(selector: (state) {
                           if (state is SearchedIngredientListLoad) {
                             return state.searchedMap;
                           } else if (state is IngredientListLoad) {
@@ -98,11 +98,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                 BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.essentials];
+                                      return state.materialSearchMap![IngredientCategoryModel.essentials];
                                     } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.essentials];
+                                      return state.searchedMap![IngredientCategoryModel.essentials];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.essentials];
+                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.essentials];
                                     }
                                   },
                                   builder: (context, state) {
@@ -145,11 +145,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                 BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.vegatables];
+                                      return state.materialSearchMap![IngredientCategoryModel.vegatables];
                                     } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.vegatables];
+                                      return state.searchedMap![IngredientCategoryModel.vegatables];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.vegatables];
+                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.vegatables];
                                     }
                                   },
                                   builder: (context, state) {
@@ -191,11 +191,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                 BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
                                   selector: (state) {
                                     if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![MaterialSearchCategory.fruits];
+                                      return state.materialSearchMap![IngredientCategoryModel.fruits];
                                     } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![MaterialSearchCategory.fruits];
+                                      return state.searchedMap![IngredientCategoryModel.fruits];
                                     } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[MaterialSearchCategory.fruits];
+                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.fruits];
                                     }
                                   },
                                   builder: (context, state) {
