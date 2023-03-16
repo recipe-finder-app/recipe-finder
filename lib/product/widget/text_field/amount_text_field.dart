@@ -4,7 +4,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
 import '../../../core/init/language/locale_keys.g.dart';
-import '../../model/ingradient_model.dart';
+import '../../model/ingredient/ingredient_model.dart';
 
 class AmountTextField extends StatefulWidget {
   final IngredientModel model;

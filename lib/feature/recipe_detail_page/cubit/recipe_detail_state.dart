@@ -1,6 +1,6 @@
 import 'package:chewie/chewie.dart';
 
-import '../../../product/model/ingradient_model.dart';
+import '../../../product/model/ingredient/ingredient_model.dart';
 
 abstract class IRecipeDetailState {
   IRecipeDetailState();

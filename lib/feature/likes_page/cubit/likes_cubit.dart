@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/image_path_enum.dart';
-import '../../../product/model/ingradient_model.dart';
+import '../../../product/model/ingredient/ingredient_model.dart';
 import '../../../product/model/recipe_model.dart';
 import '../service/likes_service.dart';
 import 'likes_state.dart';

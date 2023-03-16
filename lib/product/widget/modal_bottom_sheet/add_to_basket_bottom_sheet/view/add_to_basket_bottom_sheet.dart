@@ -9,7 +9,7 @@ import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import '../../../../../core/constant/design/color_constant.dart';
 import '../../../../../core/init/language/locale_keys.g.dart';
 import '../../../../../feature/basket_page/cubit/basket_cubit.dart';
-import '../../../../model/ingradient_model.dart';
+import '../../../../model/ingredient/ingredient_model.dart';
 import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
 import '../../../../widget_core/text/bold_text.dart';
 import '../../../../widget_core/text/locale_bold_text.dart';

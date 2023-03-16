@@ -1,6 +1,6 @@
 import 'package:recipe_finder/product/model/recipe_model.dart';
 
-import '../../../product/model/ingradient_model.dart';
+import '../../../product/model/ingredient/ingredient_model.dart';
 
 abstract class IBasketState {
   IBasketState();

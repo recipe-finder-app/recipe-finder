@@ -3,7 +3,8 @@ enum ServicePath {
   login('/api/users/login'),
   register('/api/users/register'),
   resetPassword('/api/passwordreset'),
-  ingredientCategory('/api/ingredientcategory');
+  categoryOfIngredient('/api/ingredientcategory'),
+  ingredientsOfCategory('/api/ingredients/bycategory');
 
   const ServicePath(this.path);
   final String path;

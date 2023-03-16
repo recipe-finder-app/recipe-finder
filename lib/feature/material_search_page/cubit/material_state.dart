@@ -1,5 +1,5 @@
-import '../../../product/model/ingradient_model.dart';
-import '../model/material_model.dart';
+import '../../../product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 
 abstract class IMaterialSearchState {
   IMaterialSearchState();
@@ -20,11 +20,11 @@ class MaterialSearchError extends IMaterialSearchState {
 }
 
 class IngredientListLoad extends IMaterialSearchState {
-  Map<IngredientCategoryModel, List<IngredientModel>>? materialSearchMap;
+  Map<CategoryOfIngredientModel, List<IngredientModel>>? materialSearchMap;
   IngredientListLoad(this.materialSearchMap);
 }
 
 class SearchedIngredientListLoad extends IMaterialSearchState {
-  Map<IngredientCategoryModel, List<IngredientModel>>? searchedMap;
+  Map<CategoryOfIngredientModel, List<IngredientModel>>? searchedMap;
   SearchedIngredientListLoad(this.searchedMap);
 }

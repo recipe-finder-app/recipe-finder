@@ -1,4 +1,4 @@
-import '../../../../model/ingradient_model.dart';
+import '../../../../model/ingredient/ingredient_model.dart';
 
 abstract class IAddToBasketState {
   IAddToBasketState();

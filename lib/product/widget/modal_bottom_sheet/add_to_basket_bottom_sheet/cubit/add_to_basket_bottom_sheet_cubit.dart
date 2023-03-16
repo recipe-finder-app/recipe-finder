@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
 import '../../../../../core/constant/enum/image_path_enum.dart';
-import '../../../../model/ingradient_model.dart';
+import '../../../../model/ingredient/ingredient_model.dart';
 import '../../../../model/recipe_model.dart';
 
 class AddToBasketCubit extends Cubit<IAddToBasketState> {
@@ -84,7 +84,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
       bool isContainTitle = false;
       IngredientModel? containModel;
       for (var item in myFrizeItemList) {
-        if (item.title.toLowerCase() == model.title.toLowerCase()) {
+        if (item.title!.toLowerCase() == model.title!.toLowerCase()) {
           isContainTitle = true;
           containModel = item;
           break;
@@ -123,11 +123,11 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
 
     for (var myFrizeIngredient in myFrizeList) {
       for (var recipeIngredient in recipeModel.ingredients) {
-        List<IngredientModel>? value = myFrizeList.where((element) => element.title.toLowerCase() == recipeIngredient.title.toLowerCase()).toList();
+        List<IngredientModel>? value = myFrizeList.where((element) => element.title!.toLowerCase() == recipeIngredient.title!.toLowerCase()).toList();
         if (!missingItemList.contains(recipeIngredient) && value.isEmpty) {
           //!missingItemList.contains(recipeIngredient) bu kontrol aynı  malzemenin döngüde tekrar eklenmemesi için konuldu
           missingItemList.add(recipeIngredient);
-        } else if ((!missingItemList.contains(recipeIngredient)) && (myFrizeIngredient.title.toLowerCase() == recipeIngredient.title.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
+        } else if ((!missingItemList.contains(recipeIngredient)) && (myFrizeIngredient.title!.toLowerCase() == recipeIngredient.title!.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
           missingItemList.add(recipeIngredient);
         }
       }

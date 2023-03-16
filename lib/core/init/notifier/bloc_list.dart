@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/base/view/base_cubit.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_cubit.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
@@ -23,6 +24,9 @@ class ApplicationBloc {
   ApplicationBloc._init();*/
 
   List<dynamic> dependItems = [
+    BlocProvider(
+      create: (context) => BaseCubit(),
+    ),
     BlocProvider(
       create: (context) => SplashCubit(),
     ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/core/extension/int_extension.dart';
+import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 
 import '../../widget_core/text/locale_text.dart';
@@ -43,7 +44,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 32,
-                      backgroundColor: model.color ?? color,
+                      backgroundColor: model.color?.toColor ?? color,
                       child: ImageSvg(
                         path: model.imagePath ?? ImagePath.like.path,
                       ),
@@ -53,7 +54,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                 )
               : CircleAvatar(
                   radius: 32,
-                  backgroundColor: model.color ?? color,
+                  backgroundColor: model.color?.toColor ?? color,
                   child: ImageSvg(
                     path: model.imagePath ?? ImagePath.like.path,
                   ),
@@ -68,18 +69,18 @@ class IngredientCircleAvatar extends StatelessWidget {
                   ? FittedBox(
                       child: LocaleText(
                         locale: context.locale,
-                        fontSize: textFontSize == null ? 12 : textFontSize,
+                        fontSize: textFontSize ?? 12,
                         text: '$textRowText ${model.title}',
-                        color: textColor == null ? ColorConstants.instance.roboticgods : textColor,
+                        color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),
                     )
                   : FittedBox(
                       child: LocaleText(
                         locale: context.locale,
-                        fontSize: textFontSize == null ? 12 : textFontSize,
-                        text: model.title,
-                        color: textColor == null ? ColorConstants.instance.roboticgods : textColor,
+                        fontSize: textFontSize ?? 12,
+                        text: model.title!,
+                        color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),
                     ),

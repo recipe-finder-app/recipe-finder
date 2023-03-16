@@ -120,7 +120,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                     context.normalSizedBoxWidth,
                     Padding(
                       padding: context.paddingHighBottom,
-                      child: Text(cubitRead.selectedCardModel!.ingredients[listViewIndex].title),
+                      child: Text(cubitRead.selectedCardModel!.ingredients[listViewIndex].title!),
                     ),
                   ],
                 ),

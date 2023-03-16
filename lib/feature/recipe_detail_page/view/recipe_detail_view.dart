@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -321,7 +319,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                 children: [
                   Text(widget.recipeModel.ingredients![recipeIngredientsIndex].quantity.toString()),
                   context.lowSizedBoxWidth,
-                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex].title),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex]!.title!),
                 ],
               );
             }),

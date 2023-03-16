@@ -1,13 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/extension/string_extension.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_model.dart';
-import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/constant/enum/image_path_enum.dart';
-import '../../../core/init/language/locale_keys.g.dart';
+import '../../../core/base/view/base_cubit.dart';
+import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../service/material_service.dart';
 import 'material_state.dart';
 
@@ -20,85 +18,63 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
   List<IngredientModel> vegetables = [];
   List<IngredientModel> fruits = [];
 
-  late MaterialSearchModel materialSearchModel;
-  late Map<IngredientCategoryModel, List<IngredientModel>>? searchedMap;
+  late Map<CategoryOfIngredientModel, List<IngredientModel>>? materialSearchInitMap;
+  late Map<CategoryOfIngredientModel, List<IngredientModel>>? searchedMap;
   late TextEditingController searchTextController;
 
-  void setListData() {
-    essentials = [
-      IngredientModel(imagePath: ImagePath.egg.path, title: LocaleKeys.egg.locale, quantity: 5, color: const Color(0xff968960).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.milk.path, title: LocaleKeys.milk.locale, quantity: 2, color: const Color(0xff127aa7).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.bread.path, title: LocaleKeys.bread.locale, quantity: 1, color: const Color(0xffb7690d).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.fish.path, title: LocaleKeys.fish.locale, quantity: 2, color: const Color(0xff3388ac).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.milk.path, title: LocaleKeys.milk.locale, quantity: 3, color: const Color(0xff127aa7).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.bread.path, title: LocaleKeys.bread.locale, quantity: 4, color: const Color(0xffb7690d).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.fish.path, title: LocaleKeys.fish.locale, quantity: 3, color: const Color(0xff3388ac).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.milk.path, title: LocaleKeys.milk.locale, quantity: 2, color: const Color(0xff127aa7).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.bread.path, title: LocaleKeys.bread.locale, quantity: 1, color: const Color(0xffb7690d).withOpacity(0.1)),
-    ];
-    vegetables = [
-      IngredientModel(imagePath: ImagePath.tomato.path, title: LocaleKeys.tomato.locale, color: const Color(0xffa30909).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.salad.path, title: LocaleKeys.salad.locale, color: const Color(0xff519e1b).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.potato.path, title: LocaleKeys.potato.locale, color: const Color(0xffb7690d).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.onion.path, title: LocaleKeys.onion.locale, color: const Color(0xff9d5622).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.broccoli.path, title: LocaleKeys.broccoli.locale, color: const Color(0xff1a5b22).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.carrot.path, title: LocaleKeys.carrot.locale, color: const Color(0xffa44703).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.eggplant.path, title: LocaleKeys.eggplant.locale, color: const Color(0xff800771).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.peas.path, title: LocaleKeys.peas.locale, color: const Color(0xff61980a).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.peas.path, title: LocaleKeys.peas.locale, color: const Color(0xff61980a).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.broccoli.path, title: LocaleKeys.broccoli.locale, color: const Color(0xff1a5b22).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.carrot.path, title: LocaleKeys.carrot.locale, color: const Color(0xffa44703).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.eggplant.path, title: LocaleKeys.eggplant.locale, color: const Color(0xff800771).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.broccoli.path, title: LocaleKeys.broccoli.locale, color: const Color(0xff1a5b22).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.carrot.path, title: LocaleKeys.carrot.locale, color: const Color(0xffa44703).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.eggplant.path, title: LocaleKeys.eggplant.locale, color: const Color(0xff800771).withOpacity(0.1)),
-    ];
-
-    fruits = [
-      IngredientModel(imagePath: ImagePath.tomato.path, title: LocaleKeys.tomato.locale, color: const Color(0xffa30909).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.salad.path, title: LocaleKeys.salad.locale, color: const Color(0xff519e1b).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.fish.path, title: LocaleKeys.fish.locale, color: const Color(0xff3388ac).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.potato.path, title: LocaleKeys.potato.locale, color: const Color(0xffb7690d).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.onion.path, title: LocaleKeys.onion.locale, color: const Color(0xff9d5622).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.broccoli.path, title: LocaleKeys.broccoli.locale, color: const Color(0xff1a5b22).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.carrot.path, title: LocaleKeys.carrot.locale, color: const Color(0xffa44703).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.eggplant.path, title: LocaleKeys.eggplant.locale, color: const Color(0xff800771).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.peas.path, title: LocaleKeys.peas.locale, color: const Color(0xff61980a).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.peas.path, title: LocaleKeys.peas.locale, color: const Color(0xff61980a).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.broccoli.path, title: LocaleKeys.broccoli.locale, color: const Color(0xff1a5b22).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.carrot.path, title: LocaleKeys.carrot.locale, color: const Color(0xffa44703).withOpacity(0.1)),
-      IngredientModel(imagePath: ImagePath.eggplant.path, title: LocaleKeys.eggplant.locale, color: const Color(0xff800771).withOpacity(0.1)),
-    ];
-  }
-
   @override
-  void init() {
+  Future<void> init() async {
     service = MaterialSearchService();
     searchTextController = TextEditingController();
-    setListData();
-    materialSearchModel = MaterialSearchModel(materialSearchMap: {IngredientCategoryModel.essentials: essentials, IngredientCategoryModel.vegatables: vegetables, IngredientCategoryModel.fruits: fruits});
+    materialSearchInitMap = {};
+    await fillMaterialSearchInitMap();
     searchedMap = {};
     ingredientListLoad();
-    fetchIngredientCategories();
+    categoryOfIngredients();
   }
 
-  Future<void> fetchIngredientCategories() async {
-    final result = await service!.ingredientCategories();
-    for (var i in (result!.data!.ingredientCategoryList!)) {
-      print(i.categoryName);
+  void changeIsLoadingState() {
+    context?.read<BaseCubit>().changeLoadingState();
+  }
+
+  Future<void> fillMaterialSearchInitMap() async {
+    changeIsLoadingState();
+    var ingredientCategoriesList = await categoryOfIngredients();
+    ingredientCategoriesList ??= [];
+    for (CategoryOfIngredientModel categoryOfIngredient in ingredientCategoriesList) {
+      print(categoryOfIngredient.categoryName);
+      final ingredientsOfCategoryList = await fetchIngredientsOfCategory(categoryOfIngredient.id!);
+      ingredientCategoriesList ??= [];
+      materialSearchInitMap![categoryOfIngredient] = ingredientsOfCategoryList!;
+      print(categoryOfIngredient.categoryName);
+      print("----------------------");
+      for (var i in (ingredientsOfCategoryList)) {
+        print(i.title);
+      }
     }
+    changeIsLoadingState();
+  }
+
+  Future<List<CategoryOfIngredientModel>?> categoryOfIngredients() async {
+    final result = await service!.categoryOfIngredient();
+    return result?.data?.ingredientCategoryList?.toList();
+  }
+
+  Future<List<IngredientModel>?> fetchIngredientsOfCategory(String categoryId) async {
+    final result = await service!.ingredientsOfCategory(categoryId);
+    return result?.data?.ingredientList?.toList();
   }
 
   void searchData(String data) {
     searchedMap?.clear();
     data = data.toLowerCase();
-    for (var entry in materialSearchModel.materialSearchMap.entries) {
-      if (entry.key.name.toLowerCase().contains(data)) {
+    for (var entry in materialSearchInitMap!.entries) {
+      if (entry.key.categoryName!.toLowerCase().contains(data)) {
         searchedMap?[entry.key] = entry.value;
       } else {
         for (var element in entry.value) {
-          if (element.title.toLowerCase().contains(data)) {
-            searchedMap?[entry.key] = entry.value.where((element) => element.title.toLowerCase().contains(data)).toList();
+          if (element.title!.toLowerCase().contains(data)) {
+            searchedMap?[entry.key] = entry.value.where((element) => element.title!.toLowerCase().contains(data)).toList();
           }
         }
       }
@@ -120,7 +96,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
 
   void ingredientListLoad() {
     searchedMap?.clear();
-    emit(IngredientListLoad(materialSearchModel.materialSearchMap));
+    emit(IngredientListLoad(materialSearchInitMap));
   }
 
   @override
@@ -139,7 +115,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
     vegetables = [];
     fruits = [];
     searchedMap?.clear();
-    materialSearchModel.materialSearchMap?.clear();
+    materialSearchInitMap?.clear();
     searchTextController?.clear();
   }
 }

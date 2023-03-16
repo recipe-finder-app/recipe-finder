@@ -5,6 +5,7 @@ import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/product/model/user_model.dart';
@@ -297,7 +298,7 @@ class HomeView extends StatelessWidget {
       height: context.veryyHighValue,
       decoration: BoxDecoration(
         borderRadius: context.radiusAllCircularMin,
-        color: cubitRead.searchByMeal[index].color,
+        color: cubitRead.searchByMeal[index].color!.toColor,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -308,7 +309,7 @@ class HomeView extends StatelessWidget {
               padding: context.paddingLowLeft,
               child: LocaleText(
                 fontSize: 12,
-                text: cubitRead.searchByMeal[index].title ?? '',
+                text: cubitRead.searchByMeal[index].title! ?? '',
                 textAlign: TextAlign.start,
               ),
             ),

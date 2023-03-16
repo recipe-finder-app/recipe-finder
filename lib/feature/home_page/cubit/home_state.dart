@@ -1,4 +1,4 @@
-import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 abstract class IHomeState {
   IHomeState();

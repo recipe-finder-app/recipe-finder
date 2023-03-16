@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/base/view/base_cubit.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_model.dart';
-import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
 import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
+import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/text_field/speech_to_text_formfield.dart';
 import '../cubit/material_cubit.dart';
@@ -31,11 +32,11 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
     return BaseView<MaterialSearchCubit>(
         init: (cubitRead) {
           cubitRead.init();
+          cubitRead.setContext(context);
         },
         dispose: (cubitRead) {
           cubitRead.dispose();
         },
-        visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButton: SizedBox(
@@ -75,174 +76,87 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                           },
                         ),
                         context.mediumSizedBox,
-                        BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<IngredientCategoryModel, List<IngredientModel>>?>(selector: (state) {
-                          if (state is SearchedIngredientListLoad) {
-                            return state.searchedMap;
-                          } else if (state is IngredientListLoad) {
-                            return state.materialSearchMap;
-                          } else {
-                            return cubitRead.materialSearchModel.materialSearchMap;
-                          }
-                        }, builder: (context, state) {
-                          if (state!.isEmpty) {
-                            return Padding(
-                              padding: context.paddingHighTop,
-                              child: const LocaleText(
-                                text: LocaleKeys.notFoundIngredient,
-                                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-                              ),
-                            );
-                          } else {
-                            return Column(
-                              children: [
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
-                                  selector: (state) {
-                                    if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![IngredientCategoryModel.essentials];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![IngredientCategoryModel.essentials];
-                                    } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.essentials];
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    if (state == null) {
-                                      return const SizedBox();
-                                    } else {
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-                                              text: LocaleKeys.essentials,
-                                            ),
-                                          ),
-                                          context.normalSizedBox,
-                                          SizedBox(
-                                            height: context.screenHeight < DeviceSizeEnum.inch_5.size ? context.screenHeight / 7.5 : context.screenHeight / 8,
-                                            child: ListView.builder(
-                                                physics: const BouncingScrollPhysics(),
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.horizontal,
-                                                itemCount: state?.length ?? 0,
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding: EdgeInsets.only(right: 25),
-                                                    child: AmountIngredientCircleAvatar(
-                                                      model: state![index],
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
-                                        ],
-                                      );
-                                    }
-                                  },
-                                ),
-                                context.normalSizedBox,
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
-                                  selector: (state) {
-                                    if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![IngredientCategoryModel.vegatables];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![IngredientCategoryModel.vegatables];
-                                    } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.vegatables];
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    if (state == null) {
-                                      return const SizedBox();
-                                    } else {
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-                                              text: LocaleKeys.vegatables,
-                                            ),
-                                          ),
-                                          context.normalSizedBox,
-                                          GridView.builder(
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              itemCount: state?.length ?? 0,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4,
-                                                mainAxisSpacing: 15,
-                                                crossAxisSpacing: 15,
-                                                childAspectRatio: 3 / 4,
-                                              ),
-                                              itemBuilder: (context, index) {
-                                                return AmountIngredientCircleAvatar(
-                                                  model: state![index],
-                                                );
-                                              }),
-                                        ],
-                                      );
-                                    }
-                                  },
-                                ),
-                                context.normalSizedBox,
-                                BlocSelector<MaterialSearchCubit, IMaterialSearchState, List<IngredientModel>?>(
-                                  selector: (state) {
-                                    if (state is IngredientListLoad) {
-                                      return state.materialSearchMap![IngredientCategoryModel.fruits];
-                                    } else if (state is SearchedIngredientListLoad) {
-                                      return state.searchedMap![IngredientCategoryModel.fruits];
-                                    } else {
-                                      return cubitRead.materialSearchModel.materialSearchMap[IngredientCategoryModel.fruits];
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    if (state == null) {
-                                      return const SizedBox();
-                                    } else {
-                                      return Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          const Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: LocaleText(
-                                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-                                              text: LocaleKeys.fruits,
-                                            ),
-                                          ),
-                                          context.normalSizedBox,
-                                          GridView.builder(
-                                              physics: const BouncingScrollPhysics(),
-                                              shrinkWrap: true,
-                                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4,
-                                                mainAxisSpacing: 15,
-                                                crossAxisSpacing: 15,
-                                                childAspectRatio: 3 / 4,
-                                              ),
-                                              itemCount: state?.length ?? 0,
-                                              itemBuilder: (context, index) {
-                                                return AmountIngredientCircleAvatar(
-                                                  model: state![index],
-                                                );
-                                              }),
-                                        ],
-                                      );
-                                    }
-                                  },
-                                ),
-                                context.normalSizedBox,
-                              ],
-                            );
-                          }
-                        }),
-                        context.veryHighSizedBox,
+                        buildCategoryOfIngredientList(cubitRead),
                       ]),
                     )),
               ),
             ));
+  }
+
+  Widget buildCategoryOfIngredientList(MaterialSearchCubit cubitRead) {
+    if (context.read<BaseCubit>().isLoading == true) {
+      return const Center();
+    } else {
+      return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientModel>>?>(selector: (state) {
+        if (state is SearchedIngredientListLoad) {
+          return state.searchedMap;
+        } else if (state is IngredientListLoad) {
+          return state.materialSearchMap;
+        } else {
+          return cubitRead.materialSearchInitMap;
+        }
+      }, builder: (context, state) {
+        if (state!.isEmpty) {
+          return Padding(
+            padding: context.paddingHighTop,
+            child: const LocaleText(
+              text: LocaleKeys.notFoundIngredient,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+            ),
+          );
+        } else {
+          return buildIngredientList(state);
+        }
+      });
+    }
+  }
+
+  Widget buildIngredientList(Map<CategoryOfIngredientModel, List<IngredientModel>> state) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: state.keys.length,
+        scrollDirection: Axis.vertical,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: BoldText(
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+                  text: (state.keys.toList()[index].categoryName)!,
+                ),
+              ),
+              context.normalSizedBox,
+              SizedBox(
+                height: context.screenHeightIsLargerThan7Inch ? context.screenHeight / 3.5 : context.screenHeight / 2.5,
+                child: Scrollbar(
+                  thumbVisibility: true,
+                  child: GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: state.values.toList()[index].length,
+                      shrinkWrap: true,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 3 / 4,
+                      ),
+                      itemBuilder: (context, indexIngredients) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 25),
+                          child: AmountIngredientCircleAvatar(
+                            model: state.values.toList()[index][indexIngredients],
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
+          );
+        });
   }
 
   Widget _textRow(BuildContext context) {

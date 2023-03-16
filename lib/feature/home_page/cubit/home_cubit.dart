@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
-import 'package:recipe_finder/product/model/ingradient_model.dart';
+import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/hive_enum.dart';
