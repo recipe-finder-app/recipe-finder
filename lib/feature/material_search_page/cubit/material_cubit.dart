@@ -132,7 +132,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
     vegetables = [];
     fruits = [];
     searchedMap?.clear();
-    materialSearchModel.materialSearchMap?.clear();
+    materialSearchModel = MaterialSearchModel(materialSearchMap: {});
     searchTextController?.clear();
   }
 }

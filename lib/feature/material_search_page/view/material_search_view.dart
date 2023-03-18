@@ -30,9 +30,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<MaterialSearchCubit>(
-        init: (cubitRead) {
+        init: (cubitRead) async {
           cubitRead.setContext(context);
-          cubitRead.init();
+          await cubitRead.init();
         },
         dispose: (cubitRead) {
           cubitRead.dispose();
@@ -73,6 +73,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                               cubitRead.ingredientListLoad();
                             } else {
                               cubitRead.searchData(data);
+                              //cubitRead.searchDataMultiThread(data);
                             }
                           },
                         ),
