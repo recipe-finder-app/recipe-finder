@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -33,11 +31,10 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<LoginCubit>(
-      init: (cubitRead) {
+      init: (cubitRead) async {
         cubitRead.init();
       },
       dispose: (cubitRead) => cubitRead.dispose(),
-      visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         body: WillPopScope(
           onWillPop: () => Future<bool>.value(false),

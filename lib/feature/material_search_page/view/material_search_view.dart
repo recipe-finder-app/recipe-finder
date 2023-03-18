@@ -31,12 +31,13 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   Widget build(BuildContext context) {
     return BaseView<MaterialSearchCubit>(
         init: (cubitRead) {
-          cubitRead.init();
           cubitRead.setContext(context);
+          cubitRead.init();
         },
         dispose: (cubitRead) {
           cubitRead.dispose();
         },
+        visibleProgress: context.read<BaseCubit>().isLoading,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButton: SizedBox(
@@ -93,7 +94,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
         } else if (state is IngredientListLoad) {
           return state.materialSearchMap;
         } else {
-          return cubitRead.materialSearchInitMap;
+          return cubitRead.materialSearchModel.materialSearchMap;
         }
       }, builder: (context, state) {
         if (state!.isEmpty) {
@@ -130,29 +131,20 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
               ),
               context.normalSizedBox,
               SizedBox(
-                height: context.screenHeightIsLargerThan7Inch ? context.screenHeight / 3.5 : context.screenHeight / 2.5,
-                child: Scrollbar(
-                  thumbVisibility: true,
-                  child: GridView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: state.values.toList()[index].length,
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        mainAxisSpacing: 5,
-                        crossAxisSpacing: 5,
-                        childAspectRatio: 3 / 4,
-                      ),
-                      itemBuilder: (context, indexIngredients) {
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 25),
-                          child: AmountIngredientCircleAvatar(
-                            model: state.values.toList()[index][indexIngredients],
-                          ),
-                        );
-                      }),
-                ),
+                height: context.screenHeightIsLargerThan7Inch ? context.screenHeight / 8 : context.screenHeight / 7,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: state.values.toList()[index].length,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, indexIngredients) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: AmountIngredientCircleAvatar(
+                          model: state.values.toList()[index][indexIngredients],
+                        ),
+                      );
+                    }),
               ),
             ],
           );

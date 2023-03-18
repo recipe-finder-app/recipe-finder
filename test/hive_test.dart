@@ -12,7 +12,7 @@ main() {
   test('service', () async {
     final HiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
     await hiveManager.openBox();
-    await hiveManager.putItem(
+    await hiveManager.put(
         HiveKeyEnum.user,
         User(
           id: '1',
@@ -21,7 +21,7 @@ main() {
           password: '123456',
           token: 'asdasdadas',
         ));
-    final getitem = await hiveManager.getItem(HiveKeyEnum.user);
+    final getitem = await hiveManager.get(HiveKeyEnum.user);
     final getFirst = await hiveManager.getFirst();
     expect(getFirst, isNotNull);
   });

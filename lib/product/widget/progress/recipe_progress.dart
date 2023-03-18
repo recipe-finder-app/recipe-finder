@@ -42,8 +42,7 @@ class RecipeProgress extends StatelessWidget {
                         backgroundColor: Colors.grey.withOpacity(0.2),
                       ),
                     ),
-                    Lottie.asset(ImagePath.cookingAnimation.path,
-                        height: 140, width: 140),
+                    Lottie.asset(ImagePath.cookingAnimation.path, height: 140, width: 140),
                   ],
                 ),
                 Padding(

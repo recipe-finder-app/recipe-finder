@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BaseCubit extends Cubit<IBaseCubitState> {
+  BaseCubit() : super(BaseInitState());
   bool isLoading = false;
   void changeLoadingState() {
     print("isLoading=$isLoading");
+    isLoading = !isLoading;
     emit(ChangeIsLoadingState(isLoading));
     print("isLoading=$isLoading");
   }
@@ -15,7 +17,15 @@ class BaseCubit extends Cubit<IBaseCubitState> {
     print("isLoading=$isLoading");
   }
 
-  BaseCubit() : super(BaseInitState());
+  void startLoading() {
+    isLoading = true;
+    emit(ChangeIsLoadingState(isLoading));
+  }
+
+  void stopLoading() {
+    isLoading = false;
+    emit(ChangeIsLoadingState(isLoading));
+  }
 }
 
 abstract class IBaseCubitState {
@@ -27,6 +37,6 @@ class BaseInitState extends IBaseCubitState {
 }
 
 class ChangeIsLoadingState extends IBaseCubitState {
-  final bool isLoading;
+  late bool isLoading = false;
   ChangeIsLoadingState(this.isLoading);
 }

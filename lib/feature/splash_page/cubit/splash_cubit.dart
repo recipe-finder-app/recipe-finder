@@ -22,7 +22,7 @@ class SplashCubit extends Cubit<int> implements IBaseViewModel {
     await EasyLocalization.ensureInitialized();
     Hive..init('HiveDatabase');
     await Hive.initFlutter();
-    Future.delayed(Duration(milliseconds: 4500)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN));
+    Future.delayed(const Duration(milliseconds: 4500)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN));
   }
 
   @override

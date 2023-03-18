@@ -36,6 +36,7 @@ class IngredientCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
+      borderRadius: context.radiusAllCircularVeryHigh,
       child: Column(
         children: [
           iconTopWidget != null

@@ -1,13 +1,18 @@
+import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
 part 'category_of_ingredient_model.g.dart';
 
 @JsonSerializable()
-class CategoryOfIngredientModel extends INetworkModel<CategoryOfIngredientModel> {
+@HiveType(typeId: 4)
+class CategoryOfIngredientModel extends HiveObject implements INetworkModel<CategoryOfIngredientModel> {
   @JsonKey(name: '_id')
+  @HiveField(0)
   final String? id;
+
   @JsonKey(name: 'name')
+  @HiveField(1)
   final String? categoryName;
 
   CategoryOfIngredientModel({this.id, this.categoryName});

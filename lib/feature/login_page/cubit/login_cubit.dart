@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/login_page/model/token_verification/token_verification_response_model.dart';
+
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/hive_enum.dart';
 import '../../../core/init/cache/hive_manager.dart';
@@ -10,9 +11,7 @@ import '../../../product/model/user_model.dart';
 import '../service/login_service.dart';
 import 'login_state.dart';
 
-
 class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
-  
   late GlobalKey<FormState> loginFormKey;
   late GlobalKey<FormState> createAccountFormKey;
   late GlobalKey<FormState> forgotPasswordFormKey;
@@ -22,7 +21,6 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   ILoginService? service;
-
   LoginCubit() : super(LoginInit());
 
   @override
@@ -55,7 +53,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
           if (response!.data!.success == true) {
             final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
             await hiveManager.openBox();
-            await hiveManager.putItem(
+            await hiveManager.put(
                 HiveKeyEnum.user,
                 User(
                   id: response.data!.data!.id!,
@@ -64,7 +62,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
                   password: passwordController.text,
                   token: response.data!.token!,
                 ));
-            print(hiveManager.getItem(HiveKeyEnum.user)?.username.toString());
+            print(hiveManager.get(HiveKeyEnum.user)?.username.toString());
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');
@@ -76,10 +74,9 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
       userNameController.clear();
       passwordController.clear();
     } catch (e) {
-      print(e);
+      throw Exception(e);
     }
   }
-
 
   void register() async {
     try {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
@@ -31,7 +32,7 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
   ];
 
   @override
-  void init() {
+  Future<void> init() async {
     service = HomeService();
     searchTextController = TextEditingController();
     searchByMeal = service!.fetchSearchByMealList();
@@ -44,9 +45,14 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
     print(user);
     print(hiveManager.getValues()?.first);*/
     final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
-    final data = hiveManager.getItem(HiveKeyEnum.user);
+    await hiveManager.openBox();
+    final data = hiveManager.get(HiveKeyEnum.user);
 
-    print(data?.token);
+    if (kDebugMode) {
+      print(data?.username);
+      print(data?.password);
+    }
+    hiveManager.close();
   }
 
   @override
