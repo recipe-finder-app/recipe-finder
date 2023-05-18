@@ -15,7 +15,7 @@ class CircularProgressIndicatorBlue extends StatelessWidget {
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           CircularProgressIndicator(
             strokeWidth: strokeWidth == null ? 6 : strokeWidth!,
-            color: color == null ? ColorConstants.instance.brightNavyBlue : color,
+            color: color ?? ColorConstants.instance.brightNavyBlue,
           ),
         ]),
       ],

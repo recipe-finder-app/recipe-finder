@@ -15,7 +15,7 @@ import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
 import 'core/init/notifier/bloc_list.dart';
-import 'product/widget_core/alert_dialog/alert_dialog_no_connection.dart';
+import 'core/widget/alert_dialog/alert_dialog_no_connection.dart';
 
 Future<void> main() async {
   if (Platform.isAndroid) {

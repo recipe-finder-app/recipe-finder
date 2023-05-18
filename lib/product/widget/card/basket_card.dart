@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 
 class BasketRecipeCard extends StatelessWidget {
   final RecipeModel model;
@@ -37,7 +37,7 @@ class BasketRecipeCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Text(
-                model.title,
+                model.title!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: TextStyle(

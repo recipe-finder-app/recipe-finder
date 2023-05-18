@@ -6,7 +6,8 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
+
+import '../../../core/widget/text/locale_bold_text.dart';
 
 class RecipeProgress extends StatelessWidget {
   final Widget? child;

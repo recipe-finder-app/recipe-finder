@@ -2,17 +2,17 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../../../core/constant/design/color_constant.dart';
 import '../../../../../core/init/language/locale_keys.g.dart';
+import '../../../../../core/widget/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import '../../../../../core/widget/text/bold_text.dart';
+import '../../../../../core/widget/text/locale_bold_text.dart';
+import '../../../../../core/widget/text/locale_text.dart';
 import '../../../../../feature/basket_page/cubit/basket_cubit.dart';
 import '../../../../model/ingredient/ingredient_model.dart';
-import '../../../../widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import '../../../../widget_core/text/bold_text.dart';
-import '../../../../widget_core/text/locale_bold_text.dart';
 import '../../../button/recipe_circular_button.dart';
 import '../../../circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../cubit/add_to_basket_bottom_sheet_cubit.dart';
@@ -148,7 +148,9 @@ class AddToBasketBottomSheet {
           }),
           RecipeCircularButton(
             color: ColorConstants.instance.oriolesOrange,
-            text: LocaleKeys.confirm,
+            text: const LocaleText(
+              text: LocaleKeys.confirm,
+            ),
             onPressed: () {
               context.read<BasketCubit>().addItemFromBasketRecipeList(recipeModel);
               Navigator.pop(context);

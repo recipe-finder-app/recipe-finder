@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 
@@ -7,11 +6,11 @@ import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../product/widget/card/animated_saved_recipe_card.dart';
 import '../../../product/widget/list_view/category_list_view.dart';
 import '../../../product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
-import '../../../product/widget/text_field/speech_to_text_formfield.dart';
-import '../../../product/widget_core/text/locale_bold_text.dart';
+import '../../../product/widget/text_field/search_text_field.dart';
 import '../cubit/likes_cubit.dart';
 
 class LikesView extends StatelessWidget {
@@ -49,12 +48,15 @@ class LikesView extends StatelessWidget {
                     fontSize: 29,
                   ),
                   context.normalSizedBox,
-                  SpeechToTextFormField(
+                  SearchTextField(
                     controller: TextEditingController(),
                     width: context.screenWidth,
                   ),
                   context.normalSizedBox,
-                  CategoryListView(),
+                  CategoryListView(
+                    categoryList: [],
+                    categoryIdList: [],
+                  ),
                   context.normalSizedBox,
                   buildLikesRecipeGrid(cubitRead),
                 ],
@@ -81,19 +83,15 @@ class LikesView extends StatelessWidget {
           return AnimatedLikesRecipeCard(
             model: cubitRead.recipeList[cardIndex],
             addToBasketOnPressed: () {
-              AddToBasketBottomSheet.instance
-                  .show(context, cubitRead.recipeList![cardIndex]);
+              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex]);
             },
             onPressed: () {
-              NavigationService.instance.navigateToPage(
-                  path: NavigationConstants.RECIPE_DETAIL,
-                  data: cubitRead.recipeList[cardIndex]);
+              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/
             },
             likeIconOnPressedYes: () {
-              cubitRead.deleteItemFromLikedRecipeList(
-                  cubitRead.recipeList[cardIndex]);
+              cubitRead.deleteItemFromLikedRecipeList(cubitRead.recipeList[cardIndex]);
             },
           );
         });

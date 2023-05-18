@@ -3,12 +3,12 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
-import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/text/bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../alert_dialog/question_alert_dialog.dart';
 
 class AnimatedLikesRecipeCard extends StatefulWidget {
@@ -85,7 +85,7 @@ class _AnimatedLikesRecipeCardState extends State<AnimatedLikesRecipeCard> with 
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: BoldText(
-                          text: widget.model.title,
+                          text: widget.model.title!,
                           textColor: ColorConstants.instance.white,
                           style: const TextStyle(fontSize: 12),
                           textAlign: TextAlign.start,

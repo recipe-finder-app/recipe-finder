@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
-import '../../model/recipe_model.dart';
+import '../../model/recipe/recipe_model.dart';
 
 class TinderCard extends StatelessWidget {
   const TinderCard({
@@ -52,7 +52,7 @@ class TinderCard extends StatelessWidget {
             child: Padding(
               padding: context.paddingNormalOnlyTop,
               child: Text(
-                model.title,
+                model.title!,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,

@@ -6,7 +6,7 @@ import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 
 class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   IBasketService? service;

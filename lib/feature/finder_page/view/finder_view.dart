@@ -10,12 +10,12 @@ import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/view/add_to_basket_bottom_sheet.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../../../product/widget/card/card_overlay.dart';
 import '../../../product/widget/card/tinder_card.dart';
-import '../../../product/widget_core/image_format/image_svg.dart';
 
 class FinderView extends StatefulWidget {
   const FinderView({Key? key}) : super(key: key);
@@ -42,8 +42,7 @@ class _FinderViewState extends State<FinderView> {
   Widget build(BuildContext context) {
     return BaseView<FinderCubit>(
         init: (cubitRead) {
-          _controller = SwipableStackController()
-            ..addListener(_listenController);
+          _controller = SwipableStackController()..addListener(_listenController);
           cubitRead.init();
         },
         dispose: (cubitRead) {
@@ -53,8 +52,7 @@ class _FinderViewState extends State<FinderView> {
           cubitRead.dispose();
         },
         visibleProgress: false,
-        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) =>
-            SafeArea(
+        onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => SafeArea(
               child: Scaffold(
                 body: Padding(
                   padding: context.paddingLeftMedium,
@@ -63,11 +61,7 @@ class _FinderViewState extends State<FinderView> {
                       context.normalSizedBox,
                       _textRow(context),
                       context.normalSizedBox,
-                      cubitRead.recipeListItemCount == 0
-                          ? const Align(
-                              alignment: Alignment.center,
-                              child: Text('Şimdilik bu kadar...'))
-                          : buildTinderCard(context, cubitRead),
+                      cubitRead.recipeListItemCount == 0 ? const Align(alignment: Alignment.center, child: Text('Şimdilik bu kadar...')) : buildTinderCard(context, cubitRead),
                     ],
                   ),
                 ),
@@ -100,12 +94,10 @@ class _FinderViewState extends State<FinderView> {
                   case SwipeDirection.right:
                     return true;
                   case SwipeDirection.up:
-                    AddToBasketBottomSheet.instance
-                        .show(context, cubitRead.recipeList![index]);
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                     return false;
                   case SwipeDirection.down:
-                    AddToBasketBottomSheet.instance
-                        .show(context, cubitRead.recipeList![index]);
+                    AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                     return false;
                 }
               },
@@ -113,13 +105,9 @@ class _FinderViewState extends State<FinderView> {
                 cubitRead.changeRecipeListItemCount();
                 cubitRead.changeTopCardIndex(index);
                 if (direction == SwipeDirection.right) {
-                  context
-                      .read<LikesCubit>()
-                      .recipeList
-                      .add(cubitRead.recipeList![index]);
+                  context.read<LikesCubit>().recipeList.add(cubitRead.recipeList![index]);
                 } else if (direction == SwipeDirection.up) {
-                  AddToBasketBottomSheet.instance
-                      .show(context, cubitRead.recipeList![index]);
+                  AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![index]);
                 } else if (direction == SwipeDirection.left) {}
               },
               horizontalSwipeThreshold: 0.8,
@@ -139,17 +127,13 @@ class _FinderViewState extends State<FinderView> {
                 return TinderCard(
                     model: cubitRead.recipeList![properties.index],
                     recipeOnPressed: () {
-                      NavigationService.instance.navigateToPage(
-                          path: NavigationConstants.RECIPE_DETAIL,
-                          data: cubitRead.recipeList![properties.index]);
+                      NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
                     });
               },
             ),
           ),
         ),
-        context.screenHeightIsLessThan5Inch
-            ? context.lowSizedBox
-            : context.mediumSizedBox,
+        context.screenHeightIsLessThan5Inch ? context.lowSizedBox : context.mediumSizedBox,
         buildRowButton(context, cubitRead, cubitRead.topCardIndex),
       ],
     );
@@ -181,8 +165,7 @@ class _FinderViewState extends State<FinderView> {
             mini: true,
             backgroundColor: ColorConstants.instance.brightGraySolid2,
             onPressed: () {
-              AddToBasketBottomSheet.instance
-                  .show(context, cubitRead.recipeList![cubitRead.topCardIndex]);
+              AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cubitRead.topCardIndex]);
             },
             child: ImageSvg(
               path: ImagePath.shoppingBag.path,
@@ -193,9 +176,7 @@ class _FinderViewState extends State<FinderView> {
             heroTag: 'favoriteFab',
             backgroundColor: ColorConstants.instance.oriolesOrange,
             onPressed: () {
-              context
-                  .read<LikesCubit>()
-                  .addItemFromLikedRecipeList(cubitRead.recipeList!.first);
+              context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.recipeList!.first);
               _controller.next(swipeDirection: SwipeDirection.right);
             },
             child: Icon(

@@ -6,10 +6,10 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
-import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/base/view/base_view.dart';
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../../../product/widget/card/basket_card.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../cubit/basket_cubit.dart';
@@ -104,7 +104,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         shrinkWrap: true,
-        itemCount: cubitRead.selectedCardModel?.ingredients.length,
+        itemCount: cubitRead.selectedCardModel?.ingredients!.length,
         itemBuilder: (context, listViewIndex) {
           return Padding(
             padding: EdgeInsets.only(top: context.lowValue, bottom: context.lowValue),
@@ -115,12 +115,12 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                   children: [
                     IngredientCircleAvatar(
                       showText: false,
-                      model: cubitRead.selectedCardModel!.ingredients[listViewIndex],
+                      model: cubitRead.selectedCardModel!.ingredients![listViewIndex],
                     ),
                     context.normalSizedBoxWidth,
                     Padding(
                       padding: context.paddingHighBottom,
-                      child: Text(cubitRead.selectedCardModel!.ingredients[listViewIndex].title!),
+                      child: Text(cubitRead.selectedCardModel!.ingredients![listViewIndex].title!),
                     ),
                   ],
                 ),

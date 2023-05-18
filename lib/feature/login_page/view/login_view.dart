@@ -6,23 +6,23 @@ import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/model/social_adapter.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/button/social_button.dart';
-import 'package:recipe_finder/product/widget_core/alert_dialog/alert_dialog_error.dart';
-import 'package:recipe_finder/product/widget_core/alert_dialog/alert_dialog_success.dart';
-import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/widget/button/login_button.dart';
+import '../../../core/widget/alert_dialog/alert_dialog_error.dart';
+import '../../../core/widget/alert_dialog/alert_dialog_success.dart';
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import '../../../core/widget/pop_up_menu_button/language_popup_menu_button.dart';
+import '../../../core/widget/text/locale_bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
+import '../../../product/widget/button/future_button.dart';
 import '../../../product/widget/text_field/email_text_formfield.dart';
 import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
-import '../../../product/widget_core/image_format/image_svg.dart';
-import '../../../product/widget_core/text/locale_bold_text.dart';
-import '../../../product/widget_core/text/locale_text.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -73,9 +73,12 @@ class LoginView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          LocaleText(text: LocaleKeys.recipeIngredients, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline5!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
+          LocaleText(text: LocaleKeys.recipeIngredients, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
           RecipeCircularButton(
-            text: LocaleKeys.login,
+            text: const LocaleText(
+              text: LocaleKeys.login,
+              color: Colors.white,
+            ),
             onPressed: () {
               signInBottomSheet(context, cubitRead);
             },
@@ -85,7 +88,7 @@ class LoginView extends StatelessWidget {
             onPressed: () {
               signUpBottomSheet(context, cubitRead);
             },
-            child: LocaleText(text: LocaleKeys.createNewAccount, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+            child: LocaleText(text: LocaleKeys.createNewAccount, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
           ),
         ],
       ),
@@ -167,7 +170,7 @@ class LoginView extends StatelessWidget {
                           },
                         )),
                     context.lowSizedBox,
-                    LoginButton(
+                    FutureButton(
                       text: LocaleKeys.login.locale,
                       onPressed: cubitRead.login,
                       color: ColorConstants.instance.oriolesOrange,
@@ -266,7 +269,7 @@ class LoginView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  LoginButton(
+                  FutureButton(
                     text: LocaleKeys.createNewAccount.locale,
                     onPressed: cubitRead.register,
                     color: ColorConstants.instance.oriolesOrange,
@@ -365,7 +368,7 @@ class LoginView extends StatelessWidget {
             ),
             Flexible(
               flex: 2,
-              child: LoginButton(
+              child: FutureButton(
                 text: LocaleKeys.sendEmail.locale,
                 color: ColorConstants.instance.oriolesOrange,
                 onPressed: () async {
@@ -449,7 +452,7 @@ class LoginView extends StatelessWidget {
             ),
             Flexible(
               flex: 2,
-              child: LoginButton(
+              child: FutureButton(
                 text: LocaleKeys.verify,
                 color: ColorConstants.instance.oriolesOrange,
                 onPressed: () async {

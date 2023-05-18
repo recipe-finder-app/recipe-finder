@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/widget/button/login_button.dart';
 import 'package:recipe_finder/product/widget/text_field/password_text_formfield.dart';
+
+import '../../../product/widget/button/future_button.dart';
 
 class DrawerChangePasswordView extends StatelessWidget {
   const DrawerChangePasswordView({super.key});
@@ -64,7 +65,7 @@ class DrawerChangePasswordView extends StatelessWidget {
               ),
             ]),
             context.mediumSizedBox,
-            LoginButton(
+            FutureButton(
               text: 'Save',
               color: ColorConstants.instance.oriolesOrange,
             ),

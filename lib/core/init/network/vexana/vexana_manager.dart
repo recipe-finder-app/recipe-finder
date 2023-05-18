@@ -8,7 +8,7 @@ class VexanaManager {
     return _instance!;
   }
 
-  static const String _baseUrl = 'https://tarifiyle-bul.onrender.com';
+  static const String _baseUrl = 'https://tarifiyle-bul.onrender.com/api';
 
   INetworkManager networkManager = NetworkManager<Null>(
     isEnableLogger: true,

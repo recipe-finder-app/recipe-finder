@@ -5,9 +5,9 @@ import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
-import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
 
-import '../../widget_core/text/locale_text.dart';
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/text/locale_text.dart';
 
 class IngredientCircleAvatar extends StatelessWidget {
   final IngredientModel model;

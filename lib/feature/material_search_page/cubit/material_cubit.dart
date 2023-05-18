@@ -46,7 +46,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
       /*await hiveManager.clear();
       await hiveManager.delete(HiveKeyEnum.materialSearchMap);
       await hiveManager.close();*/
-      final getData = (hiveManager.get(HiveKeyEnum.materialSearchMap));
+      final getData = await (hiveManager.get(HiveKeyEnum.materialSearchMap));
       if (getData != null) {
         print("cache çalıştı");
         materialSearchModel = getData;

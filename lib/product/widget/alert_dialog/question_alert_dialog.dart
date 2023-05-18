@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/init/language/locale_keys.g.dart';
+import '../../../core/widget/text/locale_text.dart';
 
 class QuestionAlertDialog extends StatelessWidget {
   final String explanation;
   final VoidCallback? onPressedYes;
-  const QuestionAlertDialog(
-      {Key? key, this.onPressedYes, required this.explanation})
-      : super(key: key);
+  const QuestionAlertDialog({Key? key, this.onPressedYes, required this.explanation}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,9 @@ class QuestionAlertDialog extends StatelessWidget {
           children: [
             RecipeCircularButton(
               width: context.screenWidth / 4,
-              text: LocaleKeys.no,
+              text: const LocaleText(
+                text: LocaleKeys.no,
+              ),
               textColor: Colors.black,
               onPressed: () {
                 Navigator.pop(context);
@@ -51,7 +51,10 @@ class QuestionAlertDialog extends StatelessWidget {
             ),
             RecipeCircularButton(
               width: context.screenWidth / 4,
-              text: LocaleKeys.yes,
+              text: const LocaleText(
+                text: LocaleKeys.yes,
+                color: Colors.white,
+              ),
               onPressed: () {
                 if (onPressedYes != null) {
                   onPressedYes!();

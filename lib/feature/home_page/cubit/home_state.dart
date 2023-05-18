@@ -1,4 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+
+import '../../../product/model/recipe_category/category_of_recipes.dart';
 
 abstract class IHomeState {
   IHomeState();
@@ -36,4 +39,24 @@ class EssentialListLoaded extends IHomeState {
 class VegatableListLoaded extends IHomeState {
   List<IngredientModel>? vegatablesList;
   VegatableListLoaded(this.vegatablesList);
+}
+
+class HomeState extends Equatable {
+  final List<CategoryOfRecipesModel>? categoryList;
+
+  const HomeState({
+    this.categoryList,
+  });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [categoryList];
+
+  HomeState copyWith({
+    List<CategoryOfRecipesModel>? categoryList,
+  }) {
+    return HomeState(
+      categoryList: categoryList ?? this.categoryList,
+    );
+  }
 }

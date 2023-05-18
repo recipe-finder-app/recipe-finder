@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/constant/design/color_constant.dart';
+import '../../../core/widget/text/locale_text.dart';
 
 class DrawerButton extends StatelessWidget {
   final String text;
@@ -14,17 +14,7 @@ class DrawerButton extends StatelessWidget {
   final double? width;
   final Icon? icon;
   final TextDirection? textDirection;
-  const DrawerButton(
-      {Key? key,
-      required this.text,
-      this.color,
-      this.onPressed,
-      this.textColor,
-      this.borderColor,
-      this.width,
-      this.icon,
-      this.textDirection})
-      : super(key: key);
+  const DrawerButton({Key? key, required this.text, this.color, this.onPressed, this.textColor, this.borderColor, this.width, this.icon, this.textDirection}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +41,7 @@ class DrawerButton extends StatelessWidget {
               padding: const EdgeInsets.only(left: 20),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: LocaleText(
-                    text: text,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: textColor ?? Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18)),
+                child: LocaleText(text: text, style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: textColor ?? Colors.white, fontWeight: FontWeight.w500, fontSize: 18)),
               ),
             ),
           ),

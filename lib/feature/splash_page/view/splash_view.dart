@@ -5,7 +5,8 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/feature/splash_page/cubit/splash_cubit.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
+
+import '../../../core/widget/text/bold_text.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({Key? key}) : super(key: key);

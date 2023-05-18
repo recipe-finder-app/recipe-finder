@@ -8,7 +8,7 @@ import 'package:video_player/video_player.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
-import '../../../product/model/recipe_model.dart';
+import '../../../product/model/recipe/recipe_model.dart';
 import '../../likes_page/cubit/likes_cubit.dart';
 import '../service/recipe_detail_service.dart';
 import 'recipe_detail_state.dart';

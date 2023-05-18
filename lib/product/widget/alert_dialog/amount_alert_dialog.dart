@@ -8,6 +8,8 @@ import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart'
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import 'package:recipe_finder/product/widget/text_field/amount_text_field.dart';
 
+import '../../../core/widget/text/locale_text.dart';
+
 class AmountAlertDialog extends StatefulWidget {
   final IngredientModel model;
   final ValueChanged<double>? onPressedAdd;
@@ -71,7 +73,10 @@ class _AmountAlertDialogState extends State<AmountAlertDialog> {
                 alignment: Alignment.center,
                 child: RecipeCircularButton(
                   width: context.screenWidth / 2,
-                  text: LocaleKeys.add,
+                  text: const LocaleText(
+                    text: LocaleKeys.add,
+                    color: Colors.white,
+                  ),
                   color: ColorConstants.instance.oriolesOrange,
                   onPressed: () {
                     if (formKey.currentState!.validate()) {

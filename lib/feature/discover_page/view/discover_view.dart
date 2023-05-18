@@ -6,12 +6,13 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
-import 'package:recipe_finder/product/widget/text_field/speech_to_text_formfield.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_bold_text.dart';
+import 'package:recipe_finder/feature/discover_page/cubit/discover_state.dart';
+import 'package:recipe_finder/product/widget/text_field/search_text_field.dart';
 
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../product/widget/alert_dialog/question_alert_dialog.dart';
 import '../../../product/widget/card/discover_card.dart';
 import '../../../product/widget/list_view/category_list_view.dart';
@@ -23,7 +24,10 @@ class DiscoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<DiscoverCubit>(
-        init: (cubitRead) {},
+        init: (cubitRead) {
+          cubitRead.setContext(context);
+          cubitRead.init();
+        },
         visibleProgress: false,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               backgroundColor: Colors.white,
@@ -41,12 +45,22 @@ class DiscoverView extends StatelessWidget {
                           fontSize: 24,
                         ),
                         context.normalSizedBox,
-                        SpeechToTextFormField(
+                        SearchTextField(
                           controller: TextEditingController(),
                           width: context.screenWidth,
                         ),
                         context.normalSizedBox,
-                        CategoryListView(),
+                        BlocBuilder<DiscoverCubit, DiscoverState>(
+                          builder: (context, state) {
+                            return CategoryListView(
+                              categoryList: (state.categoryList?.map((e) => e.categoryName!).toList()) ?? [],
+                              categoryIdList: (state.categoryList?.map((e) => e.id!).toList()) ?? [],
+                              onPressed: (selectedCategory, selectedCategoryId) {
+                                cubitRead.fetchRecipeOfCategoryList(selectedCategoryId);
+                              },
+                            );
+                          },
+                        ),
                         context.normalSizedBox,
                         const LocaleBoldText(
                           text: LocaleKeys.trendingNow,
@@ -54,7 +68,11 @@ class DiscoverView extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                         context.lowSizedBox,
-                        buildTrendingNowGrid(cubitRead),
+                        BlocBuilder<DiscoverCubit, DiscoverState>(
+                          builder: (context, state) {
+                            return buildTrendingNowGrid(cubitRead, state);
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -63,7 +81,7 @@ class DiscoverView extends StatelessWidget {
             ));
   }
 
-  GridView buildTrendingNowGrid(DiscoverCubit cubitRead) {
+  GridView buildTrendingNowGrid(DiscoverCubit cubitRead, state) {
     return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,

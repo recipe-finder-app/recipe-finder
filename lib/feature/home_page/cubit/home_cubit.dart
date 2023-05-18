@@ -1,21 +1,22 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/base/view/base_cubit.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/constant/enum/hive_enum.dart';
-import '../../../core/init/cache/hive_manager.dart';
-import '../../../product/model/user_model.dart';
+import '../../../core/init/language/locale_keys.g.dart';
 import '../service/home_service.dart';
 
-class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
+class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   late final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   IHomeService? service;
   late TextEditingController searchTextController;
-  HomeCubit() : super(HomeInit());
+  HomeCubit() : super(const HomeState());
 
   List<IngredientModel> searchByMeal = [];
   List<IngredientModel> category = [];
@@ -36,23 +37,10 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
     service = HomeService();
     searchTextController = TextEditingController();
     searchByMeal = service!.fetchSearchByMealList();
-    category = service!.fetchCategoryList();
     essentialsItem = service!.fetchEssetialsList();
     vegateblesItem = service!.fetchVegatablesList();
-    /* final HiveManager hiveManager = HiveManager(HiveBoxEnum.user);
-    var user = hiveManager.getItem(HiveKeyEnum.user);
-    print(user?.token);
-    print(user);
-    print(hiveManager.getValues()?.first);*/
-    final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
-    await hiveManager.openBox();
-    final data = hiveManager.get(HiveKeyEnum.user);
 
-    if (kDebugMode) {
-      print(data?.username);
-      print(data?.password);
-    }
-    hiveManager.close();
+    await fetchCategoryList();
   }
 
   @override
@@ -60,22 +48,46 @@ class HomeCubit extends Cubit<IHomeState> implements IBaseViewModel {
 
   void searchByMealList() {
     searchByMeal = service!.fetchSearchByMealList();
-    emit(SearchByMealListLoaded(searchByMeal));
+    // emit(SearchByMealListLoaded(searchByMeal));
   }
 
-  void categoryList() {
-    category = service!.fetchCategoryList();
-    emit(CategoryListLoaded(category));
+  void changeIsLoadingState() {
+    context!.read<BaseCubit>().changeLoadingState();
+  }
+
+  Future<void> fetchCategoryList() async {
+    try {
+      changeIsLoadingState();
+      final response = await service!.fetchCategoryList();
+      if (response.data?.success == true) {
+        emit(state.copyWith(categoryList: response.data?.recipeCategoryList));
+        /*response.data?.recipeCategoryList?.forEach((element) {
+          print(element.categoryName);
+        });*/
+      }
+      return;
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      showDialog(
+          context: context!,
+          builder: (context) {
+            return AlertDialogError(text: LocaleKeys.anErrorOccured.locale);
+          });
+    } finally {
+      changeIsLoadingState();
+    }
   }
 
   void essentialHomeList() {
     essentialsItem = service!.fetchEssetialsList();
-    emit(EssentialListLoaded(essentialsItem));
+    // emit(EssentialListLoaded(essentialsItem));
   }
 
   void vegatableHomeList() {
     vegateblesItem = service!.fetchVegatablesList();
-    emit(VegatableListLoaded(vegateblesItem));
+    //emit(VegatableListLoaded(vegateblesItem));
   }
 
   @override

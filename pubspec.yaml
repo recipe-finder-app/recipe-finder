@@ -16,6 +16,7 @@ dependencies:
   #State management
   flutter_bloc:
 
+
   #Localization
   easy_localization: ^3.0.1
 
@@ -47,6 +48,7 @@ dependencies:
   google_sign_in: ^5.4.4
   flutter_facebook_auth: ^5.0.7
   font_awesome_flutter:
+  equatable:
 
 
   #Animation

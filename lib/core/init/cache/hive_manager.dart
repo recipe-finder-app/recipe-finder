@@ -1,5 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe_category/category_of_recipes.dart';
 
 import '../../../product/model/ingredient/ingredient_model.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
@@ -24,97 +26,105 @@ abstract class IHiveManager<T> {
   Future<void> add(T item);
   Future<void> addAll(List<T> items);
   Future<void> putAll(List<T> items);
-  T? get(HiveKeyEnum key);
-  List<T>? getValues();
+  Future<T?> get(HiveKeyEnum key);
+  Future<List<T>?> getValues();
   Future<void> put(HiveKeyEnum key, T value);
   Future<void> delete(HiveKeyEnum key);
-  T? getFirst();
-  T? getLast();
+  Future<T?> getFirst();
+  Future<T?> getLast();
   void registerAdapters();
 }
 
 class HiveManager<T> extends IHiveManager<T> {
   HiveManager(super.hiveBoxName);
-  /*static HiveManager? _instance;
-
-  HiveManager._init(super.hiveBoxName);
-
-  factory HiveManager(HiveBoxEnum hiveBoxName) {
-    _instance ??= HiveManager<T>._init(hiveBoxName);
-    return _instance! as HiveManager<T>;
-  }*/
-
   @override
   Future<void> close() async {
+    await openBox();
     await _box?.close();
   }
 
   @override
   Future<void> clear() async {
+    await openBox();
     await _box?.clear();
   }
 
   @override
   Future<void> addAll(List<T> items) async {
+    await openBox();
     await _box?.addAll(items);
   }
 
   @override
-  T? get(HiveKeyEnum key) {
+  Future<T?> get(HiveKeyEnum key) async {
+    await openBox();
     return _box?.get(key.name);
   }
 
   @override
-  List<T>? getValues() {
+  Future<List<T>?> getValues() async {
+    await openBox();
     return _box?.values.toList();
   }
 
   @override
   Future<void> add(T value) async {
+    await openBox();
     await _box?.add(value);
   }
 
   @override
   Future<void> put(HiveKeyEnum key, T value) async {
+    await openBox();
     await _box?.put(key.name, value);
   }
 
   @override
   Future<void> putAll(List<T> items) async {
+    await openBox();
     await _box?.putAll(Map.fromEntries(items.map((e) => MapEntry(e, e))));
   }
 
   @override
   Future<void> delete(HiveKeyEnum key) async {
+    await openBox();
     await _box?.delete(key.name);
   }
 
   @override
-  T? getFirst() {
+  Future<T?> getFirst() async {
+    await openBox();
     return _box?.values?.first;
   }
 
   @override
-  T? getLast() {
+  Future<T?> getLast() async {
+    await openBox();
     return _box?.values?.last;
   }
 
   @override
   void registerAdapters() {
-    if (!Hive.isAdapterRegistered(1)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.userAdapter.value)) {
       Hive.registerAdapter(UserAdapter());
     }
-    if (!Hive.isAdapterRegistered(2)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientModelAdapter.value)) {
       Hive.registerAdapter(IngredientModelAdapter());
     }
-    if (!Hive.isAdapterRegistered(3)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientsOfCategoryModelAdapter.value)) {
       Hive.registerAdapter(IngredientsOfCategoryModelAdapter());
     }
-    if (!Hive.isAdapterRegistered(4)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.categoryOfIngredientModelAdapter.value)) {
       Hive.registerAdapter(CategoryOfIngredientModelAdapter());
     }
-    if (!Hive.isAdapterRegistered(5)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.materialSearchModelAdapter.value)) {
       Hive.registerAdapter(MaterialSearchModelAdapter());
+    }
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.categoryOfRecipesModelAdapter.value)) {
+      Hive.registerAdapter(CategoryOfRecipesModelAdapter());
+    }
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.recipeModelAdapter.value)) {
+      Hive.registerAdapter(RecipeModelAdapter());
     }
   }
 }

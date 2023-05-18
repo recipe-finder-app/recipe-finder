@@ -1,4 +1,6 @@
 {
+    "errorOccured" : "Bir hata oluştu!",
+    "ok" : "Tamam",
     "language" : "Dil",
     "createNewAccount": "Yeni hesap oluştur",
     "login": "Giriş Yap",

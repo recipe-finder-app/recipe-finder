@@ -3,10 +3,15 @@ import 'package:recipe_finder/feature/home_page/model/essentials_model.dart';
 import 'package:recipe_finder/feature/home_page/model/search_by_meal_model.dart';
 import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import 'package:vexana/vexana.dart';
+
+import '../../../core/constant/service/service_path.dart';
+import '../../../core/init/network/vexana/vexana_manager.dart';
+import '../../../product/model/recipe_category/category_of_recipes.dart';
 
 abstract class IHomeService {
   List<IngredientModel> fetchSearchByMealList();
-  List<IngredientModel> fetchCategoryList();
+  Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList();
   List<IngredientModel> fetchVegatablesList();
   List<IngredientModel> fetchEssetialsList();
 }
@@ -23,8 +28,14 @@ class HomeService implements IHomeService {
     return searchByMeallist;
   }
 
-  List<IngredientModel> fetchCategoryList() {
-    return categorylist;
+  @override
+  Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList() {
+    final response = VexanaManager.instance.networkManager.send<CategoryOfRecipesListModel, CategoryOfRecipesListModel>(
+      ServicePath.recipeCategory,
+      parseModel: CategoryOfRecipesListModel(),
+      method: RequestType.GET,
+    );
+    return response;
   }
 
   List<IngredientModel> fetchEssetialsList() {

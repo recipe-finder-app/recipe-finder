@@ -17,15 +17,12 @@ class BaseView<T extends Cubit> extends StatefulWidget {
   _BaseViewState<T> createState() => _BaseViewState<T>();
 }
 
-class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
+class _BaseViewState<T extends Cubit> extends State<BaseView<T>> with WidgetsBindingObserver {
   late T modelRead;
   late T modelWatch;
 
   @override
   void initState() {
-    if (context.mounted) {
-      // context.read<BaseCubit>().changeLoadingState();
-    }
     modelRead = context.read<T>();
     widget.init(modelRead);
     super.initState();
@@ -36,29 +33,48 @@ class _BaseViewState<T extends Cubit> extends State<BaseView<T>> {
     if (widget.dispose != null) {
       widget.dispose!(modelRead);
     }
+
     super.dispose();
-    // modelRead.close();
   }
 
   @override
-  void deactivate() {
-    super.deactivate();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      if (context.read<BaseCubit>().isLoading == true) {
+        context.read<BaseCubit>().setLoadingState(false);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    modelRead = context.read<T>();
+    //modelRead = context.read<T>();
     modelWatch = context.watch<T>();
     return BlocBuilder<BaseCubit, IBaseCubitState>(
       builder: (context, state) {
         if (state is ChangeIsLoadingState) {
           if (state.isLoading == true) {
-            return RecipeProgress(child: widget.onPageBuilder(context, modelRead, modelWatch));
+            return RecipeProgress(
+                child: widget.onPageBuilder(
+              context,
+              modelRead,
+              modelWatch,
+            ));
           } else {
-            return widget.onPageBuilder(context, modelRead, modelWatch);
+            return widget.onPageBuilder(
+              context,
+              modelRead,
+              modelWatch,
+            );
           }
         } else {
-          return widget.onPageBuilder(context, modelRead, modelWatch);
+          return widget.onPageBuilder(
+            context,
+            modelRead,
+            modelWatch,
+          );
         }
       },
     );

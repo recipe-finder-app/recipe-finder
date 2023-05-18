@@ -4,9 +4,10 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_cubit.dart';
 import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
-import 'package:recipe_finder/product/model/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
+
+import '../../../core/widget/text/bold_text.dart';
 
 class DiscoverCard extends StatelessWidget {
   final RecipeModel model;
@@ -28,7 +29,7 @@ class DiscoverCard extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BoldText(
-                text: model.title,
+                text: model.title!,
                 textColor: ColorConstants.instance.white,
                 style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.start,

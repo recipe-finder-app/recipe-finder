@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
-import '../../widget_core/text/bold_text.dart';
+import '../../../core/widget/text/bold_text.dart';
 import '../alert_dialog/amount_alert_dialog.dart';
 
 class AmountIngredientCircleAvatar extends StatefulWidget {

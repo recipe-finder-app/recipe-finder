@@ -62,7 +62,9 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
                   password: passwordController.text,
                   token: response.data!.token!,
                 ));
-            print(hiveManager.get(HiveKeyEnum.user)?.username.toString());
+            final user = await hiveManager.get(HiveKeyEnum.user);
+            print(user?.username.toString());
+            print(response.data!.token);
             NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');

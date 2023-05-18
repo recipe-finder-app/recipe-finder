@@ -1,4 +1,6 @@
 {
+    "errorOccured" : "An error occured!",
+    "ok" : "Ok",
     "language" : "Language",
     "createNewAccount": "Create New Account",
     "login": "Login",

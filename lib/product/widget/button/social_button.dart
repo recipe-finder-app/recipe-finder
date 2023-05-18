@@ -10,7 +10,7 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RecipeCircularButton(
-      text: adapter.model.title,
+      text: Text(adapter.model.title),
       icon: adapter.model.icon,
       textColor: adapter.model.color,
       color: Colors.white,

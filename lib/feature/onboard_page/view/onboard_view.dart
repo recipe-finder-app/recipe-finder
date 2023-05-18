@@ -10,10 +10,11 @@ import '../../../core/constant/design/color_constant.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/pop_up_menu_button/language_popup_menu_button.dart';
+import '../../../core/widget/text/locale_bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../../../product/widget/button/recipe_circular_button.dart';
-import '../../../product/widget_core/image_format/image_svg.dart';
-import '../../../product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
-import '../../../product/widget_core/text/locale_bold_text.dart';
 import '../cubit/onboard_cubit.dart';
 
 class OnboardView extends StatelessWidget {
@@ -170,7 +171,9 @@ class OnboardView extends StatelessWidget {
               ),
               index == 0
                   ? RecipeCircularButton(
-                      text: LocaleKeys.next,
+                      text: const LocaleText(
+                        text: LocaleKeys.next,
+                      ),
                       icon: const Icon(
                         Icons.arrow_back_sharp,
                         color: Colors.white,
@@ -193,7 +196,9 @@ class OnboardView extends StatelessWidget {
                               ),
                               textDirection: ui.TextDirection.ltr,
                               color: ColorConstants.instance.brightGraySolid2,
-                              text: LocaleKeys.back,
+                              text: const LocaleText(
+                                text: LocaleKeys.back,
+                              ),
                               textColor: ColorConstants.instance.russianViolet,
                               onPressed: () {
                                 cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
@@ -207,7 +212,9 @@ class OnboardView extends StatelessWidget {
                               ),
                               textDirection: ui.TextDirection.rtl,
                               color: ColorConstants.instance.oriolesOrange,
-                              text: LocaleKeys.getStarted,
+                              text: const LocaleText(
+                                text: LocaleKeys.getStarted,
+                              ),
                               onPressed: () {
                                 NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
                               },
@@ -225,7 +232,9 @@ class OnboardView extends StatelessWidget {
                               textDirection: ui.TextDirection.ltr,
                               color: ColorConstants.instance.brightGraySolid2,
                               width: context.screenWidth / 2.7,
-                              text: LocaleKeys.back,
+                              text: const LocaleText(
+                                text: LocaleKeys.back,
+                              ),
                               textColor: ColorConstants.instance.russianViolet,
                               onPressed: () {
                                 cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
@@ -239,7 +248,9 @@ class OnboardView extends StatelessWidget {
                               textDirection: ui.TextDirection.rtl,
                               width: context.screenWidth / 2.7,
                               color: ColorConstants.instance.russianViolet,
-                              text: LocaleKeys.next,
+                              text: const LocaleText(
+                                text: LocaleKeys.next,
+                              ),
                               onPressed: () {
                                 cubitRead.changeCurrentIndex(cubitRead.currentIndex + 1);
                               },

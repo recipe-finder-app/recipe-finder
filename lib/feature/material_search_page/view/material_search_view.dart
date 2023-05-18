@@ -9,12 +9,12 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
+import '../../../core/widget/text/bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
-import '../../../product/widget/text_field/speech_to_text_formfield.dart';
+import '../../../product/widget/text_field/search_text_field.dart';
 import '../cubit/material_cubit.dart';
 
 class MaterialSearchView extends StatefulWidget {
@@ -63,8 +63,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                         context.mediumSizedBox,
                         _textRow(context),
                         context.mediumSizedBox,
-                        SpeechToTextFormField(
+                        SearchTextField(
                           controller: cubitRead.searchTextController,
+                          width: context.screenWidth,
                           onPressedClear: () {
                             cubitRead.ingredientListLoad();
                           },

@@ -8,21 +8,23 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
+import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
 import 'package:recipe_finder/product/model/user_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
-import 'package:recipe_finder/product/widget_core/image_format/image_png.dart';
-import 'package:recipe_finder/product/widget_core/image_format/image_svg.dart';
-import 'package:recipe_finder/product/widget_core/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
-import 'package:recipe_finder/product/widget_core/pop_up_menu_button/language_popup_menu_button.dart';
-import 'package:recipe_finder/product/widget_core/text/bold_text.dart';
-import 'package:recipe_finder/product/widget_core/text/locale_text.dart';
 
 import '../../../core/constant/enum/hive_enum.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
+import '../../../core/widget/image_format/image_png.dart';
+import '../../../core/widget/image_format/image_svg.dart';
+import '../../../core/widget/modal_bottom_sheet/circular_modal_bottom_sheet.dart';
+import '../../../core/widget/pop_up_menu_button/language_popup_menu_button.dart';
+import '../../../core/widget/text/bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
+import '../../../product/widget/circle_avatar/category_circle_avatar.dart';
 import '../../../product/widget/circle_avatar/ingredient_circle_avatar.dart';
 
 class HomeView extends StatelessWidget {
@@ -31,8 +33,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeCubit>(
-      init: (cubitRead) {
-        cubitRead.init();
+      init: (cubitRead) async {
+        cubitRead.setContext(context);
+        await cubitRead.init();
+        print("home çalıştı");
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
@@ -110,11 +114,11 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                   BoldText(
-                    text: 'Recipe',
+                    text: 'Tarifi',
                     fontSize: 20,
                   ),
                   Text(
-                    'Finder',
+                    'Bul',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 20,
@@ -197,7 +201,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Container buildDrawerDivider(BuildContext context) {
+  Widget buildDrawerDivider(BuildContext context) {
     return Container(
       width: context.screenWidth / 1.7,
       color: ColorConstants.instance.brightGraySolid,
@@ -205,21 +209,25 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  SizedBox _categoryListView(BuildContext context, HomeCubit cubitRead) {
+  Widget _categoryListView(BuildContext context, HomeCubit cubitRead) {
     return SizedBox(
       height: context.screenHeight / 7,
-      child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: cubitRead.category.length,
-          itemBuilder: (context, categoryIndex) {
-            return Padding(
-              padding: EdgeInsets.only(right: context.normalValue),
-              child: IngredientCircleAvatar(
-                model: context.read<HomeCubit>().category[categoryIndex],
-              ),
-            );
-          }),
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          return ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemCount: state.categoryList?.length ?? 0,
+              itemBuilder: (context, categoryIndex) {
+                return Padding(
+                  padding: EdgeInsets.only(right: context.normalValue),
+                  child: CategoryCircleAvatar(
+                    model: state.categoryList![categoryIndex],
+                  ),
+                );
+              });
+        },
+      ),
     );
   }
 
@@ -383,7 +391,11 @@ class HomeView extends StatelessWidget {
         ),
         Positioned(
           bottom: 20,
-          child: RecipeCircularButton(color: ColorConstants.instance.russianViolet, text: LocaleKeys.addIngredients),
+          child: RecipeCircularButton(
+              color: ColorConstants.instance.russianViolet,
+              text: const LocaleText(
+                text: LocaleKeys.addIngredients,
+              )),
         ),
       ]),
     );

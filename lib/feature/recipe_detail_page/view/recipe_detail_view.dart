@@ -13,11 +13,11 @@ import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bo
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
-import '../../../product/model/recipe_model.dart';
+import '../../../core/widget/text/bold_text.dart';
+import '../../../core/widget/text/locale_bold_text.dart';
+import '../../../core/widget/text/locale_text.dart';
+import '../../../product/model/recipe/recipe_model.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
-import '../../../product/widget_core/text/bold_text.dart';
-import '../../../product/widget_core/text/locale_bold_text.dart';
-import '../../../product/widget_core/text/locale_text.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../../likes_page/cubit/likes_cubit.dart';
 import '../../likes_page/cubit/likes_state.dart';
@@ -198,7 +198,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           children: [
             context.lowSizedBox,
             BoldText(
-              text: widget.recipeModel.title,
+              text: widget.recipeModel.title!,
               fontSize: 16,
               maxLines: 3,
               textColor: Colors.black,
