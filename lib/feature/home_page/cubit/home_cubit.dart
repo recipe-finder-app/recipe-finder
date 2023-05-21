@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/base/view/base_cubit.dart';
 import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
@@ -16,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   late final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   IHomeService? service;
   late TextEditingController searchTextController;
-  HomeCubit() : super(const HomeState());
+  HomeCubit() : super(const HomeState(isLoading: false));
 
   List<IngredientModel> searchByMeal = [];
   List<IngredientModel> category = [];
@@ -52,7 +51,9 @@ class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   }
 
   void changeIsLoadingState() {
-    context!.read<BaseCubit>().changeLoadingState();
+    print("loading state ${state.isLoading}");
+    emit(state.copyWith(isLoading: !state.isLoading!));
+    print("loading state ${state.isLoading}");
   }
 
   Future<void> fetchCategoryList() async {

@@ -11,10 +11,12 @@ import '../../../product/model/user_model.dart';
 
 abstract class IDiscoverService {
   Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList();
-  Future<IResponseModel<RecipeListModel?, INetworkModel<dynamic>?>> fetchAllRecipeList(int page, int limit);
+  Future<IResponseModel<RecipeListModel?, INetworkModel<dynamic>?>> fetchInitialRecipeList();
+  Future<IResponseModel<RecipeListModel?, INetworkModel<dynamic>?>> fetchRecipeList({required int page});
 }
 
 class DiscoverService implements IDiscoverService {
+  static const int pageLimit = 10;
   @override
   Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList() {
     final response = VexanaManager.instance.networkManager.send<CategoryOfRecipesListModel, CategoryOfRecipesListModel>(
@@ -26,11 +28,24 @@ class DiscoverService implements IDiscoverService {
   }
 
   @override
-  Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchAllRecipeList(int page, int limit) async {
+  Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchRecipeList({required int page}) async {
     final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
     final user = await hiveManager.get(HiveKeyEnum.user);
     final response = VexanaManager.instance.networkManager.send<RecipeListModel, RecipeListModel>(
-      ServicePath.getAllRecipes(page, limit),
+      ServicePath.getAllRecipes(page, pageLimit),
+      parseModel: RecipeListModel(),
+      method: RequestType.GET,
+      options: Options(headers: TokenModel(token: user?.token).toJson()),
+    );
+    return response;
+  }
+
+  @override
+  Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchInitialRecipeList() async {
+    final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+    final user = await hiveManager.get(HiveKeyEnum.user);
+    final response = VexanaManager.instance.networkManager.send<RecipeListModel, RecipeListModel>(
+      ServicePath.getAllRecipes(1, pageLimit),
       parseModel: RecipeListModel(),
       method: RequestType.GET,
       options: Options(headers: TokenModel(token: user?.token).toJson()),

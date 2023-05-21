@@ -12,6 +12,7 @@ import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
 import 'package:recipe_finder/product/model/user_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
+import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 import '../../../core/constant/enum/hive_enum.dart';
 import '../../../core/constant/navigation/navigation_constants.dart';
@@ -43,51 +44,58 @@ class HomeView extends StatelessWidget {
         key: cubitRead.scaffoldKey,
         drawer: buildDrawer(context),
         body: SafeArea(
-          child: Padding(
-            padding: context.paddingNormalEdges,
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(children: [
-                context.mediumSizedBox,
-                _textRow(context, cubitRead),
-                context.mediumSizedBox,
-                SizedBox(
-                  height: context.screenHeightIsLessThan5Inch ? context.screenHeight / 4.5 : context.screenHeight / 5,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: LocaleText(
-                          style: TextStyle(fontSize: 25, color: ColorConstants.instance.black, fontWeight: FontWeight.w400),
-                          text: LocaleKeys.category,
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return RecipeProgress(
+                isLoading: state.isLoading,
+                child: Padding(
+                  padding: context.paddingNormalEdges,
+                  child: SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Column(children: [
+                      context.mediumSizedBox,
+                      _textRow(context, cubitRead),
+                      context.mediumSizedBox,
+                      SizedBox(
+                        height: context.screenHeightIsLessThan5Inch ? context.screenHeight / 4.5 : context.screenHeight / 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: LocaleText(
+                                style: TextStyle(fontSize: 25, color: ColorConstants.instance.black, fontWeight: FontWeight.w400),
+                                text: LocaleKeys.category,
+                              ),
+                            ),
+                            context.lowSizedBox,
+                            _categoryListView(context, cubitRead),
+                          ],
                         ),
                       ),
-                      context.lowSizedBox,
-                      _categoryListView(context, cubitRead),
-                    ],
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: LocaleText(
+                              style: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w400,
+                                color: ColorConstants.instance.black,
+                              ),
+                              text: LocaleKeys.searchbymeal,
+                            ),
+                          ),
+                          context.lowSizedBox,
+                          _searchByGridView(context, cubitRead)
+                        ],
+                      ),
+                    ]),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: LocaleText(
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
-                          color: ColorConstants.instance.black,
-                        ),
-                        text: LocaleKeys.searchbymeal,
-                      ),
-                    ),
-                    context.lowSizedBox,
-                    _searchByGridView(context, cubitRead)
-                  ],
-                ),
-              ]),
-            ),
+              );
+            },
           ),
         ),
       ),

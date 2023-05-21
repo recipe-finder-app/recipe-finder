@@ -43,20 +43,24 @@ class VegatableListLoaded extends IHomeState {
 
 class HomeState extends Equatable {
   final List<CategoryOfRecipesModel>? categoryList;
+  final bool? isLoading;
 
   const HomeState({
     this.categoryList,
+    this.isLoading = false,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [categoryList];
+  List<Object?> get props => [categoryList, isLoading];
 
   HomeState copyWith({
     List<CategoryOfRecipesModel>? categoryList,
+    bool? isLoading,
   }) {
     return HomeState(
       categoryList: categoryList ?? this.categoryList,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }

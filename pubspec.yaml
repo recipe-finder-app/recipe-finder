@@ -49,6 +49,7 @@ dependencies:
   flutter_facebook_auth: ^5.0.7
   font_awesome_flutter:
   equatable:
+  infinite_scroll_pagination: ^3.2.0
 
 
   #Animation

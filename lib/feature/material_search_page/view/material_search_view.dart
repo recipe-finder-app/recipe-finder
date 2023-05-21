@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/base/view/base_cubit.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
@@ -37,7 +36,6 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
         dispose: (cubitRead) {
           cubitRead.dispose();
         },
-        visibleProgress: context.read<BaseCubit>().isLoading,
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
               floatingActionButton: SizedBox(
@@ -87,31 +85,27 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   }
 
   Widget buildCategoryOfIngredientList(MaterialSearchCubit cubitRead) {
-    if (context.read<BaseCubit>().isLoading == true) {
-      return const Center();
-    } else {
-      return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientModel>>?>(selector: (state) {
-        if (state is SearchedIngredientListLoad) {
-          return state.searchedMap;
-        } else if (state is IngredientListLoad) {
-          return state.materialSearchMap;
-        } else {
-          return cubitRead.materialSearchModel.materialSearchMap;
-        }
-      }, builder: (context, state) {
-        if (state!.isEmpty) {
-          return Padding(
-            padding: context.paddingHighTop,
-            child: const LocaleText(
-              text: LocaleKeys.notFoundIngredient,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-            ),
-          );
-        } else {
-          return buildIngredientList(state);
-        }
-      });
-    }
+    return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientModel>>?>(selector: (state) {
+      if (state is SearchedIngredientListLoad) {
+        return state.searchedMap;
+      } else if (state is IngredientListLoad) {
+        return state.materialSearchMap;
+      } else {
+        return cubitRead.materialSearchModel.materialSearchMap;
+      }
+    }, builder: (context, state) {
+      if (state!.isEmpty) {
+        return Padding(
+          padding: context.paddingHighTop,
+          child: const LocaleText(
+            text: LocaleKeys.notFoundIngredient,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
+          ),
+        );
+      } else {
+        return buildIngredientList(state);
+      }
+    });
   }
 
   Widget buildIngredientList(Map<CategoryOfIngredientModel, List<IngredientModel>> state) {

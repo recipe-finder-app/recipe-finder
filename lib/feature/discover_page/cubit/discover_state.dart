@@ -32,32 +32,48 @@ class DiscoverError extends IDiscoverState {
 }
 
 class DiscoverState extends Equatable {
-  final List<RecipeModel>? allRecipeList;
+  final List<RecipeModel>? recipeList;
   final List<CategoryOfRecipesModel>? categoryList;
-  final CategoryOfRecipesModel? selectedCategory;
+  final dynamic selectedCategoryId;
   final Map<String, int>? categoryCurrentPageMap;
+  final bool? isLoading;
+  final int pageKey;
+  final bool hasMoreRecipe;
+  final bool newPageLoading;
   const DiscoverState({
-    this.allRecipeList,
+    this.recipeList,
     this.categoryList,
-    this.selectedCategory,
+    this.selectedCategoryId,
     this.categoryCurrentPageMap,
+    this.isLoading = false,
+    this.pageKey = 1,
+    this.hasMoreRecipe = true,
+    this.newPageLoading = false,
   });
 
   @override
   // TODO: implement props
-  List<Object?> get props => [allRecipeList, categoryList, selectedCategory, categoryCurrentPageMap];
+  List<Object?> get props => [recipeList, categoryList, selectedCategoryId, categoryCurrentPageMap, isLoading, pageKey, hasMoreRecipe, newPageLoading];
 
   DiscoverState copyWith({
-    List<RecipeModel>? allRecipeList,
+    List<RecipeModel>? recipeList,
     List<CategoryOfRecipesModel>? categoryList,
-    CategoryOfRecipesModel? selectedCategory,
+    dynamic? selectedCategoryId,
     Map<String, int>? categoryCurrentPageMap,
+    bool? isLoading,
+    int? pageKey,
+    bool? hasMoreRecipe,
+    bool? newPageLoading,
   }) {
     return DiscoverState(
-      allRecipeList: allRecipeList ?? this.allRecipeList,
+      recipeList: recipeList ?? this.recipeList,
       categoryList: categoryList ?? this.categoryList,
-      selectedCategory: selectedCategory ?? this.selectedCategory,
+      selectedCategoryId: selectedCategoryId ?? this.selectedCategoryId,
       categoryCurrentPageMap: categoryCurrentPageMap ?? this.categoryCurrentPageMap,
+      isLoading: isLoading ?? this.isLoading,
+      pageKey: pageKey ?? this.pageKey,
+      hasMoreRecipe: hasMoreRecipe ?? this.hasMoreRecipe,
+      newPageLoading: newPageLoading ?? this.newPageLoading,
     );
   }
 }

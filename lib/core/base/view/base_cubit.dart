@@ -1,6 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-class BaseCubit extends Cubit<IBaseCubitState> {
+/*class BaseCubit extends Cubit<IBaseCubitState> {
   BaseCubit() : super(BaseInitState());
   bool isLoading = false;
   void changeLoadingState() {
@@ -25,4 +23,4 @@ class BaseInitState extends IBaseCubitState {
 class ChangeIsLoadingState extends IBaseCubitState {
   late bool isLoading = false;
   ChangeIsLoadingState(this.isLoading);
-}
+}*/

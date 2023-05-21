@@ -7,7 +7,6 @@ import 'package:recipe_finder/feature/material_search_page/model/material_search
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/base/view/base_cubit.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../service/material_service.dart';
 import 'material_state.dart';
@@ -35,7 +34,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
   }
 
   void changeIsLoadingState() {
-    context!.read<BaseCubit>().changeLoadingState();
+    //context!.read<BaseCubit>().changeLoadingState();
   }
 
   Future<void> fillMaterialSearchModel() async {
