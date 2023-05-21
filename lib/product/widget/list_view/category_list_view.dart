@@ -47,61 +47,65 @@ class CategoryListView extends StatefulWidget {
 
 class _CategoryListViewState extends State<CategoryListView> {
   late String? _selectedCategory;
-  late List<GlobalKey> _keys;
+  List<GlobalKey>? _keys;
   @override
   void initState() {
     if (widget.categoryList.isNotEmpty) {
+      _keys = List.generate(widget.categoryList.length, (index) => GlobalKey()); //otomatik kaydırma için global key gerekli
       _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
     }
 
-    _keys = List.generate(widget.categoryList.length, (index) => GlobalKey()); //otomatik kaydırma için global key gerekli
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          itemCount: widget.categoryList.length,
-          shrinkWrap: true,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.only(right: context.lowValue),
-              child: InkWell(
-                borderRadius: context.radiusAllCircularMin,
-                onTap: () {
-                  if (widget.onPressed != null) {
-                    widget.onPressed!.call(calculateSelectedCategory(index), calculateSelectedCategoryId(index));
-                  }
-                  changeSelectedCategory(calculateSelectedCategory(index));
-                  scrollToCategory(index);
-                },
-                child: Container(
-                  key: _keys[index],
-                  constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
-                  decoration: BoxDecoration(
-                    border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
-                    color: categoryItemColor(calculateSelectedCategory(index)),
-                    borderRadius: context.radiusAllCircularMedium,
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: context.paddingLowEdges,
-                      child: LocaleText(
-                        text: widget.categoryList[index].locale,
-                        style: TextStyle(fontSize: 16, color: categoryTextColor(calculateSelectedCategory(index))),
+    if (widget.categoryList.isEmpty || _keys == null) {
+      return const SizedBox.shrink();
+    } else {
+      return SizedBox(
+        height: 40,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemCount: widget.categoryList.length,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: EdgeInsets.only(right: context.lowValue),
+                child: InkWell(
+                  borderRadius: context.radiusAllCircularMin,
+                  onTap: () {
+                    if (widget.onPressed != null) {
+                      widget.onPressed!.call(calculateSelectedCategory(index), calculateSelectedCategoryId(index));
+                    }
+                    changeSelectedCategory(calculateSelectedCategory(index));
+                    scrollToCategory(index);
+                  },
+                  child: Container(
+                    key: _keys![index],
+                    constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
+                    decoration: BoxDecoration(
+                      border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
+                      color: categoryItemColor(calculateSelectedCategory(index)),
+                      borderRadius: context.radiusAllCircularMedium,
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: context.paddingLowEdges,
+                        child: LocaleText(
+                          text: widget.categoryList[index].locale,
+                          style: TextStyle(fontSize: 16, color: categoryTextColor(calculateSelectedCategory(index))),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
-          }),
-    );
+              );
+            }),
+      );
+    }
   }
 
   void changeSelectedCategory(String category) {
@@ -112,7 +116,7 @@ class _CategoryListViewState extends State<CategoryListView> {
 
   void scrollToCategory(int index) {
     Scrollable.ensureVisible(
-      _keys[index].currentContext!,
+      _keys![index].currentContext!,
       duration: const Duration(seconds: 1),
       alignment: 0.5, // Scroll to the middle of the item.
     );

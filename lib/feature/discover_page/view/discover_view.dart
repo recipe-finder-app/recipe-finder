@@ -85,7 +85,7 @@ class DiscoverView extends StatelessWidget {
                               context.lowSizedBox,
                               BlocBuilder<DiscoverCubit, DiscoverState>(
                                 builder: (context, state) {
-                                  if (state.selectedCategoryId == null) {
+                                  if (state.selectedCategoryId == null || state.categoryList == null) {
                                     return const SizedBox.shrink();
                                   } else {
                                     return buildTrendingNowGrid(cubitRead, state, state.selectedCategoryId);
@@ -232,7 +232,7 @@ class DiscoverView extends StatelessWidget {
       children: [
         child,
         CircularProgressIndicator(
-          strokeWidth: 3,
+          strokeWidth: 4,
           color: ColorConstants.instance.oriolesOrange,
         ),
       ],
