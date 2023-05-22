@@ -8,6 +8,7 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
@@ -53,33 +54,40 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 ),
               ),
               body: SafeArea(
-                child: Padding(
-                    padding: context.paddingNormalEdges,
-                    child: SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(),
-                      child: Column(children: [
-                        context.mediumSizedBox,
-                        _textRow(context),
-                        context.mediumSizedBox,
-                        SearchTextField(
-                          controller: cubitRead.searchTextController,
-                          width: context.screenWidth,
-                          onPressedClear: () {
-                            cubitRead.ingredientListLoad();
-                          },
-                          onChanged: (String data) {
-                            if (data.isEmpty) {
-                              cubitRead.ingredientListLoad();
-                            } else {
-                              cubitRead.searchData(data);
-                              //cubitRead.searchDataMultiThread(data);
-                            }
-                          },
-                        ),
-                        context.mediumSizedBox,
-                        buildCategoryOfIngredientList(cubitRead),
-                      ]),
-                    )),
+                child: BlocBuilder<MaterialSearchCubit, IMaterialSearchState>(
+                  builder: (context, state) {
+                    return RecipeProgress(
+                      isLoading: state is OnMaterialSearchLoading ? state.isLoading : false,
+                      child: Padding(
+                          padding: context.paddingNormalEdges,
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(children: [
+                              context.mediumSizedBox,
+                              _textRow(context),
+                              context.mediumSizedBox,
+                              SearchTextField(
+                                controller: cubitRead.searchTextController,
+                                width: context.screenWidth,
+                                onPressedClear: () {
+                                  cubitRead.ingredientListLoad();
+                                },
+                                onChanged: (String data) {
+                                  if (data.isEmpty) {
+                                    cubitRead.ingredientListLoad();
+                                  } else {
+                                    cubitRead.searchData(data);
+                                    //cubitRead.searchDataMultiThread(data);
+                                  }
+                                },
+                              ),
+                              context.mediumSizedBox,
+                              buildCategoryOfIngredientList(cubitRead),
+                            ]),
+                          )),
+                    );
+                  },
+                ),
               ),
             ));
   }

@@ -10,8 +10,8 @@ class MaterialSearchInit extends IMaterialSearchState {
 }
 
 class OnMaterialSearchLoading extends IMaterialSearchState {
-  late bool isLoading;
-  OnMaterialSearchLoading(isLoading);
+  final bool? isLoading;
+  OnMaterialSearchLoading({this.isLoading});
 }
 
 class MaterialSearchError extends IMaterialSearchState {

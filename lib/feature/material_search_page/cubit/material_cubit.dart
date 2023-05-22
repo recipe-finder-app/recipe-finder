@@ -23,6 +23,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
   late TextEditingController searchTextController;
   late Map<CategoryOfIngredientModel, List<IngredientModel>>? searchedMap;
   late MaterialSearchModel materialSearchModel;
+  bool isLoading = false;
   @override
   Future<void> init() async {
     service = MaterialSearchService();
@@ -34,14 +35,13 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
   }
 
   void changeIsLoadingState() {
-    //context!.read<BaseCubit>().changeLoadingState();
+    emit(OnMaterialSearchLoading(isLoading: !isLoading));
   }
 
   Future<void> fillMaterialSearchModel() async {
     try {
       changeIsLoadingState();
       final IHiveManager<MaterialSearchModel> hiveManager = HiveManager<MaterialSearchModel>(HiveBoxEnum.materialSearchMap);
-      await hiveManager.openBox();
       /*await hiveManager.clear();
       await hiveManager.delete(HiveKeyEnum.materialSearchMap);
       await hiveManager.close();*/
