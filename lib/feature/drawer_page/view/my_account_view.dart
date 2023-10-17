@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
+import 'package:recipe_finder/product/widget/button/drawer_button.dart';
 
 import '../../../core/constant/navigation/navigation_constants.dart';
-import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
-import '../../../product/widget/button/drawer_button.dart';
 
 class DrawerMyAccountView extends StatelessWidget {
   const DrawerMyAccountView({super.key});
@@ -25,8 +23,7 @@ class DrawerMyAccountView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back,
-                    color: ColorConstants.instance.white)),
+                icon: Icon(Icons.arrow_back, color: ColorConstants.instance.white)),
             Text(
               'My Account',
               style: TextStyle(color: ColorConstants.instance.white),
@@ -46,27 +43,25 @@ class DrawerMyAccountView extends StatelessWidget {
           ),
           child: Column(children: [
             context.mediumSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Change Username',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.CHANGEUSERNAME);
+                NavigationService.instance.navigateToPage(path: NavigationConstants.CHANGEUSERNAME);
               },
               color: ColorConstants.instance.white,
             ),
             context.normalSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Change Password',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {
-                NavigationService.instance
-                    .navigateToPage(path: NavigationConstants.CHANGEPASSWORD);
+                NavigationService.instance.navigateToPage(path: NavigationConstants.CHANGEPASSWORD);
               },
               color: ColorConstants.instance.white,
             ),
             context.normalSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Delete Account',
               textColor: ColorConstants.instance.oriolesOrange,
               onPressed: () {
@@ -74,8 +69,7 @@ class DrawerMyAccountView extends StatelessWidget {
                     context: context,
                     builder: (context) {
                       return QuestionAlertDialog(
-                        explanation:
-                            'Are you sure you want to delete your account ?',
+                        explanation: 'Are you sure you want to delete your account ?',
                         onPressedYes: () {},
                       );
                     });

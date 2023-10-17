@@ -48,7 +48,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      offset: selectedLanguageId == 2 ? Offset(0, 50) : Offset(0, 0),
+      offset: selectedLanguageId == 2 ? const Offset(0, 50) : const Offset(0, 0),
       shape: OutlineInputBorder(borderRadius: context.radiusAllCircularMin),
       position: PopupMenuPosition.under,
       color: Colors.white.withOpacity(0.8),

@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
-import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
 
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
@@ -16,6 +15,7 @@ import 'core/init/main_build/main_build.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
 import 'core/init/notifier/bloc_list.dart';
 import 'core/widget/alert_dialog/alert_dialog_no_connection.dart';
+import 'feature/onboard_page/view/onboard_view.dart';
 
 Future<void> main() async {
   if (Platform.isAndroid) {
@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        home: const SplashView(),
+        home:OnboardView(),
         theme: ThemeData(
           fontFamily: 'Poppins',
           scaffoldBackgroundColor: Colors.white,
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         //initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.SPLASH,
+        initialRoute: NavigationConstants.ONBOARD,
       ),
     );
   }

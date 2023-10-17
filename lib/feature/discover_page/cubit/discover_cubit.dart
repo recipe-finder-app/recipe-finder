@@ -107,7 +107,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   Future<void> init() async {
     service = DiscoverService();
     scrollController = ScrollController();
-    pagingController = PagingController(firstPageKey: 1);
+    //pagingController = PagingController(firstPageKey: 1);
     changeSelectedCategory(allCategoryId);
     await fetchCategoryList();
     await fetchInitialRecipeList();

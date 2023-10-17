@@ -30,7 +30,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
       width: context.screenWidth / 2,
       child: TextFormField(
         controller: widget.controller,
-        keyboardType: TextInputType.numberWithOptions(decimal: true),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: InputDecoration(
           hintText: LocaleKeys.amount.locale,
           border: buildOutlineInputBorder(context),
@@ -71,7 +71,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
           }
         }
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.add_circle_outline,
         color: Colors.black87,
       ),
@@ -90,7 +90,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
           }
         }
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.remove_circle_outline,
         color: Colors.black87,
       ),

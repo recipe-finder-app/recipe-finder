@@ -16,10 +16,7 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
   @override
   void setContext(BuildContext context) => this.context = context;
 
-  PageController pageController = PageController(
-    initialPage: 0,
-    keepPage: false,
-  );
+  
 
   IOnboardService? service;
   OnboardCubit() : super(OnboardInit());
@@ -48,21 +45,13 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
     if (value >= 0 && value < onboardItems.length) {
       currentIndex = value;
       emit(ChangeCurrentIndex(currentIndex));
-      pageController.animateToPage(
-        value,
-        duration: const Duration(milliseconds: 650),
-        curve: Curves.linear,
-      );
+     
     }
   }
 
   void clear() {
     completing = false;
     currentIndex = 0;
-    pageController = PageController(
-      initialPage: 0,
-      keepPage: false,
-    );
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import '../../../core/constant/design/color_constant.dart';
 import '../../../core/widget/text/locale_text.dart';
 
-class DrawerButton extends StatelessWidget {
+class RecipeDrawerButton extends StatelessWidget {
   final String text;
   final Color? color;
   final Color? textColor;
@@ -14,7 +14,7 @@ class DrawerButton extends StatelessWidget {
   final double? width;
   final Icon? icon;
   final TextDirection? textDirection;
-  const DrawerButton({Key? key, required this.text, this.color, this.onPressed, this.textColor, this.borderColor, this.width, this.icon, this.textDirection}) : super(key: key);
+  const RecipeDrawerButton({Key? key, required this.text, this.color, this.onPressed, this.textColor, this.borderColor, this.width, this.icon, this.textDirection}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

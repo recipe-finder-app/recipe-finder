@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 
-import '../../../core/init/language/locale_keys.g.dart';
 import '../../../product/widget/button/drawer_button.dart';
 
 class DrawerAboutUsView extends StatelessWidget {
@@ -22,8 +20,7 @@ class DrawerAboutUsView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back,
-                    color: ColorConstants.instance.white)),
+                icon: Icon(Icons.arrow_back, color: ColorConstants.instance.white)),
             Text(
               'About Us',
               style: TextStyle(color: ColorConstants.instance.white),
@@ -43,21 +40,21 @@ class DrawerAboutUsView extends StatelessWidget {
           ),
           child: Column(children: [
             context.mediumSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Terms of Service',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {},
               color: ColorConstants.instance.white,
             ),
             context.normalSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Privacy Policy',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {},
               color: ColorConstants.instance.white,
             ),
             context.normalSizedBox,
-            DrawerButton(
+            RecipeDrawerButton(
               text: 'Websitesi',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {},

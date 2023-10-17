@@ -18,13 +18,20 @@ import '../../../product/widget/button/recipe_circular_button.dart';
 import '../cubit/onboard_cubit.dart';
 
 class OnboardView extends StatelessWidget {
-  const OnboardView({Key? key}) : super(key: key);
+ final PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: false,
+  );
+   OnboardView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BaseView<OnboardCubit>(
       init: (cubitRead) => cubitRead.init(),
-      dispose: (cubitRead) => cubitRead.dispose(),
+      dispose: (cubitRead) {
+        cubitRead.dispose();
+        pageController.dispose();
+      },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
         resizeToAvoidBottomInset: true,
@@ -33,7 +40,7 @@ class OnboardView extends StatelessWidget {
           child: PageView.builder(
               physics: const ClampingScrollPhysics(),
               pageSnapping: true,
-              controller: cubitRead.pageController,
+              controller:pageController,
               itemCount: cubitRead.onboardItems.length,
               onPageChanged: (value) async {
                 cubitRead.changeCurrentIndex(value);
@@ -132,7 +139,7 @@ class OnboardView extends StatelessWidget {
       children: [
         const LanguagePopupMenuButton(),
         index == cubitRead.onboardItems.length - 1
-            ? SizedBox()
+            ? const SizedBox()
             : TextButton(
                 onPressed: () {
                   NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
@@ -173,6 +180,7 @@ class OnboardView extends StatelessWidget {
                   ? RecipeCircularButton(
                       text: const LocaleText(
                         text: LocaleKeys.next,
+                        color: Colors.white,
                       ),
                       icon: const Icon(
                         Icons.arrow_back_sharp,
@@ -181,7 +189,12 @@ class OnboardView extends StatelessWidget {
                       textDirection: ui.TextDirection.rtl,
                       color: ColorConstants.instance.russianViolet,
                       onPressed: () {
-                        cubitRead.changeCurrentIndex(cubitRead.currentIndex + 1);
+                        cubitRead.changeCurrentIndex(index + 1);
+                         pageController.animateToPage(
+        index+1,
+        duration: const Duration(milliseconds: 650),
+        curve: Curves.linear,
+      );
                       },
                     )
                   : index == cubitRead.onboardItems.length - 1
@@ -201,7 +214,12 @@ class OnboardView extends StatelessWidget {
                               ),
                               textColor: ColorConstants.instance.russianViolet,
                               onPressed: () {
-                                cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
+                                cubitRead.changeCurrentIndex(index - 1);
+                                 pageController.animateToPage(
+        index-1,
+        duration: const Duration(milliseconds: 650),
+        curve: Curves.linear,
+      );
                               },
                             ),
                             RecipeCircularButton(
@@ -214,6 +232,7 @@ class OnboardView extends StatelessWidget {
                               color: ColorConstants.instance.oriolesOrange,
                               text: const LocaleText(
                                 text: LocaleKeys.getStarted,
+                                color: Colors.white,
                               ),
                               onPressed: () {
                                 NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
@@ -237,7 +256,13 @@ class OnboardView extends StatelessWidget {
                               ),
                               textColor: ColorConstants.instance.russianViolet,
                               onPressed: () {
-                                cubitRead.changeCurrentIndex(cubitRead.currentIndex - 1);
+                                cubitRead.changeCurrentIndex(index - 1);
+                                
+                                 pageController.animateToPage(
+        index-1,
+        duration: const Duration(milliseconds: 650),
+        curve: Curves.linear,
+      );
                               },
                             ),
                             RecipeCircularButton(
@@ -250,9 +275,16 @@ class OnboardView extends StatelessWidget {
                               color: ColorConstants.instance.russianViolet,
                               text: const LocaleText(
                                 text: LocaleKeys.next,
+                                color: Colors.white,
                               ),
                               onPressed: () {
-                                cubitRead.changeCurrentIndex(cubitRead.currentIndex + 1);
+                                cubitRead.changeCurrentIndex(index+ 1);
+                                
+                                 pageController.animateToPage(
+        index+1,
+        duration: const Duration(milliseconds: 650),
+        curve: Curves.linear,
+      );
                               },
                             ),
                           ],

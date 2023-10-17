@@ -32,7 +32,7 @@ class NavigationRoute {
         return normalNavigate(const SplashView(), NavigationConstants.SPLASH);
 
       case NavigationConstants.ONBOARD:
-        return normalNavigate(const OnboardView(), NavigationConstants.ONBOARD);
+        return normalNavigate(OnboardView(), NavigationConstants.ONBOARD);
       case NavigationConstants.LOGIN:
         return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:
