@@ -26,7 +26,10 @@ import '../../../product/widget/text_field/user_text_formfield.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+    LoginView({
+
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +152,7 @@ class LoginView extends StatelessWidget {
                     context.lowSizedBox,
                     UserTextFormField(
                       controller: cubitRead.userNameController,
+                      canBeEmpty: false,
                     ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -156,6 +160,7 @@ class LoginView extends StatelessWidget {
                     context.lowSizedBox,
                     PasswordTextFormField(
                       controller: cubitRead.passwordController,
+                      canBeEmpty: false,
                     ),
                     context.lowSizedBox,
                     Align(
@@ -245,6 +250,7 @@ class LoginView extends StatelessWidget {
                       UserTextFormField(
                         controller: cubitRead.userNameController,
                         hintText: LocaleKeys.userName.locale,
+                        canBeEmpty: false,
                       ),
                     ],
                   ),
@@ -256,6 +262,7 @@ class LoginView extends StatelessWidget {
                       EmailTextFormField(
                         controller: cubitRead.emailController,
                         validator: true,
+                        
                       ),
                     ],
                   ),
@@ -266,6 +273,7 @@ class LoginView extends StatelessWidget {
                       context.lowSizedBox,
                       PasswordTextFormField(
                         controller: cubitRead.passwordController,
+                        canBeEmpty: false,
                       ),
                     ],
                   ),
@@ -431,15 +439,16 @@ class LoginView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LocaleBoldText(
+                  const LocaleBoldText(
                     text: LocaleKeys.verificationCode,
                   ),
                   context.lowSizedBox,
                   PasswordTextFormField(
                     controller: cubitRead.userNameController,
                     hintText: LocaleKeys.verificationCode.locale,
+                    canBeEmpty: false,
                   ),
-                  LocaleBoldText(
+                  const LocaleBoldText(
                     text: LocaleKeys.password,
                   ),
                   context.lowSizedBox,

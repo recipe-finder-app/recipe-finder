@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 
 typedef StringFunction = String? Function(String? value);
@@ -166,14 +167,16 @@ class _StandardTextFormFieldState extends State<StandardTextFormField> {
           disabledBorder: widget.borderEnable == false ? null : _buildOutlineInputBorder(context),
         ),
         validator: (tfInput) {
-          if (widget.validator != null) {
-            return widget.validator!(tfInput);
-          } else if (widget.canBeEmpty == false) {
+           if (widget.validator != null) {
+                return widget.validator!(tfInput);
+              }
+           else if (widget.canBeEmpty == false) {
             if (tfInput!.isEmpty) {
               setState(() {
                 _isValid = false;
               });
-              return LocaleKeys.dontEmptyThisField;
+             
+              return LocaleKeys.dontEmptyThisField.locale;
             } else {
               setState(() {
                 _isValid = true;

@@ -72,9 +72,9 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
         } else if (response.error!.description != null) {
           print('response.error!.description ${response.error!.description}');
         }
+        
       }
-      userNameController.clear();
-      passwordController.clear();
+     
     } catch (e) {
       throw Exception(e);
     }
