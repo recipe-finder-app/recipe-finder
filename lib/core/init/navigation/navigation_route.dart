@@ -34,7 +34,7 @@ class NavigationRoute {
       case NavigationConstants.ONBOARD:
         return normalNavigate(OnboardView(), NavigationConstants.ONBOARD);
       case NavigationConstants.LOGIN:
-        return normalNavigate(const LoginView(), NavigationConstants.LOGIN);
+        return normalNavigate(LoginView(), NavigationConstants.LOGIN);
       case NavigationConstants.NAV_CONTROLLER:
         return normalNavigate(const RecipeBottomNavigationBar(), NavigationConstants.NAV_CONTROLLER);
       case NavigationConstants.HOME:

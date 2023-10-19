@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
@@ -77,7 +76,7 @@ class GoogleAdapter implements ISocialAdapter {
     await googleSignIn.signOut();
   }
 }
-
+/*
 class FacebookAdapter implements ISocialAdapter {
   @override
   Future<String> login() async {
@@ -110,3 +109,4 @@ class FacebookAdapter implements ISocialAdapter {
     await FacebookAuth.instance.logOut();
   }
 }
+*/

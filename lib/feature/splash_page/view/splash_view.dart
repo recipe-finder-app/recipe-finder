@@ -25,10 +25,10 @@ class SplashView extends StatelessWidget {
           children: [
             Lottie.asset(ImagePath.splashAnimation.path, height: 275, width: 150),
             context.normalSizedBox,
-            Row(
+           const Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children:  [
                 BoldText(
                   text: 'Tarifi',
                   textColor: Colors.white,

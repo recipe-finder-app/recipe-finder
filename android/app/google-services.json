@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "822676919477",
+    "project_id": "tarifibul-374f7",
+    "storage_bucket": "tarifibul-374f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822676919477:android:8e2c268b16769283901afc",
+        "android_client_info": {
+          "package_name": "com.tarifibul"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuLruRxZbEBCJOotX_et_1UIl0vqNhZp0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
