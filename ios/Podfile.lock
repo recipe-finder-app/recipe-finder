@@ -650,9 +650,6 @@ PODS:
     - ReachabilitySwift
   - Firebase/Analytics (10.15.0):
     - Firebase/Core
-  - Firebase/Auth (10.15.0):
-    - Firebase/CoreOnly
-    - FirebaseAuth (~> 10.15.0)
   - Firebase/Core (10.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 10.15.0)
@@ -669,10 +666,6 @@ PODS:
     - FirebaseStorage (~> 10.15.0)
   - firebase_analytics (10.6.0):
     - Firebase/Analytics (= 10.15.0)
-    - firebase_core
-    - Flutter
-  - firebase_auth (4.11.0):
-    - Firebase/Auth (= 10.15.0)
     - firebase_core
     - Flutter
   - firebase_core (2.18.0):
@@ -705,13 +698,6 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseAppCheckInterop (10.16.0)
-  - FirebaseAuth (10.15.0):
-    - FirebaseAppCheckInterop (~> 10.0)
-    - FirebaseCore (~> 10.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
-    - GoogleUtilities/Environment (~> 7.8)
-    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
-    - RecaptchaInterop (~> 100.0)
   - FirebaseAuthInterop (10.16.0)
   - FirebaseCore (10.15.0):
     - FirebaseCoreInternal (~> 10.0)
@@ -884,7 +870,6 @@ PODS:
     - FlutterMacOS
   - PromisesObjC (2.3.1)
   - ReachabilitySwift (5.0.0)
-  - RecaptchaInterop (100.0.0)
   - share_plus (0.0.1):
     - Flutter
   - shared_preferences_foundation (0.0.1):
@@ -904,7 +889,6 @@ DEPENDENCIES:
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
-  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
@@ -926,7 +910,6 @@ SPEC REPOS:
     - Firebase
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
-    - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreExtension
@@ -947,7 +930,6 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - ReachabilitySwift
-    - RecaptchaInterop
     - Toast
     - Try
 
@@ -958,8 +940,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
-  firebase_auth:
-    :path: ".symlinks/plugins/firebase_auth/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_messaging:
@@ -993,13 +973,11 @@ SPEC CHECKSUMS:
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   Firebase: 66043bd4579e5b73811f96829c694c7af8d67435
   firebase_analytics: 6b016f3d8e86fec024f1a495834ae30d44fe4fe2
-  firebase_auth: d958ee5a8fe5906a77e025d2a0e0caf69f00aa28
   firebase_core: 49fd2395e3fbbf63f453888c8e9f42f541f4c11c
   firebase_messaging: f29609230a6f0759b72218d66ada60ed51c14a51
   firebase_storage: ff0478063d5e8a1cf34c03a778b5ed0638240504
   FirebaseAnalytics: 47cef43728f81a839cf1306576bdd77ffa2eac7e
   FirebaseAppCheckInterop: 82358cff9f33452dd44259e88eea5e562500b1cb
-  FirebaseAuth: a55ec5f7f8a5b1c2dd750235c1bb419bfb642445
   FirebaseAuthInterop: b79fab8ce80e685145eee5f973d9ad5210e19d44
   FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
   FirebaseCoreExtension: 2dbc745b337eb99d2026a7a309ae037bd873f45e
@@ -1024,7 +1002,6 @@ SPEC CHECKSUMS:
   path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
-  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   speech_to_text: b43a7d99aef037bd758ed8e45d79bbac035d2dfe

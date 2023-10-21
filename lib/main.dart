@@ -49,9 +49,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [...ApplicationBloc.instance.dependItems],
       child: MaterialApp(
-        useInheritedMediaQuery: true,
         debugShowCheckedModeBanner: false,
-        home:OnboardView(),
+        //home:OnboardView(),
         theme: ThemeData(
           fontFamily: 'Poppins',
           scaffoldBackgroundColor: Colors.white,
@@ -66,7 +65,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         //initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.ONBOARD,
+        initialRoute: NavigationConstants.SPLASH,
       ),
     );
   }

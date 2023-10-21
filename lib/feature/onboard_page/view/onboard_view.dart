@@ -48,7 +48,7 @@ class OnboardView extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Column(
                   children: [
-                    buildImagePart(context, index, cubitRead),
+                    buildImagePart(context, index, cubitRead,index),
                     buildWritingPart(context, cubitRead, index),
                   ],
                 );
@@ -58,7 +58,7 @@ class OnboardView extends StatelessWidget {
     );
   }
 
-  Flexible buildImagePart(BuildContext context, int index, OnboardCubit cubitRead) {
+  Flexible buildImagePart(BuildContext context, int index, OnboardCubit cubitRead,pageIndex) {
     return Flexible(
       flex: context.screenHeight < DeviceSizeEnum.inch_5.size ? 18 : 13,
       child: Stack(
@@ -84,7 +84,7 @@ class OnboardView extends StatelessWidget {
               buildImage(cubitRead, index),
               Flexible(
                 flex: 1,
-                child: buildCircleAvatar(cubitRead),
+                child: buildCircleAvatar(cubitRead,pageIndex),
               ),
             ],
           ),
@@ -93,7 +93,7 @@ class OnboardView extends StatelessWidget {
     );
   }
 
-  ListView buildCircleAvatar(OnboardCubit cubitRead) {
+  ListView buildCircleAvatar(OnboardCubit cubitRead,pageIndex) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return Padding(
@@ -101,7 +101,7 @@ class OnboardView extends StatelessWidget {
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              index == cubitRead.currentIndex
+              index == pageIndex
                   ? Container(
                       height: 15,
                       width: 15,
@@ -111,7 +111,7 @@ class OnboardView extends StatelessWidget {
                         border: Border.all(color: ColorConstants.instance.russianViolet, width: 1.5),
                       ),
                     )
-                  : const Center(),
+                  : const SizedBox.shrink(),
               CircleAvatar(
                 backgroundColor: index == cubitRead.currentIndex ? ColorConstants.instance.russianViolet : ColorConstants.instance.russianViolet.withOpacity(0.2),
                 radius: index == cubitRead.currentIndex ? 4.5 : 6,
