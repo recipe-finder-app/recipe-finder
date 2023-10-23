@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
-import '../../../../../core/constant/enum/image_path_enum.dart';
+import '../../../../utils/constant/image_path_enum.dart';
 import '../../../../model/ingredient/ingredient_model.dart';
 import '../../../../model/recipe/recipe_model.dart';
 
@@ -10,9 +10,9 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
   late List<IngredientModel> myFrizeItemList = [
-    IngredientModel(title: 'Egg', imagePath: ImagePath.egg.path, quantity: 1),
-    IngredientModel(title: 'Milk', imagePath: ImagePath.milk.path, quantity: 0.25),
-    IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 1),
+    IngredientModel(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 1),
+    IngredientModel(nameEN: 'Milk', imagePath: ImagePathConstant.milk.path, quantity: 0.25),
+    IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 1),
     /* IngredientModel(
         title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 1),
     IngredientModel(
@@ -84,14 +84,14 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
       bool isContainTitle = false;
       IngredientModel? containModel;
       for (var item in myFrizeItemList) {
-        if (item.title!.toLowerCase() == model.title!.toLowerCase()) {
+        if (item.nameEN!.toLowerCase() == model.nameEN!.toLowerCase()) {
           isContainTitle = true;
           containModel = item;
           break;
         }
       }
       if (isContainTitle == true) {
-        IngredientModel newElement = IngredientModel(title: model.title, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
+        IngredientModel newElement = IngredientModel(nameEN: model.nameEN, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
         //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));//quantity: model.quantity
 
         int index = myFrizeItemList.indexOf(containModel!);
@@ -123,11 +123,11 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
 
     for (var myFrizeIngredient in myFrizeList) {
       for (var recipeIngredient in recipeModel.ingredients!) {
-        List<IngredientModel>? value = myFrizeList.where((element) => element.title!.toLowerCase() == recipeIngredient.title!.toLowerCase()).toList();
+        List<IngredientModel>? value = myFrizeList.where((element) => element.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()).toList();
         if (!missingItemList.contains(recipeIngredient) && value.isEmpty) {
           //!missingItemList.contains(recipeIngredient) bu kontrol aynı  malzemenin döngüde tekrar eklenmemesi için konuldu
           missingItemList.add(recipeIngredient);
-        } else if ((!missingItemList.contains(recipeIngredient)) && (myFrizeIngredient.title!.toLowerCase() == recipeIngredient.title!.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
+        } else if ((!missingItemList.contains(recipeIngredient)) && (myFrizeIngredient.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
           missingItemList.add(recipeIngredient);
         }
       }

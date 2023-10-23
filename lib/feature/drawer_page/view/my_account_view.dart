@@ -4,7 +4,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/drawer_button.dart';
 
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 
 class DrawerMyAccountView extends StatelessWidget {
@@ -47,7 +47,7 @@ class DrawerMyAccountView extends StatelessWidget {
               text: 'Change Username',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {
-                NavigationService.instance.navigateToPage(path: NavigationConstants.CHANGEUSERNAME);
+                NavigationService.instance.navigateToPage(path: NavigationConstant.CHANGEUSERNAME);
               },
               color: ColorConstants.instance.white,
             ),
@@ -56,7 +56,7 @@ class DrawerMyAccountView extends StatelessWidget {
               text: 'Change Password',
               textColor: ColorConstants.instance.russianViolet,
               onPressed: () {
-                NavigationService.instance.navigateToPage(path: NavigationConstants.CHANGEPASSWORD);
+                NavigationService.instance.navigateToPage(path: NavigationConstant.CHANGEPASSWORD);
               },
               color: ColorConstants.instance.white,
             ),

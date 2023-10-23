@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../utils/constant/image_path_enum.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text_field/standard_text_formfield.dart';
 
@@ -35,7 +35,7 @@ class _EmailTextFormFieldState extends State<EmailTextFormField> {
       maxLines: 1,
       filled: widget.filled,
       prefixIcon: ImageSvg(
-        path: ImagePath.email.path,
+        path: ImagePathConstant.email.path,
       ),
       isValid: isValid,
       validator: (tfInput) {

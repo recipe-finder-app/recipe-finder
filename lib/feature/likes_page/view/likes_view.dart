@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/text/locale_bold_text.dart';
@@ -86,7 +86,7 @@ class LikesView extends StatelessWidget {
               AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cardIndex]);
             },
             onPressed: () {
-              NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
+              NavigationService.instance.navigateToPage(path: NavigationConstant.RECIPE_DETAIL, data: cubitRead.recipeList[cardIndex]);
               /* recipeBottomSheet(
                               context, cubitRead, cardIndex);*/
             },

@@ -4,7 +4,7 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget/text_field/speech_to_text_formfield.dart';
 
 import '../../../core/constant/design/color_constant.dart';
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../utils/constant/image_path_enum.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 
 class SearchTextField extends StatefulWidget {
@@ -57,7 +57,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       filledColor: widget.filledColor,
       hintText: LocaleKeys.search,
       onPressedClear: widget.onPressedClear,
-      icon: widget.icon ?? ImageSvg(path: ImagePath.searchh.path, color: ColorConstants.instance.russianViolet),
+      icon: widget.icon ?? ImageSvg(path: ImagePathConstant.searchh.path, color: ColorConstants.instance.russianViolet),
       onChanged: _onTextChanged,
     );
   }

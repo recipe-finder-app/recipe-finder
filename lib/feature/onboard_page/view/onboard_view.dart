@@ -7,7 +7,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/image_format/image_svg.dart';
@@ -142,7 +142,7 @@ class OnboardView extends StatelessWidget {
             ? const SizedBox()
             : TextButton(
                 onPressed: () {
-                  NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+                  NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
                 },
                 child: LocaleBoldText(
                   text: LocaleKeys.skip,
@@ -235,7 +235,7 @@ class OnboardView extends StatelessWidget {
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                NavigationService.instance.navigateToPage(path: NavigationConstants.LOGIN);
+                                NavigationService.instance.navigateToPage(path: NavigationConstant.LOGIN);
                               },
                             ),
                           ],

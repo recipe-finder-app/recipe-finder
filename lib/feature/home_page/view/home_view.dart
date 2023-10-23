@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
@@ -15,7 +15,7 @@ import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 import '../../../core/constant/enum/hive_enum.dart';
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/image_format/image_png.dart';
@@ -116,7 +116,7 @@ class HomeView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: SvgPicture.asset(
-                      ImagePath.appIcon.path,
+                      ImagePathConstant.appIcon.path,
                       height: 100,
                       width: 100,
                     ),
@@ -138,18 +138,18 @@ class HomeView extends StatelessWidget {
             ListTile(
               horizontalTitleGap: 0,
               leading: ImageSvg(
-                path: ImagePath.user.path,
+                path: ImagePathConstant.user.path,
               ),
               title: LocaleText(text: LocaleKeys.myAccount),
               onTap: () {
-                NavigationService.instance.navigateToPage(path: NavigationConstants.MYACCOUNT);
+                NavigationService.instance.navigateToPage(path: NavigationConstant.MYACCOUNT);
               },
             ),
             buildDrawerDivider(context),
             ListTile(
               horizontalTitleGap: 0,
               leading: ImageSvg(
-                path: ImagePath.discover.path,
+                path: ImagePathConstant.discover.path,
                 color: Colors.black,
               ),
               title: LanguagePopupMenuButton(
@@ -171,7 +171,7 @@ class HomeView extends StatelessWidget {
             ListTile(
               horizontalTitleGap: 0,
               leading: ImageSvg(
-                path: ImagePath.email.path,
+                path: ImagePathConstant.email.path,
                 color: Colors.black,
               ),
               title: LocaleText(text: LocaleKeys.contact),
@@ -181,26 +181,26 @@ class HomeView extends StatelessWidget {
             ListTile(
               horizontalTitleGap: 0,
               leading: ImageSvg(
-                path: ImagePath.persons.path,
+                path: ImagePathConstant.persons.path,
                 color: Colors.black,
               ),
               title: LocaleText(text: LocaleKeys.aboutUs),
               onTap: () {
-                NavigationService.instance.navigateToPage(path: NavigationConstants.ABOUTUS);
+                NavigationService.instance.navigateToPage(path: NavigationConstant.ABOUTUS);
               },
             ),
             buildDrawerDivider(context),
             ListTile(
               horizontalTitleGap: 0,
               leading: ImageSvg(
-                path: ImagePath.returnBack.path,
+                path: ImagePathConstant.returnBack.path,
                 color: Colors.black,
               ),
               title: LocaleText(text: LocaleKeys.logout),
               onTap: () async {
                 final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
                 await hiveManager.clear();
-                NavigationService.instance.navigateToPageClear(path: NavigationConstants.LOGIN);
+                NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
               },
             ),
           ],
@@ -281,7 +281,7 @@ class HomeView extends StatelessWidget {
                   fridgeBottomSheet(context, cubitRead);
                 },
                 child: ImageSvg(
-                  path: ImagePath.fridge.path,
+                  path: ImagePathConstant.fridge.path,
                 ),
               ),
             ),
@@ -325,7 +325,7 @@ class HomeView extends StatelessWidget {
               padding: context.paddingLowLeft,
               child: LocaleText(
                 fontSize: 12,
-                text: cubitRead.searchByMeal[index].title! ?? '',
+                text: cubitRead.searchByMeal[index].nameEN! ?? '',
                 textAlign: TextAlign.start,
               ),
             ),

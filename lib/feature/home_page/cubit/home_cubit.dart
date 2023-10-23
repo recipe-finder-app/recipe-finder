@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
@@ -23,12 +23,12 @@ class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   List<IngredientModel> vegateblesItem = [];
 
   List<IngredientModel> myFrizeItems = [
-    IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-    IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-    IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-    IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-    IngredientModel(title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-    IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+    IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+    IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+    IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+    IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
+    IngredientModel(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
+    IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
   ];
 
   @override

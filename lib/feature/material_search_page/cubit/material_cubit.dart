@@ -97,8 +97,8 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
         searchedMap?[entry.key] = entry.value;
       } else {
         for (var element in entry.value) {
-          if (element.title!.toLowerCase().contains(data)) {
-            searchedMap?[entry.key] = entry.value.where((element) => element.title!.toLowerCase().contains(data)).toList();
+          if (element.nameEN!.toLowerCase().contains(data)) {
+            searchedMap?[entry.key] = entry.value.where((element) => element.nameEN!.toLowerCase().contains(data)).toList();
           }
         }
       }

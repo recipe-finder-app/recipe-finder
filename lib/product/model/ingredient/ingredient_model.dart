@@ -7,33 +7,59 @@ part 'ingredient_model.g.dart';
 @HiveType(typeId: 2)
 @JsonSerializable()
 class IngredientModel extends HiveObject implements INetworkModel<IngredientModel> {
-  @JsonKey(name: '_id')
   @HiveField(0)
   final String? id;
 
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'name_en')
   @HiveField(1)
-  final String? title;
+  final String? nameEN;
+
+   @JsonKey(name: 'name_tr')
+  @HiveField(1)
+  final String? nameTR;
+
+   @JsonKey(name: 'category_id')
+  @HiveField(1)
+  final String? categoryId;
+
+    @JsonKey(name: 'category_name_en')
+  @HiveField(1)
+  final String? categoryNameEN;
+
+    @JsonKey(name: 'category_name_tr')
+  @HiveField(1)
+  final String? categoryNameTR;
+  
   @HiveField(2)
   final String? imagePath;
+
   @HiveField(3)
   final int? color;
+  
   @HiveField(4)
   final double? quantity;
 
-  IngredientModel({
+    IngredientModel({
     this.id,
-    this.color,
+    this.nameEN,
+    this.nameTR,
+    this.categoryId,
+    this.categoryNameEN,
+    this.categoryNameTR,
     this.imagePath,
-    this.title,
-    this.quantity,
+    this.color,
+    this.quantity
   });
+
 
   @override
   factory IngredientModel.fromJson(Map<String, dynamic> json) => _$IngredientModelFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$IngredientModelToJson(this);
+
+@override
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imagePath, color, quantity];
 
   @override
   IngredientModel fromJson(Map<String, dynamic> json) {

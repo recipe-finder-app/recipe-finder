@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
@@ -47,7 +47,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                       radius: 32,
                       backgroundColor: model.color?.toColor ?? color,
                       child: ImageSvg(
-                        path: model.imagePath ?? ImagePath.like.path,
+                        path: model.imagePath ?? ImagePathConstant.like.path,
                       ),
                     ),
                     iconTopWidget!,
@@ -57,7 +57,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                   radius: 32,
                   backgroundColor: model.color?.toColor ?? color,
                   child: ImageSvg(
-                    path: model.imagePath ?? ImagePath.like.path,
+                    path: model.imagePath ?? ImagePathConstant.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
@@ -71,7 +71,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                       child: LocaleText(
                         locale: context.locale,
                         fontSize: textFontSize ?? 12,
-                        text: '$textRowText ${model.title}',
+                        text: '$textRowText ${model.nameEN}',
                         color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),
@@ -80,7 +80,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                       child: LocaleText(
                         locale: context.locale,
                         fontSize: textFontSize ?? 12,
-                        text: model.title!,
+                        text: model.nameEN!,
                         color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),

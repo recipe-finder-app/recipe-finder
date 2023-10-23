@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
@@ -60,7 +60,7 @@ class LikesRecipeCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ImageSvg(
-                      path: ImagePath.basket.path,
+                      path: ImagePathConstant.basket.path,
                       height: 20,
                       width: 20,
                     ),

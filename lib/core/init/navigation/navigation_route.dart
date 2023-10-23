@@ -9,7 +9,7 @@ import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 
-import '/core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
@@ -28,37 +28,37 @@ class NavigationRoute {
 
   Route<dynamic> generateRoute(RouteSettings args) {
     switch (args.name) {
-      case NavigationConstants.SPLASH:
-        return normalNavigate(const SplashView(), NavigationConstants.SPLASH);
+      case NavigationConstant.SPLASH:
+        return normalNavigate(const SplashView(), NavigationConstant.SPLASH);
 
-      case NavigationConstants.ONBOARD:
-        return normalNavigate(OnboardView(), NavigationConstants.ONBOARD);
-      case NavigationConstants.LOGIN:
-        return normalNavigate(LoginView(), NavigationConstants.LOGIN);
-      case NavigationConstants.NAV_CONTROLLER:
-        return normalNavigate(const RecipeBottomNavigationBar(), NavigationConstants.NAV_CONTROLLER);
-      case NavigationConstants.HOME:
-        return normalNavigate(const HomeView(), NavigationConstants.HOME);
-      case NavigationConstants.DISCOVER:
-        return normalNavigate(const DiscoverView(), NavigationConstants.DISCOVER);
-      case NavigationConstants.LIKES:
-        return normalNavigate(const LikesView(), NavigationConstants.LIKES);
-      case NavigationConstants.BASKET:
-        return normalNavigate(const BasketView(), NavigationConstants.BASKET);
-      case NavigationConstants.MATERIALSEARCH:
-        return normalNavigate(const MaterialSearchView(), NavigationConstants.MATERIALSEARCH);
-      case NavigationConstants.RECIPE_DETAIL:
-        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as RecipeModel), NavigationConstants.RECIPE_DETAIL);
-      case NavigationConstants.FINDER:
-        return normalNavigate(const FinderView(), NavigationConstants.FINDER);
-      case NavigationConstants.ABOUTUS:
-        return normalNavigate(const DrawerAboutUsView(), NavigationConstants.ABOUTUS);
-      case NavigationConstants.MYACCOUNT:
-        return normalNavigate(const DrawerMyAccountView(), NavigationConstants.MYACCOUNT);
-      case NavigationConstants.CHANGEUSERNAME:
-        return normalNavigate(const DrawerChangeUsernameView(), NavigationConstants.CHANGEUSERNAME);
-      case NavigationConstants.CHANGEPASSWORD:
-        return normalNavigate(const DrawerChangePasswordView(), NavigationConstants.CHANGEPASSWORD);
+      case NavigationConstant.ONBOARD:
+        return normalNavigate(OnboardView(), NavigationConstant.ONBOARD);
+      case NavigationConstant.LOGIN:
+        return normalNavigate(LoginView(), NavigationConstant.LOGIN);
+      case NavigationConstant.NAV_CONTROLLER:
+        return normalNavigate(const RecipeBottomNavigationBar(), NavigationConstant.NAV_CONTROLLER);
+      case NavigationConstant.HOME:
+        return normalNavigate(const HomeView(), NavigationConstant.HOME);
+      case NavigationConstant.DISCOVER:
+        return normalNavigate(const DiscoverView(), NavigationConstant.DISCOVER);
+      case NavigationConstant.LIKES:
+        return normalNavigate(const LikesView(), NavigationConstant.LIKES);
+      case NavigationConstant.BASKET:
+        return normalNavigate(const BasketView(), NavigationConstant.BASKET);
+      case NavigationConstant.MATERIALSEARCH:
+        return normalNavigate(const MaterialSearchView(), NavigationConstant.MATERIALSEARCH);
+      case NavigationConstant.RECIPE_DETAIL:
+        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as RecipeModel), NavigationConstant.RECIPE_DETAIL);
+      case NavigationConstant.FINDER:
+        return normalNavigate(const FinderView(), NavigationConstant.FINDER);
+      case NavigationConstant.ABOUTUS:
+        return normalNavigate(const DrawerAboutUsView(), NavigationConstant.ABOUTUS);
+      case NavigationConstant.MYACCOUNT:
+        return normalNavigate(const DrawerMyAccountView(), NavigationConstant.MYACCOUNT);
+      case NavigationConstant.CHANGEUSERNAME:
+        return normalNavigate(const DrawerChangeUsernameView(), NavigationConstant.CHANGEUSERNAME);
+      case NavigationConstant.CHANGEPASSWORD:
+        return normalNavigate(const DrawerChangePasswordView(), NavigationConstant.CHANGEPASSWORD);
 
       default:
         return MaterialPageRoute(
@@ -68,7 +68,7 @@ class NavigationRoute {
   }
 
   String? initialRoute() {
-    return NavigationConstants.LOGIN;
+    return NavigationConstant.LOGIN;
   }
 
   MaterialPageRoute normalNavigate(Widget widget, String pageName) {

@@ -2,11 +2,11 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
-import '../../../core/constant/enum/supported_languages_enum.dart';
+import '../../utils/enum/supported_languages_enum.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text_field/standard_text_formfield.dart';
 
@@ -97,7 +97,7 @@ class _SpeechToTextFormFieldState extends State<SpeechToTextFormField> {
       borderEnable: widget.borderEnable,
       filled: widget.filled,
       filledColor: widget.filledColor,
-      prefixIcon: ImageSvg(path: ImagePath.searchh.path, color: ColorConstants.instance.russianViolet),
+      prefixIcon: ImageSvg(path: ImagePathConstant.searchh.path, color: ColorConstants.instance.russianViolet),
       suffixIcon: Padding(
         padding: EdgeInsets.only(right: context.lowValue),
         child: AvatarGlow(
@@ -108,7 +108,7 @@ class _SpeechToTextFormFieldState extends State<SpeechToTextFormField> {
           child: IconButton(
             onPressed: _listen,
             icon: ImageSvg(
-              path: ImagePath.microphone.path,
+              path: ImagePathConstant.microphone.path,
             ),
           ),
         ),

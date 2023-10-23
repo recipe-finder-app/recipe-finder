@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
@@ -37,7 +37,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                       radius: 32,
                       backgroundColor: color,
                       child: ImageSvg(
-                        path: model.imagePath ?? ImagePath.like.path,
+                        path: model.imagePath ?? ImagePathConstant.like.path,
                       ),
                     ),
                     iconTopWidget!,
@@ -47,13 +47,13 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                   radius: 32,
                   backgroundColor: color,
                   child: ImageSvg(
-                    path: model.imagePath ?? ImagePath.like.path,
+                    path: model.imagePath ?? ImagePathConstant.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
-              text: model.title!,
+              text: model.nameEN!,
             ),
           ),
         ],
@@ -69,7 +69,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                       radius: 32,
                       backgroundColor: color,
                       child: ImageSvg(
-                        path: model.imagePath ?? ImagePath.like.path,
+                        path: model.imagePath ?? ImagePathConstant.like.path,
                       ),
                     ),
                     iconTopWidget!,
@@ -79,14 +79,14 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                   radius: 32,
                   backgroundColor: color,
                   child: ImageSvg(
-                    path: model.imagePath ?? ImagePath.like.path,
+                    path: model.imagePath ?? ImagePathConstant.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
           FittedBox(
             child: LocaleText(
               fontSize: 12,
-              text: model.title!,
+              text: model.nameEN!,
             ),
           ),
         ],

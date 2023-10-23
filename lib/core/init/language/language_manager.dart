@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import '../../constant/enum/supported_languages_enum.dart';
+import '../../../product/utils/enum/supported_languages_enum.dart';
 
 class LanguageManager {
   static final LanguageManager _instance = LanguageManager._init();

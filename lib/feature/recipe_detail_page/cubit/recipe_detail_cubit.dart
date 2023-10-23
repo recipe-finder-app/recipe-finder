@@ -46,7 +46,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   void share(RecipeModel recipeModel) {
     String ingredientsText = '';
     for (var ingredient in recipeModel.ingredients!) {
-      ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.title}';
+      ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.nameEN}';
     }
 
     String message = '${LocaleKeys.ingredients.locale}\n'

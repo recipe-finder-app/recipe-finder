@@ -1,4 +1,4 @@
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../../product/utils/constant/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 
 class OnboardModel {
@@ -19,19 +19,19 @@ class OnboardItems {
   OnboardItems() {
     items = [
       OnboardModel(
-        imagePath: ImagePath.onboardImage1.path,
+        imagePath: ImagePathConstant.onboardImage1.path,
         title: LocaleKeys.chooseTheItemsInYourCloset,
         explanation:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       ),
       OnboardModel(
-        imagePath: ImagePath.onboardImage2.path,
+        imagePath: ImagePathConstant.onboardImage2.path,
         title: LocaleKeys.chooseYourSpecialRecipe,
         explanation:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
       ),
       OnboardModel(
-        imagePath: ImagePath.onboardImage3.path,
+        imagePath: ImagePathConstant.onboardImage3.path,
         title: LocaleKeys.startDoing,
         explanation:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',

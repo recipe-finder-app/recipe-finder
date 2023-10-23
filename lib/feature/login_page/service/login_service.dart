@@ -4,7 +4,7 @@ import 'package:recipe_finder/feature/login_page/model/token_verification/token_
 import 'package:recipe_finder/feature/login_page/model/token_verification/token_verification_response_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../core/constant/service/service_path.dart';
+import '../../../product/utils/constant/service_path.dart';
 import '../model/create_token/create_token_response_model.dart';
 import '../model/login/login_model.dart';
 import '../model/login/login_response_model.dart';

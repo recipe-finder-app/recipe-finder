@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../utils/constant/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text_field/standard_text_formfield.dart';
@@ -33,7 +33,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       width: widget.width,
       obscureText: !showPassword,
       prefixIcon: ImageSvg(
-        path: ImagePath.password.path,
+        path: ImagePathConstant.password.path,
       ),
       suffixIcon: IconButton(
         onPressed: () {

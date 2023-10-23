@@ -9,7 +9,7 @@ import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 
 import 'core/constant/app/app_constants.dart';
 import 'core/constant/enum/network_result_enum.dart';
-import 'core/constant/navigation/navigation_constants.dart';
+import 'product/utils/constant/navigation_constants.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/main_build/main_build.dart';
 import 'core/init/network/connection_activity/network_change_manager.dart';
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: NavigationRoute.instance.generateRoute,
         navigatorKey: NavigationService.instance.navigatorKey,
         //initialRoute: NavigationRoute.instance.initialRoute(),
-        initialRoute: NavigationConstants.SPLASH,
+        initialRoute: NavigationConstant.SPLASH,
       ),
     );
   }

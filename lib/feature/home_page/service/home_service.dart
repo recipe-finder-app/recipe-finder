@@ -5,7 +5,7 @@ import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../core/constant/service/service_path.dart';
+import '../../../product/utils/constant/service_path.dart';
 import '../../../core/init/network/vexana/vexana_manager.dart';
 import '../../../product/model/recipe_category/category_of_recipes.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/constant/enum/hive_enum.dart';
@@ -49,7 +49,7 @@ class LoginCubit extends Cubit<ILoginState> implements IBaseViewModel {
             final user = await hiveManager.get(HiveKeyEnum.user);
             print(user?.username.toString());
             print(response.data!.token);
-            NavigationService.instance.navigateToPageClear(path: NavigationConstants.NAV_CONTROLLER);
+            NavigationService.instance.navigateToPageClear(path: NavigationConstant.NAV_CONTROLLER);
           } else if (response.data!.success == false) {
             print('kullanıcı adı veya şifre yanlış');
           }

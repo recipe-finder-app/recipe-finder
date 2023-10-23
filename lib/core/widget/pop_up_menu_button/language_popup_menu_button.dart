@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
-import '../../../core/constant/enum/supported_languages_enum.dart';
+import '../../../product/utils/enum/supported_languages_enum.dart';
 import '../../../core/init/language/language_manager.dart';
 import '../image_format/image_svg.dart';
 
@@ -87,7 +87,7 @@ class _LanguagePopupMenuButtonState extends State<LanguagePopupMenuButton> {
               children: [
                 ImageSvg(
                   color: widget.color ?? ColorConstants.instance.oriolesOrange,
-                  path: ImagePath.discover.path,
+                  path: ImagePathConstant.discover.path,
                 ),
                 Text(
                   selectedLanguage ?? context.locale.languageCode.toUpperCase(),

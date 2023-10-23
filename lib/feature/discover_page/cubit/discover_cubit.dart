@@ -6,7 +6,7 @@ import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/discover_page/service/discover_service.dart';
 
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../../product/utils/constant/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/alert_dialog/alert_dialog_error.dart';
 import '../../../product/model/ingredient/ingredient_model.dart';
@@ -20,66 +20,66 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   late ScrollController scrollController;
   List<RecipeModel> discoverRecipeList = [
     RecipeModel(
-      imagePath: ImagePath.imageSample1.path,
+      imagePath: ImagePathConstant.imageSample1.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
           'uzun text deneme',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
     RecipeModel(
-      imagePath: ImagePath.imageSample2.path,
+      imagePath: ImagePathConstant.imageSample2.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
     RecipeModel(
-      imagePath: ImagePath.imageSample3.path,
+      imagePath: ImagePathConstant.imageSample3.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
     RecipeModel(
-      imagePath: ImagePath.imageSample4.path,
+      imagePath: ImagePathConstant.imageSample4.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
     RecipeModel(
-      imagePath: ImagePath.imageSample3.path,
+      imagePath: ImagePathConstant.imageSample3.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
     RecipeModel(
-      imagePath: ImagePath.imageSample4.path,
+      imagePath: ImagePathConstant.imageSample4.path,
       title: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
@@ -139,7 +139,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   Future<void> fetchCategoryList() async {
     try {
       changeIsLoadingState();
-      final response = await service!.fetchCategoryList();
+      final response = await service.fetchCategoryList();
       if (response.data?.success == true) {
         emit(state.copyWith(categoryList: response.data?.recipeCategoryList));
       }
@@ -165,7 +165,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
       print("newpageLoadingState=${state.newPageLoading}");
       final pageKey = state.pageKey + 1;
       emit(state.copyWith(pageKey: pageKey));
-      final response = await service!.fetchRecipeList(page: pageKey);
+      final response = await service.fetchRecipeList(page: pageKey);
       final recipeList = response.data?.recipeList;
       if (recipeList != null) {
         if (recipeList.length < DiscoverService.pageLimit) {
@@ -185,7 +185,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   Future<void> fetchInitialRecipeList() async {
     try {
       changeIsLoadingState();
-      final response = await service!.fetchInitialRecipeList();
+      final response = await service.fetchInitialRecipeList();
       final recipeList = response.data?.recipeList;
       if (recipeList != null) {
         if (recipeList.length < DiscoverService.pageLimit) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
@@ -43,7 +43,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 width: context.floatinValueWidth,
                 child: FloatingActionButton.extended(
                   onPressed: () {
-                    NavigationService.instance.navigateToPage(path: NavigationConstants.FINDER);
+                    NavigationService.instance.navigateToPage(path: NavigationConstant.FINDER);
                   },
                   backgroundColor: ColorConstants.instance.roboticgods.withOpacity(1),
                   shape: RoundedRectangleBorder(borderRadius: context.radiusAllCircularMin),
@@ -174,7 +174,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
         ),
         TextButton(
           onPressed: () {
-            NavigationService.instance.navigateToPage(path: NavigationConstants.NAV_CONTROLLER);
+            NavigationService.instance.navigateToPage(path: NavigationConstant.NAV_CONTROLLER);
           },
           child: LocaleText(
               style: TextStyle(

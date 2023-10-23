@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
@@ -120,7 +120,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                     context.normalSizedBoxWidth,
                     Padding(
                       padding: context.paddingHighBottom,
-                      child: Text(cubitRead.selectedCardModel!.ingredients![listViewIndex].title!),
+                      child: Text(cubitRead.selectedCardModel!.ingredients![listViewIndex].nameEN!),
                     ),
                   ],
                 ),
@@ -144,7 +144,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
                           radius: 20,
                           backgroundColor: ColorConstants.instance.oriolesOrange,
                           child: ImageSvg(
-                            path: ImagePath.basketShop.path,
+                            path: ImagePathConstant.basketShop.path,
                           )),
                     ],
                   ),

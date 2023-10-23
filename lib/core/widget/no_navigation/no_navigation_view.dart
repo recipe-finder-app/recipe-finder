@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import '/core/init/navigation/navigation_route.dart';
 import '/core/init/navigation/navigation_service.dart';
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../../product/utils/constant/image_path_enum.dart';
 
 class NotFoundNavigationView extends StatelessWidget {
   const NotFoundNavigationView({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class NotFoundNavigationView extends StatelessWidget {
                   color: Color(0xff972d91),
                 ),
                 Image.asset(
-                  ImagePath.noPage.path,
+                  ImagePathConstant.noPage.path,
                   height: context.screenHeight / 3,
                   width: context.screenWidth * 0.8,
                 ),

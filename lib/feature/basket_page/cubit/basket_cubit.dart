@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
@@ -17,32 +17,32 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       imagePath: 'asset/png/foot2.png',
       title: 'Deneme Text 1',
       ingredients: [
-        IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 5),
-        IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-        IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-        IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-        IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 4),
+        IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 5),
+        IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+        IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+        IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+        IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 4),
       ],
     ),
     RecipeModel(
       imagePath: 'asset/png/foot1.png',
       title: 'Deneme Text 2',
       ingredients: [
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Egg', quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
     ),
     RecipeModel(
       imagePath: 'asset/png/foot2.png',
       title: 'Deneme Text 3',
       ingredients: [
-        IngredientModel(title: 'Egg', imagePath: ImagePath.egg.path, quantity: 4),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
-        IngredientModel(title: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 4),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
       ],
     ),
   ];
@@ -57,12 +57,12 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     selectedColorIndex = null;
     service = BasketService();
     myFinderFrizeItems = [
-      IngredientModel(title: 'milk', imagePath: ImagePath.milk.path, quantity: 6),
-      IngredientModel(title: 'bread', imagePath: ImagePath.bread.path, quantity: 3),
-      IngredientModel(title: 'salad', imagePath: ImagePath.salad.path, quantity: 2),
-      IngredientModel(title: 'egg', imagePath: ImagePath.egg.path, quantity: 3),
-      IngredientModel(title: 'potato', imagePath: ImagePath.potato.path, quantity: 2),
-      IngredientModel(title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 2),
+      IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+      IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+      IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+      IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
+      IngredientModel(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
+      IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
     ];
   }
 
@@ -95,7 +95,6 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       emit(ChangeSelectedColorIndex(selectedColorIndex));
     }
 
-    print(selectedColorIndex);
   }
 
   Color selectedCardItemColor(int index) {

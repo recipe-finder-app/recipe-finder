@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_state.dart';
 import 'package:recipe_finder/feature/finder_page/service/finder_service.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
@@ -12,96 +12,96 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   late List<RecipeModel> recipeList = [
     RecipeModel(
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
-          IngredientModel(title: 'Milk', quantity: 2, imagePath: ImagePath.milk.path),
-          IngredientModel(title: 'Salad', quantity: 1 / 2, imagePath: ImagePath.salad.path),
-          IngredientModel(title: 'Potato', quantity: 4, imagePath: ImagePath.potato.path),
+          IngredientModel(nameEN: 'Egg', quantity: 4, imagePath: ImagePathConstant.egg.path),
+          IngredientModel(nameEN: 'Milk', quantity: 2, imagePath: ImagePathConstant.milk.path),
+          IngredientModel(nameEN: 'Salad', quantity: 1 / 2, imagePath: ImagePathConstant.salad.path),
+          IngredientModel(nameEN: 'Potato', quantity: 4, imagePath: ImagePathConstant.potato.path),
         ],
         title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
             'uzun text deneme',
-        imagePath: ImagePath.imageSample1.path,
+        imagePath: ImagePathConstant.imageSample1.path,
         videoPath: 'asset/video/samplevideo.mp4',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample2.path,
+        imagePath: ImagePathConstant.imageSample2.path,
         videoPath: 'asset/video/samplevideo.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample3.path,
+        imagePath: ImagePathConstant.imageSample3.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample4.path,
+        imagePath: ImagePathConstant.imageSample4.path,
         videoPath: 'asset/video/samplevideo.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample1.path,
+        imagePath: ImagePathConstant.imageSample1.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample1.path,
+        imagePath: ImagePathConstant.imageSample1.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample1.path,
+        imagePath: ImagePathConstant.imageSample1.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
             'uzun text deneme',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Egg', quantity: 4),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
-          IngredientModel(title: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Egg', quantity: 4),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+          IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),
     RecipeModel(
-        imagePath: ImagePath.imageSample3.path,
+        imagePath: ImagePathConstant.imageSample3.path,
         videoPath: 'asset/video/pizza.mp4',
         title: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientModel(title: 'Egg', quantity: 4, imagePath: ImagePath.egg.path),
-          IngredientModel(title: 'Milk', quantity: 2, imagePath: ImagePath.milk.path),
-          IngredientModel(title: 'Salad', quantity: 2, imagePath: ImagePath.salad.path),
-          IngredientModel(title: 'Potato', quantity: 4, imagePath: ImagePath.potato.path),
+          IngredientModel(nameEN: 'Egg', quantity: 4, imagePath: ImagePathConstant.egg.path),
+          IngredientModel(nameEN: 'Milk', quantity: 2, imagePath: ImagePathConstant.milk.path),
+          IngredientModel(nameEN: 'Salad', quantity: 2, imagePath: ImagePathConstant.salad.path),
+          IngredientModel(nameEN: 'Potato', quantity: 4, imagePath: ImagePathConstant.potato.path),
         ],
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directions: directionText),

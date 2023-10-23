@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/feature/splash_page/cubit/splash_cubit.dart';
 
@@ -23,7 +23,7 @@ class SplashView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Lottie.asset(ImagePath.splashAnimation.path, height: 275, width: 150),
+            Lottie.asset(ImagePathConstant.splashAnimation.path, height: 275, width: 150),
             context.normalSizedBox,
            const Row(
               crossAxisAlignment: CrossAxisAlignment.center,

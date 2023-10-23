@@ -11,7 +11,7 @@ import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 import 'package:recipe_finder/product/widget/text_field/search_text_field.dart';
 
 import '../../../core/constant/design/color_constant.dart';
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../product/widget/alert_dialog/question_alert_dialog.dart';
@@ -167,7 +167,7 @@ class DiscoverView extends StatelessWidget {
                   return DiscoverCard(
                     model: cubitRead.recipeListByCategory(categoryId)![cardIndex],
                     onPressed: () {
-                      NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
+                      NavigationService.instance.navigateToPage(path: NavigationConstant.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
                     },
                     likeIconOnPressed: () {
                       if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == false) {
@@ -202,7 +202,7 @@ class DiscoverView extends StatelessWidget {
               return DiscoverCard(
                 model: cubitRead.recipeListByCategory(categoryId)![cardIndex],
                 onPressed: () {
-                  NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
+                  NavigationService.instance.navigateToPage(path: NavigationConstant.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
                 },
                 likeIconOnPressed: () {
                   if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == false) {

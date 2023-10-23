@@ -7,7 +7,7 @@ import 'package:recipe_finder/feature/likes_page/cubit/likes_state.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 
-import '../../../core/constant/enum/image_path_enum.dart';
+import '../../utils/constant/image_path_enum.dart';
 import '../../../core/widget/text/bold_text.dart';
 
 class DiscoverCard extends StatelessWidget {
@@ -53,7 +53,7 @@ class DiscoverCard extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               image: AssetImage(
-                model.imagePath ?? ImagePath.imageSample1.path,
+                model.imagePath ?? ImagePathConstant.imageSample1.path,
               )),
           borderRadius: context.radiusAllCircularMin,
         ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/model/social_adapter.dart';
@@ -9,7 +9,7 @@ import 'package:recipe_finder/product/widget/button/social_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
-import '../../../core/constant/navigation/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/alert_dialog/alert_dialog_error.dart';
@@ -110,7 +110,7 @@ class LoginView extends StatelessWidget {
     return Flexible(
       flex: context.screenHeight < DeviceSizeEnum.inch_5.size ? 8 : 5,
       child: ImageSvg(
-        path: ImagePath.group5357.path,
+        path: ImagePathConstant.group5357.path,
       ),
     );
   }
@@ -129,7 +129,7 @@ class LoginView extends StatelessWidget {
             ),
             onPressed: () {
               NavigationService.instance.navigateToPage(
-                path: NavigationConstants.MATERIALSEARCH,
+                path: NavigationConstant.MATERIALSEARCH,
               );
             },
           ),

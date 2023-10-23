@@ -319,7 +319,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                 children: [
                   Text(widget.recipeModel.ingredients![recipeIngredientsIndex].quantity.toString()),
                   context.lowSizedBoxWidth,
-                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex]!.title!),
+                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex]!.nameEN!),
                 ],
               );
             }),

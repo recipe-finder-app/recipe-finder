@@ -1,6 +1,6 @@
 import 'package:vexana/vexana.dart';
 
-import '../../../core/constant/service/service_path.dart';
+import '../../../product/utils/constant/service_path.dart';
 import '../../../core/init/network/vexana/vexana_manager.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../../../product/model/ingredient_category/ingredients_of_category_model.dart';

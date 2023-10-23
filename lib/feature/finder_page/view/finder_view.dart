@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
-import 'package:recipe_finder/core/constant/navigation/navigation_constants.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
@@ -127,7 +127,7 @@ class _FinderViewState extends State<FinderView> {
                 return TinderCard(
                     model: cubitRead.recipeList![properties.index],
                     recipeOnPressed: () {
-                      NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
+                      NavigationService.instance.navigateToPage(path: NavigationConstant.RECIPE_DETAIL, data: cubitRead.recipeList![properties.index]);
                     });
               },
             ),
@@ -168,7 +168,7 @@ class _FinderViewState extends State<FinderView> {
               AddToBasketBottomSheet.instance.show(context, cubitRead.recipeList![cubitRead.topCardIndex]);
             },
             child: ImageSvg(
-              path: ImagePath.shoppingBag.path,
+              path: ImagePathConstant.shoppingBag.path,
               color: ColorConstants.instance.russianViolet,
             ),
           ),

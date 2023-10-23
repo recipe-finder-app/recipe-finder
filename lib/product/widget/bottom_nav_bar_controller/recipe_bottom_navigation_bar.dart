@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
-import 'package:recipe_finder/core/constant/enum/image_path_enum.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
@@ -52,14 +52,14 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                     BottomNavigationBarItem(
                         label: LocaleKeys.home.locale,
                         icon: ImageSvg(
-                          path: state == 0 ? ImagePath.homeBlack.path : ImagePath.home.path,
+                          path: state == 0 ? ImagePathConstant.homeBlack.path : ImagePathConstant.home.path,
                           color: context.read<RecipeNavigationBarCubit>().itemColor(0),
                           height: 24,
                         )),
                     BottomNavigationBarItem(
                         label: LocaleKeys.discover.locale,
                         icon: ImageSvg(
-                          path: state == 1 ? ImagePath.discoverBlack.path : ImagePath.discover.path,
+                          path: state == 1 ? ImagePathConstant.discoverBlack.path : ImagePathConstant.discover.path,
                           color: context.read<RecipeNavigationBarCubit>().itemColor(1),
                           height: 24,
                         )),
@@ -76,14 +76,14 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                     BottomNavigationBarItem(
                         label: LocaleKeys.likes.locale,
                         icon: ImageSvg(
-                          path: state == 3 ? ImagePath.likeBlack.path : ImagePath.like.path,
+                          path: state == 3 ? ImagePathConstant.likeBlack.path : ImagePathConstant.like.path,
                           color: context.read<RecipeNavigationBarCubit>().itemColor(3),
                           height: 24,
                         )),
                     BottomNavigationBarItem(
                         label: LocaleKeys.basket.locale,
                         icon: ImageSvg(
-                          path: state == 4 ? ImagePath.shoppingBagBlack.path : ImagePath.shoppingBag.path,
+                          path: state == 4 ? ImagePathConstant.shoppingBagBlack.path : ImagePathConstant.shoppingBag.path,
                           color: context.read<RecipeNavigationBarCubit>().itemColor(4),
                           height: 24,
                         )),
@@ -117,7 +117,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                       },
                     ),
                     SvgPicture.asset(
-                      ImagePath.appIconLowSize.path,
+                      ImagePathConstant.appIconLowSize.path,
                       color: Colors.white,
                       height: 50,
                     ),
