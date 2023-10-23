@@ -5,7 +5,7 @@ import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../core/init/language/locale_keys.g.dart';
@@ -17,18 +17,18 @@ class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   late TextEditingController searchTextController;
   HomeCubit() : super(const HomeState(isLoading: false));
 
-  List<IngredientModel> searchByMeal = [];
-  List<IngredientModel> category = [];
-  List<IngredientModel> essentialsItem = [];
-  List<IngredientModel> vegateblesItem = [];
+  List<IngredientQuantity> searchByMeal = [];
+  List<IngredientQuantity> category = [];
+  List<IngredientQuantity> essentialsItem = [];
+  List<IngredientQuantity> vegateblesItem = [];
 
-  List<IngredientModel> myFrizeItems = [
-    IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
-    IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
-    IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
-    IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
-    IngredientModel(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
-    IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
+  List<IngredientQuantity> myFrizeItems = [
+    IngredientQuantity(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+    IngredientQuantity(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+    IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+    IngredientQuantity(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
+    IngredientQuantity(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
+    IngredientQuantity(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
   ];
 
   @override

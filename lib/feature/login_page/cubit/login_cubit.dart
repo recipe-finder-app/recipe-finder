@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import '../../../core/base/model/base_view_model.dart';
-import '../../../core/constant/enum/hive_enum.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../product/model/user_model.dart';
 import '../service/login_service.dart';

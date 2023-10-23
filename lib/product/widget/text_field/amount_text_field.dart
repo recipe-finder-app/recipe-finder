@@ -4,10 +4,11 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 
 import '../../../core/init/language/locale_keys.g.dart';
-import '../../model/ingredient/ingredient_model.dart';
+import '../../model/ingredient_quantity/ingredient_quantity.dart';
+
 
 class AmountTextField extends StatefulWidget {
-  final IngredientModel model;
+  final IngredientQuantity model;
   final TextEditingController controller;
   AmountTextField({Key? key, required this.model, required this.controller}) : super(key: key);
 

@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
+import '../../../../model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../../utils/constant/image_path_enum.dart';
-import '../../../../model/ingredient/ingredient_model.dart';
 import '../../../../model/recipe/recipe_model.dart';
 
 class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
-  late List<IngredientModel> myFrizeItemList = [
-    IngredientModel(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 1),
-    IngredientModel(nameEN: 'Milk', imagePath: ImagePathConstant.milk.path, quantity: 0.25),
-    IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 1),
+  late List<IngredientQuantity> myFrizeItemList = [
+    IngredientQuantity(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 1),
+    IngredientQuantity(nameEN: 'Milk', imagePath: ImagePathConstant.milk.path, quantity: 0.25),
+    IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 1),
     /* IngredientModel(
         title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 1),
     IngredientModel(
         title: 'Potato', imagePath: ImagePath.potato.path, quantity: 0.25),*/
   ];
-  List<IngredientModel> missingItemList = [];
+  List<IngredientQuantity> missingItemList = [];
 
-  List<List<IngredientModel>> previousMissingItemList = [];
-  List<List<IngredientModel>> previousMyFrizeItemList = [];
+  List<List<IngredientQuantity>> previousMissingItemList = [];
+  List<List<IngredientQuantity>> previousMyFrizeItemList = [];
 
-  List<IngredientModel> firstMissingItemList = [];
-  List<IngredientModel> firstMyFrizeItemList = [];
+  List<IngredientQuantity> firstMissingItemList = [];
+  List<IngredientQuantity> firstMyFrizeItemList = [];
 
   AddToBasketCubit() : super(AddToBasketInit());
 
-  void setFirstItemLists(List<IngredientModel> myFrizeList, List<IngredientModel> missingList) {
+  void setFirstItemLists(List<IngredientQuantity> myFrizeList, List<IngredientQuantity> missingList) {
     firstMissingItemList.clear();
     firstMyFrizeItemList.clear();
     firstMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
@@ -59,8 +59,8 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     }
   }
 
-  void addItemToMissingList(IngredientModel model) {
-    List<IngredientModel> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
+  void addItemToMissingList(IngredientQuantity model) {
+    List<IngredientQuantity> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
       previousMissingItemList.add(missingItemList.toSet().toList());
       missingItemList.add(model);
@@ -68,8 +68,8 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     }
   }
 
-  void removeMissingItem(IngredientModel model) {
-    List<IngredientModel> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
+  void removeMissingItem(IngredientQuantity model) {
+    List<IngredientQuantity> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
       previousMissingItemList.add(missingItemList.toSet().toList());
       missingItemList.remove(model);
@@ -77,12 +77,12 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     }
   }
 
-  void addItemToMyFrizeList(IngredientModel model) {
-    List<IngredientModel> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
+  void addItemToMyFrizeList(IngredientQuantity model) {
+    List<IngredientQuantity> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
       previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
       bool isContainTitle = false;
-      IngredientModel? containModel;
+      IngredientQuantity? containModel;
       for (var item in myFrizeItemList) {
         if (item.nameEN!.toLowerCase() == model.nameEN!.toLowerCase()) {
           isContainTitle = true;
@@ -91,7 +91,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
         }
       }
       if (isContainTitle == true) {
-        IngredientModel newElement = IngredientModel(nameEN: model.nameEN, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
+        IngredientQuantity newElement = IngredientQuantity(nameEN: model.nameEN, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
         //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));//quantity: model.quantity
 
         int index = myFrizeItemList.indexOf(containModel!);
@@ -104,8 +104,8 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     }
   }
 
-  void removeMyFrizeItem(IngredientModel model) {
-    List<IngredientModel> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
+  void removeMyFrizeItem(IngredientQuantity model) {
+    List<IngredientQuantity> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
       previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
       myFrizeItemList.remove(model);
@@ -113,17 +113,17 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
     }
   }
 
-  void missingItemLoad(List<IngredientModel> missingItems) {
+  void missingItemLoad(List<IngredientQuantity> missingItems) {
     missingItemList = missingItems;
     emit(MissingItemListLoad(missingItemList.toSet().toList()));
   }
 
-  void calculateMissingItemList(RecipeModel recipeModel, List<IngredientModel> myFrizeList) {
+  void calculateMissingItemList(Recipe recipeModel, List<IngredientQuantity> myFrizeList) {
     missingItemList.clear();
 
     for (var myFrizeIngredient in myFrizeList) {
       for (var recipeIngredient in recipeModel.ingredients!) {
-        List<IngredientModel>? value = myFrizeList.where((element) => element.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()).toList();
+        List<IngredientQuantity>? value = myFrizeList.where((element) => element.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()).toList();
         if (!missingItemList.contains(recipeIngredient) && value.isEmpty) {
           //!missingItemList.contains(recipeIngredient) bu kontrol aynı  malzemenin döngüde tekrar eklenmemesi için konuldu
           missingItemList.add(recipeIngredient);

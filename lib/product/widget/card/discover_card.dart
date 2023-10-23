@@ -11,7 +11,7 @@ import '../../utils/constant/image_path_enum.dart';
 import '../../../core/widget/text/bold_text.dart';
 
 class DiscoverCard extends StatelessWidget {
-  final RecipeModel model;
+  final Recipe model;
   final double? width;
   final VoidCallback? onPressed;
   final VoidCallback? likeIconOnPressed;
@@ -30,7 +30,7 @@ class DiscoverCard extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: BoldText(
-                text: model.title!,
+                text: model.nameEN!,
                 textColor: ColorConstants.instance.white,
                 style: const TextStyle(fontSize: 12),
                 textAlign: TextAlign.start,

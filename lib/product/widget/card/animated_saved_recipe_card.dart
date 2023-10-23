@@ -12,7 +12,7 @@ import '../../../core/widget/text/locale_text.dart';
 import '../alert_dialog/question_alert_dialog.dart';
 
 class AnimatedLikesRecipeCard extends StatefulWidget {
-  final RecipeModel model;
+  final Recipe model;
   final VoidCallback? onPressed;
   final VoidCallback? addToBasketOnPressed;
   final VoidCallback? likeIconOnPressedYes;
@@ -85,7 +85,7 @@ class _AnimatedLikesRecipeCardState extends State<AnimatedLikesRecipeCard> with 
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: BoldText(
-                          text: widget.model.title!,
+                          text: widget.model.nameEN!,
                           textColor: ColorConstants.instance.white,
                           style: const TextStyle(fontSize: 12),
                           textAlign: TextAlign.start,

@@ -7,12 +7,12 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/feature/material_search_page/cubit/material_state.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/text_field/search_text_field.dart';
 import '../cubit/material_cubit.dart';
@@ -93,7 +93,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
   }
 
   Widget buildCategoryOfIngredientList(MaterialSearchCubit cubitRead) {
-    return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientModel>>?>(selector: (state) {
+    return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientQuantity>>?>(selector: (state) {
       if (state is SearchedIngredientListLoad) {
         return state.searchedMap;
       } else if (state is IngredientListLoad) {
@@ -116,7 +116,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
     });
   }
 
-  Widget buildIngredientList(Map<CategoryOfIngredientModel, List<IngredientModel>> state) {
+  Widget buildIngredientList(Map<CategoryOfIngredientModel, List<IngredientQuantity>> state) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: state.keys.length,

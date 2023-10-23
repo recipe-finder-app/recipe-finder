@@ -2,7 +2,7 @@ import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/model/token/token_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../core/constant/enum/hive_enum.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 import '../../../product/utils/constant/service_path.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/network/vexana/vexana_manager.dart';

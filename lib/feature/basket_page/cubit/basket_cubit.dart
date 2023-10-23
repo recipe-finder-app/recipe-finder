@@ -5,50 +5,51 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 
 class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
   IBasketService? service;
-  RecipeModel? selectedCardModel;
+  Recipe? selectedCardModel;
 
-  late List<RecipeModel> basketRecipeItems = [
-    RecipeModel(
+  late List<Recipe> basketRecipeItems = [
+    Recipe(
       imagePath: 'asset/png/foot2.png',
-      title: 'Deneme Text 1',
+      nameEN: 'Deneme Text 1',
       ingredients: [
-        IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 5),
-        IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
-        IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
-        IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
-        IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 4),
+        IngredientQuantity(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 5),
+        IngredientQuantity(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+        IngredientQuantity(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+        IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+        IngredientQuantity(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 4),
       ],
     ),
-    RecipeModel(
+    Recipe(
       imagePath: 'asset/png/foot1.png',
-      title: 'Deneme Text 2',
+      nameEN: 'Deneme Text 2',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
     ),
-    RecipeModel(
+    Recipe(
       imagePath: 'asset/png/foot2.png',
-      title: 'Deneme Text 3',
+      nameEN: 'Deneme Text 3',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
     ),
   ];
 
   BasketCubit() : super(BasketsInit());
-  late List<IngredientModel> myFinderFrizeItems;
+  late List<IngredientQuantity> myFinderFrizeItems;
 
   int? selectedColorIndex;
   @override
@@ -57,26 +58,27 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     selectedColorIndex = null;
     service = BasketService();
     myFinderFrizeItems = [
-      IngredientModel(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
-      IngredientModel(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
-      IngredientModel(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
-      IngredientModel(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
-      IngredientModel(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
-      IngredientModel(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
+      IngredientQuantity(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
+      IngredientQuantity(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
+      IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
+      IngredientQuantity(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
+      IngredientQuantity(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
+      IngredientQuantity(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
     ];
   }
 
-  void addItemFromBasketRecipeList(RecipeModel model) {
+  void addItemFromBasketRecipeList(Recipe model) {
     basketRecipeItems.add(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
+   
   }
 
-  void deletedItemFromBasketRecipeList(RecipeModel model) {
+  void deletedItemFromBasketRecipeList(Recipe model) {
     basketRecipeItems.remove(model);
     emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
   }
 
-  void changeSelectedCardModel(RecipeModel? model) {
+  void changeSelectedCardModel(Recipe? model) {
     if (selectedCardModel == model) {
       selectedCardModel = null;
       emit(ChangeSelectedCardModel(selectedCardModel));

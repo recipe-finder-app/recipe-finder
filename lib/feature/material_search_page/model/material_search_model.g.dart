@@ -19,7 +19,7 @@ class MaterialSearchModelAdapter extends TypeAdapter<MaterialSearchModel> {
     return MaterialSearchModel(
       materialSearchMap: (fields[0] as Map?)?.map((dynamic k, dynamic v) =>
           MapEntry(k as CategoryOfIngredientModel,
-              (v as List).cast<IngredientModel>())),
+              (v as List).cast<IngredientQuantity>())),
     );
   }
 

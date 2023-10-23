@@ -1,51 +1,99 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 import 'package:vexana/vexana.dart';
+
+import '../ingredient_quantity/ingredient_quantity.dart';
 
 part 'recipe_model.g.dart';
 
 @JsonSerializable()
 @HiveType(typeId: 7)
-class RecipeModel extends HiveObject implements INetworkModel<RecipeModel> {
-  final String? imagePath;
-  final String? directions;
-  final String? videoPath;
-  final List<IngredientModel>? ingredients;
-  @JsonKey(name: '_id')
+class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Recipe> {
+
+  @JsonKey(name: 'id')
   @HiveField(0)
   final String? id;
 
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'name_en')
   @HiveField(1)
-  final String? title;
+  final String? nameEN;
 
-  @JsonKey(name: 'description')
+  @JsonKey(name: 'name_tr')
   @HiveField(2)
-  final String? description;
+  final String? nameTR;
 
-  @JsonKey(name: 'categoryId')
+@JsonKey(name: 'category_id')
   @HiveField(3)
   final String? categoryId;
 
-  RecipeModel({this.id, this.title, this.description, this.categoryId, this.imagePath, this.directions, this.videoPath, this.ingredients});
+  @JsonKey(name: 'category_name_en')
+  @HiveField(4)
+  final String? categoryNameEN;
+
+  @JsonKey(name: 'category_name_tr')
+  @HiveField(5)
+  final String? categoryNameTR;
+
+  @JsonKey(name: 'description_en')
+  @HiveField(6)
+  final String? descriptionEN;
+
+  @JsonKey(name: 'description_tr')
+  @HiveField(7)
+  final String? descriptionTR;
+
+  @JsonKey(name: 'directions_en')
+  @HiveField(8)
+   final String? directionsEN;
+
+@JsonKey(name: 'directions_tr')
+  @HiveField(9)
+   final String? directionsTR;
+
+@JsonKey(name: 'image_url')
+  @HiveField(10)
+   final String? imagePath;
+
+ 
+  final String? videoPath;
+  final List<IngredientQuantity>? ingredients;
+    Recipe({
+    this.id,
+    this.nameEN,
+    this.nameTR,
+    this.categoryId,
+    this.categoryNameEN,
+    this.categoryNameTR,
+    this.descriptionEN,
+    this.descriptionTR,
+    this.directionsEN,
+    this.directionsTR,
+    this.imagePath,
+    this.videoPath,
+    this.ingredients
+  });
+
 
   @override
-  factory RecipeModel.fromJson(Map<String, dynamic> json) => _$RecipeModelFromJson(json);
+  factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$RecipeModelToJson(this);
+  Map<String, dynamic> toJson() => _$RecipeToJson(this);
 
   @override
-  RecipeModel fromJson(Map<String, dynamic> json) {
-    return _$RecipeModelFromJson(json);
+  Recipe fromJson(Map<String, dynamic> json) {
+    return _$RecipeFromJson(json);
   }
+
+@override
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, descriptionEN, descriptionTR, directionsEN, directionsTR, imagePath, videoPath, ingredients];
 }
 
 @JsonSerializable(explicitToJson: true)
 class RecipeListModel extends INetworkModel<RecipeListModel> {
   @JsonKey(name: 'data')
-  final List<RecipeModel>? recipeList;
+  final List<Recipe>? recipeList;
   final bool? success;
 
   RecipeListModel({this.recipeList, this.success});

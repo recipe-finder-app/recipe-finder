@@ -14,7 +14,7 @@ import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart'
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
-import '../../../core/constant/enum/hive_enum.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 import '../../../product/utils/constant/navigation_constants.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/navigation/navigation_service.dart';

@@ -4,7 +4,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 
 class BasketRecipeCard extends StatelessWidget {
-  final RecipeModel model;
+  final Recipe model;
   final VoidCallback? cardOnPressed;
   final BoxBorder? border;
   final Gradient? gradient;
@@ -37,7 +37,7 @@ class BasketRecipeCard extends StatelessWidget {
             Align(
               alignment: Alignment.bottomLeft,
               child: Text(
-                model.title!,
+                model.nameEN!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: TextStyle(

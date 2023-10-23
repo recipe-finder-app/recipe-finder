@@ -18,7 +18,7 @@ class IngredientsOfCategoryModelAdapter
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return IngredientsOfCategoryModel(
-      ingredientList: (fields[0] as List?)?.cast<IngredientModel>(),
+      ingredientList: (fields[0] as List?)?.cast<IngredientQuantity>(),
     );
   }
 
@@ -49,7 +49,7 @@ IngredientsOfCategoryModel _$IngredientsOfCategoryModelFromJson(
         Map<String, dynamic> json) =>
     IngredientsOfCategoryModel(
       ingredientList: (json['data'] as List<dynamic>?)
-          ?.map((e) => IngredientModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => IngredientQuantity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

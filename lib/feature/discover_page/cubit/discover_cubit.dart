@@ -9,86 +9,86 @@ import '../../../core/base/model/base_view_model.dart';
 import '../../../product/utils/constant/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/alert_dialog/alert_dialog_error.dart';
-import '../../../product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../product/model/recipe/recipe_model.dart';
 import 'discover_state.dart';
 
 class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   DiscoverCubit() : super(const DiscoverState(isLoading: false));
 
-  late PagingController<int, RecipeModel> pagingController;
+  late PagingController<int, Recipe> pagingController;
   late ScrollController scrollController;
-  List<RecipeModel> discoverRecipeList = [
-    RecipeModel(
+  List<Recipe> discoverRecipeList = [
+    Recipe(
       imagePath: ImagePathConstant.imageSample1.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
           'uzun text deneme',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
-    RecipeModel(
+    Recipe(
       imagePath: ImagePathConstant.imageSample2.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken',
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
-    RecipeModel(
+    Recipe(
       imagePath: ImagePathConstant.imageSample3.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken',
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
-    RecipeModel(
+    Recipe(
       imagePath: ImagePathConstant.imageSample4.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken',
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
-    RecipeModel(
+    Recipe(
       imagePath: ImagePathConstant.imageSample3.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken',
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
-    RecipeModel(
+    Recipe(
       imagePath: ImagePathConstant.imageSample4.path,
-      title: 'Cajun spiced Cauliflower Rice with Chicken',
+      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
       ingredients: [
-        IngredientModel(nameEN: 'Egg', quantity: 4),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientModel(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Egg', quantity: 4),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
+        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
+      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
     ),
   ];
 
   late IDiscoverService service;
   final String allCategoryId = "646626f7c5977497890bd3f8"; // ""tümünü getiren kategorinin id'si.
 
-  void deleteItemFromDiscoverRecipeList(RecipeModel model) {
+  void deleteItemFromDiscoverRecipeList(Recipe model) {
     discoverRecipeList.remove(model);
     // emit(state.copyWith(discoverRecipeItemList: discoverRecipeList));
   }
@@ -223,7 +223,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
       pagingController.error = error;
     }
   }*/
-  List<RecipeModel>? recipeListByCategory(dynamic categoryId) {
+  List<Recipe>? recipeListByCategory(dynamic categoryId) {
     if (categoryId != state.selectedCategoryId) {
       emit(state.copyWith(pageKey: 1)); //kategori değişmişse 1.page'den başla
     }

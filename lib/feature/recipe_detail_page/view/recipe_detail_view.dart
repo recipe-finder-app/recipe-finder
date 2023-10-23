@@ -23,7 +23,7 @@ import '../../likes_page/cubit/likes_cubit.dart';
 import '../../likes_page/cubit/likes_state.dart';
 
 class RecipeDetailView extends StatefulWidget {
-  RecipeModel recipeModel;
+  Recipe recipeModel;
   RecipeDetailView({Key? key, required this.recipeModel}) : super(key: key);
 
   @override
@@ -198,7 +198,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           children: [
             context.lowSizedBox,
             BoldText(
-              text: widget.recipeModel.title!,
+              text: widget.recipeModel.nameEN!,
               fontSize: 16,
               maxLines: 3,
               textColor: Colors.black,
@@ -295,7 +295,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
       children: [
         context.normalSizedBox,
         Text(
-          widget.recipeModel.directions ?? '',
+          widget.recipeModel.directionsEN ?? '',
           style: const TextStyle(overflow: TextOverflow.clip),
         ),
       ],
@@ -348,7 +348,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
         const LocaleBoldText(text: LocaleKeys.description),
         context.lowSizedBox,
         Text(
-          widget.recipeModel?.description ?? '',
+          widget.recipeModel?.descriptionEN ?? '',
           style: const TextStyle(overflow: TextOverflow.ellipsis),
           maxLines: 3,
         ),

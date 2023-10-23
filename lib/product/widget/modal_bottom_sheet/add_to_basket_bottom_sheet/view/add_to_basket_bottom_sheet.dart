@@ -12,7 +12,7 @@ import '../../../../../core/widget/text/bold_text.dart';
 import '../../../../../core/widget/text/locale_bold_text.dart';
 import '../../../../../core/widget/text/locale_text.dart';
 import '../../../../../feature/basket_page/cubit/basket_cubit.dart';
-import '../../../../model/ingredient/ingredient_model.dart';
+import '../../../../model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../button/recipe_circular_button.dart';
 import '../../../circle_avatar/draggable_ingredient_circle_avatar.dart';
 import '../cubit/add_to_basket_bottom_sheet_cubit.dart';
@@ -22,7 +22,7 @@ class AddToBasketBottomSheet {
   static AddToBasketBottomSheet instance = AddToBasketBottomSheet._init();
   AddToBasketBottomSheet._init();
 
-  Future<void> show(BuildContext context, RecipeModel recipeModel) {
+  Future<void> show(BuildContext context, Recipe recipeModel) {
     context.read<AddToBasketCubit>().calculateMissingItemList(recipeModel, context.read<AddToBasketCubit>().myFrizeItemList);
     context.read<AddToBasketCubit>().setFirstItemLists(context.read<AddToBasketCubit>().myFrizeItemList, context.read<AddToBasketCubit>().missingItemList);
     return CircularBottomSheet.instance.show(
@@ -69,7 +69,7 @@ class AddToBasketBottomSheet {
                 }
               },
               builder: (context, draggingState) {
-                return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientModel>>(
+                return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientQuantity>>(
                   selector: (state) {
                     if (state is MissingItemListLoad) {
                       return state.missingItemList;
@@ -80,7 +80,7 @@ class AddToBasketBottomSheet {
                   builder: (BuildContext context, state) {
                     return Flexible(
                       flex: 4,
-                      child: DragTarget<IngredientModel>(onAccept: (data) {
+                      child: DragTarget<IngredientQuantity>(onAccept: (data) {
                         context.read<AddToBasketCubit>().addItemToMissingList(data);
                         context.read<AddToBasketCubit>().removeMyFrizeItem(data);
                       }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
@@ -122,7 +122,7 @@ class AddToBasketBottomSheet {
               return false;
             }
           }, builder: (context, draggingState) {
-            return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientModel>>(selector: (state) {
+            return BlocSelector<AddToBasketCubit, IAddToBasketState, List<IngredientQuantity>>(selector: (state) {
               if (state is MyFrizeListLoad) {
                 return state.myFrizeItemList;
               } else {
@@ -133,7 +133,7 @@ class AddToBasketBottomSheet {
                 flex: 4,
                 child: context.read<AddToBasketCubit>().myFrizeItemList == null
                     ? const Center()
-                    : DragTarget<IngredientModel>(onAccept: (data) {
+                    : DragTarget<IngredientQuantity>(onAccept: (data) {
                         context.read<AddToBasketCubit>().addItemToMyFrizeList(data);
                         context.read<AddToBasketCubit>().removeMissingItem(data);
                       }, builder: (BuildContext context, List<Object?> candidateData, List<dynamic> rejectedData) {
@@ -161,7 +161,7 @@ class AddToBasketBottomSheet {
     );
   }
 
-  ListView _myFrizeItemListView(List<IngredientModel> state) {
+  ListView _myFrizeItemListView(List<IngredientQuantity> state) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: state.length,
@@ -195,14 +195,14 @@ class AddToBasketBottomSheet {
         });
   }
 
-  ListView _missingItemsListView(List<IngredientModel> state) {
+  ListView _missingItemsListView(List<IngredientQuantity> state) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: state.length,
         itemBuilder: (BuildContext context, int missingItemIndex) {
           return Padding(
             padding: EdgeInsets.only(right: context.lowValue),
-            child: DraggableIngredientCircleAvatar<IngredientModel>(
+            child: DraggableIngredientCircleAvatar<IngredientQuantity>(
               data: state[missingItemIndex],
               onDragStarted: () {
                 context.read<AddToBasketCubit>().missingItemDragging(true);

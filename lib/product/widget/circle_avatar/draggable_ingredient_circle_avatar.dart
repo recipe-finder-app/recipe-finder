@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
 
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text/locale_text.dart';
+import '../../model/ingredient_quantity/ingredient_quantity.dart';
 
 class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget {
-  final IngredientModel model;
+  final IngredientQuantity model;
   final Color? color;
   final Widget? iconTopWidget;
   final VoidCallback? onDragStarted;

@@ -1,4 +1,5 @@
-import '../../../../model/ingredient/ingredient_model.dart';
+
+import '../../../../model/ingredient_quantity/ingredient_quantity.dart';
 
 abstract class IAddToBasketState {
   IAddToBasketState();
@@ -14,7 +15,7 @@ class AddToBasketLoading extends IAddToBasketState {
 }
 
 class MissingItemListLoad extends IAddToBasketState {
-  late List<IngredientModel> missingItemList;
+  late List<IngredientQuantity> missingItemList;
   MissingItemListLoad(this.missingItemList);
 }
 
@@ -24,7 +25,7 @@ class MissingItemDragging extends IAddToBasketState {
 }
 
 class MyFrizeListLoad extends IAddToBasketState {
-  late List<IngredientModel> myFrizeItemList;
+  late List<IngredientQuantity> myFrizeItemList;
   MyFrizeListLoad(this.myFrizeItemList);
 }
 

@@ -1,12 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
 
-part 'ingredient_model.g.dart';
+part 'ingredient.g.dart';
 
 @HiveType(typeId: 2)
 @JsonSerializable()
-class IngredientModel extends HiveObject implements INetworkModel<IngredientModel> {
+class Ingredient extends HiveObject  with EquatableMixin implements INetworkModel<Ingredient> {
   @HiveField(0)
   final String? id;
 
@@ -15,31 +16,29 @@ class IngredientModel extends HiveObject implements INetworkModel<IngredientMode
   final String? nameEN;
 
    @JsonKey(name: 'name_tr')
-  @HiveField(1)
+  @HiveField(2)
   final String? nameTR;
 
    @JsonKey(name: 'category_id')
-  @HiveField(1)
+  @HiveField(3)
   final String? categoryId;
 
     @JsonKey(name: 'category_name_en')
-  @HiveField(1)
+  @HiveField(4)
   final String? categoryNameEN;
 
     @JsonKey(name: 'category_name_tr')
-  @HiveField(1)
+  @HiveField(5)
   final String? categoryNameTR;
   
-  @HiveField(2)
+  @HiveField(6)
   final String? imagePath;
 
-  @HiveField(3)
+  @HiveField(7)
   final int? color;
   
-  @HiveField(4)
-  final double? quantity;
 
-    IngredientModel({
+    Ingredient({
     this.id,
     this.nameEN,
     this.nameTR,
@@ -48,21 +47,20 @@ class IngredientModel extends HiveObject implements INetworkModel<IngredientMode
     this.categoryNameTR,
     this.imagePath,
     this.color,
-    this.quantity
   });
 
 
   @override
-  factory IngredientModel.fromJson(Map<String, dynamic> json) => _$IngredientModelFromJson(json);
+  factory Ingredient.fromJson(Map<String, dynamic> json) => _$IngredientFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$IngredientModelToJson(this);
+  Map<String, dynamic> toJson() => _$IngredientToJson(this);
 
 @override
-List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imagePath, color, quantity];
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imagePath, color];
 
   @override
-  IngredientModel fromJson(Map<String, dynamic> json) {
-    return _$IngredientModelFromJson(json);
+  Ingredient fromJson(Map<String, dynamic> json) {
+    return _$IngredientFromJson(json);
   }
 }

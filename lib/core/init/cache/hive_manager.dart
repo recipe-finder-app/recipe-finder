@@ -1,13 +1,14 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
+import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 import 'package:recipe_finder/product/model/recipe_category/category_of_recipes.dart';
 
-import '../../../product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient/ingredient.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../../../product/model/ingredient_category/ingredients_of_category_model.dart';
 import '../../../product/model/user_model.dart';
-import '../../constant/enum/hive_enum.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 
 abstract class IHiveManager<T> {
   HiveBoxEnum hiveBoxName;
@@ -109,7 +110,10 @@ class HiveManager<T> extends IHiveManager<T> {
       Hive.registerAdapter(UserAdapter());
     }
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientModelAdapter.value)) {
-      Hive.registerAdapter(IngredientModelAdapter());
+      Hive.registerAdapter(IngredientAdapter());
+    }
+     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientQuantityAdapter.value)) {
+      Hive.registerAdapter(IngredientQuantityAdapter());
     }
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientsOfCategoryModelAdapter.value)) {
       Hive.registerAdapter(IngredientsOfCategoryModelAdapter());
@@ -124,7 +128,7 @@ class HiveManager<T> extends IHiveManager<T> {
       Hive.registerAdapter(CategoryOfRecipesModelAdapter());
     }
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.recipeModelAdapter.value)) {
-      Hive.registerAdapter(RecipeModelAdapter());
+      Hive.registerAdapter(RecipeAdapter());
     }
   }
 }

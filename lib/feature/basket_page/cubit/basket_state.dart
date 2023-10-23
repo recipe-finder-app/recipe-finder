@@ -1,6 +1,6 @@
 import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
 
-import '../../../product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 
 abstract class IBasketState {
   IBasketState();
@@ -16,17 +16,17 @@ class OnBasketLoading extends IBasketState {
 }
 
 class BasketRecipeItemListLoad extends IBasketState {
-  late List<RecipeModel> basketRecipeItemList;
+  late List<Recipe> basketRecipeItemList;
   BasketRecipeItemListLoad(this.basketRecipeItemList);
 }
 
 class MyFrizeListLoad extends IBasketState {
-  late List<IngredientModel> myFrizeList;
+  late List<IngredientQuantity> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);
 }
 
 class ChangeSelectedCardModel extends IBasketState {
-  RecipeModel? model;
+  Recipe? model;
   ChangeSelectedCardModel(this.model);
 }
 

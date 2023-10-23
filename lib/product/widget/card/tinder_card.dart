@@ -11,7 +11,7 @@ class TinderCard extends StatelessWidget {
     this.recipeOnPressed,
   });
 
-  final RecipeModel model;
+  final Recipe model;
   final VoidCallback? recipeOnPressed;
 
   @override
@@ -52,7 +52,7 @@ class TinderCard extends StatelessWidget {
             child: Padding(
               padding: context.paddingNormalOnlyTop,
               child: Text(
-                model.title!,
+                model.nameEN!,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,

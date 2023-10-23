@@ -43,7 +43,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
     selectedPreviousTabBarIndex = 0;
   }
 
-  void share(RecipeModel recipeModel) {
+  void share(Recipe recipeModel) {
     String ingredientsText = '';
     for (var ingredient in recipeModel.ingredients!) {
       ingredientsText = '$ingredientsText\n ${ingredient.quantity} ${ingredient.nameEN}';
@@ -52,13 +52,13 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
     String message = '${LocaleKeys.ingredients.locale}\n'
         '$ingredientsText\n\n'
         '${LocaleKeys.description}\n\n'
-        '${recipeModel.description}\n\n'
+        '${recipeModel.descriptionEN}\n\n'
         '${LocaleKeys.directions}\n\n'
-        '${recipeModel.directions}\n\n';
+        '${recipeModel.directionsEN}\n\n';
     Share.share(message);
   }
 
-  bool isSavedRecipeContainThisRecipe(RecipeModel recipeModel) {
+  bool isSavedRecipeContainThisRecipe(Recipe recipeModel) {
     bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
     return result;
   }

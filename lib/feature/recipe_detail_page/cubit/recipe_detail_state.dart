@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 
-import '../../../product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
+
 
 abstract class IRecipeDetailState {
   IRecipeDetailState();
@@ -16,7 +17,7 @@ class MyFrizeListLoading extends IRecipeDetailState {
 }
 
 class MyFrizeListLoad extends IRecipeDetailState {
-  late List<IngredientModel> myFrizeList;
+  late List<IngredientQuantity> myFrizeList;
   MyFrizeListLoad(this.myFrizeList);
 }
 

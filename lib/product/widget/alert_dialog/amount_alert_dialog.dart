@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 import 'package:recipe_finder/product/widget/circle_avatar/ingredient_circle_avatar.dart';
 import 'package:recipe_finder/product/widget/text_field/amount_text_field.dart';
@@ -11,7 +11,7 @@ import 'package:recipe_finder/product/widget/text_field/amount_text_field.dart';
 import '../../../core/widget/text/locale_text.dart';
 
 class AmountAlertDialog extends StatefulWidget {
-  final IngredientModel model;
+  final IngredientQuantity model;
   final ValueChanged<double>? onPressedAdd;
   const AmountAlertDialog({Key? key, required this.model, this.onPressedAdd}) : super(key: key);
 

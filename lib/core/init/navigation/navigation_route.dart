@@ -48,7 +48,7 @@ class NavigationRoute {
       case NavigationConstant.MATERIALSEARCH:
         return normalNavigate(const MaterialSearchView(), NavigationConstant.MATERIALSEARCH);
       case NavigationConstant.RECIPE_DETAIL:
-        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as RecipeModel), NavigationConstant.RECIPE_DETAIL);
+        return normalNavigate(RecipeDetailView(recipeModel: args.arguments as Recipe), NavigationConstant.RECIPE_DETAIL);
       case NavigationConstant.FINDER:
         return normalNavigate(const FinderView(), NavigationConstant.FINDER);
       case NavigationConstant.ABOUTUS:

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 
 import '../../../product/model/recipe_category/category_of_recipes.dart';
 
@@ -22,22 +22,22 @@ class HomeError extends IHomeState {
 }
 
 class SearchByMealListLoaded extends IHomeState {
-  List<IngredientModel>? searchByMealList;
+  List<IngredientQuantity>? searchByMealList;
   SearchByMealListLoaded(this.searchByMealList);
 }
 
 class CategoryListLoaded extends IHomeState {
-  List<IngredientModel>? categoryList;
+  List<IngredientQuantity>? categoryList;
   CategoryListLoaded(this.categoryList);
 }
 
 class EssentialListLoaded extends IHomeState {
-  List<IngredientModel>? essentialsList;
+  List<IngredientQuantity>? essentialsList;
   EssentialListLoaded(this.essentialsList);
 }
 
 class VegatableListLoaded extends IHomeState {
-  List<IngredientModel>? vegatablesList;
+  List<IngredientQuantity>? vegatablesList;
   VegatableListLoaded(this.vegatablesList);
 }
 

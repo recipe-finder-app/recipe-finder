@@ -22,7 +22,7 @@ class ChangeSelectedCategoryIndex extends IDiscoverState {
 }
 
 class DiscoverRecipeItemListLoad extends IDiscoverState {
-  late List<RecipeModel> discoverRecipeItemList;
+  late List<Recipe> discoverRecipeItemList;
   DiscoverRecipeItemListLoad(this.discoverRecipeItemList);
 }
 
@@ -32,7 +32,7 @@ class DiscoverError extends IDiscoverState {
 }
 
 class DiscoverState extends Equatable {
-  final List<RecipeModel>? recipeList;
+  final List<Recipe>? recipeList;
   final List<CategoryOfRecipesModel>? categoryList;
   final dynamic selectedCategoryId;
   final Map<String, int>? categoryCurrentPageMap;
@@ -56,7 +56,7 @@ class DiscoverState extends Equatable {
   List<Object?> get props => [recipeList, categoryList, selectedCategoryId, categoryCurrentPageMap, isLoading, pageKey, hasMoreRecipe, newPageLoading];
 
   DiscoverState copyWith({
-    List<RecipeModel>? recipeList,
+    List<Recipe>? recipeList,
     List<CategoryOfRecipesModel>? categoryList,
     dynamic? selectedCategoryId,
     Map<String, int>? categoryCurrentPageMap,

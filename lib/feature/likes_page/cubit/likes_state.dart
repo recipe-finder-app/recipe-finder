@@ -14,7 +14,7 @@ class OnLikesLoading extends ILikesState {
 }
 
 class LikesRecipeItemListLoad extends ILikesState {
-  late List<RecipeModel> likesRecipeItemList;
+  late List<Recipe> likesRecipeItemList;
   LikesRecipeItemListLoad(this.likesRecipeItemList);
 }
 

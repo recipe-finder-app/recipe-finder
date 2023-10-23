@@ -11,7 +11,7 @@ import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
 
 class LikesRecipeCard extends StatelessWidget {
-  final RecipeModel model;
+  final Recipe model;
   final VoidCallback? onPressed;
   final VoidCallback? addToBasketOnPressed;
   final VoidCallback? likeIconOnPressed;
@@ -33,7 +33,7 @@ class LikesRecipeCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: BoldText(
-                      text: model.title!,
+                      text: model.nameEN!,
                       textColor: ColorConstants.instance.white,
                       style: const TextStyle(fontSize: 12),
                       textAlign: TextAlign.start,

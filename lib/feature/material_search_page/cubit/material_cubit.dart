@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recipe_finder/core/constant/enum/hive_enum.dart';
+import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
+import 'package:recipe_finder/product/utils/enum/hive_enum.dart';
 import 'package:recipe_finder/core/init/cache/hive_manager.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient_model.dart';
+import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
@@ -16,12 +17,12 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
 
   IMaterialSearchService? service;
 
-  List<IngredientModel> essentials = [];
-  List<IngredientModel> vegetables = [];
-  List<IngredientModel> fruits = [];
+  List<IngredientQuantity> essentials = [];
+  List<IngredientQuantity> vegetables = [];
+  List<IngredientQuantity> fruits = [];
 
   late TextEditingController searchTextController;
-  late Map<CategoryOfIngredientModel, List<IngredientModel>>? searchedMap;
+  late Map<CategoryOfIngredientModel, List<IngredientQuantity>>? searchedMap;
   late MaterialSearchModel materialSearchModel;
   bool isLoading = false;
   @override
@@ -84,7 +85,7 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
     return result?.data?.ingredientCategoryList?.toList();
   }
 
-  Future<List<IngredientModel>?> fetchIngredientsOfCategory(String categoryId) async {
+  Future<List<IngredientQuantity>?> fetchIngredientsOfCategory(String categoryId) async {
     final result = await service!.ingredientsOfCategory(categoryId);
     return result?.data?.ingredientList?.toList();
   }
