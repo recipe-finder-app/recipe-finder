@@ -8,7 +8,7 @@ part of 'ingredient_quantity.dart';
 
 class IngredientQuantityAdapter extends TypeAdapter<IngredientQuantity> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
   IngredientQuantity read(BinaryReader reader) {

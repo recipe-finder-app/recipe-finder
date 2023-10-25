@@ -10,6 +10,7 @@ part 'ingredient.g.dart';
 @JsonSerializable()
 class Ingredient extends HiveObject  with EquatableMixin implements INetworkModel<Ingredient> {
   @HiveField(0)
+  @JsonKey(name: 'id')
   final String? id;
 
   @JsonKey(name: 'name_en')

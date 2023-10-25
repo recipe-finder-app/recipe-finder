@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/init/language/language_manager.dart';
+import 'package:recipe_finder/product/model/error_model.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient.dart';
 import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
@@ -16,8 +18,8 @@ import '../../../product/model/ingredient_category/category_of_ingredient_model.
 import '../service/material_service.dart';
 import 'material_state.dart';
 
-class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseViewModel {
-   MaterialSearchCubits() : super(const MaterialSearchState(isLoading: false,materialSearchMap: {},materialSearchSearchedMap: {}));
+class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseViewModel {
+   MaterialSearchCubit() : super(const MaterialSearchState(isLoading: false,isSearching: false, materialSearchMap: {},materialSearchSearchedMap: {},error: null));
    late TextEditingController searchTextController;
    late IMaterialSearchService service;
      @override
@@ -25,7 +27,8 @@ class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseVi
    
      @override
      void dispose() {
-    // TODO: implement dispose
+    searchTextController.dispose;
+    stateClear();
      }
    
      @override
@@ -38,36 +41,19 @@ class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseVi
      Future<List<QueryDocumentSnapshot<IngredientCategory?>>> fetchIngredientCategoryList() async {
      final response = await service.fetchIngredientCategories().get();
      final responseDocs = response.docs;
+   
      return responseDocs;
      }
-     Future<List<QueryDocumentSnapshot<Ingredient?>>> fetchIngredientList() async {
+     Future<List<QueryDocumentSnapshot<IngredientQuantity?>>> fetchIngredientList() async {
      final response = await service.fetchIngredientList().get();
      final responseDocs = response.docs;
+    
      return responseDocs;
      }
-     void searchData(String data) {
-     emit(state.copyWith(materialSearchMap: {}));
-     data = data.toLowerCase();
-     var searchedMap = state.materialSearchSearchedMap;
-     if(context!=null){
-     Locale currentLocale = LanguageManager.instance.currentLocale(context!);
-    for (var entry in state.materialSearchMap!.entries) {
-       bool isContainsCategoryName = currentLocale==LanguageManager.instance.trLocale ?  entry.key.nameTR!.toLowerCase().contains(data) : entry.key.nameEN!.toLowerCase().contains(data);
-      if (isContainsCategoryName) { 
-        searchedMap?[entry.key] = entry.value;
-      } else {
-        for (var element in entry.value) {
-           bool isContainsIngredient = currentLocale==LanguageManager.instance.trLocale ? element.nameTR!.toLowerCase().contains(data) : element.nameEN!.toLowerCase().contains(data);
-          if (isContainsIngredient) {
-            searchedMap![entry.key] = entry.value.where((element) => element.nameEN!.toLowerCase().contains(data)).toList();
-          }
-        }
-      }
-    }
-     }
-    emit(state.copyWith(materialSearchMap: searchedMap));
-  }
+   
   Future<void> fillMaterialSearchMap() async {
+    try{
+    changeIsLoadingState();
     Map<IngredientCategory, List<IngredientQuantity>>? materialSearchMap = {};
     var ingredientCategoryList = await fetchIngredientCategoryList();
     var ingredientList =  await fetchIngredientList();
@@ -77,18 +63,57 @@ class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseVi
      for(var ingredient in ingredientList){
       
      var ingredientData = ingredient.data();
-      if(categoryData?.id == ingredientData?.categoryId && categoryData!=null && ingredientData!=null){
+   
+      if(category.id == ingredientData?.categoryId && categoryData!=null && ingredientData!=null){
        
-         ingredientSameCategoryList.add(ingredientData as IngredientQuantity);
-      
-      }     
-     }
-     if(categoryData!=null) {
+         ingredientSameCategoryList.add(ingredientData);
        materialSearchMap[categoryData] = ingredientSameCategoryList;
+      }  
+      
      }
+    
     }
-     emit(state.copyWith(materialSearchMap: materialSearchMap));
 
+     emit(state.copyWith(materialSearchMap: materialSearchMap));
+    }
+    catch(e){
+      emit(state.copyWith(error: BaseError(message: e.toString())));
+    }
+    finally{
+ changeIsLoadingState();
+    }
+
+  }
+    void searchData(String data) {
+     emit(state.copyWith(materialSearchSearchedMap: {}));
+     changeIsSearchingState(true);
+     data = data.toLowerCase();
+     Map<IngredientCategory, List<IngredientQuantity>>? searchedMap = {};
+     if(context!=null){
+     Locale currentLocale = context!.locale;
+    for (var entry in state.materialSearchMap!.entries) {
+       bool isContainsCategoryName = currentLocale==LanguageManager.instance.trLocale ?  entry.key.nameTR!.toLowerCase().contains(data) : entry.key.nameEN!.toLowerCase().contains(data);
+      if (isContainsCategoryName) { 
+        searchedMap[entry.key] = entry.value;
+        print("entry.key${ searchedMap[entry.key]}");
+      } else {
+        for (var element in entry.value) {
+           bool isContainsIngredient = currentLocale==LanguageManager.instance.trLocale ? element.nameTR!.toLowerCase().contains(data) : element.nameEN!.toLowerCase().contains(data);
+          if (isContainsIngredient) {
+           List<IngredientQuantity> filteredList = entry.value.where((element) {
+  if (currentLocale == LanguageManager.instance.trLocale) {
+    return element.nameTR!.toLowerCase().contains(data);
+  } else {
+    return element.nameEN!.toLowerCase().contains(data);
+  }
+}).toList();
+           searchedMap[entry.key] = filteredList;
+          }
+        }
+      }
+    }
+     }
+    emit(state.copyWith(materialSearchSearchedMap: searchedMap));
   }
      Future<void> saveCacheMaterialSearchMap(
     MaterialSearchModel materialSearchModel,
@@ -103,6 +128,16 @@ class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseVi
       final loading = state.isLoading!;
     emit(state.copyWith(isLoading: !loading));
   }
+   void changeIsSearchingState(bool isSearching) {
+    emit(state.copyWith(isSearching: isSearching));
+  }
+  stateClear(){
+     emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isSearching: false));    
+       emit(state.copyWith(materialSearchMap: {}));
+        emit(state.copyWith(materialSearchSearchedMap: {}));
+          emit(state.copyWith(error: const BaseError(message: '')));
+  }
      @override
      void setContext(BuildContext context) {
       this.context = context;
@@ -110,7 +145,7 @@ class MaterialSearchCubits extends Cubit<MaterialSearchState> implements IBaseVi
 
 
 }
-class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseViewModel {
+/*class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseViewModel {
   MaterialSearchCubit() : super(MaterialSearchInit());
 
   IMaterialSearchService? service;
@@ -233,4 +268,4 @@ class MaterialSearchCubit extends Cubit<IMaterialSearchState> implements IBaseVi
     materialSearchModel = MaterialSearchModel(materialSearchMap: {});
     searchTextController?.clear();
   }
-}
+}*/

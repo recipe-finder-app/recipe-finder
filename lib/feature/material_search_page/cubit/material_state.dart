@@ -41,11 +41,13 @@ class SearchedIngredientListLoad extends IMaterialSearchState {
 
 class MaterialSearchState extends Equatable{
   final bool? isLoading;
+  final bool? isSearching;
   final BaseError? error;
   final Map<IngredientCategory, List<IngredientQuantity>>? materialSearchMap;
   final Map<IngredientCategory, List<IngredientQuantity>>? materialSearchSearchedMap;
    const  MaterialSearchState({
     this.isLoading,
+    this.isSearching,
     this.error,
     this.materialSearchMap,
     this.materialSearchSearchedMap
@@ -54,15 +56,17 @@ class MaterialSearchState extends Equatable{
  
 
 @override
-List<Object?> get props => [isLoading, error, materialSearchMap,materialSearchSearchedMap];
+List<Object?> get props => [isLoading,isSearching, error, materialSearchMap,materialSearchSearchedMap];
   MaterialSearchState copyWith({
     bool? isLoading,
+    bool? isSearching,
    BaseError? error,
     Map<IngredientCategory, List<IngredientQuantity>>? materialSearchMap,  
     Map<IngredientCategory, List<IngredientQuantity>>? materialSearchSearchedMap,
   }) {
     return MaterialSearchState(
           isLoading: isLoading ?? this.isLoading,
+          isSearching: isSearching ?? this.isSearching,
       error: error ?? this.error,
       materialSearchMap: materialSearchMap ?? this.materialSearchMap,
       materialSearchSearchedMap: materialSearchSearchedMap ?? this.materialSearchSearchedMap,

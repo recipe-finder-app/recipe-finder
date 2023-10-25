@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:recipe_finder/product/model/ingredient/ingredient.dart';
 import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
+import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:recipe_finder/product/utils/enum/firebase_collection_enum.dart';
 
 
@@ -9,17 +10,18 @@ abstract class IMaterialSearchService {
  /* Future<IResponseModel<CategoryOfIngredientListModel?, INetworkModel<dynamic>?>> categoryOfIngredient();
   Future<IResponseModel<IngredientsOfCategoryModel?, INetworkModel<dynamic>?>> ingredientsOfCategory(String categoryId)*/
  CollectionReference<IngredientCategory?> fetchIngredientCategories();
- CollectionReference<Ingredient?> fetchIngredientList();
+ CollectionReference<IngredientQuantity?> fetchIngredientList();
 }
 
 class MaterialSearchService implements IMaterialSearchService {
-  var ingredientCategories = FirebaseFirestore.instance.collection(FirebaseCollectionEnum.ingredients_categories.name);
+  var ingredientCategories = FirebaseFirestore.instance.collection(FirebaseCollectionEnum.ingredient_categories.name);
   var ingredients = FirebaseFirestore.instance.collection(FirebaseCollectionEnum.ingredients.name);
   @override
   CollectionReference<IngredientCategory?> fetchIngredientCategories() {
     final response = ingredientCategories.withConverter(
       fromFirestore: (snapshot,options){
         final jsonBody = snapshot.data();
+       
         if(jsonBody!=null) {
           return IngredientCategory.fromJson(jsonBody)..copyWith(id: snapshot.id);
         }
@@ -34,12 +36,12 @@ class MaterialSearchService implements IMaterialSearchService {
   }
   
   @override
-  CollectionReference<Ingredient?> fetchIngredientList() {
+  CollectionReference<IngredientQuantity?> fetchIngredientList() {
     final response = ingredients.withConverter(
       fromFirestore: (snapshot,options){
         final jsonBody = snapshot.data();
         if(jsonBody!=null) {
-          return Ingredient.fromJson(jsonBody)..copyWith(id: snapshot.id);
+          return IngredientQuantity.fromJson(jsonBody)..copyWith(id: snapshot.id);
         }
       },
        toFirestore: (value,options){

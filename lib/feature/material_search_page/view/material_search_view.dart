@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/init/language/language_manager.dart';
+import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
 import 'package:recipe_finder/product/utils/constant/navigation_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
@@ -11,7 +14,7 @@ import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
-import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
+import '../../../product/model/ingredient_category/ingredient_category.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../../product/widget/text_field/search_text_field.dart';
@@ -54,10 +57,21 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 ),
               ),
               body: SafeArea(
-                child: BlocBuilder<MaterialSearchCubit, IMaterialSearchState>(
+                child: BlocConsumer<MaterialSearchCubit, MaterialSearchState>(
+                  buildWhen: (prev,current){
+                    prev.error!=current.error;
+                  },
+                  listener: (context,state){
+                    if(state.error!.message!=null &&state.error!.message!.isNotEmpty){
+                      showDialog(context: context, builder: (context){
+                        return AlertDialogError(text: state.error!.message!);
+                      });
+                    }
+                  },
+
                   builder: (context, state) {
                     return RecipeProgress(
-                      isLoading: state is OnMaterialSearchLoading ? state.isLoading : false,
+                      isLoading: state.isLoading,
                       child: Padding(
                           padding: context.paddingNormalEdges,
                           child: SingleChildScrollView(
@@ -70,19 +84,22 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                                 controller: cubitRead.searchTextController,
                                 width: context.screenWidth,
                                 onPressedClear: () {
-                                  cubitRead.ingredientListLoad();
+                                  cubitRead.changeIsSearchingState(false);
                                 },
                                 onChanged: (String data) {
                                   if (data.isEmpty) {
-                                    cubitRead.ingredientListLoad();
+                                    cubitRead.changeIsSearchingState(false);
                                   } else {
-                                    cubitRead.searchData(data);
+                                    Future.delayed(const Duration(milliseconds: 300)).then((value){
+                                     cubitRead.searchData(data);
+                                    });
+                                    
                                     //cubitRead.searchDataMultiThread(data);
                                   }
                                 },
                               ),
                               context.mediumSizedBox,
-                              buildCategoryOfIngredientList(cubitRead),
+                              buildIngredientCategoryList(cubitRead),
                             ]),
                           )),
                     );
@@ -92,16 +109,17 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
             ));
   }
 
-  Widget buildCategoryOfIngredientList(MaterialSearchCubit cubitRead) {
-    return BlocSelector<MaterialSearchCubit, IMaterialSearchState, Map<CategoryOfIngredientModel, List<IngredientQuantity>>?>(selector: (state) {
-      if (state is SearchedIngredientListLoad) {
-        return state.searchedMap;
-      } else if (state is IngredientListLoad) {
+  Widget buildIngredientCategoryList(MaterialSearchCubit cubitRead) {
+    return BlocSelector<MaterialSearchCubit, MaterialSearchState,Map<IngredientCategory, List<IngredientQuantity>>?>(
+      
+      selector: (state) {
+      if (state.isSearching==true) {
+        return state.materialSearchSearchedMap;
+      } else{
         return state.materialSearchMap;
-      } else {
-        return cubitRead.materialSearchModel.materialSearchMap;
       }
     }, builder: (context, state) {
+      
       if (state!.isEmpty) {
         return Padding(
           padding: context.paddingHighTop,
@@ -116,13 +134,14 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
     });
   }
 
-  Widget buildIngredientList(Map<CategoryOfIngredientModel, List<IngredientQuantity>> state) {
+  Widget buildIngredientList(Map<IngredientCategory, List<IngredientQuantity>> state) {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: state.keys.length,
         scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
+          String categoryName = (context.locale == LanguageManager.instance.trLocale ? state.keys.toList()[index].nameTR : state.keys.toList()[index].nameEN)!;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -130,7 +149,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                 alignment: Alignment.centerLeft,
                 child: BoldText(
                   style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w400, fontStyle: FontStyle.normal),
-                  text: (state.keys.toList()[index].categoryName)!,
+                  text: (categoryName),
                 ),
               ),
               context.normalSizedBox,

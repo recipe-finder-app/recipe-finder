@@ -5,6 +5,7 @@ import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/int_extension.dart';
 
+import '../../../core/init/language/language_manager.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text/locale_text.dart';
 import '../../model/ingredient_quantity/ingredient_quantity.dart';
@@ -34,6 +35,7 @@ class IngredientCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     String title = (context.locale == LanguageManager.instance.trLocale ? model.nameTR : model.nameEN)!;
     return InkWell(
       onTap: onPressed,
       borderRadius: context.radiusAllCircularVeryHigh,
@@ -71,7 +73,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                       child: LocaleText(
                         locale: context.locale,
                         fontSize: textFontSize ?? 12,
-                        text: '$textRowText ${model.nameEN}',
+                        text: '$textRowText ${title}',
                         color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),
@@ -80,7 +82,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                       child: LocaleText(
                         locale: context.locale,
                         fontSize: textFontSize ?? 12,
-                        text: model.nameEN!,
+                        text: title,
                         color: textColor ?? ColorConstants.instance.roboticgods,
                         fontWeight: textFontWeight,
                       ),
