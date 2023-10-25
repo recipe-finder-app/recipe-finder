@@ -5,7 +5,7 @@ import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/finder_page/cubit/finder_state.dart';
 import 'package:recipe_finder/feature/finder_page/service/finder_service.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
 class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   IFinderService? service;

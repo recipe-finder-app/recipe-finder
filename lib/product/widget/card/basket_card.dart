@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
 class BasketRecipeCard extends StatelessWidget {
   final Recipe model;

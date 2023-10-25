@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../product/utils/constant/image_path_enum.dart';
-import '../../../product/model/recipe/recipe_model.dart';
+import '../../../product/model/recipe/recipe.dart';
 import '../service/likes_service.dart';
 import 'likes_state.dart';
 

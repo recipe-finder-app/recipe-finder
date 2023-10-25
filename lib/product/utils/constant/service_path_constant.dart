@@ -1,4 +1,4 @@
-class ServicePath {
+class ServicePathConstant {
   static const login = '/users/login';
   static const register = '/users/register';
   static const resetPassword = '/passwordreset';

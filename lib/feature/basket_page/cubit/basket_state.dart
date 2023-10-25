@@ -1,4 +1,4 @@
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 

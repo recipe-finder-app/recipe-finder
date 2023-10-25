@@ -8,7 +8,7 @@ part 'ingredient_quantity.g.dart';
 
 
 @JsonSerializable()
-@HiveType(typeId: 3)
+@HiveType(typeId: 4)
 class IngredientQuantity extends Ingredient with EquatableMixin implements HiveObject {
 @HiveField(8)
   final double? quantity;

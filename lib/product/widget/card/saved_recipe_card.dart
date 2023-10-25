@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
 
 import '../../../core/widget/image_format/image_svg.dart';

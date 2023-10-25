@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -38,7 +39,7 @@ class Ingredient extends HiveObject  with EquatableMixin implements INetworkMode
   final int? color;
   
 
-    Ingredient({
+      Ingredient({
     this.id,
     this.nameEN,
     this.nameTR,
@@ -46,8 +47,9 @@ class Ingredient extends HiveObject  with EquatableMixin implements INetworkMode
     this.categoryNameEN,
     this.categoryNameTR,
     this.imagePath,
-    this.color,
+    this.color
   });
+
 
 
   @override
@@ -62,5 +64,26 @@ List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, cate
   @override
   Ingredient fromJson(Map<String, dynamic> json) {
     return _$IngredientFromJson(json);
+  }
+  Ingredient copyWith({
+    String? id,
+    String? nameEN,
+    String? nameTR,
+    String? categoryId,
+    String? categoryNameEN,
+    String? categoryNameTR,
+    String? imagePath,
+    int? color    
+  }) {
+    return Ingredient(
+          id: id ?? this.id,
+      nameEN: nameEN ?? this.nameEN,
+      nameTR: nameTR ?? this.nameTR,
+      categoryId: categoryId ?? this.categoryId,
+      categoryNameEN: categoryNameEN ?? this.categoryNameEN,
+      categoryNameTR: categoryNameTR ?? this.categoryNameTR,
+      imagePath: imagePath ?? this.imagePath,
+      color: color ?? this.color
+    );
   }
 }

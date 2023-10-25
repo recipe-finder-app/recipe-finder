@@ -7,7 +7,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/image_format/image_svg.dart';

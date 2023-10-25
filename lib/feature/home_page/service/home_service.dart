@@ -5,7 +5,7 @@ import 'package:recipe_finder/feature/home_page/model/vegatables_model.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../product/utils/constant/service_path.dart';
+import '../../../product/utils/constant/service_path_constant.dart';
 import '../../../core/init/network/vexana/vexana_manager.dart';
 import '../../../product/model/recipe_category/category_of_recipes.dart';
 
@@ -31,7 +31,7 @@ class HomeService implements IHomeService {
   @override
   Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList() {
     final response = VexanaManager.instance.networkManager.send<CategoryOfRecipesListModel, CategoryOfRecipesListModel>(
-      ServicePath.recipeCategory,
+      ServicePathConstant.recipeCategory,
       parseModel: CategoryOfRecipesListModel(),
       method: RequestType.GET,
     );

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'recipe_model.dart';
+part of 'recipe.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -8,7 +8,7 @@ part of 'recipe_model.dart';
 
 class RecipeAdapter extends TypeAdapter<Recipe> {
   @override
-  final int typeId = 7;
+  final int typeId = 5;
 
   @override
   Recipe read(BinaryReader reader) {

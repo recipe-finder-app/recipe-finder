@@ -10,7 +10,7 @@ import '../../../product/utils/constant/image_path_enum.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/alert_dialog/alert_dialog_error.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
-import '../../../product/model/recipe/recipe_model.dart';
+import '../../../product/model/recipe/recipe.dart';
 import 'discover_state.dart';
 
 class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {

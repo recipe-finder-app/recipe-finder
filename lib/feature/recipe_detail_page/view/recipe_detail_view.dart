@@ -16,7 +16,7 @@ import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
-import '../../../product/model/recipe/recipe_model.dart';
+import '../../../product/model/recipe/recipe.dart';
 import '../../../product/widget/circle_avatar/amount_ingredient_circle_avatar.dart';
 import '../../home_page/cubit/home_cubit.dart';
 import '../../likes_page/cubit/likes_cubit.dart';

@@ -3,7 +3,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/button/go_to_top_fab_button.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/text/locale_bold_text.dart';

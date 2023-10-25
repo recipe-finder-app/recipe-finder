@@ -1,8 +1,10 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
+import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 import 'package:recipe_finder/product/model/recipe_category/category_of_recipes.dart';
+import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
 
 import '../../../product/model/ingredient/ingredient.dart';
 import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
@@ -109,26 +111,20 @@ class HiveManager<T> extends IHiveManager<T> {
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.userAdapter.value)) {
       Hive.registerAdapter(UserAdapter());
     }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientModelAdapter.value)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientAdapter.value)) {
       Hive.registerAdapter(IngredientAdapter());
+    }
+     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientCategoryAdapter.value)) {
+      Hive.registerAdapter(IngredientCategoryAdapter());
     }
      if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientQuantityAdapter.value)) {
       Hive.registerAdapter(IngredientQuantityAdapter());
     }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientsOfCategoryModelAdapter.value)) {
-      Hive.registerAdapter(IngredientsOfCategoryModelAdapter());
-    }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.categoryOfIngredientModelAdapter.value)) {
-      Hive.registerAdapter(CategoryOfIngredientModelAdapter());
-    }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.materialSearchModelAdapter.value)) {
-      Hive.registerAdapter(MaterialSearchModelAdapter());
-    }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.categoryOfRecipesModelAdapter.value)) {
-      Hive.registerAdapter(CategoryOfRecipesModelAdapter());
-    }
-    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.recipeModelAdapter.value)) {
+    if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.recipeAdapter.value)) {
       Hive.registerAdapter(RecipeAdapter());
+    }
+     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.recipeCategoryAdapter.value)) {
+      Hive.registerAdapter(RecipeCategoryAdapter());
     }
   }
 }

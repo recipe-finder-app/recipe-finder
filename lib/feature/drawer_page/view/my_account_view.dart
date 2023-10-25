@@ -4,7 +4,7 @@ import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/drawer_button.dart';
 
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 
 class DrawerMyAccountView extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
 

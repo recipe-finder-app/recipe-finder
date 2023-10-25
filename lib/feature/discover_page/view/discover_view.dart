@@ -11,7 +11,7 @@ import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 import 'package:recipe_finder/product/widget/text_field/search_text_field.dart';
 
 import '../../../core/constant/design/color_constant.dart';
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../product/widget/alert_dialog/question_alert_dialog.dart';

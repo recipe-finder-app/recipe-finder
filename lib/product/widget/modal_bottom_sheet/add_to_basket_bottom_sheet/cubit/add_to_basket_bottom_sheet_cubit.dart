@@ -4,7 +4,7 @@ import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bo
 
 import '../../../../model/ingredient_quantity/ingredient_quantity.dart';
 import '../../../../utils/constant/image_path_enum.dart';
-import '../../../../model/recipe/recipe_model.dart';
+import '../../../../model/recipe/recipe.dart';
 
 class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;

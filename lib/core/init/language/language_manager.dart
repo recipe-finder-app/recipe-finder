@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
 import '../../../product/utils/enum/supported_languages_enum.dart';
 
 class LanguageManager {
@@ -25,5 +28,8 @@ class LanguageManager {
     } else {
       return enLocale;
     }
+  }
+  Locale currentLocale(BuildContext context){
+   return context.locale;
   }
 }

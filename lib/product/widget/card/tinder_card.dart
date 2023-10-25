@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
-import '../../model/recipe/recipe_model.dart';
+import '../../model/recipe/recipe.dart';
 
 class TinderCard extends StatelessWidget {
   const TinderCard({

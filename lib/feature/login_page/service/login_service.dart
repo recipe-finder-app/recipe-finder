@@ -4,7 +4,7 @@ import 'package:recipe_finder/feature/login_page/model/token_verification/token_
 import 'package:recipe_finder/feature/login_page/model/token_verification/token_verification_response_model.dart';
 import 'package:vexana/vexana.dart';
 
-import '../../../product/utils/constant/service_path.dart';
+import '../../../product/utils/constant/service_path_constant.dart';
 import '../model/create_token/create_token_response_model.dart';
 import '../model/login/login_model.dart';
 import '../model/login/login_response_model.dart';
@@ -21,26 +21,26 @@ abstract class ILoginService {
 class LoginService extends ILoginService {
   @override
   Future<IResponseModel<LoginResponseModel?, INetworkModel<dynamic>?>> login(String email, String password) async {
-    final response = VexanaManager.instance.networkManager.send<LoginResponseModel, LoginResponseModel>(ServicePath.login, parseModel: LoginResponseModel(), method: RequestType.POST, data: LoginModel(username: email, password: password));
+    final response = VexanaManager.instance.networkManager.send<LoginResponseModel, LoginResponseModel>(ServicePathConstant.login, parseModel: LoginResponseModel(), method: RequestType.POST, data: LoginModel(username: email, password: password));
     return response;
   }
 
   Future<IResponseModel<RegisterResponseModel?, INetworkModel<dynamic>?>> register(String userName, String email, String password) async {
     final response = VexanaManager.instance.networkManager
-        .send<RegisterResponseModel, RegisterResponseModel>(ServicePath.register, parseModel: RegisterResponseModel(), method: RequestType.POST, data: RegisterModel(username: userName, email: email, password: password));
+        .send<RegisterResponseModel, RegisterResponseModel>(ServicePathConstant.register, parseModel: RegisterResponseModel(), method: RequestType.POST, data: RegisterModel(username: userName, email: email, password: password));
     return response;
   }
 
   @override
   Future<IResponseModel<CreateTokenResponseModel?, INetworkModel?>> createToken(String email) {
-    final response = VexanaManager.instance.networkManager.send<CreateTokenResponseModel, CreateTokenResponseModel>(ServicePath.resetPassword, parseModel: CreateTokenResponseModel(), method: RequestType.POST, data: CreateTokenModel(email: email));
+    final response = VexanaManager.instance.networkManager.send<CreateTokenResponseModel, CreateTokenResponseModel>(ServicePathConstant.resetPassword, parseModel: CreateTokenResponseModel(), method: RequestType.POST, data: CreateTokenModel(email: email));
     return response;
   }
 
   @override
   Future<IResponseModel<TokenVerificationResponseModel?, INetworkModel?>> tokenVerification(String email, String verificationCode, String password) {
-    print('${ServicePath.resetPassword}/$email/$verificationCode');
-    final response = VexanaManager.instance.networkManager.send<TokenVerificationResponseModel, TokenVerificationResponseModel>('${ServicePath.resetPassword}/$email/$verificationCode',
+    print('${ServicePathConstant.resetPassword}/$email/$verificationCode');
+    final response = VexanaManager.instance.networkManager.send<TokenVerificationResponseModel, TokenVerificationResponseModel>('${ServicePathConstant.resetPassword}/$email/$verificationCode',
         parseModel: TokenVerificationResponseModel(), method: RequestType.POST, data: TokenVerificationModel(password: password));
     return response;
   }

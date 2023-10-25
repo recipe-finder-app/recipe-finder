@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
-import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constant.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';

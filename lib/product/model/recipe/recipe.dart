@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -5,10 +6,10 @@ import 'package:vexana/vexana.dart';
 
 import '../ingredient_quantity/ingredient_quantity.dart';
 
-part 'recipe_model.g.dart';
+part 'recipe.g.dart';
 
 @JsonSerializable()
-@HiveType(typeId: 7)
+@HiveType(typeId: 5)
 class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Recipe> {
 
   @JsonKey(name: 'id')
@@ -58,7 +59,7 @@ class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Rec
  
   final String? videoPath;
   final List<IngredientQuantity>? ingredients;
-    Recipe({
+      Recipe({
     this.id,
     this.nameEN,
     this.nameTR,
@@ -75,6 +76,7 @@ class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Rec
   });
 
 
+
   @override
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 
@@ -88,6 +90,37 @@ class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Rec
 
 @override
 List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, descriptionEN, descriptionTR, directionsEN, directionsTR, imagePath, videoPath, ingredients];
+  Recipe copyWith({
+    ValueGetter<String?>? id,
+    ValueGetter<String?>? nameEN,
+    ValueGetter<String?>? nameTR,
+    ValueGetter<String?>? categoryId,
+    ValueGetter<String?>? categoryNameEN,
+    ValueGetter<String?>? categoryNameTR,
+    ValueGetter<String?>? descriptionEN,
+    ValueGetter<String?>? descriptionTR,
+    ValueGetter<String?>? directionsEN,
+    ValueGetter<String?>? directionsTR,
+    ValueGetter<String?>? imagePath,
+    ValueGetter<String?>? videoPath,
+    ValueGetter<List<IngredientQuantity>?>? ingredients    
+  }) {
+    return Recipe(
+          id: id != null ? id() : this.id,
+      nameEN: nameEN != null ? nameEN() : this.nameEN,
+      nameTR: nameTR != null ? nameTR() : this.nameTR,
+      categoryId: categoryId != null ? categoryId() : this.categoryId,
+      categoryNameEN: categoryNameEN != null ? categoryNameEN() : this.categoryNameEN,
+      categoryNameTR: categoryNameTR != null ? categoryNameTR() : this.categoryNameTR,
+      descriptionEN: descriptionEN != null ? descriptionEN() : this.descriptionEN,
+      descriptionTR: descriptionTR != null ? descriptionTR() : this.descriptionTR,
+      directionsEN: directionsEN != null ? directionsEN() : this.directionsEN,
+      directionsTR: directionsTR != null ? directionsTR() : this.directionsTR,
+      imagePath: imagePath != null ? imagePath() : this.imagePath,
+      videoPath: videoPath != null ? videoPath() : this.videoPath,
+      ingredients: ingredients != null ? ingredients() : this.ingredients
+    );
+  }
 }
 
 @JsonSerializable(explicitToJson: true)

@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
-import 'package:recipe_finder/product/utils/constant/navigation_constants.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constant.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/firebase_options.dart';
 

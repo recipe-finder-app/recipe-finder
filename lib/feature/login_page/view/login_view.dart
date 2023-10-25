@@ -9,7 +9,7 @@ import 'package:recipe_finder/product/widget/button/social_button.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/init/navigation/navigation_service.dart';
 import '../../../core/widget/alert_dialog/alert_dialog_error.dart';

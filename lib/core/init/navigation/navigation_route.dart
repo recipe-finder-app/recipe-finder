@@ -7,9 +7,9 @@ import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 import 'package:recipe_finder/feature/onboard_page/view/onboard_view.dart';
 import 'package:recipe_finder/feature/splash_page/view/splash_view.dart';
-import 'package:recipe_finder/product/model/recipe/recipe_model.dart';
+import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
-import '../../../product/utils/constant/navigation_constants.dart';
+import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';

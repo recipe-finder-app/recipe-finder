@@ -10,13 +10,12 @@ enum HiveKeyEnum {
 
 enum HiveAdapterKeyEnum {
   userAdapter(1),
-  ingredientModelAdapter(2),
-  ingredientQuantityAdapter(3),
-  ingredientsOfCategoryModelAdapter(4),
-  categoryOfIngredientModelAdapter(5),
-  materialSearchModelAdapter(6),
-  categoryOfRecipesModelAdapter(7),
-  recipeModelAdapter(8);
+  ingredientAdapter(2),
+  ingredientCategoryAdapter(3),
+  ingredientQuantityAdapter(4),
+  recipeAdapter(5),
+  recipeCategoryAdapter(6);
+  
 
   const HiveAdapterKeyEnum(this.value);
   final int value;
