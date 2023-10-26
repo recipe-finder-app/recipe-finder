@@ -23,8 +23,7 @@ class IngredientQuantityAdapter extends TypeAdapter<IngredientQuantity> {
       categoryId: fields[3] as String?,
       categoryNameEN: fields[4] as String?,
       categoryNameTR: fields[5] as String?,
-      imagePath: fields[6] as String?,
-      color: fields[7] as int?,
+      color: fields[7] as String?,
       quantity: fields[8] as double?,
     );
   }
@@ -48,7 +47,7 @@ class IngredientQuantityAdapter extends TypeAdapter<IngredientQuantity> {
       ..writeByte(5)
       ..write(obj.categoryNameTR)
       ..writeByte(6)
-      ..write(obj.imagePath)
+      ..write(obj.imageUrl)
       ..writeByte(7)
       ..write(obj.color);
   }
@@ -76,8 +75,8 @@ IngredientQuantity _$IngredientQuantityFromJson(Map<String, dynamic> json) =>
       categoryId: json['category_id'] as String?,
       categoryNameEN: json['category_name_en'] as String?,
       categoryNameTR: json['category_name_tr'] as String?,
-      imagePath: json['imagePath'] as String?,
-      color: json['color'] as int?,
+      color: json['color'] as String?,
+       imageUrl: json['image_url'] as String?,
       quantity: (json['quantity'] as num?)?.toDouble(),
     );
 
@@ -89,7 +88,7 @@ Map<String, dynamic> _$IngredientQuantityToJson(IngredientQuantity instance) =>
       'category_id': instance.categoryId,
       'category_name_en': instance.categoryNameEN,
       'category_name_tr': instance.categoryNameTR,
-      'imagePath': instance.imagePath,
       'color': instance.color,
+      'image_url': instance.imageUrl,
       'quantity': instance.quantity,
     };

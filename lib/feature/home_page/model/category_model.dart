@@ -8,14 +8,14 @@ class CategoryItems {
 
   CategoryItems() {
     categories = [
-      IngredientQuantity(imagePath: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: 0xffcc8026),
-      IngredientQuantity(imagePath: ImagePathConstant.vegetarian.path, nameEN: LocaleKeys.vegetarian, color: 0xff2b710a),
-      IngredientQuantity(imagePath: ImagePathConstant.muffin.path, nameEN: LocaleKeys.desserts, color: 0xff8b4e05),
-      IngredientQuantity(imagePath: ImagePathConstant.chicken.path, nameEN: LocaleKeys.chicken, color: 0xff8b3c03),
-      IngredientQuantity(imagePath: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: 0xff212a34),
-      IngredientQuantity(imagePath: ImagePathConstant.muffin.path, nameEN: LocaleKeys.desserts, color: 0xff8b4e05),
-      IngredientQuantity(imagePath: ImagePathConstant.chicken.path, nameEN: LocaleKeys.chicken, color: 0xff8b3c03),
-      IngredientQuantity(imagePath: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: 0xff212a34),
+      IngredientQuantity(imageUrl: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: "cc8026"),
+      IngredientQuantity(imageUrl: ImagePathConstant.vegetarian.path, nameEN: LocaleKeys.vegetarian, color: "2b710a"),
+      IngredientQuantity(imageUrl: ImagePathConstant.muffin.path, nameEN: LocaleKeys.desserts, color: "8b4e05"),
+      IngredientQuantity(imageUrl: ImagePathConstant.chicken.path, nameEN: LocaleKeys.chicken, color: "8b3c03"),
+      IngredientQuantity(imageUrl: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: "212a34"),
+      IngredientQuantity(imageUrl: ImagePathConstant.muffin.path, nameEN: LocaleKeys.desserts, color: "8b4e05"),
+      IngredientQuantity(imageUrl: ImagePathConstant.chicken.path, nameEN: LocaleKeys.chicken, color: "8b3c03"),
+      IngredientQuantity(imageUrl: ImagePathConstant.pizza.path, nameEN: LocaleKeys.pizza, color: "212a34"),
     ];
   }
 }

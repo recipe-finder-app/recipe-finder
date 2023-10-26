@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/base/view/base_view.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/core/extension/int_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_cubit.dart';
 import 'package:recipe_finder/feature/home_page/cubit/home_state.dart';
@@ -333,7 +333,7 @@ class HomeView extends StatelessWidget {
           Expanded(
             flex: 4,
             child: ImagePng(
-              path: cubitRead.searchByMeal[index].imagePath ?? '',
+              path: cubitRead.searchByMeal[index].imageUrl ?? '',
             ),
           )
         ],

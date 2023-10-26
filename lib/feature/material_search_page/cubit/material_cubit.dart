@@ -1,20 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/init/language/language_manager.dart';
 import 'package:recipe_finder/product/model/error_model.dart';
-import 'package:recipe_finder/product/model/ingredient/ingredient.dart';
 import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:recipe_finder/product/utils/enum/hive_enum.dart';
 import 'package:recipe_finder/core/init/cache/hive_manager.dart';
 import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
-import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
-
 import '../../../core/base/model/base_view_model.dart';
-import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
 import '../service/material_service.dart';
 import 'material_state.dart';
 
@@ -53,7 +48,7 @@ class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseVie
    
   Future<void> fillMaterialSearchMap() async {
     try{
-    changeIsLoadingState();
+  changeIsLoadingState(true);
     Map<IngredientCategory, List<IngredientQuantity>>? materialSearchMap = {};
     var ingredientCategoryList = await fetchIngredientCategoryList();
     var ingredientList =  await fetchIngredientList();
@@ -63,6 +58,7 @@ class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseVie
      for(var ingredient in ingredientList){
       
      var ingredientData = ingredient.data();
+  
    
       if(category.id == ingredientData?.categoryId && categoryData!=null && ingredientData!=null){
        
@@ -77,10 +73,12 @@ class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseVie
      emit(state.copyWith(materialSearchMap: materialSearchMap));
     }
     catch(e){
+      
       emit(state.copyWith(error: BaseError(message: e.toString())));
+      throw Exception(e);
     }
     finally{
- changeIsLoadingState();
+       changeIsLoadingState(false);
     }
 
   }
@@ -95,7 +93,6 @@ class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseVie
        bool isContainsCategoryName = currentLocale==LanguageManager.instance.trLocale ?  entry.key.nameTR!.toLowerCase().contains(data) : entry.key.nameEN!.toLowerCase().contains(data);
       if (isContainsCategoryName) { 
         searchedMap[entry.key] = entry.value;
-        print("entry.key${ searchedMap[entry.key]}");
       } else {
         for (var element in entry.value) {
            bool isContainsIngredient = currentLocale==LanguageManager.instance.trLocale ? element.nameTR!.toLowerCase().contains(data) : element.nameEN!.toLowerCase().contains(data);
@@ -124,9 +121,9 @@ class MaterialSearchCubit extends Cubit<MaterialSearchState> implements IBaseVie
       materialSearchModel,
     );
   }
-    void changeIsLoadingState() {
-      final loading = state.isLoading!;
-    emit(state.copyWith(isLoading: !loading));
+    void changeIsLoadingState(bool isLoading) {
+      ;
+    emit(state.copyWith(isLoading: isLoading));
   }
    void changeIsSearchingState(bool isSearching) {
     emit(state.copyWith(isSearching: isSearching));

@@ -7,15 +7,15 @@ class SearchByMealItems {
 
   SearchByMealItems() {
     searchByMeals = [
-      IngredientQuantity(imagePath: ImagePathConstant.breakfast.path, nameEN: LocaleKeys.breakfast, color: 0xffFBFFDF),
-      IngredientQuantity(imagePath: ImagePathConstant.lunch.path, nameEN: LocaleKeys.lunch, color: 0xffFAEAEA),
-      IngredientQuantity(imagePath: ImagePathConstant.dinner.path, nameEN: LocaleKeys.dinner, color: 0xffF2EBDF),
-      IngredientQuantity(imagePath: ImagePathConstant.desserts.path, nameEN: LocaleKeys.desserts, color: 0xffF5E4EC),
-      IngredientQuantity(imagePath: ImagePathConstant.drinks.path, nameEN: LocaleKeys.drinks, color: 0xffEAFAF7),
-      IngredientQuantity(imagePath: ImagePathConstant.appetizers.path, nameEN: LocaleKeys.appetizers, color: 0xffEAECFA),
-      IngredientQuantity(imagePath: ImagePathConstant.desserts.path, nameEN: LocaleKeys.desserts, color: 0xffF5E4EC),
-      IngredientQuantity(imagePath: ImagePathConstant.drinks.path, nameEN: LocaleKeys.drinks, color: 0xffEAFAF7),
-      IngredientQuantity(imagePath: ImagePathConstant.appetizers.path, nameEN: LocaleKeys.appetizers, color: 0xffEAECFA),
+      IngredientQuantity(imageUrl: ImagePathConstant.breakfast.path, nameEN: LocaleKeys.breakfast, color: "FBFFDF"),
+      IngredientQuantity(imageUrl: ImagePathConstant.lunch.path, nameEN: LocaleKeys.lunch, color: "FAEAEA"),
+      IngredientQuantity(imageUrl: ImagePathConstant.dinner.path, nameEN: LocaleKeys.dinner, color: "F2EBDF"),
+      IngredientQuantity(imageUrl: ImagePathConstant.desserts.path, nameEN: LocaleKeys.desserts, color: "F5E4EC"),
+      IngredientQuantity(imageUrl: ImagePathConstant.drinks.path, nameEN: LocaleKeys.drinks, color: "EAFAF7"),
+      IngredientQuantity(imageUrl: ImagePathConstant.appetizers.path, nameEN: LocaleKeys.appetizers, color: "EAECFA"),
+      IngredientQuantity(imageUrl: ImagePathConstant.desserts.path, nameEN: LocaleKeys.desserts, color: "F5E4EC"),
+      IngredientQuantity(imageUrl: ImagePathConstant.drinks.path, nameEN: LocaleKeys.drinks, color: "EAFAF7"),
+      IngredientQuantity(imageUrl: ImagePathConstant.appetizers.path, nameEN: LocaleKeys.appetizers, color: "EAECFA"),
     ];
   }
 }

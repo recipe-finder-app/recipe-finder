@@ -8,11 +8,11 @@ class EssentialItems {
 
   EssentialItems() {
     essentialItems = [
-      IngredientQuantity(imagePath: ImagePathConstant.egg.path, nameEN: LocaleKeys.egg, color: 0xff968960),
-      IngredientQuantity(imagePath: ImagePathConstant.milk.path, nameEN: LocaleKeys.milk, color: 0xff127aa7),
-      IngredientQuantity(imagePath: ImagePathConstant.bread.path, nameEN: LocaleKeys.bread, color: 0xffb7690d),
-      IngredientQuantity(imagePath: ImagePathConstant.fish.path, nameEN: LocaleKeys.fish, color: 0xff3388ac),
-      IngredientQuantity(imagePath: ImagePathConstant.egg.path, nameEN: LocaleKeys.egg, color: 0xff968960),
+      IngredientQuantity(imageUrl: ImagePathConstant.egg.path, nameEN: LocaleKeys.egg, color: "968960"),
+      IngredientQuantity(imageUrl: ImagePathConstant.milk.path, nameEN: LocaleKeys.milk, color: "127aa7"),
+      IngredientQuantity(imageUrl: ImagePathConstant.bread.path, nameEN: LocaleKeys.bread, color: "b7690d"),
+      IngredientQuantity(imageUrl: ImagePathConstant.fish.path, nameEN: LocaleKeys.fish, color: "3388ac"),
+      IngredientQuantity(imageUrl: ImagePathConstant.egg.path, nameEN: LocaleKeys.egg, color: "968960"),
     ];
   }
 }

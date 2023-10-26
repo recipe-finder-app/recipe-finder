@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -8,7 +7,7 @@ part 'ingredient.g.dart';
 
 @HiveType(typeId: 2)
 @JsonSerializable()
-class Ingredient extends HiveObject  with EquatableMixin implements INetworkModel<Ingredient> {
+class Ingredient extends HiveObject with EquatableMixin implements INetworkModel<Ingredient> {
   @HiveField(0)
   @JsonKey(name: 'id')
   final String? id;
@@ -34,10 +33,12 @@ class Ingredient extends HiveObject  with EquatableMixin implements INetworkMode
   final String? categoryNameTR;
   
   @HiveField(6)
-  final String? imagePath;
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
 
   @HiveField(7)
-  final int? color;
+  final String? color;
+
   
 
       Ingredient({
@@ -47,8 +48,8 @@ class Ingredient extends HiveObject  with EquatableMixin implements INetworkMode
     this.categoryId,
     this.categoryNameEN,
     this.categoryNameTR,
-    this.imagePath,
-    this.color
+    this.imageUrl,
+    this.color,
   });
 
 
@@ -60,7 +61,7 @@ class Ingredient extends HiveObject  with EquatableMixin implements INetworkMode
   Map<String, dynamic> toJson() => _$IngredientToJson(this);
 
 @override
-List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imagePath, color];
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imageUrl, color];
 
   @override
   Ingredient fromJson(Map<String, dynamic> json) {
@@ -73,8 +74,8 @@ List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, cate
     String? categoryId,
     String? categoryNameEN,
     String? categoryNameTR,
-    String? imagePath,
-    int? color    
+    String? imageUrl,
+    String? color    
   }) {
     return Ingredient(
           id: id ?? this.id,
@@ -83,7 +84,7 @@ List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, cate
       categoryId: categoryId ?? this.categoryId,
       categoryNameEN: categoryNameEN ?? this.categoryNameEN,
       categoryNameTR: categoryNameTR ?? this.categoryNameTR,
-      imagePath: imagePath ?? this.imagePath,
+      imageUrl: imageUrl ?? this.imageUrl,
       color: color ?? this.color
     );
   }

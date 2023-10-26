@@ -18,11 +18,11 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       imagePath: 'asset/png/foot2.png',
       nameEN: 'Deneme Text 1',
       ingredients: [
-        IngredientQuantity(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 5),
-        IngredientQuantity(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
-        IngredientQuantity(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
-        IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
-        IngredientQuantity(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 4),
+        IngredientQuantity(nameEN: 'egg', imageUrl: ImagePathConstant.egg.path, quantity: 5),
+        IngredientQuantity(nameEN: 'milk', imageUrl: ImagePathConstant.milk.path, quantity: 6),
+        IngredientQuantity(nameEN: 'bread', imageUrl: ImagePathConstant.bread.path, quantity: 3),
+        IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 2),
+        IngredientQuantity(nameEN: 'chicken', imageUrl: ImagePathConstant.chicken.path, quantity: 4),
       ],
     ),
     Recipe(
@@ -41,7 +41,7 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
       imagePath: 'asset/png/foot2.png',
       nameEN: 'Deneme Text 3',
       ingredients: [
-        IngredientQuantity(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 4),
+        IngredientQuantity(nameEN: 'Egg', imageUrl: ImagePathConstant.egg.path, quantity: 4),
         IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
         IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
       ],
@@ -58,12 +58,12 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     selectedColorIndex = null;
     service = BasketService();
     myFinderFrizeItems = [
-      IngredientQuantity(nameEN: 'milk', imagePath: ImagePathConstant.milk.path, quantity: 6),
-      IngredientQuantity(nameEN: 'bread', imagePath: ImagePathConstant.bread.path, quantity: 3),
-      IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 2),
-      IngredientQuantity(nameEN: 'egg', imagePath: ImagePathConstant.egg.path, quantity: 3),
-      IngredientQuantity(nameEN: 'potato', imagePath: ImagePathConstant.potato.path, quantity: 2),
-      IngredientQuantity(nameEN: 'chicken', imagePath: ImagePathConstant.chicken.path, quantity: 2),
+      IngredientQuantity(nameEN: 'milk', imageUrl: ImagePathConstant.milk.path, quantity: 6),
+      IngredientQuantity(nameEN: 'bread', imageUrl: ImagePathConstant.bread.path, quantity: 3),
+      IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 2),
+      IngredientQuantity(nameEN: 'egg', imageUrl: ImagePathConstant.egg.path, quantity: 3),
+      IngredientQuantity(nameEN: 'potato', imageUrl: ImagePathConstant.potato.path, quantity: 2),
+      IngredientQuantity(nameEN: 'chicken', imageUrl: ImagePathConstant.chicken.path, quantity: 2),
     ];
   }
 

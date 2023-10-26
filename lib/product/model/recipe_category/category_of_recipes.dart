@@ -17,7 +17,7 @@ class CategoryOfRecipesModel extends HiveObject implements INetworkModel<Categor
 
   @JsonKey(name: 'color')
   @HiveField(2)
-  final int? color;
+  final String? color;
 
   @JsonKey(name: 'imagePath')
   @HiveField(3)

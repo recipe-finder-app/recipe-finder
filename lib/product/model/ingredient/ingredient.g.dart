@@ -23,8 +23,8 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       categoryId: fields[3] as String?,
       categoryNameEN: fields[4] as String?,
       categoryNameTR: fields[5] as String?,
-      imagePath: fields[6] as String?,
-      color: fields[7] as int?,
+      imageUrl: fields[6] as String?,
+      color: fields[7] as String?,
     );
   }
 
@@ -45,7 +45,7 @@ class IngredientAdapter extends TypeAdapter<Ingredient> {
       ..writeByte(5)
       ..write(obj.categoryNameTR)
       ..writeByte(6)
-      ..write(obj.imagePath)
+      ..write(obj.imageUrl)
       ..writeByte(7)
       ..write(obj.color);
   }
@@ -72,8 +72,8 @@ Ingredient _$IngredientFromJson(Map<String, dynamic> json) => Ingredient(
       categoryId: json['category_id'] as String?,
       categoryNameEN: json['category_name_en'] as String?,
       categoryNameTR: json['category_name_tr'] as String?,
-      imagePath: json['imagePath'] as String?,
-      color: json['color'] as int?,
+      imageUrl: json['image_url'] as String?,
+      color: json['color'] as String?,
     );
 
 Map<String, dynamic> _$IngredientToJson(Ingredient instance) =>
@@ -84,6 +84,6 @@ Map<String, dynamic> _$IngredientToJson(Ingredient instance) =>
       'category_id': instance.categoryId,
       'category_name_en': instance.categoryNameEN,
       'category_name_tr': instance.categoryNameTR,
-      'imagePath': instance.imagePath,
+      'image_url': instance.imageUrl,
       'color': instance.color,
     };

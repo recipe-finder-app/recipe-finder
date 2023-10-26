@@ -20,11 +20,12 @@ class IngredientQuantity extends Ingredient with EquatableMixin implements HiveO
        String? categoryId,
        String? categoryNameEN,
        String? categoryNameTR,
-       String? imagePath,
-       int? color,
+       String? imageUrl,
+       String? color,
+       String? zaza,
 
     this.quantity
-  }) : super(id: id,nameEN: nameEN,nameTR: nameTR,categoryId:categoryId,categoryNameEN: categoryNameEN,categoryNameTR: categoryNameTR,imagePath: imagePath,color: color);
+  }) : super(id: id,nameEN: nameEN,nameTR: nameTR,categoryId:categoryId,categoryNameEN: categoryNameEN,categoryNameTR: categoryNameTR,imageUrl: imageUrl,color: color);
 
 
 
@@ -36,7 +37,7 @@ class IngredientQuantity extends Ingredient with EquatableMixin implements HiveO
   Map<String, dynamic> toJson() => _$IngredientQuantityToJson(this);
 
 @override
-List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imagePath, color, quantity];
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imageUrl, color, quantity];
 
   @override
   IngredientQuantity fromJson(Map<String, dynamic> json) {

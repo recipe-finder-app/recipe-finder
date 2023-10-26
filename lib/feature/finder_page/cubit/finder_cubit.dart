@@ -12,10 +12,10 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
   late List<Recipe> recipeList = [
     Recipe(
         ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4, imagePath: ImagePathConstant.egg.path),
-          IngredientQuantity(nameEN: 'Milk', quantity: 2, imagePath: ImagePathConstant.milk.path),
-          IngredientQuantity(nameEN: 'Salad', quantity: 1 / 2, imagePath: ImagePathConstant.salad.path),
-          IngredientQuantity(nameEN: 'Potato', quantity: 4, imagePath: ImagePathConstant.potato.path),
+          IngredientQuantity(nameEN: 'Egg', quantity: 4, imageUrl: ImagePathConstant.egg.path),
+          IngredientQuantity(nameEN: 'Milk', quantity: 2, imageUrl: ImagePathConstant.milk.path),
+          IngredientQuantity(nameEN: 'Salad', quantity: 1 / 2, imageUrl: ImagePathConstant.salad.path),
+          IngredientQuantity(nameEN: 'Potato', quantity: 4, imageUrl: ImagePathConstant.potato.path),
         ],
         nameEN: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
             'uzun text deneme',
@@ -98,10 +98,10 @@ class FinderCubit extends Cubit<IFinderState> implements IBaseViewModel {
         videoPath: 'asset/video/pizza.mp4',
         nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
         ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4, imagePath: ImagePathConstant.egg.path),
-          IngredientQuantity(nameEN: 'Milk', quantity: 2, imagePath: ImagePathConstant.milk.path),
-          IngredientQuantity(nameEN: 'Salad', quantity: 2, imagePath: ImagePathConstant.salad.path),
-          IngredientQuantity(nameEN: 'Potato', quantity: 4, imagePath: ImagePathConstant.potato.path),
+          IngredientQuantity(nameEN: 'Egg', quantity: 4, imageUrl: ImagePathConstant.egg.path),
+          IngredientQuantity(nameEN: 'Milk', quantity: 2, imageUrl: ImagePathConstant.milk.path),
+          IngredientQuantity(nameEN: 'Salad', quantity: 2, imageUrl: ImagePathConstant.salad.path),
+          IngredientQuantity(nameEN: 'Potato', quantity: 4, imageUrl: ImagePathConstant.potato.path),
         ],
         descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
         directionsEN: directionText),

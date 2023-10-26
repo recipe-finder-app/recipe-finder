@@ -20,7 +20,7 @@ class CategoryOfRecipesModelAdapter
     return CategoryOfRecipesModel(
       id: fields[0] as String?,
       categoryName: fields[1] as String?,
-      color: fields[2] as int?,
+      color: fields[2] as String?,
       imagePath: fields[3] as String?,
     );
   }
@@ -59,7 +59,7 @@ CategoryOfRecipesModel _$CategoryOfRecipesModelFromJson(
     CategoryOfRecipesModel(
       id: json['_id'] as String?,
       categoryName: json['name'] as String?,
-      color: json['color'] as int?,
+      color: json['color'] as String?,
       imagePath: json['imagePath'] as String?,
     );
 

@@ -10,9 +10,9 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
   late List<IngredientQuantity> myFrizeItemList = [
-    IngredientQuantity(nameEN: 'Egg', imagePath: ImagePathConstant.egg.path, quantity: 1),
-    IngredientQuantity(nameEN: 'Milk', imagePath: ImagePathConstant.milk.path, quantity: 0.25),
-    IngredientQuantity(nameEN: 'salad', imagePath: ImagePathConstant.salad.path, quantity: 1),
+    IngredientQuantity(nameEN: 'Egg', imageUrl: ImagePathConstant.egg.path, quantity: 1),
+    IngredientQuantity(nameEN: 'Milk', imageUrl: ImagePathConstant.milk.path, quantity: 0.25),
+    IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 1),
     /* IngredientModel(
         title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 1),
     IngredientModel(
@@ -91,7 +91,7 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
         }
       }
       if (isContainTitle == true) {
-        IngredientQuantity newElement = IngredientQuantity(nameEN: model.nameEN, imagePath: model.imagePath, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
+        IngredientQuantity newElement = IngredientQuantity(nameEN: model.nameEN, imageUrl: model.imageUrl, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
         //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));//quantity: model.quantity
 
         int index = myFrizeItemList.indexOf(containModel!);

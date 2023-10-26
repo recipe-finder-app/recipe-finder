@@ -37,7 +37,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                       radius: 32,
                       backgroundColor: color,
                       child: ImageSvg(
-                        path: model.imagePath ?? ImagePathConstant.like.path,
+                        path: model.imageUrl ?? ImagePathConstant.like.path,
                       ),
                     ),
                     iconTopWidget!,
@@ -47,7 +47,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                   radius: 32,
                   backgroundColor: color,
                   child: ImageSvg(
-                    path: model.imagePath ?? ImagePathConstant.like.path,
+                    path: model.imageUrl ?? ImagePathConstant.like.path,
                   ),
                 ),
           context.veryLowSizedBox,
@@ -69,7 +69,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                       radius: 32,
                       backgroundColor: color,
                       child: ImageSvg(
-                        path: model.imagePath ?? ImagePathConstant.like.path,
+                        path: model.imageUrl ?? ImagePathConstant.like.path,
                       ),
                     ),
                     iconTopWidget!,
@@ -79,7 +79,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
                   radius: 32,
                   backgroundColor: color,
                   child: ImageSvg(
-                    path: model.imagePath ?? ImagePathConstant.like.path,
+                    path: model.imageUrl ?? ImagePathConstant.like.path,
                   ),
                 ),
           context.veryLowSizedBox,

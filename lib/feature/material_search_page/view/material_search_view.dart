@@ -56,13 +56,14 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                   ),
                 ),
               ),
+             
               body: SafeArea(
                 child: BlocConsumer<MaterialSearchCubit, MaterialSearchState>(
                   buildWhen: (prev,current){
-                    prev.error!=current.error;
+                   return (prev.error!=current.error) || (prev.isLoading!=current.isLoading);
                   },
                   listener: (context,state){
-                    if(state.error!.message!=null &&state.error!.message!.isNotEmpty){
+                    if(state.error?.message!=null &&state.error!.message!.isNotEmpty){
                       showDialog(context: context, builder: (context){
                         return AlertDialogError(text: state.error!.message!);
                       });
@@ -179,6 +180,9 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon: const Icon(Icons.arrow_back_ios_new)),
         Expanded(
           child: LocaleText(
             maxLines: 2,
