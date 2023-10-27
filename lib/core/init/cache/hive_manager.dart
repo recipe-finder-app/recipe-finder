@@ -1,15 +1,11 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:recipe_finder/feature/material_search_page/model/material_search_model.dart';
 import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/ingredient_quantity/ingredient_quantity.dart';
 import 'package:recipe_finder/product/model/recipe/recipe.dart';
-import 'package:recipe_finder/product/model/recipe_category/category_of_recipes.dart';
 import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
 
 import '../../../product/model/ingredient/ingredient.dart';
-import '../../../product/model/ingredient_category/category_of_ingredient_model.dart';
-import '../../../product/model/ingredient_category/ingredients_of_category_model.dart';
-import '../../../product/model/user_model.dart';
+import '../../../product/model/user/user_model.dart';
 import '../../../product/utils/enum/hive_enum.dart';
 
 abstract class IHiveManager<T> {

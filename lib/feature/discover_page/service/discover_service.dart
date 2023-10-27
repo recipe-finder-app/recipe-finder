@@ -7,7 +7,7 @@ import '../../../product/utils/constant/service_path_constant.dart';
 import '../../../core/init/cache/hive_manager.dart';
 import '../../../core/init/network/vexana/vexana_manager.dart';
 import '../../../product/model/recipe_category/category_of_recipes.dart';
-import '../../../product/model/user_model.dart';
+import '../../../product/model/user/user_model.dart';
 
 abstract class IDiscoverService {
   Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList();

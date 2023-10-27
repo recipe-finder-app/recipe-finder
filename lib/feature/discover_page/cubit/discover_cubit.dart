@@ -107,13 +107,13 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   Future<void> init() async {
     service = DiscoverService();
     scrollController = ScrollController();
-    //pagingController = PagingController(firstPageKey: 1);
-    changeSelectedCategory(allCategoryId);
-    await fetchCategoryList();
-    await fetchInitialRecipeList();
+    pagingController = PagingController(firstPageKey: 1);
+   // changeSelectedCategory(allCategoryId);
+  //  await fetchCategoryList();
+    //await fetchInitialRecipeList();
     scrollController.addListener(() async {
       if (scrollController.offset == scrollController.position.maxScrollExtent && state.newPageLoading == false) {
-        await fetchMoreRecipe();
+        //await fetchMoreRecipe();
       }
     });
     /*pagingController.addPageRequestListener((pageKey) {

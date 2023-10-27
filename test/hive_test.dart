@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:recipe_finder/product/utils/enum/hive_enum.dart';
 import 'package:recipe_finder/core/init/cache/hive_manager.dart';
-import 'package:recipe_finder/product/model/user_model.dart';
+import 'package:recipe_finder/product/model/user/user_model.dart';
 
 main() {
   setUp(() async {

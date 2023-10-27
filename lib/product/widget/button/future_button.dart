@@ -29,7 +29,7 @@ class _FutureButtonState extends State<FutureButton> {
       text: _processState == true
           ? const CircularProgressIndicator(
               strokeWidth: 2.5,
-              color: Colors.blue,
+              color: Colors.black,
             )
           : Text(widget.text, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16)),
       color: widget.color,

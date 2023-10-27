@@ -5,7 +5,7 @@ import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/utils/enum/hive_enum.dart';
 import '../../../core/init/cache/hive_manager.dart';
-import '../../../product/model/user_model.dart';
+import '../../../product/model/user/user_model.dart';
 import '../service/login_service.dart';
 import 'login_state.dart';
 

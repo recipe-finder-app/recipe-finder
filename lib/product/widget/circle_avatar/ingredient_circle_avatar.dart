@@ -35,7 +35,7 @@ class IngredientCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      String title = (context.locale == LanguageManager.instance.trLocale ? model.nameTR : model.nameEN)!;
-      print(model.imageUrl);
+     
     return InkWell(
       onTap: onPressed,
       borderRadius: context.radiusAllCircularVeryHigh,

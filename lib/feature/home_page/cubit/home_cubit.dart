@@ -35,11 +35,8 @@ class HomeCubit extends Cubit<HomeState> implements IBaseViewModel {
   Future<void> init() async {
     service = HomeService();
     searchTextController = TextEditingController();
-    searchByMeal = service!.fetchSearchByMealList();
-    essentialsItem = service!.fetchEssetialsList();
-    vegateblesItem = service!.fetchVegatablesList();
+ 
 
-    await fetchCategoryList();
   }
 
   @override
