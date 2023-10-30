@@ -110,5 +110,6 @@ abstract class  LocaleKeys {
   static const anErrorOccured = 'anErrorOccured';
   static const emailChangeSuccessText = 'emailChangeSuccessText';
   static const grabAndDrag = 'grabAndDrag';
+  static const invalidUserNameOrPassword = 'invalidUserNameOrPassword';
 
 }

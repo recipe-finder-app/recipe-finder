@@ -29,7 +29,7 @@ class DiscoverService implements IDiscoverService {
 
   @override
   Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchRecipeList({required int page}) async {
-    final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+    final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
     final user = await hiveManager.get(HiveKeyEnum.user);
     final response = VexanaManager.instance.networkManager.send<RecipeListModel, RecipeListModel>(
       ServicePathConstant.getAllRecipes(page, pageLimit),
@@ -42,7 +42,7 @@ class DiscoverService implements IDiscoverService {
 
   @override
   Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchInitialRecipeList() async {
-    final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+    final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
     final user = await hiveManager.get(HiveKeyEnum.user);
     final response = VexanaManager.instance.networkManager.send<RecipeListModel, RecipeListModel>(
       ServicePathConstant.getAllRecipes(1, pageLimit),

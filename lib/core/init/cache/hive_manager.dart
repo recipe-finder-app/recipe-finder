@@ -105,7 +105,7 @@ class HiveManager<T> extends IHiveManager<T> {
   @override
   void registerAdapters() {
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.userAdapter.value)) {
-      Hive.registerAdapter(UserAdapter());
+      Hive.registerAdapter(UserModelAdapter());
     }
     if (!Hive.isAdapterRegistered(HiveAdapterKeyEnum.ingredientAdapter.value)) {
       Hive.registerAdapter(IngredientAdapter());

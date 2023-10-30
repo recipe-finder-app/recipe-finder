@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
+import 'package:recipe_finder/feature/login_page/cubit/login_state.dart';
+import 'package:recipe_finder/feature/login_page/view/login_mixin.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
@@ -25,19 +28,10 @@ import '../../../product/widget/text_field/password_text_formfield.dart';
 import '../../../product/widget/text_field/user_text_formfield.dart';
 import '../cubit/login_cubit.dart';
 
-class LoginView extends StatelessWidget {
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> createAccountFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> forgotPasswordFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> createTokenFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> tokenVerificationFormKey = GlobalKey<FormState>();
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class LoginView extends StatelessWidget with LoginMixin {
+ 
 
-   LoginView({super.key});
-
-
+  LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,28 +41,42 @@ class LoginView extends StatelessWidget {
       },
       dispose: (cubitRead) => cubitRead.dispose(),
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-        body: WillPopScope(
-          onWillPop: () => Future<bool>.value(false),
-          child: Container(
-            decoration: BoxDecoration(
-                gradient: RadialGradient(
-              colors: [
-                const Color(0xFF034A72),
-                ColorConstants.instance.russianViolet,
-              ],
-              center: const Alignment(0.0, -0.3),
-              focal: const Alignment(0.2, -0.2),
-              focalRadius: 0.0,
-            )),
-            child: SafeArea(
-              child: Padding(
-                padding: context.paddingNormalAll,
-                child: Column(
-                  children: [
-                    languageAndLaterRow(context),
-                    buildImage(context),
-                    buildUnderColumn(context, cubitRead),
-                  ],
+        body: BlocListener<LoginCubit, LoginState>(
+          listener: (context, state) {
+            if(state.responseModel?.success==false){
+            showDialog(context: context, builder: (context){
+            return AlertDialogError(text: state.responseModel?.error?.message ?? '',);
+           });
+          }
+          else if(state.responseModel?.success==true){
+             showDialog(context: context, builder: (context){
+            return  AlertDialogSuccess(text: state.responseModel!.message);
+           });
+          }
+          },
+          child: WillPopScope(
+            onWillPop: () => Future<bool>.value(false),
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                colors: [
+                  const Color(0xFF034A72),
+                  ColorConstants.instance.russianViolet,
+                ],
+                center: const Alignment(0.0, -0.3),
+                focal: const Alignment(0.2, -0.2),
+                focalRadius: 0.0,
+              )),
+              child: SafeArea(
+                child: Padding(
+                  padding: context.paddingNormalAll,
+                  child: Column(
+                    children: [
+                      languageAndLaterRow(context),
+                      buildImage(context),
+                      buildUnderColumn(context, cubitRead),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -84,7 +92,13 @@ class LoginView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          LocaleText(text: LocaleKeys.recipeIngredients, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24)),
+          LocaleText(
+              text: LocaleKeys.recipeIngredients,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24)),
           RecipeCircularButton(
             text: const LocaleText(
               text: LocaleKeys.login,
@@ -99,7 +113,13 @@ class LoginView extends StatelessWidget {
             onPressed: () {
               signUpBottomSheet(context, cubitRead);
             },
-            child: LocaleText(text: LocaleKeys.createNewAccount, textAlign: TextAlign.center, style: Theme.of(context).textTheme.titleLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+            child: LocaleText(
+                text: LocaleKeys.createNewAccount,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16)),
           ),
         ],
       ),
@@ -125,7 +145,10 @@ class LoginView extends StatelessWidget {
           TextButton(
             child: LocaleText(
               text: LocaleKeys.later,
-              style: TextStyle(color: ColorConstants.instance.oriolesOrange, fontWeight: FontWeight.w600, fontSize: 16),
+              style: TextStyle(
+                  color: ColorConstants.instance.oriolesOrange,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16),
             ),
             onPressed: () {
               NavigationService.instance.navigateToPage(
@@ -144,7 +167,9 @@ class LoginView extends StatelessWidget {
   ) {
     return CircularBottomSheet.instance.show(
       context,
-      bottomSheetHeight: context.screenHeightIsLessThan5Inch ? CircularBottomSheetHeight.high : CircularBottomSheetHeight.standard,
+      bottomSheetHeight: context.screenHeightIsLessThan5Inch
+          ? CircularBottomSheetHeight.high
+          : CircularBottomSheetHeight.standard,
       child: Form(
         key: loginFormKey,
         child: Column(
@@ -156,7 +181,10 @@ class LoginView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userNameOrEmail)),
+                    const Align(
+                        alignment: Alignment.centerLeft,
+                        child:
+                            LocaleBoldText(text: LocaleKeys.userNameOrEmail)),
                     context.lowSizedBox,
                     UserTextFormField(
                       controller: userNameController,
@@ -164,10 +192,12 @@ class LoginView extends StatelessWidget {
                     ),
                   ]),
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password)),
+                    const Align(
+                        alignment: Alignment.centerLeft,
+                        child: LocaleBoldText(text: LocaleKeys.password)),
                     context.lowSizedBox,
                     PasswordTextFormField(
-                      controller:passwordController,
+                      controller: passwordController,
                       canBeEmpty: false,
                     ),
                     context.lowSizedBox,
@@ -185,10 +215,10 @@ class LoginView extends StatelessWidget {
                     context.lowSizedBox,
                     FutureButton(
                       text: LocaleKeys.login.locale,
-                      onPressed:(){
-                         if (loginFormKey.currentState!.validate()) {
-                          cubitRead.login(userNameController.text.trim(),passwordController.text.trim());
-                          }
+                      onPressed: () async {
+                        if (loginFormKey.currentState!.validate()) {
+                        await cubitRead.signIn(userNameController.text.trim(), passwordController.text.trim());
+                        }
                       },
                       color: ColorConstants.instance.oriolesOrange,
                     ),
@@ -207,9 +237,10 @@ class LoginView extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
+                      SocialButton(
+                          adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                     // SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      // SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -246,7 +277,7 @@ class LoginView extends StatelessWidget {
       context,
       bottomSheetHeight: CircularBottomSheetHeight.high,
       child: Form(
-        key:createAccountFormKey,
+        key: createAccountFormKey,
         child: Column(
           children: [
             Flexible(
@@ -257,7 +288,10 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.userName.locale)),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child:
+                              LocaleBoldText(text: LocaleKeys.userName.locale)),
                       context.lowSizedBox,
                       UserTextFormField(
                         controller: userNameController,
@@ -269,19 +303,23 @@ class LoginView extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.email.locale)),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: LocaleBoldText(text: LocaleKeys.email.locale)),
                       context.lowSizedBox,
                       EmailTextFormField(
                         controller: emailController,
                         validator: true,
-                        
                       ),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Align(alignment: Alignment.centerLeft, child: LocaleBoldText(text: LocaleKeys.password.locale)),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child:
+                              LocaleBoldText(text: LocaleKeys.password.locale)),
                       context.lowSizedBox,
                       PasswordTextFormField(
                         controller: passwordController,
@@ -291,10 +329,13 @@ class LoginView extends StatelessWidget {
                   ),
                   FutureButton(
                     text: LocaleKeys.createNewAccount.locale,
-                    onPressed:(){
-                       if (createAccountFormKey.currentState!.validate()) {
-                        cubitRead.register(userNameController.text,emailController.text,passwordController.text);
-                        }
+                    onPressed: () async {
+                      if (createAccountFormKey.currentState!.validate()) {
+                        await cubitRead.signUp(
+                            userNameController.text.trim(),
+                            emailController.text.trim(),
+                            passwordController.text.trim());
+                      }
                     },
                     color: ColorConstants.instance.oriolesOrange,
                   ),
@@ -310,15 +351,17 @@ class LoginView extends StatelessWidget {
                   LocaleText(text: LocaleKeys.orContinueWith.locale),
                   Column(
                     children: [
-                      SocialButton(adapter: GoogleAdapter(), onCompleted: (token) {}),
+                      SocialButton(
+                          adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                    //  SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      //  SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LocaleBoldText(text: LocaleKeys.alreadyHaveAnyAccount.locale),
+                      LocaleBoldText(
+                          text: LocaleKeys.alreadyHaveAnyAccount.locale),
                       TextButton(
                         child: LocaleText(
                             text: LocaleKeys.signIn.locale,
@@ -396,7 +439,7 @@ class LoginView extends StatelessWidget {
                 text: LocaleKeys.sendEmail.locale,
                 color: ColorConstants.instance.oriolesOrange,
                 onPressed: () async {
-                 /* final sendEmailResponse = await cubitRead.createToken();
+                  /* final sendEmailResponse = await cubitRead.createToken();
                   if (sendEmailResponse == true) {
                     Navigator.pop(context);
                     verificationCodeBottomSheet(context, cubitRead, cubitRead.emailController.text);
@@ -481,7 +524,7 @@ class LoginView extends StatelessWidget {
                 text: LocaleKeys.verify,
                 color: ColorConstants.instance.oriolesOrange,
                 onPressed: () async {
-                /*  final response = await cubitRead.tokenVerification(email);
+                  /*  final response = await cubitRead.tokenVerification(email);
                   if (response?.success == true) {
                     showDialog(
                         context: context,

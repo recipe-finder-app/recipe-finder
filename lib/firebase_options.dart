@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '822676919477',
     projectId: 'tarifibul-374f7',
     storageBucket: 'tarifibul-374f7.appspot.com',
+    iosClientId: '822676919477-r938lul4181p5p01l02di7l5tad4fmik.apps.googleusercontent.com',
     iosBundleId: 'com.tarifibul',
   );
 }

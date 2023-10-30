@@ -107,6 +107,7 @@
     "verify": "Verify",
     "anErrorOccured": "An error has occurred. Please try again later.",
     "emailChangeSuccessText": "Email change done successfully.",
-    "grabAndDrag": "Grab and drag missing items"
+    "grabAndDrag": "Grab and drag missing items",
+    "invalidUserNameOrPassword": "Invalid user name or password!"
 
 }

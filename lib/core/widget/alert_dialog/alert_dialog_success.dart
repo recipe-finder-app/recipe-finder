@@ -17,7 +17,7 @@ class AlertDialogSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.green.withOpacity(0.5),
+      backgroundColor: Colors.green.withOpacity(0.9),
       content: Text(
         text,
         style: TextStyle(color: textColor ?? Colors.white, fontFamily: fontFamily),

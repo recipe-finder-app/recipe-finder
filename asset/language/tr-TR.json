@@ -107,5 +107,6 @@
     "verify": "Doğrula",
     "anErrorOccured": "Bir hata meydana geldi.Lütfen daha sonra tekrar deneyin.",
     "emailChangeSuccessText": "Email değişikliği başarılı bir şekilde gerçekleştirildi.",
-    "grabAndDrag": "Sizde bulunmayan malzemeleri tutup sürükleyin"
+    "grabAndDrag": "Sizde bulunmayan malzemeleri tutup sürükleyin",
+    "invalidUserNameOrPassword": "Kullanıcı adı veya şifre yanlış!"
 }

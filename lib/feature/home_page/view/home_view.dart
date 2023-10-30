@@ -198,7 +198,7 @@ class HomeView extends StatelessWidget {
               ),
               title: LocaleText(text: LocaleKeys.logout),
               onTap: () async {
-                final IHiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+                final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
                 await hiveManager.clear();
                 NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
               },

@@ -10,13 +10,12 @@ main() {
     await Hive.initFlutter('HiveDatabase');
   });
   test('service', () async {
-    final HiveManager<User> hiveManager = HiveManager<User>(HiveBoxEnum.userModel);
+    final HiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
     await hiveManager.openBox();
     await hiveManager.put(
         HiveKeyEnum.user,
-        User(
-          id: '1',
-          username: 'uraz',
+        UserModel(
+          userName: 'uraz',
           email: 'alkisuraz@gmail.com',
           password: '123456',
           token: 'asdasdadas',

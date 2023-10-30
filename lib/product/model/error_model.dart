@@ -4,10 +4,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 @immutable
 class BaseError extends Equatable {
-    final String? message;
+    final String message;
 
     const BaseError({
-        this.message,
+        this.message='',
     });
     BaseError copyWith({
         String? message,

@@ -23,6 +23,7 @@ class IngredientQuantityAdapter extends TypeAdapter<IngredientQuantity> {
       categoryId: fields[3] as String?,
       categoryNameEN: fields[4] as String?,
       categoryNameTR: fields[5] as String?,
+      imageUrl: fields[6] as String?,
       color: fields[7] as String?,
       quantity: fields[8] as double?,
     );
@@ -75,8 +76,8 @@ IngredientQuantity _$IngredientQuantityFromJson(Map<String, dynamic> json) =>
       categoryId: json['category_id'] as String?,
       categoryNameEN: json['category_name_en'] as String?,
       categoryNameTR: json['category_name_tr'] as String?,
+      imageUrl: json['image_url'] as String?,
       color: json['color'] as String?,
-       imageUrl: json['image_url'] as String?,
       quantity: (json['quantity'] as num?)?.toDouble(),
     );
 
@@ -88,7 +89,7 @@ Map<String, dynamic> _$IngredientQuantityToJson(IngredientQuantity instance) =>
       'category_id': instance.categoryId,
       'category_name_en': instance.categoryNameEN,
       'category_name_tr': instance.categoryNameTR,
-      'color': instance.color,
       'image_url': instance.imageUrl,
+      'color': instance.color,
       'quantity': instance.quantity,
     };

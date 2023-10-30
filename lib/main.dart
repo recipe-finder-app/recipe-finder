@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_route.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 
@@ -27,7 +28,9 @@ Future<void> main() async {
 
 Future<void> _init() async {
   INetworkChangeManager networkChange = NetworkChangeManager();
-  WidgetsFlutterBinding.ensureInitialized();
+ WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -40,6 +43,7 @@ Future<void> _init() async {
   } else {
     WidgetsFlutterBinding.ensureInitialized();
   }
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {
