@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/discover_page/service/discover_service.dart';
+import 'package:recipe_finder/product/model/error_model.dart';
+import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
+import 'package:recipe_finder/product/service/common_service.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/utils/constant/image_path_enum.dart';
@@ -14,82 +17,17 @@ import '../../../product/model/recipe/recipe.dart';
 import 'discover_state.dart';
 
 class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
-  DiscoverCubit() : super(const DiscoverState(isLoading: false));
+  DiscoverCubit() : super(const DiscoverState(isLoading: false,recipeCategoryList: [],recipeList: []));
+final int pageLimit = 10;
+  
 
-  late PagingController<int, Recipe> pagingController;
-  late ScrollController scrollController;
-  List<Recipe> discoverRecipeList = [
-    Recipe(
-      imagePath: ImagePathConstant.imageSample1.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
-          'uzun text deneme',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-    Recipe(
-      imagePath: ImagePathConstant.imageSample2.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-    Recipe(
-      imagePath: ImagePathConstant.imageSample3.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-    Recipe(
-      imagePath: ImagePathConstant.imageSample4.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-    Recipe(
-      imagePath: ImagePathConstant.imageSample3.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-    Recipe(
-      imagePath: ImagePathConstant.imageSample4.path,
-      nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-      ingredients: [
-        IngredientQuantity(nameEN: 'Egg', quantity: 4),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-      ],
-      descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-    ),
-  ];
+ 
 
-  late IDiscoverService service;
-  final String allCategoryId = "646626f7c5977497890bd3f8"; // ""tümünü getiren kategorinin id'si.
+  late ICommonService commonService;
+
 
   void deleteItemFromDiscoverRecipeList(Recipe model) {
-    discoverRecipeList.remove(model);
+   // discoverRecipeList.remove(model);
     // emit(state.copyWith(discoverRecipeItemList: discoverRecipeList));
   }
 
@@ -99,26 +37,23 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   @override
   void dispose() {
     clearState();
-    pagingController.dispose();
-    scrollController.dispose();
+   
   }
 
   @override
   Future<void> init() async {
-    service = DiscoverService();
-    scrollController = ScrollController();
-    pagingController = PagingController(firstPageKey: 1);
+    commonService = CommonService();
+    
+   
    // changeSelectedCategory(allCategoryId);
-  //  await fetchCategoryList();
-    //await fetchInitialRecipeList();
-    scrollController.addListener(() async {
-      if (scrollController.offset == scrollController.position.maxScrollExtent && state.newPageLoading == false) {
-        //await fetchMoreRecipe();
+    await fetchRecipeCategoryList().then((value){
+      if(state.selectedCategory!=null && state.selectedCategory!.id!=null){
+      fetchRecipeListByCategoryId(state.selectedCategory!.id!);
       }
     });
-    /*pagingController.addPageRequestListener((pageKey) {
-      fetchAllRecipes(pageKey);
-    });*/
+
+    //await fetchInitialRecipeList();
+    
   }
 
   @override
@@ -127,16 +62,99 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
   }
 
   void changeIsLoadingState() {
-    print("loading state ${state.isLoading}");
+
     emit(state.copyWith(isLoading: !state.isLoading!));
-    print("loading state ${state.isLoading}");
   }
 
-  void changeSelectedCategory(categoryId) {
-    emit(state.copyWith(selectedCategoryId: categoryId));
+  void changeSelectedCategory(RecipeCategory selectedCategory) {
+    emit(state.copyWith(selectedCategory: selectedCategory));
   }
 
-  Future<void> fetchCategoryList() async {
+Future<List<Recipe>> fetchRecipeListByCategoryId(String categoryId) async {
+  try{
+    changeIsLoadingState();
+  final allRecipeList = await fetchAllRecipeList();
+  final List<Recipe> filteredRecipeList = [];
+
+  for(var recipe in allRecipeList){
+    for(var recipeCategory in (recipe.categories ?? [])){
+      if(recipeCategory.id==categoryId){
+        filteredRecipeList.add(recipe);
+      }
+    }
+  }
+  emit(state.copyWith(recipeList: filteredRecipeList));
+  return filteredRecipeList;
+}
+catch (e) {
+    
+    emit(state.copyWith(error: BaseError(message: e.toString())));
+     return [];
+   
+  } finally {
+    changeIsLoadingState();
+  }
+}
+Future<List<Recipe>> fetchAllRecipeList() async {
+  try {
+    changeIsLoadingState();
+    List<Recipe> allRecipeList = [];
+    final recipeResponse = await commonService.fetchRecipeListWithLimit(limit:pageLimit);
+    
+
+
+    for (var recipe in recipeResponse) {
+      var recipeData = recipe.data();
+      if (recipeData != null && recipeData.id!=null && recipeData.id!.isNotEmpty) {
+       final recipeSubCategoriesResponse = await commonService.fetchRecipeSubCategories(recipeId:recipeData.id!);
+       List<RecipeCategory> categoryList = [];
+       for(var category in recipeSubCategoriesResponse){
+        var categoryData = category.data();
+        if(categoryData!=null){
+          categoryList.add(categoryData);
+         final copiedData = recipeData.copyWith(categories: categoryList);
+         allRecipeList.add(copiedData);
+        }      
+       }      
+      }
+    }
+    
+    return allRecipeList;
+  } catch (e) {
+    
+    emit(state.copyWith(error: BaseError(message: e.toString())));
+     return [];
+   
+  } finally {
+    changeIsLoadingState();
+  }
+}
+Future<List<RecipeCategory>> fetchRecipeCategoryList() async {
+  try {
+    changeIsLoadingState();
+    List<RecipeCategory> recipeCategoryList = [];
+    final response = await commonService.fetchRecipeCategoryList();
+
+
+    for (var category in response) {
+      var categoryData = category.data();
+      if (categoryData != null) {
+        recipeCategoryList.add(categoryData);
+      }
+    }
+    emit(state.copyWith(recipeCategoryList: recipeCategoryList)); 
+     emit(state.copyWith(selectedCategory: recipeCategoryList[0])); 
+    return recipeCategoryList;
+  } catch (e) {
+    
+    emit(state.copyWith(error: BaseError(message: e.toString())));
+     return [];
+   
+  } finally {
+    changeIsLoadingState();
+  }
+}
+  /*Future<void> fetchRecipeCategoryList() async {
     try {
       changeIsLoadingState();
       final response = await service.fetchCategoryList();
@@ -156,9 +174,9 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
     } finally {
       changeIsLoadingState();
     }
-  }
+  }*/
 
-  Future<void> fetchMoreRecipe() async {
+ /* Future<void> fetchMoreRecipe() async {
     try {
       //scroll oldukça daha fazla tarif getirir.
       emit(state.copyWith(newPageLoading: true));
@@ -180,9 +198,9 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
       emit(state.copyWith(newPageLoading: false));
       print("newpageLoadingState=${state.newPageLoading}");
     }
-  }
+  }*/
 
-  Future<void> fetchInitialRecipeList() async {
+ /* Future<void> fetchInitialRecipeList() async {
     try {
       changeIsLoadingState();
       final response = await service.fetchInitialRecipeList();
@@ -198,7 +216,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
     } finally {
       changeIsLoadingState();
     }
-  }
+  }*/
 
   /*Future<void> fetchAllRecipes(
       int page,
@@ -223,7 +241,7 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
       pagingController.error = error;
     }
   }*/
-  List<Recipe>? recipeListByCategory(dynamic categoryId) {
+  /*List<Recipe>? recipeListByCategory(dynamic categoryId) {
     if (categoryId != state.selectedCategoryId) {
       emit(state.copyWith(pageKey: 1)); //kategori değişmişse 1.page'den başla
     }
@@ -234,9 +252,9 @@ class DiscoverCubit extends Cubit<DiscoverState> implements IBaseViewModel {
 
       return recipeList;
     }
-  }
+  }*/
 
   void clearState() {
-    emit(state.copyWith(isLoading: false, recipeList: [], categoryList: [], selectedCategoryId: null, categoryCurrentPageMap: null, pageKey: 1));
+    emit(state.copyWith(isLoading: false, recipeList: [], recipeCategoryList: [], selectedCategory: null, categoryCurrentPageMap: null, pageKey: 1));
   }
 }

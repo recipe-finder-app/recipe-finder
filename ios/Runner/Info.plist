@@ -2,18 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
-		<key>GIDClientID</key>
-		<string>865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com</string>
-		<key>CFBundleURLTypes</key>
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
 		<array>
-			<dict>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>fb582658500419817</string>
-					<string>com.googleusercontent.apps.865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g</string>
-				</array>
-			</dict>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.822676919477-r938lul4181p5p01l02di7l5tad4fmik</string>
 		</array>
+	</dict>
+</array>
 		<key>FacebookAppID</key>
 		<string>582658500419817</string>
 		<key>FacebookClientToken</key>

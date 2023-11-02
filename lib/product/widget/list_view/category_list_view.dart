@@ -1,66 +1,45 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
-import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/language/language_manager.dart';
 
 import '../../../core/constant/design/color_constant.dart';
-import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/text/locale_text.dart';
 
-class RecipeCategoryItems {
-  late final List<String> categories;
 
-  RecipeCategoryItems() {
-    categories = [LocaleKeys.all, LocaleKeys.breakfast, LocaleKeys.lunch, LocaleKeys.dinner, LocaleKeys.desserts];
-  }
-}
 
-enum RecipeCategory {
-  All(LocaleKeys.all),
-  Breakfast(LocaleKeys.breakfast),
-  Lunch(LocaleKeys.lunch),
-  Dinner(LocaleKeys.dinner),
-  Desserts(LocaleKeys.desserts);
 
-  const RecipeCategory(this.locale);
-  final String locale;
-}
 
-typedef StringDynamicParameterValueChanged = void Function(String, dynamic);
 
-class CategoryListView extends StatefulWidget {
-  final VoidCallback? onPressedAll;
-  final VoidCallback? onPressedBreakfast;
-  final VoidCallback? onPressedLunch;
-  final VoidCallback? onPressedDinner;
-  final VoidCallback? onPressedDesserts;
-  final String? initialSelectedCategory;
-  final List<String> categoryList;
-  final List<dynamic> categoryIdList;
-  final StringDynamicParameterValueChanged? onPressed;
+class CategoryListView<T> extends StatefulWidget {
+
+  final T? initialSelectedCategory;
+  final List<dynamic> categoryList;
+  final ValueChanged<T>? onPressed;
   const CategoryListView(
-      {Key? key, this.onPressedAll, this.onPressedBreakfast, this.onPressedLunch, this.onPressedDinner, this.onPressedDesserts, this.initialSelectedCategory, required this.categoryList, required this.categoryIdList, this.onPressed})
+      {Key? key, this.initialSelectedCategory, required this.categoryList, this.onPressed})
       : super(key: key);
 
   @override
-  State<CategoryListView> createState() => _CategoryListViewState();
+  State<CategoryListView> createState() => _CategoryListViewState<T>();
 }
 
-class _CategoryListViewState extends State<CategoryListView> {
-  late String? _selectedCategory;
-  List<GlobalKey>? _keys;
+class _CategoryListViewState<T> extends State<CategoryListView<T>> {
+  late T? _selectedCategory;
+  List<GlobalKey>? _keys = [];
   @override
   void initState() {
     if (widget.categoryList.isNotEmpty) {
       _keys = List.generate(widget.categoryList.length, (index) => GlobalKey()); //otomatik kaydırma için global key gerekli
       _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
     }
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.categoryList.isEmpty || _keys == null) {
+   
+    if (widget.categoryList.isEmpty) {
       return const SizedBox.shrink();
     } else {
       return SizedBox(
@@ -71,13 +50,14 @@ class _CategoryListViewState extends State<CategoryListView> {
             itemCount: widget.categoryList.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
+              String categoryName = context.locale == LanguageManager.instance.trLocale ? (widget.categoryList[index]?.nameTR ?? '') : (widget.categoryList[index]?.nameEN ?? '');
               return Padding(
                 padding: EdgeInsets.only(right: context.lowValue),
                 child: InkWell(
                   borderRadius: context.radiusAllCircularMin,
                   onTap: () {
                     if (widget.onPressed != null) {
-                      widget.onPressed!.call(calculateSelectedCategory(index), calculateSelectedCategoryId(index));
+                      widget.onPressed!.call(calculateSelectedCategory(index));
                     }
                     changeSelectedCategory(calculateSelectedCategory(index));
                     scrollToCategory(index);
@@ -95,7 +75,7 @@ class _CategoryListViewState extends State<CategoryListView> {
                       child: Padding(
                         padding: context.paddingLowEdges,
                         child: LocaleText(
-                          text: widget.categoryList[index].locale,
+                          text:categoryName,
                           style: TextStyle(fontSize: 16, color: categoryTextColor(calculateSelectedCategory(index))),
                         ),
                       ),
@@ -108,7 +88,7 @@ class _CategoryListViewState extends State<CategoryListView> {
     }
   }
 
-  void changeSelectedCategory(String category) {
+  void changeSelectedCategory(T category) {
     setState(() {
       _selectedCategory = category;
     });
@@ -122,15 +102,12 @@ class _CategoryListViewState extends State<CategoryListView> {
     );
   }
 
-  String calculateSelectedCategory(int index) {
+  T calculateSelectedCategory(int index) {
     return widget.categoryList[index];
   }
 
-  dynamic calculateSelectedCategoryId(int index) {
-    return widget.categoryIdList[index];
-  }
 
-  Color categoryItemColor(String category) {
+  Color categoryItemColor(T category) {
     if (category == _selectedCategory) {
       return ColorConstants.instance.oriolesOrange;
     } else {
@@ -138,7 +115,7 @@ class _CategoryListViewState extends State<CategoryListView> {
     }
   }
 
-  Color categoryTextColor(String category) {
+  Color categoryTextColor(T category) {
     if (category == _selectedCategory) {
       return Colors.white;
     } else {

@@ -17,7 +17,25 @@ abstract class IDiscoverService {
 
 class DiscoverService implements IDiscoverService {
   static const int pageLimit = 10;
+  
   @override
+  Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel?>> fetchCategoryList() {
+    // TODO: implement fetchCategoryList
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchInitialRecipeList() {
+    // TODO: implement fetchInitialRecipeList
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<IResponseModel<RecipeListModel?, INetworkModel?>> fetchRecipeList({required int page}) {
+    // TODO: implement fetchRecipeList
+    throw UnimplementedError();
+  }
+ /* @override
   Future<IResponseModel<CategoryOfRecipesListModel?, INetworkModel<dynamic>?>> fetchCategoryList() {
     final response = VexanaManager.instance.networkManager.send<CategoryOfRecipesListModel, CategoryOfRecipesListModel>(
       ServicePathConstant.recipeCategory,
@@ -51,5 +69,5 @@ class DiscoverService implements IDiscoverService {
       options: Options(headers: TokenModel(token: user?.token).toJson()),
     );
     return response;
-  }
+  }*/
 }

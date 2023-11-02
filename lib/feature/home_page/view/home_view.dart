@@ -121,11 +121,11 @@ class HomeView extends StatelessWidget {
                       width: 100,
                     ),
                   ),
-                  BoldText(
+                  const BoldText(
                     text: 'Tarifi',
                     fontSize: 20,
                   ),
-                  Text(
+                  const Text(
                     'Bul',
                     style: TextStyle(
                       fontWeight: FontWeight.w400,

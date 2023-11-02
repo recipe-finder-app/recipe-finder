@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/product/model/social_adapter.dart';
+import 'package:recipe_finder/product/model/user/user_model.dart';
 import 'package:recipe_finder/product/widget/button/recipe_circular_button.dart';
 
 class SocialButton extends StatelessWidget {
   final ISocialAdapter adapter;
-  final ValueChanged<String> onCompleted;
+  final ValueChanged<UserModel> onCompleted;
   const SocialButton({Key? key, required this.adapter, required this.onCompleted}) : super(key: key);
 
   @override

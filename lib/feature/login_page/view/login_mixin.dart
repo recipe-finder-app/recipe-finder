@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_finder/feature/login_page/view/login_view.dart';
 
 mixin LoginMixin{
    final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();

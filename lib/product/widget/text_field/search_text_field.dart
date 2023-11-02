@@ -1,5 +1,6 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/widget/text_field/speech_to_text_formfield.dart';
 
@@ -55,7 +56,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       borderEnable: widget.borderEnable,
       filled: widget.filled,
       filledColor: widget.filledColor,
-      hintText: LocaleKeys.search,
+      hintText: LocaleKeys.search.locale,
       onPressedClear: widget.onPressedClear,
       icon: widget.icon ?? ImageSvg(path: ImagePathConstant.searchh.path, color: ColorConstants.instance.russianViolet),
       onChanged: _onTextChanged,

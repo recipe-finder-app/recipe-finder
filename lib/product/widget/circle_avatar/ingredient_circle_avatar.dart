@@ -88,7 +88,7 @@ class IngredientCircleAvatar extends StatelessWidget {
                     child: (model.imageUrl == null || 
                     (model.imageUrl!=null && model.imageUrl!.isEmpty))
                     ? SvgPicture.asset(ImagePathConstant.like.path)
-                    : SvgPicture.network(model.imageUrl!,placeholderBuilder: (BuildContext context) => const CircularProgressIndicator(color: Colors.black,),)
+                    : SvgPicture.network(model.imageUrl!,placeholderBuilder: (BuildContext context) => SizedBox(height:15,width:15,child:CircularProgressIndicator(color: ColorConstants.instance.oriolesOrange,strokeWidth:2,)),)
                     );
   }
 }

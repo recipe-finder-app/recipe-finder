@@ -23,8 +23,8 @@ import '../../likes_page/cubit/likes_cubit.dart';
 import '../../likes_page/cubit/likes_state.dart';
 
 class RecipeDetailView extends StatefulWidget {
-  Recipe recipeModel;
-  RecipeDetailView({Key? key, required this.recipeModel}) : super(key: key);
+ final Recipe recipeModel;
+ const RecipeDetailView({Key? key, required this.recipeModel}) : super(key: key);
 
   @override
   State<RecipeDetailView> createState() => _RecipeDetailViewState();
@@ -70,7 +70,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
         body: SingleChildScrollView(
           child: Column(
             children: [
-              videoPlayer(cubitRead, context),
+              imageOrVideoPlayer(cubitRead, context,widget.recipeModel),
               recipe(context, cubitRead),
             ],
           ),
@@ -79,10 +79,11 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
     );
   }
 
-  Widget videoPlayer(RecipeDetailCubit cubitRead, BuildContext context) {
+  Widget imageOrVideoPlayer(RecipeDetailCubit cubitRead, BuildContext context,Recipe model) {
     return Stack(
       children: [
-        AspectRatio(
+      (model.imagePath!=null && model.imagePath!.isNotEmpty) ? 
+      Image.network(model.imagePath!) :  AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
           child: Chewie(controller: cubitRead.chewieController),
         ),
@@ -91,76 +92,74 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           height: 50,
           width: context.screenWidth,
           child: Container(
+            padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: context.radiusTopCircularVeryHigh,
             ),
-            child: Padding(
-              padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      cubitRead.share(widget.recipeModel);
-                    },
-                    child: CircularBackground(
-                      circleHeight: 30,
-                      circleWidth: 30,
-                      color: ColorConstants.instance.russianViolet,
-                      child: const Icon(
-                        Icons.share_outlined,
-                        color: Colors.white,
-                        size: 15,
-                      ),
+            child: Row(
+              children: [
+                InkWell(
+                  onTap: () {
+                    cubitRead.share(widget.recipeModel);
+                  },
+                  child: CircularBackground(
+                    circleHeight: 30,
+                    circleWidth: 30,
+                    color: ColorConstants.instance.russianViolet,
+                    child: const Icon(
+                      Icons.share_outlined,
+                      color: Colors.white,
+                      size: 15,
                     ),
                   ),
-                  context.normalSizedBoxWidth,
-                  BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
-                    if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
-                      return InkWell(
-                        onTap: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return QuestionAlertDialog(
-                                  explanation: LocaleKeys.deleteSavedRecipeQuestion,
-                                  onPressedYes: () {
-                                    context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
-                                  },
-                                );
-                              });
-                        },
-                        child: CircularBackground(
-                            circleHeight: 30,
-                            circleWidth: 30,
-                            color: ColorConstants.instance.russianViolet,
-                            child: const Icon(
-                              Icons.favorite_outlined,
-                              color: Colors.white,
-                              size: 15,
-                            )),
-                      );
-                    } else {
-                      return InkWell(
-                        onTap: () {
-                          context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
-                          Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
-                        },
-                        child: CircularBackground(
-                            circleHeight: 30,
-                            circleWidth: 30,
+                ),
+                context.normalSizedBoxWidth,
+                BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
+                  if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
+                    return InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return QuestionAlertDialog(
+                                explanation: LocaleKeys.deleteSavedRecipeQuestion,
+                                onPressedYes: () {
+                                  context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
+                                },
+                              );
+                            });
+                      },
+                      child: CircularBackground(
+                          circleHeight: 30,
+                          circleWidth: 30,
+                          color: ColorConstants.instance.russianViolet,
+                          child: const Icon(
+                            Icons.favorite_outlined,
                             color: Colors.white,
-                            border: Border.all(width: 1, color: ColorConstants.instance.russianViolet),
-                            child: Icon(
-                              Icons.favorite_outline_outlined,
-                              color: ColorConstants.instance.russianViolet,
-                              size: 18,
-                            )),
-                      );
-                    }
-                  }),
-                ],
-              ),
+                            size: 15,
+                          )),
+                    );
+                  } else {
+                    return InkWell(
+                      onTap: () {
+                        context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
+                        Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
+                      },
+                      child: CircularBackground(
+                          circleHeight: 30,
+                          circleWidth: 30,
+                          color: Colors.white,
+                          border: Border.all(width: 1, color: ColorConstants.instance.russianViolet),
+                          child: Icon(
+                            Icons.favorite_outline_outlined,
+                            color: ColorConstants.instance.russianViolet,
+                            size: 18,
+                          )),
+                    );
+                  }
+                }),
+              ],
             ),
           ),
         ),
@@ -189,8 +188,9 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
   Widget recipe(BuildContext context, RecipeDetailCubit cubitRead) {
     return Padding(
       padding: context.paddingMediumEdges,
-      child: Padding(
+      child: Container(
         padding: EdgeInsets.only(bottom: context.veryHighValue * 1.25),
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,7 +213,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                   onTap: () {
                     cubitRead.changePreviousSelectedTabBarIndex(cubitRead.selectedTabBarIndex);
                     cubitRead.changeSelectedTabBarIndex(0);
-
+      
                     cubitRead.selectedPreviousTabBarIndex == 0 ? null : _startAnimation();
                   },
                   child: Container(

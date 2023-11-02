@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
@@ -238,9 +239,16 @@ class LoginView extends StatelessWidget with LoginMixin {
                   Column(
                     children: [
                       SocialButton(
-                          adapter: GoogleAdapter(), onCompleted: (token) {}),
+                          adapter: GoogleAdapter(), onCompleted: (user) {
+                            if(user!=null){
+                              
+                            }
+
+                          }),
                       context.lowSizedBox,
-                      // SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                       SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                        context.lowSizedBox,
+                       SocialButton(adapter: AppleAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -354,7 +362,9 @@ class LoginView extends StatelessWidget with LoginMixin {
                       SocialButton(
                           adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                      //  SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                       SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
+                        context.lowSizedBox,
+                       SocialButton(adapter: AppleAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(

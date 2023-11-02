@@ -55,7 +55,6 @@ class LikesView extends StatelessWidget {
                   context.normalSizedBox,
                   CategoryListView(
                     categoryList: [],
-                    categoryIdList: [],
                   ),
                   context.normalSizedBox,
                   buildLikesRecipeGrid(cubitRead),

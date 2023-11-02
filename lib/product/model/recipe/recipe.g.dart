@@ -20,9 +20,6 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       id: fields[0] as String?,
       nameEN: fields[1] as String?,
       nameTR: fields[2] as String?,
-      categoryId: fields[3] as String?,
-      categoryNameEN: fields[4] as String?,
-      categoryNameTR: fields[5] as String?,
       descriptionEN: fields[6] as String?,
       descriptionTR: fields[7] as String?,
       directionsEN: fields[8] as String?,
@@ -34,19 +31,13 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
   @override
   void write(BinaryWriter writer, Recipe obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.nameEN)
       ..writeByte(2)
       ..write(obj.nameTR)
-      ..writeByte(3)
-      ..write(obj.categoryId)
-      ..writeByte(4)
-      ..write(obj.categoryNameEN)
-      ..writeByte(5)
-      ..write(obj.categoryNameTR)
       ..writeByte(6)
       ..write(obj.descriptionEN)
       ..writeByte(7)
@@ -78,9 +69,6 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       id: json['id'] as String?,
       nameEN: json['name_en'] as String?,
       nameTR: json['name_tr'] as String?,
-      categoryId: json['category_id'] as String?,
-      categoryNameEN: json['category_name_en'] as String?,
-      categoryNameTR: json['category_name_tr'] as String?,
       descriptionEN: json['description_en'] as String?,
       descriptionTR: json['description_tr'] as String?,
       directionsEN: json['directions_en'] as String?,
@@ -90,15 +78,15 @@ Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       ingredients: (json['ingredients'] as List<dynamic>?)
           ?.map((e) => IngredientQuantity.fromJson(e as Map<String, dynamic>))
           .toList(),
+      categories: (json['categories'] as List<dynamic>?)
+          ?.map((e) => RecipeCategory.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'id': instance.id,
       'name_en': instance.nameEN,
       'name_tr': instance.nameTR,
-      'category_id': instance.categoryId,
-      'category_name_en': instance.categoryNameEN,
-      'category_name_tr': instance.categoryNameTR,
       'description_en': instance.descriptionEN,
       'description_tr': instance.descriptionTR,
       'directions_en': instance.directionsEN,
@@ -106,6 +94,7 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'image_url': instance.imagePath,
       'videoPath': instance.videoPath,
       'ingredients': instance.ingredients,
+      'categories': instance.categories,
     };
 
 RecipeListModel _$RecipeListModelFromJson(Map<String, dynamic> json) =>

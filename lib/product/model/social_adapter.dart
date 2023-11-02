@@ -1,10 +1,12 @@
 import 'dart:io' show Platform;
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/product/model/user/user_model.dart';
 
 import '../../core/init/language/locale_keys.g.dart';
 
@@ -26,42 +28,43 @@ class SocialAdapterModel {
     return SocialAdapterModel(title: LocaleKeys.loginWithFacebook.locale, color: ColorConstants.instance.facebookColor, icon: Icon(FontAwesomeIcons.facebook, color: ColorConstants.instance.facebookColor));
   }
   factory SocialAdapterModel.apple() {
-    return SocialAdapterModel(title: 'Sign in with Apple', color: Colors.black, icon: const Icon(FontAwesomeIcons.apple));
+    return SocialAdapterModel(title: LocaleKeys.loginWithApple.locale, color: Colors.black, icon: const Icon(FontAwesomeIcons.apple));
   }
 }
 
 abstract class ISocialAdapter {
   late final SocialAdapterModel model;
-  Future<String> login();
+  Future<UserModel> login();
   Future<void> signOut();
 }
 
 class GoogleAdapter implements ISocialAdapter {
   GoogleSignIn get googleSignIn {
     if (Platform.isIOS) {
-      return GoogleSignIn(clientId: '865687401723-ac4bulugmdj6ot4q3rs021q5mv6mi12g.apps.googleusercontent.com');
+      return GoogleSignIn(clientId: '822676919477-r938lul4181p5p01l02di7l5tad4fmik.apps.googleusercontent.com');
     } else {
       return GoogleSignIn();
     }
+  
   }
 
   @override
-  Future<String> login() async {
+  Future<UserModel> login() async {
     try {
       final user = await googleSignIn.signIn();
       if (user == null) {
         throw 'Google sign in user is null';
       } else {
         final authentication = await user.authentication;
-        print('email:${user.email}');
-        print('photoUrl:${user.photoUrl}');
-        print('serverAuthCode:${user.serverAuthCode}');
-        print('displayName:${user.displayName}');
-        print('id:${user.id}');
-        print('accessToken:${authentication.accessToken}');
-        print('idToken:${authentication.idToken}');
 
-        return user.email;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: authentication.accessToken,
+          idToken:authentication.idToken,
+        );
+
+       final response = await FirebaseAuth.instance.signInWithCredential(credential);
+
+        return UserModel(email: response.user?.email,uid:response.user?.uid,token:response.credential?.token.toString(),);
       }
     } catch (error) {
       throw '$error';
@@ -70,17 +73,19 @@ class GoogleAdapter implements ISocialAdapter {
 
   @override
   SocialAdapterModel model = SocialAdapterModel.google();
-
+  
   @override
   Future<void> signOut() async {
     await googleSignIn.signOut();
   }
 }
-/*
+
 class FacebookAdapter implements ISocialAdapter {
   @override
-  Future<String> login() async {
-    try {
+  Future<UserModel> login() async 
+  {
+    return UserModel();
+   /* try {
       final login = await FacebookAuth.instance.login(permissions: ['public_profile', 'email']);
       if (login.status == LoginStatus.success) {
         final user = await FacebookAuth.instance.getUserData();
@@ -98,7 +103,7 @@ class FacebookAdapter implements ISocialAdapter {
     } catch (error) {
       print(error);
       return '$error';
-    }
+    }*/
   }
 
   @override
@@ -106,7 +111,41 @@ class FacebookAdapter implements ISocialAdapter {
 
   @override
   Future<void> signOut() async {
-    await FacebookAuth.instance.logOut();
+   // await FacebookAuth.instance.logOut();
   }
 }
-*/
+
+class AppleAdapter implements ISocialAdapter {
+  @override
+  Future<UserModel> login() async 
+  {
+    return UserModel();
+   /* try {
+      final login = await FacebookAuth.instance.login(permissions: ['public_profile', 'email']);
+      if (login.status == LoginStatus.success) {
+        final user = await FacebookAuth.instance.getUserData();
+        final email = user["email"];
+        final name = user["name"];
+        final picture = user["picture"]["data"]["url"];
+        print(email);
+        print(name);
+        print(picture);
+        print(login.accessToken?.toJson());
+        return user.toString();
+      } else {
+        return 'Facebook sign in user is null';
+      }
+    } catch (error) {
+      print(error);
+      return '$error';
+    }*/
+  }
+
+  @override
+  SocialAdapterModel model = SocialAdapterModel.apple();
+
+  @override
+  Future<void> signOut() async {
+   // await FacebookAuth.instance.logOut();
+  }
+}

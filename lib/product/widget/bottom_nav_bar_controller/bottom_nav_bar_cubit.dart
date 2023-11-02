@@ -11,7 +11,7 @@ import '../../../feature/likes_page/view/likes_view.dart';
 class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [
     const HomeView(),
-    const DiscoverView(),
+     DiscoverView(),
     const FinderView(),
     const LikesView(),
     const BasketView(),

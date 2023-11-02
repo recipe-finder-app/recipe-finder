@@ -4,4 +4,5 @@ enum FirebaseCollectionEnum {
   ingredients,
   recipe_categories,
   recipes,
+  categories,
 }

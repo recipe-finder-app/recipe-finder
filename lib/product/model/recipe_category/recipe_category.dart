@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:vexana/vexana.dart';
-
 part 'recipe_category.g.dart';
 
 @JsonSerializable()
@@ -52,18 +51,18 @@ class RecipeCategory extends HiveObject with EquatableMixin implements INetworkM
 @override
 List<Object?> get props => [id, nameEN, nameTR, descriptionEN, descriptionTR];
   RecipeCategory copyWith({
-    ValueGetter<String?>? id,
-    ValueGetter<String?>? nameEN,
-    ValueGetter<String?>? nameTR,
-    ValueGetter<String?>? descriptionEN,
-    ValueGetter<String?>? descriptionTR    
+    String? id,
+    String? nameEN,
+    String? nameTR,
+    String? descriptionEN,
+    String? descriptionTR    
   }) {
     return RecipeCategory(
-          id: id != null ? id() : this.id,
-      nameEN: nameEN != null ? nameEN() : this.nameEN,
-      nameTR: nameTR != null ? nameTR() : this.nameTR,
-      descriptionEN: descriptionEN != null ? descriptionEN() : this.descriptionEN,
-      descriptionTR: descriptionTR != null ? descriptionTR() : this.descriptionTR
+          id: id ?? this.id,
+      nameEN: nameEN ?? this.nameEN,
+      nameTR: nameTR ?? this.nameTR,
+      descriptionEN: descriptionEN ?? this.descriptionEN,
+      descriptionTR: descriptionTR ?? this.descriptionTR
     );
   }
 }

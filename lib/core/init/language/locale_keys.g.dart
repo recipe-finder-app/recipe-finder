@@ -18,6 +18,7 @@ abstract class  LocaleKeys {
   static const orContinueWith = 'orContinueWith';
   static const loginWithGoogle = 'loginWithGoogle';
   static const loginWithFacebook = 'loginWithFacebook';
+  static const loginWithApple = 'loginWithApple';
   static const registerWithGoogle = 'registerWithGoogle';
   static const registerWithFacebook = 'registerWithFacebook';
   static const dontHaveAnyAccount = 'dontHaveAnyAccount';

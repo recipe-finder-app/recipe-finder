@@ -40,7 +40,7 @@ class NavigationRoute {
       case NavigationConstant.HOME:
         return normalNavigate(const HomeView(), NavigationConstant.HOME);
       case NavigationConstant.DISCOVER:
-        return normalNavigate(const DiscoverView(), NavigationConstant.DISCOVER);
+        return normalNavigate(DiscoverView(), NavigationConstant.DISCOVER);
       case NavigationConstant.LIKES:
         return normalNavigate(const LikesView(), NavigationConstant.LIKES);
       case NavigationConstant.BASKET:
