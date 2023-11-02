@@ -54,7 +54,7 @@ class DiscoverCard extends StatelessWidget {
       width: width ?? context.screenWidth / 1.3,
       child: Container(
         decoration: BoxDecoration(
-          image:model.imagePath!=null && model.imagePath!.isNotEmpty ? DecorationImage(
+          image:(model.imagePath!=null && model.imagePath!.isNotEmpty) ? DecorationImage(
               fit: BoxFit.cover,
               image:NetworkImage(model.imagePath!),
               ) : DecorationImage(

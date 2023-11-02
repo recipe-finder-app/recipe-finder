@@ -5,6 +5,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/discover_page/service/discover_service.dart';
 import 'package:recipe_finder/product/model/error_model.dart';
+import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
 import 'package:recipe_finder/product/service/common_service.dart';
 
@@ -107,15 +108,23 @@ Future<List<Recipe>> fetchAllRecipeList() async {
       var recipeData = recipe.data();
       if (recipeData != null && recipeData.id!=null && recipeData.id!.isNotEmpty) {
        final recipeSubCategoriesResponse = await commonService.fetchRecipeSubCategories(recipeId:recipeData.id!);
+       final recipeSubIngredientsResponse = await commonService.fetchRecipeSubIngredients(recipeId:recipeData.id!);
        List<RecipeCategory> categoryList = [];
+        List<IngredientQuantity> ingredientList = [];
+        for(var ingredient in recipeSubIngredientsResponse){
+        var ingredientData = ingredient.data();
+        if(ingredientData!=null){
+          ingredientList.add(ingredientData);
+        }      
+       }     
        for(var category in recipeSubCategoriesResponse){
         var categoryData = category.data();
         if(categoryData!=null){
           categoryList.add(categoryData);
-         final copiedData = recipeData.copyWith(categories: categoryList);
-         allRecipeList.add(copiedData);
         }      
-       }      
+       }
+        final copiedData = recipeData.copyWith(categories: categoryList,ingredients: ingredientList);
+         allRecipeList.add(copiedData);
       }
     }
     

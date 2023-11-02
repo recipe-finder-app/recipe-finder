@@ -83,7 +83,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
     return Stack(
       children: [
       (model.imagePath!=null && model.imagePath!.isNotEmpty) ? 
-      Image.network(model.imagePath!) :  AspectRatio(
+      Image.network(model.imagePath!,width: context.screenWidth,height: context.screenHeight/2.5,fit: BoxFit.fill,) :  AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
           child: Chewie(controller: cubitRead.chewieController),
         ),
@@ -312,7 +312,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.recipeModel.ingredients?.length,
+            itemCount: widget.recipeModel.ingredients?.length ?? 0,
             itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,

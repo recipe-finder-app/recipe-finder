@@ -145,57 +145,11 @@ class DiscoverView extends StatelessWidget {
               ),
             ));
   }
-/*
-  Widget buildTrendingNowGrid(DiscoverCubit cubitRead, DiscoverState state, categoryId) {
-    return state.isLoading == true
-        ? const Center()
-        : RefreshIndicator(
-            onRefresh: () => Future.sync(
-              () => cubitRead.pagingController.refresh(),
-            ),
-            child: PagedGridView<int, RecipeModel>(
-              pagingController: cubitRead.pagingController,
-              builderDelegate: PagedChildBuilderDelegate<RecipeModel>(itemBuilder: (context, item, cardIndex) {
-                return DiscoverCard(
-                  model: item,
-                  onPressed: () {
-                    NavigationService.instance.navigateToPage(path: NavigationConstants.RECIPE_DETAIL, data: cubitRead.discoverRecipeList[cardIndex]);
-                  },
-                  likeIconOnPressed: () {
-                    if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == false) {
-                      context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
-                      Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
-                    } else if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == true) {
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return QuestionAlertDialog(
-                              explanation: LocaleKeys.deleteSavedRecipeQuestion,
-                              onPressedYes: () {
-                                context.read<LikesCubit>().deleteItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
-                              },
-                            );
-                          });
-                    }
-                  },
-                );
-              }),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 15,
-                childAspectRatio: 1 / 1,
-              ),
-            ),
-          );
-  }
-  */
 
   Widget buildTrendingNowGrid(DiscoverCubit cubitRead, DiscoverState state) {
-    return state.newPageLoading == true
-        ? moreRecipeProgressIndicatorWidget(
+    return 
+     moreRecipeProgressIndicatorWidget(
+          newPageLoading: state.newPageLoading == true,
             child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -217,64 +171,27 @@ class DiscoverView extends StatelessWidget {
                             data: recipe);
                       },
                       likeIconOnPressed: () {
-                        /* if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == false) {
-                        context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
+                         if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == false) {
+                        context.read<LikesCubit>().addItemFromLikedRecipeList(state.recipeList![cardIndex]);
                         Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
-                      } else if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == true) {
+                      } else if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == true) {
                         showDialog(
                             context: context,
                             builder: (context) {
                               return QuestionAlertDialog(
                                 explanation: LocaleKeys.deleteSavedRecipeQuestion,
                                 onPressedYes: () {
-                                 // context.read<LikesCubit>().deleteItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
+                                  context.read<LikesCubit>().deleteItemFromLikedRecipeList(state.recipeList![cardIndex]);
                                 },
                               );
-                            });*/
-                      });
-                }))
-        : GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: state.recipeList?.length,
-            //temCount: (cubitRead.recipeListByCategory(categoryId)?.length ?? 0),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 15,
-              childAspectRatio: 1 / 1,
-            ),
-            itemBuilder: (BuildContext context, int cardIndex) {
-              final recipe = state.recipeList![cardIndex];
-              return DiscoverCard(
-                  model: recipe,
-                  // model: cubitRead.recipeListByCategory(categoryId)![cardIndex],
-                  onPressed: () {
-                    NavigationService.instance.navigateToPage(
-                        path: NavigationConstant.RECIPE_DETAIL, data: recipe);
-                  },
-                  likeIconOnPressed: () {
-                    /* if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == false) {
-                    context.read<LikesCubit>().addItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
-                    Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
-                  } else if (context.read<LikesCubit>().recipeList.contains(cubitRead.discoverRecipeList[cardIndex]) == true) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return QuestionAlertDialog(
-                            explanation: LocaleKeys.deleteSavedRecipeQuestion,
-                            onPressedYes: () {
-                              context.read<LikesCubit>().deleteItemFromLikedRecipeList(cubitRead.discoverRecipeList[cardIndex]);
-                            },
-                          );
-                        });*/
-                  });
-            });
+                            });
+                }});
+                }));
+
   }
 
-  Widget moreRecipeProgressIndicatorWidget({required Widget child}) {
-    print("moreRecipeProgressIndicatorWidget");
-    return Stack(
+  Widget moreRecipeProgressIndicatorWidget({required Widget child,required bool newPageLoading}) {
+    return newPageLoading ? Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         child,
@@ -283,6 +200,6 @@ class DiscoverView extends StatelessWidget {
           color: ColorConstants.instance.oriolesOrange,
         ),
       ],
-    );
+    ) : child;
   }
 }

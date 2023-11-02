@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/recipe/recipe.dart';
 import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
 import 'package:recipe_finder/product/utils/enum/firebase_collection_enum.dart';
+
+import '../model/ingredient_quantity/ingredient_quantity.dart';
 
 abstract class ICommonService {
   late CollectionReference recipes;
@@ -9,6 +12,7 @@ abstract class ICommonService {
    CollectionReference<Recipe?> fetchAllRecipeList();
    Future<List<QueryDocumentSnapshot<Recipe?>>> fetchRecipeListWithLimit({required int limit});
    Future<List<QueryDocumentSnapshot<RecipeCategory?>>> fetchRecipeSubCategories({required String recipeId});
+   Future<List<QueryDocumentSnapshot<IngredientQuantity?>>> fetchRecipeSubIngredients({required String recipeId});
     Future<List<QueryDocumentSnapshot<RecipeCategory?>>> fetchRecipeCategoryList();
 }
 class CommonService implements ICommonService {
@@ -64,6 +68,25 @@ Future<List<QueryDocumentSnapshot<RecipeCategory?>>> fetchRecipeSubCategories({r
         if(jsonBody!=null) {
           jsonBody['id'] = snapshot.id;
           return RecipeCategory.fromJson(jsonBody);
+        }
+      },
+       toFirestore: (value,options){
+        if (value == null) throw Exception('$value is null');
+        return value.toJson();
+       }
+    ).get();
+      return response.docs;
+  }
+
+  @override
+  Future<List<QueryDocumentSnapshot<IngredientQuantity?>>> fetchRecipeSubIngredients({required String recipeId}) async {
+  
+    final response = await recipes.doc(recipeId).collection(FirebaseCollectionEnum.ingredients.name).withConverter(
+          fromFirestore: (snapshot,options){
+        final jsonBody = snapshot.data();
+        if(jsonBody!=null) {
+          jsonBody['id'] = snapshot.id;
+          return IngredientQuantity.fromJson(jsonBody);
         }
       },
        toFirestore: (value,options){
