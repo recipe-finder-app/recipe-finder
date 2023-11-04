@@ -18,7 +18,6 @@ class RecipeBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<RecipeNavigationBarCubit>().clear();
     return Scaffold(
       bottomNavigationBar: Stack(
         alignment: AlignmentDirectional.topCenter,
@@ -119,7 +118,8 @@ class RecipeBottomNavigationBar extends StatelessWidget {
                     SvgPicture.asset(
                       ImagePathConstant.appIconLowSize.path,
                       color: Colors.white,
-                      height: 50,
+                      height: 60,
+                      fit: BoxFit.fitHeight,
                     ),
                   ],
                 ),

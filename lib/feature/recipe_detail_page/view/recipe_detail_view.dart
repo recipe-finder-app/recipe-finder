@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/feature/recipe_detail_page/cubit/recipe_detail_cubit.dart';
+import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/product/widget/alert_dialog/question_alert_dialog.dart';
 import 'package:recipe_finder/product/widget/button/recipe_fab_button.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
@@ -85,10 +86,12 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
     return Stack(
       children: [
       (model.imagePath!=null && model.imagePath!.isNotEmpty) ? 
-      Image.network(model.imagePath!,width: context.screenWidth,height: context.screenHeight/2.5,fit: BoxFit.fill,) :  AspectRatio(
+      Image.network(model.imagePath!,width: context.screenWidth,height: context.screenHeight/2.8,fit: BoxFit.fill,) : 
+      Image.asset(ImagePathConstant.imageSample1.path,width: context.screenWidth,height: context.screenHeight/2.8,fit: BoxFit.fill,),
+       /*AspectRatio(
           aspectRatio: cubitRead.chewieController.aspectRatio!,
           child: Chewie(controller: cubitRead.chewieController),
-        ),
+        ),*/
         Positioned(
           bottom: -5,
           height: 50,
