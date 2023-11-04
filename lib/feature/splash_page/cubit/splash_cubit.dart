@@ -25,7 +25,7 @@ class SplashCubit extends Cubit<int> implements IBaseViewModel {
     Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform);
     Hive..init('HiveDatabase');
     await Hive.initFlutter();
-    Future.delayed(const Duration(milliseconds: 4500)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN));
+    Future.delayed(const Duration(milliseconds: 4000)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN));
   }
 
   @override
