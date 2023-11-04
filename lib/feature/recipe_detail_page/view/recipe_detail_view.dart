@@ -1,4 +1,5 @@
 import 'package:chewie/chewie.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,6 +13,7 @@ import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bo
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/constant/design/color_constant.dart';
+import '../../../core/init/language/language_manager.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_bold_text.dart';
@@ -186,6 +188,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
   }*/
 
   Widget recipe(BuildContext context, RecipeDetailCubit cubitRead) {
+     String recipeName = context.locale == LanguageManager.instance.trLocale ? (widget.recipeModel.nameTR ?? '') : (widget.recipeModel.nameEN ?? '');
     return Padding(
       padding: context.paddingMediumEdges,
       child: Container(
@@ -198,7 +201,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           children: [
             context.lowSizedBox,
             BoldText(
-              text: widget.recipeModel.nameEN!,
+              text: recipeName,
               fontSize: 16,
               maxLines: 3,
               textColor: Colors.black,
@@ -290,12 +293,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
   }
 
   Widget tabBarDirections(BuildContext context) {
+    String directions = context.locale == LanguageManager.instance.trLocale ? (widget.recipeModel.directionsTR ?? '') : (widget.recipeModel.directionsEN ?? '');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         context.normalSizedBox,
         Text(
-          widget.recipeModel.directionsEN ?? '',
+          directions,
           style: const TextStyle(overflow: TextOverflow.clip),
         ),
       ],
@@ -303,6 +307,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
   }
 
   Widget tabBarIngredients(BuildContext context) {
+  String description = context.locale == LanguageManager.instance.trLocale ? (widget.recipeModel.descriptionTR ?? '') : (widget.recipeModel.descriptionEN ?? '');   
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -314,12 +319,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
             physics: const NeverScrollableScrollPhysics(),
             itemCount: widget.recipeModel.ingredients?.length ?? 0,
             itemBuilder: (BuildContext context, int recipeIngredientsIndex) {
+         String ingredientName = context.locale == LanguageManager.instance.trLocale ? (widget.recipeModel.ingredients?[recipeIngredientsIndex].nameTR ?? '') : (widget.recipeModel.ingredients?[recipeIngredientsIndex].nameEN  ?? '');    
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(widget.recipeModel.ingredients![recipeIngredientsIndex].quantity.toString()),
                   context.lowSizedBoxWidth,
-                  Text(widget.recipeModel.ingredients![recipeIngredientsIndex]!.nameEN!),
+                  Text(ingredientName),
                 ],
               );
             }),
@@ -348,7 +354,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
         const LocaleBoldText(text: LocaleKeys.description),
         context.lowSizedBox,
         Text(
-          widget.recipeModel?.descriptionEN ?? '',
+          description,
           style: const TextStyle(overflow: TextOverflow.ellipsis),
           maxLines: 3,
         ),

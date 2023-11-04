@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
-import 'package:recipe_finder/feature/login_page/cubit/login_state.dart';
 import 'package:recipe_finder/feature/login_page/view/login_mixin.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
