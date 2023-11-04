@@ -30,8 +30,6 @@ import '../../../product/widget/text_field/user_text_formfield.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget with LoginMixin {
- 
-
   LoginView({super.key});
 
   @override
@@ -42,42 +40,28 @@ class LoginView extends StatelessWidget with LoginMixin {
       },
       dispose: (cubitRead) => cubitRead.dispose(),
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
-        body: BlocListener<LoginCubit, LoginState>(
-          listener: (context, state) {
-            if(state.responseModel?.success==false){
-            showDialog(context: context, builder: (context){
-            return AlertDialogError(text: state.responseModel?.error?.message ?? '',);
-           });
-          }
-          else if(state.responseModel?.success==true){
-             showDialog(context: context, builder: (context){
-            return  AlertDialogSuccess(text: state.responseModel!.message);
-           });
-          }
-          },
-          child: WillPopScope(
-            onWillPop: () => Future<bool>.value(false),
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: RadialGradient(
-                colors: [
-                  const Color(0xFF034A72),
-                  ColorConstants.instance.russianViolet,
-                ],
-                center: const Alignment(0.0, -0.3),
-                focal: const Alignment(0.2, -0.2),
-                focalRadius: 0.0,
-              )),
-              child: SafeArea(
-                child: Padding(
-                  padding: context.paddingNormalAll,
-                  child: Column(
-                    children: [
-                      languageAndLaterRow(context),
-                      buildImage(context),
-                      buildUnderColumn(context, cubitRead),
-                    ],
-                  ),
+        body: WillPopScope(
+          onWillPop: () => Future<bool>.value(false),
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: RadialGradient(
+              colors: [
+                const Color(0xFF034A72),
+                ColorConstants.instance.russianViolet,
+              ],
+              center: const Alignment(0.0, -0.3),
+              focal: const Alignment(0.2, -0.2),
+              focalRadius: 0.0,
+            )),
+            child: SafeArea(
+              child: Padding(
+                padding: context.paddingNormalAll,
+                child: Column(
+                  children: [
+                    languageAndLaterRow(context),
+                    buildImage(context),
+                    buildUnderColumn(context, cubitRead),
+                  ],
                 ),
               ),
             ),
@@ -215,14 +199,34 @@ class LoginView extends StatelessWidget with LoginMixin {
                         )),
                     context.lowSizedBox,
                     FutureButton(
-                      text: LocaleKeys.login.locale,
-                      onPressed: () async {
-                        if (loginFormKey.currentState!.validate()) {
-                        await cubitRead.signIn(userNameController.text.trim(), passwordController.text.trim());
-                        }
-                      },
-                      color: ColorConstants.instance.oriolesOrange,
-                    ),
+                          text: LocaleKeys.login.locale,
+                          onPressed: () async {
+                            if (loginFormKey.currentState!.validate()) {
+                              await cubitRead
+                                  .signIn(userNameController.text.trim(),
+                                      passwordController.text.trim())
+                                  .then((responseModel) {
+                                     if (responseModel.success == false) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialogError(
+                      text: responseModel.error?.message ?? '',
+                    );
+                  });
+            } else if (responseModel.success == true) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialogSuccess(
+                        text: responseModel.message);
+                  });
+            }
+                                  });
+                            }
+                          },
+                          color: ColorConstants.instance.oriolesOrange,
+                        ),
                   ]),
                 ],
               ),
@@ -239,16 +243,16 @@ class LoginView extends StatelessWidget with LoginMixin {
                   Column(
                     children: [
                       SocialButton(
-                          adapter: GoogleAdapter(), onCompleted: (user) {
-                            if(user!=null){
-                              
-                            }
-
+                          adapter: GoogleAdapter(),
+                          onCompleted: (user) {
+                            if (user != null) {}
                           }),
                       context.lowSizedBox,
-                       SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
-                        context.lowSizedBox,
-                       SocialButton(adapter: AppleAdapter(), onCompleted: (token) {}),
+                      SocialButton(
+                          adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      context.lowSizedBox,
+                      SocialButton(
+                          adapter: AppleAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -362,9 +366,11 @@ class LoginView extends StatelessWidget with LoginMixin {
                       SocialButton(
                           adapter: GoogleAdapter(), onCompleted: (token) {}),
                       context.lowSizedBox,
-                       SocialButton(adapter: FacebookAdapter(), onCompleted: (token) {}),
-                        context.lowSizedBox,
-                       SocialButton(adapter: AppleAdapter(), onCompleted: (token) {}),
+                      SocialButton(
+                          adapter: FacebookAdapter(), onCompleted: (token) {}),
+                      context.lowSizedBox,
+                      SocialButton(
+                          adapter: AppleAdapter(), onCompleted: (token) {}),
                     ],
                   ),
                   Row(
@@ -557,4 +563,5 @@ class LoginView extends StatelessWidget with LoginMixin {
       ),
     );
   }
+
 }

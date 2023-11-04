@@ -13,7 +13,7 @@ class BaseResponseModel extends Equatable {
   final BaseError? error;
 
 @override
-List<Object?> get props => [success, error];
+List<Object?> get props => [success, error,message];
   BaseResponseModel copyWith({
     bool? success,
      String? message,

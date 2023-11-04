@@ -28,11 +28,11 @@ class RecipeFabButton extends StatelessWidget {
         textDirection: textDirection ?? TextDirection.ltr,
         child: FloatingActionButton(
             heroTag: heroTag,
-            elevation: 5,
-            highlightElevation: 5,
-            focusElevation: 5,
-            hoverElevation: 5,
-            disabledElevation: 5,
+            elevation: 2.5,
+            highlightElevation: 2.5,
+            focusElevation: 2.5,
+            hoverElevation: 2.5,
+            disabledElevation: 2.5,
             backgroundColor: color ?? ColorConstants.instance.russianViolet,
             shape: RoundedRectangleBorder(
                 borderRadius: context.radiusAllCircularMedium,
