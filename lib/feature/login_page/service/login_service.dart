@@ -5,8 +5,8 @@ import 'package:recipe_finder/product/utils/enum/firebase_collection_enum.dart';
 
 abstract class ILoginService {
 
- signInWithEmailOrUserName(String emailOrUserName, String password);
- signUp(String userName, String email, String password);
+ Future<UserModel?> signInWithEmailOrUserName(String emailOrUserName, String password);
+ Future<void> signUp(String userName, String email, String password);
 
   /*Future<IResponseModel<LoginResponseModel?, INetworkModel<dynamic>?>> login(String email, String password);
   Future<IResponseModel<RegisterResponseModel?, INetworkModel<dynamic>?>> register(String userName, String email, String password);
@@ -23,7 +23,8 @@ Future<UserModel?>  signInWithEmailOrUserName(String emailOrUserName, String pas
         final jsonBody = snapshot.data();
        
         if(jsonBody!=null) {
-          return UserModel.fromJson(jsonBody)..copyWith(id: snapshot.id);
+          jsonBody['id'] = snapshot.id;
+          return UserModel.fromJson(jsonBody);
         }
       },
        toFirestore: (value,options){
@@ -39,7 +40,7 @@ Future<UserModel?>  signInWithEmailOrUserName(String emailOrUserName, String pas
       if(querySnapshot.docs.isNotEmpty){
          final firestoreUserDocs = querySnapshot.docs;
        final firestoreUser = firestoreUserDocs.first.data();
-final user = UserModel(userName: firestoreUser?.userName, email: emailOrUserName,password: password,token: credential.credential?.token.toString(),uid: credential.user?.uid,profilePhotoUrl:credential.user?.photoURL);
+final user = UserModel(id: firestoreUser?.id, userName: firestoreUser?.userName, email: emailOrUserName,password: password,token: credential.credential?.token.toString(),uid: credential.user?.uid,profilePhotoUrl:credential.user?.photoURL);
     userModel = user;
        }
     });
@@ -51,6 +52,7 @@ final user = UserModel(userName: firestoreUser?.userName, email: emailOrUserName
        final firestoreUserDocs = querySnapshot.docs;
        final firestoreUser = firestoreUserDocs.first.data();
       final user = UserModel(
+        id: firestoreUser?.id,
           userName: emailOrUserName,
           email:firestoreUser!.email,
           password: password,

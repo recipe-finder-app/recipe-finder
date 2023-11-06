@@ -17,30 +17,33 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserModel(
-      userName: fields[0] as String?,
-      email: fields[1] as String?,
-      password: fields[2] as String?,
-      token: fields[3] as String?,
-      uid: fields[4] as String?,
-      profilePhotoUrl: fields[5] as String?,
+      id: fields[0] as String?,
+      userName: fields[1] as String?,
+      email: fields[2] as String?,
+      password: fields[3] as String?,
+      token: fields[4] as String?,
+      uid: fields[5] as String?,
+      profilePhotoUrl: fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.userName)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.email)
+      ..write(obj.userName)
       ..writeByte(2)
-      ..write(obj.password)
+      ..write(obj.email)
       ..writeByte(3)
-      ..write(obj.token)
+      ..write(obj.password)
       ..writeByte(4)
-      ..write(obj.uid)
+      ..write(obj.token)
       ..writeByte(5)
+      ..write(obj.uid)
+      ..writeByte(6)
       ..write(obj.profilePhotoUrl);
   }
 
@@ -60,6 +63,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+      id: json['id'] as String?,
       userName: json['user_name'] as String?,
       email: json['email'] as String?,
       password: json['password'] as String?,
@@ -69,6 +73,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
+      'id': instance.id,
       'user_name': instance.userName,
       'email': instance.email,
       'password': instance.password,

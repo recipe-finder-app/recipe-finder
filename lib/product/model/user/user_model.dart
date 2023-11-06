@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 part 'user_model.g.dart';
@@ -9,21 +8,24 @@ part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel extends HiveObject with EquatableMixin {
-  @JsonKey(name: "user_name")
   @HiveField(0)
-  final String? userName;
+  final String? id;
+  @JsonKey(name: "user_name")
   @HiveField(1)
-  final String? email;
+  final String? userName;
   @HiveField(2)
-  final String? password;
+  final String? email;
   @HiveField(3)
-  final String? token;
+  final String? password;
   @HiveField(4)
+  final String? token;
+  @HiveField(5)
   final String? uid;
   @JsonKey(name: "profile_photo_url")
-  @HiveField(5)
+  @HiveField(6)
   final String? profilePhotoUrl;
         UserModel({
+          this.id,
     this.userName,
     this.email,
     this.password,
@@ -37,7 +39,7 @@ class UserModel extends HiveObject with EquatableMixin {
   
   @override
   // TODO: implement props
-  List<Object?> get props => [userName, email, password, token, uid, profilePhotoUrl];
+  List<Object?> get props => [id,userName, email, password, token, uid, profilePhotoUrl];
 
 
 
@@ -51,6 +53,7 @@ class UserModel extends HiveObject with EquatableMixin {
     String? profilePhotoUrl    
   }) {
     return UserModel(
+       id: id ?? this.id,
       userName: userName ?? this.userName,
       email: email ?? this.email,
       password: password ?? this.password,

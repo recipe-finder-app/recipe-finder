@@ -6,6 +6,9 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/base_response_model.dart';
 import 'package:recipe_finder/product/model/error_model.dart';
 import '../../../core/base/model/base_view_model.dart';
+import '../../../core/init/cache/hive_manager.dart';
+import '../../../product/model/user/user_model.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 import '../service/login_service.dart';
 import 'login_state.dart';
 
@@ -33,6 +36,20 @@ Future<BaseResponseModel> signIn(String userNameOrEmail,password) async{
   try{
    final user = await service!.signInWithEmailOrUserName(userNameOrEmail, password);
    if(user!=null){
+     final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+            await hiveManager.put(
+                HiveKeyEnum.user,
+                UserModel(
+                  id: user.id,
+                  userName: user.userName,
+                  email: user.email,
+                  password: user.password,
+                  uid: user.uid,
+                  token:user.token,
+                  profilePhotoUrl: user.profilePhotoUrl,
+                ));
+               final hiveUser = await hiveManager.get(HiveKeyEnum.user);
+                print("id ${hiveUser?.id}");
 const responseModel = BaseResponseModel(success: true,message: "Giriş başarılı!");
  emit(state.copyWith(responseModel: responseModel));
   return  responseModel;

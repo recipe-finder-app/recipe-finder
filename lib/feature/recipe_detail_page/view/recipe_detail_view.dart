@@ -335,25 +335,41 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
         context.lowSizedBox,
         const LocaleBoldText(text: LocaleKeys.yourFrize),
         context.lowSizedBox,
-        context.read<HomeCubit>().myFrizeItems == null
-            ? const Center()
-            : SizedBox(
-                height: context.screenHeight / 7,
-                width: context.screenWidth,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: context.read<HomeCubit>().myFrizeItems.length,
-                    itemBuilder: (BuildContext context, int missingItemIndex) {
-                      return Padding(
-                        padding: EdgeInsets.only(right: context.lowValue),
-                        child: AmountIngredientCircleAvatar(
-                          model: context.read<HomeCubit>().myFrizeItems[missingItemIndex],
-                        ),
-                      );
-                    }),
-              ),
+            
+             FutureBuilder(
+              future:context.read<RecipeDetailCubit>().fetchFrizeIngredientList(),
+              builder: (context,snapshot){
+                if(snapshot.data==null || (snapshot.data!=null && snapshot.data!.isEmpty)){
+                  return const Text("null");
+                   return  const SizedBox.shrink();
+                }
+                 else if(snapshot.connectionState== ConnectionState.waiting){
+                    return CircularProgressIndicator(color: ColorConstants.instance.oriolesOrange,strokeWidth: 2.5,);
+                  }
+                  else if(snapshot.connectionState== ConnectionState.done){
+               return SizedBox(
+                  height: context.screenHeight / 7,
+                  width: context.screenWidth,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: context.read<HomeCubit>().myFrizeItems.length,
+                      itemBuilder: (BuildContext context, int missingItemIndex) {
+                        return Padding(
+                          padding: EdgeInsets.only(right: context.lowValue),
+                          child: AmountIngredientCircleAvatar(
+                            model:snapshot.data![missingItemIndex],
+                          ),
+                        );
+                      }),
+                );
+                  }
+                  else {
+                    return  const SizedBox.shrink();
+                  }
+              },
+            ),
         const LocaleBoldText(text: LocaleKeys.description),
         context.lowSizedBox,
         Text(

@@ -12,6 +12,15 @@ part 'ingredient_quantity.g.dart';
 class IngredientQuantity extends Ingredient with EquatableMixin implements HiveObject {
 @HiveField(8)
   final double? quantity;
+  @HiveField(9)
+  @JsonKey(name: "measurement_id")
+  final double? measurementId;
+  @HiveField(10)
+  @JsonKey(name: "measurement_name_en")
+  final double? measurementNameEN;
+  @HiveField(11)
+  @JsonKey(name: "measurement_name_tr")
+  final double? measurementNameTR;
 
       IngredientQuantity({
        String? id,
@@ -22,9 +31,10 @@ class IngredientQuantity extends Ingredient with EquatableMixin implements HiveO
        String? categoryNameTR,
        String? imageUrl,
        String? color,
-       String? zaza,
-
-    this.quantity
+    this.quantity,
+    this.measurementId,
+        this.measurementNameEN,
+        this.measurementNameTR,
   }) : super(id: id,nameEN: nameEN,nameTR: nameTR,categoryId:categoryId,categoryNameEN: categoryNameEN,categoryNameTR: categoryNameTR,imageUrl: imageUrl,color: color);
 
 
@@ -37,7 +47,7 @@ class IngredientQuantity extends Ingredient with EquatableMixin implements HiveO
   Map<String, dynamic> toJson() => _$IngredientQuantityToJson(this);
 
 @override
-List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imageUrl, color, quantity];
+List<Object?> get props => [id, nameEN, nameTR, categoryId, categoryNameEN, categoryNameTR, imageUrl, color, quantity,measurementId,measurementNameEN,measurementNameTR];
 
   @override
   IngredientQuantity fromJson(Map<String, dynamic> json) {

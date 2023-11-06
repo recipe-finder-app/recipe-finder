@@ -26,15 +26,24 @@ class IngredientQuantityAdapter extends TypeAdapter<IngredientQuantity> {
       imageUrl: fields[6] as String?,
       color: fields[7] as String?,
       quantity: fields[8] as double?,
+      measurementId: fields[9] as double?,
+      measurementNameEN: fields[10] as double?,
+      measurementNameTR: fields[11] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, IngredientQuantity obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(12)
       ..writeByte(8)
       ..write(obj.quantity)
+      ..writeByte(9)
+      ..write(obj.measurementId)
+      ..writeByte(10)
+      ..write(obj.measurementNameEN)
+      ..writeByte(11)
+      ..write(obj.measurementNameTR)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -79,6 +88,9 @@ IngredientQuantity _$IngredientQuantityFromJson(Map<String, dynamic> json) =>
       imageUrl: json['image_url'] as String?,
       color: json['color'] as String?,
       quantity: (json['quantity'] as num?)?.toDouble(),
+      measurementId: (json['measurement_id'] as num?)?.toDouble(),
+      measurementNameEN: (json['measurement_name_en'] as num?)?.toDouble(),
+      measurementNameTR: (json['measurement_name_tr'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$IngredientQuantityToJson(IngredientQuantity instance) =>
@@ -92,4 +104,7 @@ Map<String, dynamic> _$IngredientQuantityToJson(IngredientQuantity instance) =>
       'image_url': instance.imageUrl,
       'color': instance.color,
       'quantity': instance.quantity,
+      'measurement_id': instance.measurementId,
+      'measurement_name_en': instance.measurementNameEN,
+      'measurement_name_tr': instance.measurementNameTR,
     };

@@ -213,12 +213,7 @@ class LoginView extends StatelessWidget with LoginMixin {
                     );
                   });
             } else if (responseModel.success == true) {
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialogSuccess(
-                        text: responseModel.message);
-                  });
+             NavigationService.instance.navigateToPage(path:NavigationConstant.NAV_CONTROLLER);
             }
                                   });
                             }
