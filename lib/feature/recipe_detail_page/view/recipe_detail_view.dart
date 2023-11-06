@@ -340,7 +340,6 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
               future:context.read<RecipeDetailCubit>().fetchFrizeIngredientList(),
               builder: (context,snapshot){
                 if(snapshot.data==null || (snapshot.data!=null && snapshot.data!.isEmpty)){
-                  return const Text("null");
                    return  const SizedBox.shrink();
                 }
                  else if(snapshot.connectionState== ConnectionState.waiting){
@@ -354,7 +353,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
-                      itemCount: context.read<HomeCubit>().myFrizeItems.length,
+                      itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (BuildContext context, int missingItemIndex) {
                         return Padding(
                           padding: EdgeInsets.only(right: context.lowValue),

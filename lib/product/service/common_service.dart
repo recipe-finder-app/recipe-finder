@@ -107,9 +107,9 @@ class CommonService implements ICommonService {
   }
 
   @override
-  Future<List<IngredientQuantity>> fetchAllFrizeItemList(String userId) async {
+   Future<List<IngredientQuantity>> fetchAllFrizeItemList(String userId) async {
     List<IngredientQuantity> myList = [];
-    await users
+    final response = await users
         .doc(userId)
         .collection(FirebaseCollectionEnum.frize.name)
         .withConverter(fromFirestore: (snapshot, options) {
@@ -122,17 +122,14 @@ class CommonService implements ICommonService {
           if (value == null) throw Exception('$value is null');
           return value.toJson();
         })
-        .get()
-        .then((response) {
-          for (var ingredient in response.docs) {
-            final ingredientData = ingredient.data();
-            debugPrint("nametr ${ingredientData?.nameTR}");
-            if (ingredientData != null) {
-              myList.add(ingredientData);
-            }
-          }
-          return myList;
-        });
+        .get();
+       
+    for (var ingredient in response.docs) {
+      final ingredientData =  ingredient.data();
+      if (ingredientData != null) {
+        myList.add(ingredientData);
+      }
+    }
     return myList;
   }
 }

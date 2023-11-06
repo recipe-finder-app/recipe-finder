@@ -14,13 +14,13 @@ class IngredientQuantity extends Ingredient with EquatableMixin implements HiveO
   final double? quantity;
   @HiveField(9)
   @JsonKey(name: "measurement_id")
-  final double? measurementId;
+  final String? measurementId;
   @HiveField(10)
   @JsonKey(name: "measurement_name_en")
-  final double? measurementNameEN;
+  final String? measurementNameEN;
   @HiveField(11)
   @JsonKey(name: "measurement_name_tr")
-  final double? measurementNameTR;
+  final String? measurementNameTR;
 
       IngredientQuantity({
        String? id,

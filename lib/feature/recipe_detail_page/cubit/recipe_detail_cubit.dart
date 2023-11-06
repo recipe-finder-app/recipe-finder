@@ -23,7 +23,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   late ICommonService commonService;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
-
+  final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
@@ -50,23 +50,22 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
     selectedPreviousTabBarIndex = 0;
   }
   
-  Future<List<IngredientQuantity>?> fetchFrizeIngredientList() async{
+  Future<List<IngredientQuantity>> fetchFrizeIngredientList() async{
     try{
-       final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+     
        final user = await hiveManager.get(HiveKeyEnum.user);
        if(user?.id!=null){
     final ingredientList = await commonService.fetchAllFrizeItemList(user!.id!);
-    print(ingredientList);
-    return ingredientList;
+         return ingredientList;
        }
        else{
         return [];
        }
     }
     catch (e) {
-
+      print(e.toString());
+      throw Exception(e.toString());
     }
-    return null;
   }
   void share(Recipe recipeModel) {
     String ingredientsText = '';
