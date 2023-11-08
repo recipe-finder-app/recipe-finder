@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/product/model/recipe/recipe.dart';
 import 'package:recipe_finder/product/widget/container/circular_bacground.dart';
-
+import 'package:recipe_finder/core/extension/string_extension.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text/bold_text.dart';
 import '../../../core/widget/text/locale_text.dart';
@@ -101,7 +102,7 @@ class _AnimatedLikesRecipeCardState extends State<AnimatedLikesRecipeCard> with 
             ),
             Flexible(
               flex: 1,
-              child: GestureDetector(
+              child:  InkWell(
                 onTap: widget.addToBasketOnPressed,
                 child: Container(
                   decoration: BoxDecoration(borderRadius: context.radiusBottomCircularMin, color: ColorConstants.instance.white, border: Border.all(color: ColorConstants.instance.oriolesOrange)),
@@ -139,9 +140,10 @@ class _AnimatedLikesRecipeCardState extends State<AnimatedLikesRecipeCard> with 
       decoration: BoxDecoration(
         image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              widget.model.imagePath ?? '',
-            )),
+            image:NetworkImage(widget.model.imagePath ?? ''),
+            
+           // widget.model.imagePath.isSvg ? SvgPicture(widget.model.imagePath) : AssetImage(widget.model.imagePath ?? ''
+            ),
         borderRadius: context.radiusTopCircularMin,
       ),
       child: Container(

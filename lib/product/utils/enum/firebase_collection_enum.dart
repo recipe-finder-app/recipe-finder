@@ -6,5 +6,6 @@ enum FirebaseCollectionEnum {
   recipes,
   categories,
   frize,
+  liked_recipes
   
 }

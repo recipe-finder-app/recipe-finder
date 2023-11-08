@@ -1,19 +1,24 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/feature/finder_page/view/finder_view.dart';
 
+import '../../../core/init/cache/hive_manager.dart';
 import '../../../feature/basket_page/view/basket_view.dart';
 import '../../../feature/discover_page/view/discover_view.dart';
 import '../../../feature/home_page/view/home_view.dart';
 import '../../../feature/likes_page/view/likes_view.dart';
+import '../../model/user/user_model.dart';
+import '../../utils/enum/hive_enum.dart';
 
 class RecipeNavigationBarCubit extends Cubit<int> {
   var pageList = [
     const HomeView(),
      DiscoverView(),
     const FinderView(),
-    const LikesView(),
+    LikesView(),
     const BasketView(),
   ];
   int selectedPageIndex = 0;
@@ -56,6 +61,13 @@ class RecipeNavigationBarCubit extends Cubit<int> {
   void clear() {
     selectedPageIndex = 0;
     emit(selectedPageIndex);
+  }
+  Future<bool> clearCache() async{
+     final IHiveManager<UserModel> user = HiveManager<UserModel>(HiveBoxEnum.userModel);
+                 await Future.wait([
+                    user.clear(),
+                     ]);     
+                     return true;
   }
 }
 

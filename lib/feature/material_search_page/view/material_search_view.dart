@@ -74,7 +74,7 @@ class _MaterialSearchViewState extends State<MaterialSearchView> {
                     return RecipeProgress(
                       isLoading: state.isLoading,
                       child: Padding(
-                          padding: context.paddingNormalEdges,
+                          padding: context.pagePadding,
                           child: SingleChildScrollView(
                             physics: const BouncingScrollPhysics(),
                             child: Column(children: [

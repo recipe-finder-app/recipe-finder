@@ -23,7 +23,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   late ICommonService commonService;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
-  final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
   RecipeDetailCubit() : super(RecipeDetailInit());
 
   @override
@@ -52,7 +51,7 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   
   Future<List<IngredientQuantity>> fetchFrizeIngredientList() async{
     try{
-     
+     final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
        final user = await hiveManager.get(HiveKeyEnum.user);
        if(user?.id!=null){
     final ingredientList = await commonService.fetchAllFrizeItemList(user!.id!);
@@ -63,7 +62,6 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
        }
     }
     catch (e) {
-      print(e.toString());
       throw Exception(e.toString());
     }
   }
@@ -83,8 +81,9 @@ class RecipeDetailCubit extends Cubit<IRecipeDetailState> implements IBaseViewMo
   }
 
   bool isSavedRecipeContainThisRecipe(Recipe recipeModel) {
-    bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
-    return result;
+    return false;
+   // bool result = context!.read<LikesCubit>().recipeList.contains(recipeModel);
+   // return result;
   }
 
   void videoPlayerInit() {

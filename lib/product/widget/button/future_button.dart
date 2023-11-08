@@ -27,10 +27,14 @@ class _FutureButtonState extends State<FutureButton> {
     return RecipeCircularButton(
       width: widget.width ?? context.screenWidth / 1.5,
       text: _processState == true
-          ? const CircularProgressIndicator(
-              strokeWidth: 2.5,
-              color: Colors.black,
-            )
+          ? const SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(
+                strokeWidth: 2.5,
+                color: Colors.black,
+              ),
+          )
           : Text(widget.text, textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16)),
       color: widget.color,
       onPressed: _processState == true

@@ -20,11 +20,11 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       id: fields[0] as String?,
       nameEN: fields[1] as String?,
       nameTR: fields[2] as String?,
-      descriptionEN: fields[6] as String?,
-      descriptionTR: fields[7] as String?,
-      directionsEN: fields[8] as String?,
-      directionsTR: fields[9] as String?,
-      imagePath: fields[10] as String?,
+      descriptionEN: fields[3] as String?,
+      descriptionTR: fields[4] as String?,
+      directionsEN: fields[5] as String?,
+      directionsTR: fields[6] as String?,
+      imagePath: fields[7] as String?,
     );
   }
 
@@ -38,15 +38,15 @@ class RecipeAdapter extends TypeAdapter<Recipe> {
       ..write(obj.nameEN)
       ..writeByte(2)
       ..write(obj.nameTR)
-      ..writeByte(6)
+      ..writeByte(3)
       ..write(obj.descriptionEN)
-      ..writeByte(7)
+      ..writeByte(4)
       ..write(obj.descriptionTR)
-      ..writeByte(8)
+      ..writeByte(5)
       ..write(obj.directionsEN)
-      ..writeByte(9)
+      ..writeByte(6)
       ..write(obj.directionsTR)
-      ..writeByte(10)
+      ..writeByte(7)
       ..write(obj.imagePath);
   }
 
@@ -93,8 +93,6 @@ Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'directions_tr': instance.directionsTR,
       'image_url': instance.imagePath,
       'videoPath': instance.videoPath,
-      'ingredients': instance.ingredients,
-      'categories': instance.categories,
     };
 
 RecipeListModel _$RecipeListModelFromJson(Map<String, dynamic> json) =>

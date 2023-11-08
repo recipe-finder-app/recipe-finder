@@ -26,29 +26,35 @@ class Recipe extends HiveObject with EquatableMixin implements INetworkModel<Rec
   final String? nameTR;
 
   @JsonKey(name: 'description_en')
-  @HiveField(6)
+  @HiveField(3)
   final String? descriptionEN;
 
   @JsonKey(name: 'description_tr')
-  @HiveField(7)
+  @HiveField(4)
   final String? descriptionTR;
 
   @JsonKey(name: 'directions_en')
-  @HiveField(8)
+  @HiveField(5)
    final String? directionsEN;
 
 @JsonKey(name: 'directions_tr')
-  @HiveField(9)
+  @HiveField(6)
    final String? directionsTR;
 
 @JsonKey(name: 'image_url')
-  @HiveField(10)
+  @HiveField(7)
    final String? imagePath;
 
  
   final String? videoPath;
+  
+   @JsonKey(includeToJson: false)
   final List<IngredientQuantity>? ingredients;
-  final List<RecipeCategory>? categories;
+
+  @JsonKey(includeToJson: false)
+   final List<RecipeCategory>? categories;
+
+ 
       Recipe({
     this.id,
     this.nameEN,

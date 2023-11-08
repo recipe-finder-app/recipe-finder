@@ -48,7 +48,7 @@ class _BasketViewState extends State<BasketView> with SingleTickerProviderStateM
         onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
               body: SafeArea(
                 child: Padding(
-                  padding: context.paddingNormalTopLeftRight,
+                  padding: context.pagePadding,
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

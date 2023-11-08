@@ -8,3 +8,10 @@ extension StringLocalizationExtension on String {
 extension ToColorExtension on String {
   Color get toColor => Color(int.parse("0xFF$this")).withOpacity(0.1);
 }
+
+extension IsSvg on String {
+  bool get isSvg => contains(".svg") ? true : false;
+}
+extension IsPngOrJpg on String {
+  bool get isPngOrJpg => contains(".png") || contains(".jpg") || contains("jpeg") ? true : false;
+}

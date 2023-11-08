@@ -120,8 +120,8 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                   ),
                 ),
                 context.normalSizedBoxWidth,
-                BlocBuilder<LikesCubit, ILikesState>(builder: (context, state) {
-                  if (context.read<LikesCubit>().recipeList.contains(widget.recipeModel)) {
+                BlocBuilder<LikesCubit, LikesState>(builder: (context, state) {
+                  if (context.read<LikesCubit>().state.likedRecipeList!.contains(widget.recipeModel)) {
                     return InkWell(
                       onTap: () {
                         showDialog(
@@ -130,7 +130,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                               return QuestionAlertDialog(
                                 explanation: LocaleKeys.deleteSavedRecipeQuestion,
                                 onPressedYes: () {
-                                  context.read<LikesCubit>().deleteItemFromLikedRecipeList(widget.recipeModel);
+                                 // context.read<LikesCubit>().removeItemFromLikedRecipeList(widget.recipeModel);
                                 },
                               );
                             });
@@ -148,7 +148,7 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
                   } else {
                     return InkWell(
                       onTap: () {
-                        context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
+                       // context.read<LikesCubit>().addItemFromLikedRecipeList(widget.recipeModel);
                         Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
                       },
                       child: CircularBackground(

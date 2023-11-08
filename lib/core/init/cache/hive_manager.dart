@@ -21,7 +21,6 @@ abstract class IHiveManager<T> {
 
   Future<void> close();
   Future<void> clear();
-
   Future<void> add(T item);
   Future<void> addAll(List<T> items);
   Future<void> putAll(List<T> items);
@@ -44,6 +43,7 @@ class HiveManager<T> extends IHiveManager<T> {
 
   @override
   Future<void> clear() async {
+    
     await openBox();
     await _box?.clear();
   }

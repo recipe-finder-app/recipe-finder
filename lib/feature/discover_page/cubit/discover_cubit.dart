@@ -1,13 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/cache/hive_manager.dart';
 import 'package:recipe_finder/feature/discover_page/service/discover_service.dart';
 import 'package:recipe_finder/product/model/error_model.dart';
 import 'package:recipe_finder/product/model/ingredient_category/ingredient_category.dart';
 import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
+import 'package:recipe_finder/product/model/user/user_model.dart';
 import 'package:recipe_finder/product/service/common_service.dart';
+import 'package:recipe_finder/product/utils/enum/hive_enum.dart';
 
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/utils/constant/image_path_enum.dart';
@@ -44,28 +48,16 @@ final int pageLimit = 10;
   @override
   Future<void> init() async {
     commonService = CommonService();
-    
-   
-   // changeSelectedCategory(allCategoryId);
+     changeIsLoadingState();
     await fetchRecipeCategoryList().then((value){
       if(state.selectedCategory!=null && state.selectedCategory!.id!=null){
       fetchRecipeListByCategoryId(state.selectedCategory!.id!);
       }
     });
-
-    //await fetchInitialRecipeList();
-    
+    changeIsLoadingState();
   }
 
-  @override
-  void setContext(BuildContext context) {
-    this.context = context;
-  }
-
-  void changeIsLoadingState() {
-
-    emit(state.copyWith(isLoading: !state.isLoading!));
-  }
+ 
 
   void changeSelectedCategory(RecipeCategory selectedCategory) {
     emit(state.copyWith(selectedCategory: selectedCategory));
@@ -93,12 +85,25 @@ catch (e) {
      return [];
    
   } finally {
-    changeIsLoadingState();
+changeIsLoadingState();
   }
+}
+Future<void> addToLikedRecipeList(Recipe model) async {
+  IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+ final user = await hiveManager.get(HiveKeyEnum.user);
+ if(user?.id!=null){
+ await commonService.addItemToLikedRecipes(user!.id!, model);
+ }
+}
+Future<void> removeItemFromLikedRecipeList(String recipeId) async {
+  IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+ final user = await hiveManager.get(HiveKeyEnum.user);
+ if(user?.id!=null){
+ await commonService.removeItemFromLikedRecipes(user!.id!, recipeId);
+ }
 }
 Future<List<Recipe>> fetchAllRecipeList() async {
   try {
-    changeIsLoadingState();
     List<Recipe> allRecipeList = [];
     final recipeResponse = await commonService.fetchRecipeListWithLimit(limit:pageLimit);
     
@@ -135,12 +140,10 @@ Future<List<Recipe>> fetchAllRecipeList() async {
      return [];
    
   } finally {
-    changeIsLoadingState();
   }
 }
 Future<List<RecipeCategory>> fetchRecipeCategoryList() async {
   try {
-    changeIsLoadingState();
     List<RecipeCategory> recipeCategoryList = [];
     final response = await commonService.fetchRecipeCategoryList();
 
@@ -160,9 +163,17 @@ Future<List<RecipeCategory>> fetchRecipeCategoryList() async {
      return [];
    
   } finally {
-    changeIsLoadingState();
   }
 }
+ @override
+  void setContext(BuildContext context) {
+    this.context = context;
+  }
+
+  void changeIsLoadingState() {
+     final isLoading = state.isLoading ?? false;
+    emit(state.copyWith(isLoading: !isLoading));
+  }
   /*Future<void> fetchRecipeCategoryList() async {
     try {
       changeIsLoadingState();

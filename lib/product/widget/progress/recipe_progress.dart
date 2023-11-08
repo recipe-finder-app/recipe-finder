@@ -22,54 +22,51 @@ class RecipeProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return isLoading == false
         ? child
-        : Align(
-            alignment: Alignment.center,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                child,
-                const ModalBarrier(
-                  dismissible: false,
-                ),
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+        : Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            child,
+            const ModalBarrier(
+              dismissible: false,
+            ),
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.center,
                     children: [
-                      Stack(
-                        alignment: AlignmentDirectional.center,
-                        children: [
-                          SizedBox(
-                            height: 140,
-                            width: 140,
-                            child: CircularProgressIndicator(
-                              color: ColorConstants.instance.oriolesOrange,
-                              backgroundColor: Colors.grey.withOpacity(0.2),
-                            ),
-                          ),
-                          Lottie.asset(ImagePathConstant.cookingAnimation.path, height: 140, width: 140),
-                        ],
+                      SizedBox(
+                        height: 140,
+                        width: 140,
+                        child: CircularProgressIndicator(
+                          color: ColorConstants.instance.oriolesOrange,
+                          backgroundColor: Colors.grey.withOpacity(0.2),
+                        ),
                       ),
-                      Padding(
-                        padding: context.paddingHighEdges,
-                        child: Padding(
-                            padding: context.paddingMediumOnlyTop,
-                            child: LocaleBoldText(
-                              text: LocaleKeys.progressText,
-                              maxLines: 3,
-                              textAlign: TextAlign.center,
-                              textColor: ColorConstants.instance.oriolesOrange,
-                              fontSize: 16,
-                              style: const TextStyle(
-                                decoration: TextDecoration.none,
-                              ),
-                            )),
-                      ),
+                      Lottie.asset(ImagePathConstant.cookingAnimation.path, height: 140, width: 140),
                     ],
                   ),
-                )
-              ],
-            ),
-          );
+                  Padding(
+                    padding: context.paddingHighEdges,
+                    child: Padding(
+                        padding: context.paddingMediumOnlyTop,
+                        child: LocaleBoldText(
+                          text: LocaleKeys.progressText,
+                          maxLines: 3,
+                          textAlign: TextAlign.center,
+                          textColor: ColorConstants.instance.oriolesOrange,
+                          fontSize: 16,
+                          style: const TextStyle(
+                            decoration: TextDecoration.none,
+                          ),
+                        )),
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
   }
 }

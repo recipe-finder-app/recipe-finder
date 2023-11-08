@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
 import 'package:recipe_finder/core/constant/enum/device_size_enum.dart';
+import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
+import 'package:recipe_finder/core/widget/text/locale_text.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 import 'package:recipe_finder/core/extension/string_extension.dart';
 import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+import 'package:recipe_finder/product/utils/constant/navigation_constant.dart';
 
 import '../../../core/widget/image_format/image_svg.dart';
 import 'bottom_nav_bar_cubit.dart';
@@ -19,6 +23,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const _RecipeWhiteAppBar(),
       bottomNavigationBar: Stack(
         alignment: AlignmentDirectional.topCenter,
         clipBehavior: Clip.none,
@@ -97,44 +102,80 @@ class RecipeBottomNavigationBar extends StatelessWidget {
               onTap: () {
                 context.read<RecipeNavigationBarCubit>().clickFinderButton();
               },
-              child: Tooltip(
-                message: LocaleKeys.finder.locale,
-                child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    BlocBuilder<RecipeNavigationBarCubit, int>(
-                      builder: (context, state) {
-                        return Container(
-                          alignment: Alignment.center,
-                          height: 50,
-                          width: 50,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: state == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
-                          ),
-                        );
-                      },
-                    ),
-                    SvgPicture.asset(
-                      ImagePathConstant.appIconLowSize.path,
-                      color: Colors.white,
-                      height: 60,
-                      fit: BoxFit.fitHeight,
-                    ),
-                  ],
-                ),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  BlocBuilder<RecipeNavigationBarCubit, int>(
+                    builder: (context, state) {
+                      return Container(
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: state == 2 ? ColorConstants.instance.russianViolet : ColorConstants.instance.oriolesOrange,
+                        ),
+                      );
+                    },
+                  ),
+                  SvgPicture.asset(
+                    ImagePathConstant.appIconLowSize.path,
+                    color: Colors.white,
+                    height: 55,
+                    fit: BoxFit.fitHeight,
+                  ),
+                ],
               ),
             ),
           ),
         ],
       ),
-      body: PageView(
-        physics: const NeverScrollableScrollPhysics(),
-        controller: context.read<RecipeNavigationBarCubit>().pageController,
-        children: context.read<RecipeNavigationBarCubit>().pageList,
+      body: WillPopScope(
+        onWillPop: ()=> context.read<RecipeNavigationBarCubit>().clearCache(),
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: context.read<RecipeNavigationBarCubit>().pageController,
+          children: context.read<RecipeNavigationBarCubit>().pageList,
+        ),
       ),
     );
   }
+}
+
+class _RecipeWhiteAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const _RecipeWhiteAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return PreferredSize(
+      preferredSize: preferredSize,
+      child: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(left: context.normalValue),
+          child: InkWell(
+            borderRadius: context.radiusAllCircularMin,
+            onTap: () => NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(FontAwesomeIcons.doorOpen,color: ColorConstants.instance.oriolesOrange,),
+                const LocaleText(text: LocaleKeys.logout,fontSize: 8,maxLines: 2,),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(40);
 }
 /*
 class RecipeBottomNavigationBar extends StatelessWidget {

@@ -1,162 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/core/extension/string_extension.dart';
+import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
+import 'package:recipe_finder/product/model/error_model.dart';
+import 'package:recipe_finder/product/service/common_service.dart';
+import 'package:recipe_finder/product/utils/enum/hive_enum.dart';
 
 import '../../../core/base/model/base_view_model.dart';
+import '../../../core/init/cache/hive_manager.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
+import '../../../product/model/user/user_model.dart';
 import '../../../product/utils/constant/image_path_enum.dart';
 import '../../../product/model/recipe/recipe.dart';
 import '../service/likes_service.dart';
 import 'likes_state.dart';
 
-class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
+class LikesCubit extends Cubit<LikesState> implements IBaseViewModel {
   ILikesService? service;
+  ICommonService? commonService;
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
-  late ScrollController scrollController;
-  late List<Recipe> recipeList = [
-    Recipe(
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4, imageUrl: ImagePathConstant.egg.path),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
-            'uzun text deneme',
-        imagePath: ImagePathConstant.imageSample1.path,
-        videoPath: 'asset/video/samplevideo.mp4',
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample2.path,
-        videoPath: 'asset/video/samplevideo.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample3.path,
-        videoPath: 'asset/video/pizza.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample4.path,
-        videoPath: 'asset/video/samplevideo.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample1.path,
-        videoPath: 'asset/video/pizza.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample1.path,
-        videoPath: 'asset/video/pizza.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample1.path,
-        videoPath: 'asset/video/pizza.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken uzun text deneme uzun text deneme'
-            'uzun text deneme',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Egg', quantity: 4),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-    Recipe(
-        imagePath: ImagePathConstant.imageSample3.path,
-        videoPath: 'asset/video/pizza.mp4',
-        nameEN: 'Cajun spiced Cauliflower Rice with Chicken',
-        ingredients: [
-          IngredientQuantity(nameEN: 'Egg', quantity: 4, imageUrl: ImagePathConstant.egg.path),
-          IngredientQuantity(nameEN: 'Milk', quantity: 1 / 2, imageUrl: ImagePathConstant.milk.name),
-          IngredientQuantity(nameEN: 'Butter', quantity: 1 / 2, imageUrl: ImagePathConstant.salad.path),
-        ],
-        descriptionEN: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing at dolor eu, et faucibus.',
-        directionsEN: directionText),
-  ];
 
-  late List<IngredientQuantity> myFrizeItems;
 
-  String directionText =
-      """Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
-  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
-  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness. 
-  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
-  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
-  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
-  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
-  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
-  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.
-  Whisk egg, ketchup, Worcestershire sauce, salt, brown sugar, onion powder, garlic powder, thyme, and cayenne pepper together in a bowl. Add breadcrumbs and chopped cooked bacon. Crumble in the ground beef. Mix with your fingers until bacon and breadcrumbs are distributed evenly.
-  Form mixture into 4 burgers with your wet hands. Cover with plastic wrap and refrigerate until chilled thoroughly, about 3 hours.
-  Preheat an outdoor grill for medium-high heat and lightly oil the grate.
-  Place burgers on the grate and cook, turing occasionally, until firm and cooked to your desired doneness.""";
-
-  LikesCubit() : super(LikesInit());
+  LikesCubit() : super(const LikesState(isLoading: false,likedRecipeList: []),);
   @override
-  void init() {
+  Future<void> init() async {
     service = LikesService();
-    scrollController = ScrollController();
-    myFrizeItems = [
-      IngredientQuantity(nameEN: 'milk', imageUrl: ImagePathConstant.milk.path, quantity: 6),
-      IngredientQuantity(nameEN: 'bread', imageUrl: ImagePathConstant.bread.path, quantity: 3),
-      IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 2),
-      IngredientQuantity(nameEN: 'egg', imageUrl: ImagePathConstant.egg.path, quantity: 3),
-      IngredientQuantity(nameEN: 'potato', imageUrl: ImagePathConstant.potato.path, quantity: 2),
-      IngredientQuantity(nameEN: 'chicken', imageUrl: ImagePathConstant.chicken.path, quantity: 2),
-    ];
+    commonService = CommonService();
+    await fetchlikedRecipeList();
+    
   }
 
-  void deleteItemFromLikedRecipeList(Recipe model) {
-    recipeList.remove(model);
-    emit(LikesRecipeItemListLoad(recipeList.toSet().toList()));
+  Future<void> removeItemFromLikedRecipeList(String recipeId) async {
+      try{
+     IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+      final user = await hiveManager.get(HiveKeyEnum.user);
+      if(user?.id!=null){
+   await commonService!.removeItemFromLikedRecipes(user!.id!, recipeId);
+    final recipeList = state.likedRecipeList ?? [];
+      recipeList.removeWhere((element) => element.id==recipeId);
+      emit(state.copyWith(likedRecipeList: recipeList.toSet().toList())); 
+      }
+     
+      }
+       catch(e) {
+     emit(state.copyWith(error:BaseError(message: LocaleKeys.anErrorOccured.locale)));
+    }
+   
   }
 
-  void addItemFromLikedRecipeList(Recipe model) {
-    recipeList.insert(0, model);
-    emit(LikesRecipeItemListLoad(recipeList.toSet().toList()));
-  }
 
+  Future<List<Recipe>> fetchlikedRecipeList() async {
+    try{
+      changeIsLoadingState();
+    IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+ final user = await hiveManager.get(HiveKeyEnum.user);
+ if(user?.id!=null){
+     final recipeList = await commonService!.fetchLikedRecipes(user!.id!);
+     emit(state.copyWith(likedRecipeList: recipeList));
+     return recipeList;
+ }
+ else {
+  return [];
+ }
+    }
+    catch(e) {
+     emit(state.copyWith(error:BaseError(message: LocaleKeys.anErrorOccured.locale)));
+     return [];
+    }
+    finally {
+      changeIsLoadingState();
+    }
+  }
+  void changeIsLoadingState() {
+
+    emit(state.copyWith(isLoading: !state.isLoading!));
+  }
   @override
   BuildContext? context;
 
@@ -165,6 +84,6 @@ class LikesCubit extends Cubit<ILikesState> implements IBaseViewModel {
 
   @override
   void dispose() {
-    recipeList = [];
+  
   }
 }

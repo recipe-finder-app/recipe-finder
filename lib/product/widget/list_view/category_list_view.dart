@@ -25,13 +25,12 @@ class CategoryListView<T> extends StatefulWidget {
 }
 
 class _CategoryListViewState<T> extends State<CategoryListView<T>> {
-  late T? _selectedCategory;
-  List<GlobalKey>? _keys = [];
+  late T _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
+  List<GlobalKey> _keys = [];
   @override
   void initState() {
     if (widget.categoryList.isNotEmpty) {
       _keys = List.generate(widget.categoryList.length, (index) => GlobalKey()); //otomatik kaydırma için global key gerekli
-      _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
     }
     super.initState();
   }

@@ -57,6 +57,10 @@ class DiscoverView extends StatelessWidget {
               backgroundColor: Colors.white,
               body: SafeArea(
                 child: BlocConsumer<DiscoverCubit, DiscoverState>(
+                  buildWhen: (prev,current){
+                   // return false;
+                  return  prev.isLoading!=current.isLoading || (prev.error!=null && (prev.error!.message.isNotEmpty || current.error!.message.isNotEmpty));
+                  },
                   listener: (context, state) {
                     if (state.error != null &&
                         state.error!.message.isNotEmpty) {
@@ -68,13 +72,12 @@ class DiscoverView extends StatelessWidget {
                     }
                   },
                   builder: (context, state) {
+                    print("scaffold build oldu");
                     return RecipeProgress(
                       isLoading: state.isLoading,
                       child: SingleChildScrollView(
-                        controller: scrollController,
                         child: Padding(
                           padding: EdgeInsets.only(
-                              top: context.mediumValue,
                               left: context.normalValue,
                               right: context.normalValue),
                           child: Column(
@@ -93,17 +96,27 @@ class DiscoverView extends StatelessWidget {
                               ),
                               context.normalSizedBox,
                               BlocBuilder<DiscoverCubit, DiscoverState>(
-                                builder: (context, state) {
-                                  if (state.recipeCategoryList == null || (state.recipeCategoryList != null && state.recipeCategoryList!.isEmpty )) {
+                                buildWhen: (prev,current){
+                                if(prev.selectedCategory!=current.selectedCategory){
+                                  return true;
+                                } else {
+                                  return false;
+                                }
+                                },
+                                builder: (context, categoryState) {
+                                   print("category build oldu");
+                                  if (categoryState.recipeCategoryList == null || (categoryState.recipeCategoryList != null && categoryState.recipeCategoryList!.isEmpty )) {
                                     return const SizedBox.shrink();
                                   } else {
                                     return CategoryListView<RecipeCategory>(
                                       initialSelectedCategory:
-                                          state.recipeCategoryList?[0],
+                                          categoryState.recipeCategoryList?[0],
                                       categoryList:
-                                          state.recipeCategoryList ?? [],
+                                          categoryState.recipeCategoryList ?? [],
                                       onPressed: (selectedCategory) async {
+                                        
                                         if (selectedCategory.id != null) {
+                                        cubitRead.changeSelectedCategory(selectedCategory);
                                           await cubitRead
                                               .fetchRecipeListByCategoryId(
                                                   selectedCategory.id!);
@@ -170,22 +183,31 @@ class DiscoverView extends StatelessWidget {
                             path: NavigationConstant.RECIPE_DETAIL,
                             data: recipe);
                       },
-                      likeIconOnPressed: () {
-                         if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == false) {
-                        context.read<LikesCubit>().addItemFromLikedRecipeList(state.recipeList![cardIndex]);
-                        Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
-                      } else if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == true) {
-                        showDialog(
+                      likeIconOnPressed: (bool isRecipeContainsInLikedRecipeList) {
+                        if(isRecipeContainsInLikedRecipeList){
+                           showDialog(
                             context: context,
                             builder: (context) {
                               return QuestionAlertDialog(
                                 explanation: LocaleKeys.deleteSavedRecipeQuestion,
                                 onPressedYes: () {
-                                  context.read<LikesCubit>().deleteItemFromLikedRecipeList(state.recipeList![cardIndex]);
+                                  cubitRead.removeItemFromLikedRecipeList(state.recipeList![cardIndex].id ?? '0');
                                 },
                               );
-                            });
-                }});
+                            });                          
+                        }
+                        else {
+                          cubitRead.addToLikedRecipeList(state.recipeList![cardIndex]);
+                           Fluttertoast.showToast(timeInSecForIosWeb: 2, gravity: ToastGravity.CENTER, msg: LocaleKeys.favoriteRecipeMessage.locale, backgroundColor: ColorConstants.instance.oriolesOrange, textColor: Colors.white);
+                        }
+                       /* 
+                         if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == false) {
+                       
+                       
+                      } else if (context.read<LikesCubit>().recipeList.contains(state.recipeList![cardIndex]) == true) {
+                       
+                }*/
+                });
                 }));
 
   }

@@ -20,7 +20,7 @@ class DiscoverState extends Equatable {
     this.recipeCategoryList,
     this.selectedCategory,
     this.categoryCurrentPageMap,
-    this.isLoading = false,
+    this.isLoading,
     this.pageKey = 1,
     this.hasMoreRecipe = true,
     this.newPageLoading = false,

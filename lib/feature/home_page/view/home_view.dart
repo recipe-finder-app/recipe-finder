@@ -37,7 +37,6 @@ class HomeView extends StatelessWidget {
       init: (cubitRead) async {
         cubitRead.setContext(context);
         await cubitRead.init();
-        print("home çalıştı");
       },
       visibleProgress: false,
       onPageBuilder: (BuildContext context, cubitRead, cubitWatch) => Scaffold(
@@ -49,11 +48,10 @@ class HomeView extends StatelessWidget {
               return RecipeProgress(
                 isLoading: state.isLoading,
                 child: Padding(
-                  padding: context.paddingNormalEdges,
+                  padding: context.pagePadding,
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     child: Column(children: [
-                      context.mediumSizedBox,
                       _textRow(context, cubitRead),
                       context.mediumSizedBox,
                       SizedBox(
@@ -104,6 +102,7 @@ class HomeView extends StatelessWidget {
 
   Drawer buildDrawer(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
       child: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -140,7 +139,7 @@ class HomeView extends StatelessWidget {
               leading: ImageSvg(
                 path: ImagePathConstant.user.path,
               ),
-              title: LocaleText(text: LocaleKeys.myAccount),
+              title: const LocaleText(text: LocaleKeys.myAccount),
               onTap: () {
                 NavigationService.instance.navigateToPage(path: NavigationConstant.MYACCOUNT);
               },
@@ -152,7 +151,7 @@ class HomeView extends StatelessWidget {
                 path: ImagePathConstant.discover.path,
                 color: Colors.black,
               ),
-              title: LanguagePopupMenuButton(
+              title: const LanguagePopupMenuButton(
                 child: LocaleText(text: LocaleKeys.language),
               ),
               onTap: () {},
@@ -160,11 +159,11 @@ class HomeView extends StatelessWidget {
             buildDrawerDivider(context),
             ListTile(
               horizontalTitleGap: 0,
-              leading: Icon(
+              leading: const Icon(
                 Icons.star_border,
                 color: Colors.black,
               ),
-              title: LocaleText(text: LocaleKeys.rateUs),
+              title:const LocaleText(text: LocaleKeys.rateUs),
               onTap: () {},
             ),
             buildDrawerDivider(context),
@@ -174,7 +173,7 @@ class HomeView extends StatelessWidget {
                 path: ImagePathConstant.email.path,
                 color: Colors.black,
               ),
-              title: LocaleText(text: LocaleKeys.contact),
+              title:const LocaleText(text: LocaleKeys.contact),
               onTap: () {},
             ),
             buildDrawerDivider(context),
@@ -184,7 +183,7 @@ class HomeView extends StatelessWidget {
                 path: ImagePathConstant.persons.path,
                 color: Colors.black,
               ),
-              title: LocaleText(text: LocaleKeys.aboutUs),
+              title:const LocaleText(text: LocaleKeys.aboutUs),
               onTap: () {
                 NavigationService.instance.navigateToPage(path: NavigationConstant.ABOUTUS);
               },
@@ -196,10 +195,12 @@ class HomeView extends StatelessWidget {
                 path: ImagePathConstant.returnBack.path,
                 color: Colors.black,
               ),
-              title: LocaleText(text: LocaleKeys.logout),
+              title:const LocaleText(text: LocaleKeys.logout),
               onTap: () async {
-                final IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
-                await hiveManager.clear();
+               final IHiveManager<UserModel> user = HiveManager<UserModel>(HiveBoxEnum.userModel);
+                    await Future.wait([
+                    user.clear(),
+                     ]);     
                 NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
               },
             ),
