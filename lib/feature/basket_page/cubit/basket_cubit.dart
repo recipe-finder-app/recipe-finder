@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recipe_finder/core/base/model/base_view_model.dart';
 import 'package:recipe_finder/core/constant/design/color_constant.dart';
+import 'package:recipe_finder/product/service/common_service.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/feature/basket_page/cubit/basket_state.dart';
 import 'package:recipe_finder/feature/basket_page/service/basket_service.dart';
 import 'package:recipe_finder/product/model/recipe/recipe.dart';
 
+import '../../../core/init/cache/hive_manager.dart';
 import '../../../product/model/ingredient_quantity/ingredient_quantity.dart';
+import '../../../product/model/user/user_model.dart';
+import '../../../product/utils/enum/hive_enum.dart';
 
-class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
-  IBasketService? service;
-  Recipe? selectedCardModel;
-
+class BasketCubit extends Cubit<BasketState> implements IBaseViewModel {
+ late IBasketService service;
+ late ICommonService commonService;
   late List<Recipe> basketRecipeItems = [
     Recipe(
       imagePath: 'asset/png/foot2.png',
@@ -48,69 +51,79 @@ class BasketCubit extends Cubit<IBasketState> implements IBaseViewModel {
     ),
   ];
 
-  BasketCubit() : super(BasketsInit());
-  late List<IngredientQuantity> myFinderFrizeItems;
+  BasketCubit() : super(const BasketState(basketRecipeItemList: [], myFrizeList: []));
 
-  int? selectedColorIndex;
   @override
-  void init() {
-    selectedCardModel = null;
-    selectedColorIndex = null;
+  Future<void> init() async {
     service = BasketService();
-    myFinderFrizeItems = [
-      IngredientQuantity(nameEN: 'milk', imageUrl: ImagePathConstant.milk.path, quantity: 6),
-      IngredientQuantity(nameEN: 'bread', imageUrl: ImagePathConstant.bread.path, quantity: 3),
-      IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 2),
-      IngredientQuantity(nameEN: 'egg', imageUrl: ImagePathConstant.egg.path, quantity: 3),
-      IngredientQuantity(nameEN: 'potato', imageUrl: ImagePathConstant.potato.path, quantity: 2),
-      IngredientQuantity(nameEN: 'chicken', imageUrl: ImagePathConstant.chicken.path, quantity: 2),
-    ];
+    commonService = CommonService();
+   await setMyFrizeItemList();
   }
 
   void addItemFromBasketRecipeList(Recipe model) {
     basketRecipeItems.add(model);
-    emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
+    emit(state.copyWith(basketRecipeItemList: basketRecipeItems));
+    //emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
    
   }
 
   void deletedItemFromBasketRecipeList(Recipe model) {
     basketRecipeItems.remove(model);
-    emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
+    emit(state.copyWith(basketRecipeItemList: basketRecipeItems));
+   //emit(BasketRecipeItemListLoad(basketRecipeItems.toSet().toList()));
   }
 
   void changeSelectedCardModel(Recipe? model) {
-    if (selectedCardModel == model) {
-      selectedCardModel = null;
-      emit(ChangeSelectedCardModel(selectedCardModel));
+    if (state.selectedRecipe == model) {
+       emit(state.copyWith(selectedRecipe:  Recipe())); // null vermek yerine recipe verip id yoksa kontrolü yapılmalı.state'de copy with olduğundan null değer atanmıyor.
+     
+     // emit(ChangeSelectedCardModel(selectedCardModel));
     } else {
-      selectedCardModel = model;
-      emit(ChangeSelectedCardModel(selectedCardModel));
+     emit(state.copyWith(selectedRecipe: model));
+     // emit(ChangeSelectedCardModel(selectedCardModel));
     }
+    
   }
 
   void changeSelectedColorIndex(int? index) {
-    if (selectedColorIndex == index) {
-      selectedColorIndex = null;
-      emit(ChangeSelectedColorIndex(selectedColorIndex));
+    if (state.selectedColorIndex == index) {
+      emit(state.copyWith(selectedColorIndex: -1));
     } else {
-      selectedColorIndex = index;
-      emit(ChangeSelectedColorIndex(selectedColorIndex));
+       emit(state.copyWith(selectedColorIndex: index));
+     //emit(ChangeSelectedColorIndex(selectedColorIndex));
     }
 
   }
 
   Color selectedCardItemColor(int index) {
-    if (index == selectedColorIndex) {
+    if (index == state.selectedColorIndex) {
       return ColorConstants.instance.oriolesOrange;
     } else {
       return ColorConstants.instance.russianViolet;
     }
   }
-
+  Future<void> setMyFrizeItemList() async {
+   final frizeList = await fetchMyFrizeItemList();
+   emit(state.copyWith(myFrizeList: frizeList));
+  }
+Future<List<IngredientQuantity>> fetchMyFrizeItemList()async {
+    try{
+      IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+     final user = await hiveManager.get(HiveKeyEnum.user);
+ if(user?.id!=null){
+ final frizeList = await  commonService.fetchAllFrizeItemList(user!.id!);
+    return frizeList;
+ }
+ else {
+  return [];
+ }
+    }
+    catch(e){
+      throw Exception(e.toString());
+  }
+  }
   @override
   void dispose() {
-    selectedCardModel = null;
-    selectedColorIndex = null;
   }
 
   @override

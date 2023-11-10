@@ -22,9 +22,10 @@ class AddToBasketBottomSheet {
   static AddToBasketBottomSheet instance = AddToBasketBottomSheet._init();
   AddToBasketBottomSheet._init();
 
-  Future<void> show(BuildContext context, Recipe recipeModel) {
-    context.read<AddToBasketCubit>().calculateMissingItemList(recipeModel, context.read<AddToBasketCubit>().myFrizeItemList);
-    context.read<AddToBasketCubit>().setFirstItemLists(context.read<AddToBasketCubit>().myFrizeItemList, context.read<AddToBasketCubit>().missingItemList);
+  Future<void> show(BuildContext context, Recipe recipeModel) async {
+    context.read<AddToBasketCubit>().calculateMissingItemList(recipeModel, context.read<AddToBasketCubit>().currentMyFrizeItemList);
+   await context.read<AddToBasketCubit>().setFirstItemLists(context.read<AddToBasketCubit>().currentMissingItemList).then((value){
+   // ignore: use_build_context_synchronously
     return CircularBottomSheet.instance.show(
       context,
       bottomSheetHeight: CircularBottomSheetHeight.short,
@@ -42,7 +43,7 @@ class AddToBasketBottomSheet {
                   onPressed: () {
                     context.read<AddToBasketCubit>().undoAll();
                   },
-                  child: LocaleBoldText(
+                  child: const LocaleBoldText(
                     text: LocaleKeys.undoAll,
                     fontSize: 12,
                   )),
@@ -50,15 +51,15 @@ class AddToBasketBottomSheet {
                   onPressed: () {
                     context.read<AddToBasketCubit>().undo();
                   },
-                  child: LocaleBoldText(
+                  child: const LocaleBoldText(
                     text: LocaleKeys.undo,
                     fontSize: 12,
                   )),
             ],
           ),
-          Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
-          if (context.read<AddToBasketCubit>().missingItemList.isEmpty)
-            const Center()
+          const Flexible(flex: 1, child: LocaleBoldText(text: LocaleKeys.missingItem)),
+          if (context.read<AddToBasketCubit>().currentMissingItemList.isEmpty)
+            const SizedBox.shrink()
           else
             BlocSelector<AddToBasketCubit, IAddToBasketState, bool>(
               selector: (draggingState) {
@@ -74,7 +75,7 @@ class AddToBasketBottomSheet {
                     if (state is MissingItemListLoad) {
                       return state.missingItemList;
                     } else {
-                      return context.read<AddToBasketCubit>().missingItemList;
+                      return context.read<AddToBasketCubit>().currentMissingItemList;
                     }
                   },
                   builder: (BuildContext context, state) {
@@ -96,7 +97,7 @@ class AddToBasketBottomSheet {
               },
             ),
           Visibility(
-            visible: context.read<AddToBasketCubit>().missingItemList.isEmpty ? false : true,
+            visible: context.read<AddToBasketCubit>().currentMissingItemList.isEmpty ? false : true,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,13 +127,13 @@ class AddToBasketBottomSheet {
               if (state is MyFrizeListLoad) {
                 return state.myFrizeItemList;
               } else {
-                return context.read<AddToBasketCubit>().myFrizeItemList ?? [];
+                return context.read<AddToBasketCubit>().currentMyFrizeItemList;
               }
             }, builder: (BuildContext context, state) {
               return Flexible(
                 flex: 4,
-                child: context.read<AddToBasketCubit>().myFrizeItemList == null
-                    ? const Center()
+                child: context.read<AddToBasketCubit>().currentMyFrizeItemList.isEmpty
+                    ? const SizedBox.shrink()
                     : DragTarget<IngredientQuantity>(onAccept: (data) {
                         context.read<AddToBasketCubit>().addItemToMyFrizeList(data);
                         context.read<AddToBasketCubit>().removeMissingItem(data);
@@ -150,6 +151,7 @@ class AddToBasketBottomSheet {
             color: ColorConstants.instance.oriolesOrange,
             text: const LocaleText(
               text: LocaleKeys.confirm,
+              color: Colors.white,
             ),
             onPressed: () {
               context.read<BasketCubit>().addItemFromBasketRecipeList(recipeModel);
@@ -159,6 +161,8 @@ class AddToBasketBottomSheet {
         ],
       ),
     );
+   });
+ 
   }
 
   ListView _myFrizeItemListView(List<IngredientQuantity> state) {

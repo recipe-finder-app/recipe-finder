@@ -1,11 +1,13 @@
 enum HiveBoxEnum {
   userModel,
   materialSearchMap,
+  firstOpening,
 }
 
 enum HiveKeyEnum {
   user,
   materialSearchMap,
+  firstOpening,
 }
 
 enum HiveAdapterKeyEnum {

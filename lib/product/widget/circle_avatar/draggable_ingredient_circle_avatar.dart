@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe_finder/product/utils/constant/image_path_enum.dart';
 import 'package:recipe_finder/core/extension/context_extension.dart';
 
+import '../../../core/init/language/language_manager.dart';
 import '../../../core/widget/image_format/image_svg.dart';
 import '../../../core/widget/text/locale_text.dart';
 import '../../model/ingredient_quantity/ingredient_quantity.dart';
@@ -20,6 +22,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
 
   @override
   Widget build(BuildContext context) {
+    String title = (context.locale == LanguageManager.instance.trLocale ? model.nameTR : model.nameEN)!;
     return Draggable(
       data: data,
       onDragStarted: onDragStarted,
@@ -86,7 +89,7 @@ class DraggableIngredientCircleAvatar<T extends Object> extends StatelessWidget 
           FittedBox(
             child: LocaleText(
               fontSize: 12,
-              text: model.nameEN!,
+              text: title,
             ),
           ),
         ],

@@ -1,89 +1,88 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_finder/product/service/common_service.dart';
 import 'package:recipe_finder/product/widget/modal_bottom_sheet/add_to_basket_bottom_sheet/cubit/add_to_basket_bottom_sheet_state.dart';
 
+import '../../../../../core/init/cache/hive_manager.dart';
 import '../../../../model/ingredient_quantity/ingredient_quantity.dart';
+import '../../../../model/user/user_model.dart';
 import '../../../../utils/constant/image_path_enum.dart';
 import '../../../../model/recipe/recipe.dart';
+import '../../../../utils/enum/hive_enum.dart';
 
 class AddToBasketCubit extends Cubit<IAddToBasketState> {
   bool? missingItemIsDragging;
   bool? myFrizeItemIsDragging;
-  late List<IngredientQuantity> myFrizeItemList = [
-    IngredientQuantity(nameEN: 'Egg', imageUrl: ImagePathConstant.egg.path, quantity: 1),
-    IngredientQuantity(nameEN: 'Milk', imageUrl: ImagePathConstant.milk.path, quantity: 0.25),
-    IngredientQuantity(nameEN: 'salad', imageUrl: ImagePathConstant.salad.path, quantity: 1),
-    /* IngredientModel(
-        title: 'chicken', imagePath: ImagePath.chicken.path, quantity: 1),
-    IngredientModel(
-        title: 'Potato', imagePath: ImagePath.potato.path, quantity: 0.25),*/
-  ];
-  List<IngredientQuantity> missingItemList = [];
+  List<IngredientQuantity> currentMyFrizeItemList = [];
+  List<IngredientQuantity> currentMissingItemList = [];
 
   List<List<IngredientQuantity>> previousMissingItemList = [];
   List<List<IngredientQuantity>> previousMyFrizeItemList = [];
 
-  List<IngredientQuantity> firstMissingItemList = [];
-  List<IngredientQuantity> firstMyFrizeItemList = [];
-
+  List<IngredientQuantity> initialMissingItemList = [];
+  List<IngredientQuantity> initialMyFrizeItemList = [];
+  ICommonService commonService = CommonService();
   AddToBasketCubit() : super(AddToBasketInit());
 
-  void setFirstItemLists(List<IngredientQuantity> myFrizeList, List<IngredientQuantity> missingList) {
-    firstMissingItemList.clear();
-    firstMyFrizeItemList.clear();
-    firstMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
-    firstMyFrizeItemList.addAll(myFrizeList.toSet().toList());
+  Future<void> setFirstItemLists(List<IngredientQuantity> missingList) async {
+    initialMissingItemList.clear();
+    initialMyFrizeItemList.clear();
+    final myFrizeList = await fetchMyFrizeItemList();
+    initialMissingItemList.addAll(missingList.toSet().toList()); //burayı addAll ile yapmak önemli.İki listeyi birbirine eşitleyince bu methodu birkere çalıştırsanda yine de son haline eşit oluyor.Referans tipi muhabbeti.Böyle olunca sıkıntı olmuyor.
+    initialMyFrizeItemList.addAll(myFrizeList.toSet().toList());
   }
 
   void undoAll() {
-    missingItemList.clear();
-    myFrizeItemList.clear();
-    missingItemList.addAll(firstMissingItemList.toSet().toList());
-    myFrizeItemList.addAll(firstMyFrizeItemList.toSet().toList());
-    missingItemLoad(missingItemList);
+    currentMissingItemList.clear();
+    currentMyFrizeItemList.clear();
+    currentMissingItemList.addAll(initialMissingItemList.toSet().toList());
+    currentMyFrizeItemList.addAll(initialMyFrizeItemList.toSet().toList());
+    missingItemLoad(currentMissingItemList);
     myFrizeListLoad();
   }
 
   void undo() {
-    if (previousMissingItemList.length > 0) {
-      missingItemList.clear();
-      missingItemList.addAll(previousMissingItemList.last.toSet().toList());
+    if (previousMissingItemList.isNotEmpty) {
+      currentMissingItemList.clear();
+      currentMissingItemList.addAll(previousMissingItemList.last.toSet().toList());
       previousMissingItemList.removeLast();
-      missingItemLoad(missingItemList);
+      missingItemLoad(currentMissingItemList);
     }
-    if (previousMyFrizeItemList.length > 0) {
-      myFrizeItemList.clear();
-      myFrizeItemList.addAll(previousMyFrizeItemList.last.toSet().toList());
+    if (previousMyFrizeItemList.isNotEmpty) {
+      currentMyFrizeItemList.clear();
+      currentMyFrizeItemList.addAll(previousMyFrizeItemList.last.toSet().toList());
       previousMyFrizeItemList.removeLast();
       myFrizeListLoad();
     }
   }
 
   void addItemToMissingList(IngredientQuantity model) {
-    List<IngredientQuantity> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientQuantity> value = currentMissingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
-      previousMissingItemList.add(missingItemList.toSet().toList());
-      missingItemList.add(model);
-      emit(MissingItemListLoad(missingItemList.toSet().toList()!));
+      previousMissingItemList.add(currentMissingItemList.toSet().toList());
+      currentMissingItemList.add(model);
+      emit(MissingItemListLoad(currentMissingItemList.toSet().toList()!));
     }
   }
 
   void removeMissingItem(IngredientQuantity model) {
-    List<IngredientQuantity> value = missingItemList.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientQuantity> value = currentMissingItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
-      previousMissingItemList.add(missingItemList.toSet().toList());
-      missingItemList.remove(model);
-      emit(MissingItemListLoad(missingItemList.toSet().toList()!));
+      previousMissingItemList.add(currentMissingItemList.toSet().toList());
+      currentMissingItemList.remove(model);
+      emit(MissingItemListLoad(currentMissingItemList.toSet().toList()!));
     }
   }
 
   void addItemToMyFrizeList(IngredientQuantity model) {
-    List<IngredientQuantity> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientQuantity> value = currentMyFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isEmpty) {
-      previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
+      previousMyFrizeItemList.add(currentMyFrizeItemList.toSet().toList());
       bool isContainTitle = false;
       IngredientQuantity? containModel;
-      for (var item in myFrizeItemList) {
+      for (var item in currentMyFrizeItemList) {
         if (item.nameEN!.toLowerCase() == model.nameEN!.toLowerCase()) {
           isContainTitle = true;
           containModel = item;
@@ -94,49 +93,65 @@ class AddToBasketCubit extends Cubit<IAddToBasketState> {
         IngredientQuantity newElement = IngredientQuantity(nameEN: model.nameEN, imageUrl: model.imageUrl, color: model.color, quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));
         //quantity: ((model.quantity ?? 0) + (containModel!.quantity ?? 0)));//quantity: model.quantity
 
-        int index = myFrizeItemList.indexOf(containModel!);
-        myFrizeItemList[index] = newElement;
-        emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()));
+        int index = currentMyFrizeItemList.indexOf(containModel!);
+        currentMyFrizeItemList[index] = newElement;
+        emit(MyFrizeListLoad(currentMyFrizeItemList.toSet().toList()));
       } else {
-        myFrizeItemList.add(model);
-        emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()));
+        currentMyFrizeItemList.add(model);
+        emit(MyFrizeListLoad(currentMyFrizeItemList.toSet().toList()));
       }
     }
   }
 
   void removeMyFrizeItem(IngredientQuantity model) {
-    List<IngredientQuantity> value = myFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
+    List<IngredientQuantity> value = currentMyFrizeItemList.where((element) => element.hashCode == model.hashCode).toList();
     if (value.isNotEmpty) {
-      previousMyFrizeItemList.add(myFrizeItemList.toSet().toList());
-      myFrizeItemList.remove(model);
-      emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()!));
+      previousMyFrizeItemList.add(currentMyFrizeItemList.toSet().toList());
+      currentMyFrizeItemList.remove(model);
+      emit(MyFrizeListLoad(currentMyFrizeItemList.toSet().toList()!));
     }
   }
 
   void missingItemLoad(List<IngredientQuantity> missingItems) {
-    missingItemList = missingItems;
-    emit(MissingItemListLoad(missingItemList.toSet().toList()));
+    currentMissingItemList = missingItems;
+    emit(MissingItemListLoad(currentMissingItemList.toSet().toList()));
   }
 
   void calculateMissingItemList(Recipe recipeModel, List<IngredientQuantity> myFrizeList) {
-    missingItemList.clear();
+    currentMissingItemList.clear();
 
     for (var myFrizeIngredient in myFrizeList) {
       for (var recipeIngredient in recipeModel.ingredients!) {
         List<IngredientQuantity>? value = myFrizeList.where((element) => element.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()).toList();
-        if (!missingItemList.contains(recipeIngredient) && value.isEmpty) {
+        if (!currentMissingItemList.contains(recipeIngredient) && value.isEmpty) {
           //!missingItemList.contains(recipeIngredient) bu kontrol aynı  malzemenin döngüde tekrar eklenmemesi için konuldu
-          missingItemList.add(recipeIngredient);
-        } else if ((!missingItemList.contains(recipeIngredient)) && (myFrizeIngredient.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
-          missingItemList.add(recipeIngredient);
+          currentMissingItemList.add(recipeIngredient);
+        } else if ((!currentMissingItemList.contains(recipeIngredient)) && (myFrizeIngredient.nameEN!.toLowerCase() == recipeIngredient.nameEN!.toLowerCase()) && ((myFrizeIngredient.quantity?.toDouble() ?? 0) < (recipeIngredient.quantity?.toDouble() ?? 0))) {
+          currentMissingItemList.add(recipeIngredient);
         }
       }
     }
-    missingItemLoad(missingItemList);
+    missingItemLoad(currentMissingItemList);
   }
 
+  Future<List<IngredientQuantity>> fetchMyFrizeItemList()async {
+    try{
+     IHiveManager<UserModel> hiveManager = HiveManager<UserModel>(HiveBoxEnum.userModel);
+ final user = await hiveManager.get(HiveKeyEnum.user);
+ if(user?.id!=null){
+ final frizeList = await  commonService.fetchAllFrizeItemList(user!.id!);
+    return frizeList;
+ }
+ else {
+  return [];
+ }
+    }
+    catch(e){
+      throw Exception(e.toString());
+  }
+  }
   void myFrizeListLoad() {
-    emit(MyFrizeListLoad(myFrizeItemList.toSet().toList()!));
+    emit(MyFrizeListLoad(currentMyFrizeItemList.toSet().toList()!));
   }
 
   void missingItemDragging(bool isDragging) {

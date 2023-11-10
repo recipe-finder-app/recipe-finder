@@ -12,12 +12,11 @@ import '../../../core/widget/text/locale_text.dart';
 
 
 class CategoryListView<T> extends StatefulWidget {
-
-  final T? initialSelectedCategory;
+  final T? selectedCategory;
   final List<dynamic> categoryList;
   final ValueChanged<T>? onPressed;
   const CategoryListView(
-      {Key? key, this.initialSelectedCategory, required this.categoryList, this.onPressed})
+      {Key? key,this.selectedCategory, required this.categoryList, this.onPressed})
       : super(key: key);
 
   @override
@@ -25,12 +24,13 @@ class CategoryListView<T> extends StatefulWidget {
 }
 
 class _CategoryListViewState<T> extends State<CategoryListView<T>> {
-  late T _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
+  //late T _selectedCategory = widget.initialSelectedCategory ?? widget.categoryList[0];
   List<GlobalKey> _keys = [];
   @override
   void initState() {
     if (widget.categoryList.isNotEmpty) {
-      _keys = List.generate(widget.categoryList.length, (index) => GlobalKey()); //otomatik kaydırma için global key gerekli
+      _keys = List.generate(widget.categoryList.length, (index) => GlobalKey());//otomatik kaydırma için global key gerekli
+   
     }
     super.initState();
   }
@@ -58,14 +58,15 @@ class _CategoryListViewState<T> extends State<CategoryListView<T>> {
                     if (widget.onPressed != null) {
                       widget.onPressed!.call(calculateSelectedCategory(index));
                     }
-                    changeSelectedCategory(calculateSelectedCategory(index));
-                    scrollToCategory(index);
+                     scrollToCategory(index); 
+                   // changeSelectedCategory(calculateSelectedCategory(index));
+                  
                   },
                   child: Container(
-                    key: _keys![index],
+                    key: _keys[index],
                     constraints: const BoxConstraints(maxWidth: double.infinity, minWidth: 50),
                     decoration: BoxDecoration(
-                      border: _selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
+                      border: widget.selectedCategory == calculateSelectedCategory(index) ? null : Border.all(color: Colors.black, width: 0.5),
                       color: categoryItemColor(calculateSelectedCategory(index)),
                       borderRadius: context.radiusAllCircularMedium,
                     ),
@@ -87,15 +88,15 @@ class _CategoryListViewState<T> extends State<CategoryListView<T>> {
     }
   }
 
-  void changeSelectedCategory(T category) {
+  /*void changeSelectedCategory(T category) {
     setState(() {
       _selectedCategory = category;
     });
-  }
+  }*/
 
   void scrollToCategory(int index) {
-    Scrollable.ensureVisible(
-      _keys![index].currentContext!,
+   Scrollable.ensureVisible(
+      _keys[index].currentContext!,
       duration: const Duration(seconds: 1),
       alignment: 0.5, // Scroll to the middle of the item.
     );
@@ -107,7 +108,7 @@ class _CategoryListViewState<T> extends State<CategoryListView<T>> {
 
 
   Color categoryItemColor(T category) {
-    if (category == _selectedCategory) {
+    if (category == widget.selectedCategory) {
       return ColorConstants.instance.oriolesOrange;
     } else {
       return Colors.white;
@@ -115,7 +116,7 @@ class _CategoryListViewState<T> extends State<CategoryListView<T>> {
   }
 
   Color categoryTextColor(T category) {
-    if (category == _selectedCategory) {
+    if (category == widget.selectedCategory) {
       return Colors.white;
     } else {
       return Colors.black;

@@ -15,15 +15,16 @@ class RecipeProgress extends StatelessWidget {
   const RecipeProgress({
     Key? key,
     required this.child,
-    this.isLoading = false,
+    this.isLoading=false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return isLoading == false
+    return isLoading == false || isLoading==null
         ? child
         : Stack(
-          alignment: Alignment.topCenter,
+          fit: StackFit.expand,
+          alignment: AlignmentDirectional.center,
           children: [
             child,
             const ModalBarrier(

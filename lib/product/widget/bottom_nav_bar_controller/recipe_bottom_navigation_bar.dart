@@ -143,9 +143,7 @@ class RecipeBottomNavigationBar extends StatelessWidget {
 }
 
 class _RecipeWhiteAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _RecipeWhiteAppBar({
-    super.key,
-  });
+  const _RecipeWhiteAppBar();
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +156,10 @@ class _RecipeWhiteAppBar extends StatelessWidget implements PreferredSizeWidget 
           padding: EdgeInsets.only(left: context.normalValue),
           child: InkWell(
             borderRadius: context.radiusAllCircularMin,
-            onTap: () => NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN),
+            onTap: () {
+              context.read<RecipeNavigationBarCubit>().clearCache();
+              NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);              
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,6 +170,27 @@ class _RecipeWhiteAppBar extends StatelessWidget implements PreferredSizeWidget 
             ),
           ),
         ),
+        actions: [         
+          Padding(
+            padding: EdgeInsets.only(right: context.normalValue),
+            child: InkWell(
+              borderRadius: context.radiusAllCircularMin,         
+              onTap: (){
+                 NavigationService.instance.navigateToPage(path: NavigationConstant.ONBOARD);
+
+              },
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.help_outline,color: ColorConstants.instance.oriolesOrange,size: 35,),
+                   
+                   // const LocaleText(text: LocaleKeys.logout,fontSize: 8,maxLines: 2,),
+                  ],
+                ),
+            ),
+          ),
+        ],
       ),
     );
   }

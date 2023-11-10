@@ -39,7 +39,7 @@ class CircularBottomSheet {
           padding: EdgeInsets.only(bottom: resizeToAvoidBottomInset == true ? MediaQuery.of(context).viewInsets.bottom : 0),
           child: SizedBox(
             height: bottomSheetHeight == CircularBottomSheetHeight.short
-                ? context.screenHeight / 1.8
+                ? context.screenHeight / 1.7
                 : bottomSheetHeight == CircularBottomSheetHeight.full
                     ? context.screenHeight
                     : bottomSheetHeight == CircularBottomSheetHeight.medium

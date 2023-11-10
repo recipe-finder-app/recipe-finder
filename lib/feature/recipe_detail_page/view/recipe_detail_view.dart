@@ -97,12 +97,13 @@ class _RecipeDetailViewState extends State<RecipeDetailView> with SingleTickerPr
           height: 50,
           width: context.screenWidth,
           child: Container(
-            padding: EdgeInsets.only(left: context.mediumValue, top: context.lowValue),
+            padding: EdgeInsets.only(right: context.mediumValue, top: context.lowValue),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: context.radiusTopCircularVeryHigh,
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
                   onTap: () {

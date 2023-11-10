@@ -10,11 +10,9 @@ import 'package:recipe_finder/core/init/language/locale_keys.g.dart';
 import 'package:recipe_finder/core/widget/alert_dialog/alert_dialog_error.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_cubit.dart';
 import 'package:recipe_finder/feature/discover_page/cubit/discover_state.dart';
-import 'package:recipe_finder/product/model/recipe/recipe.dart';
 import 'package:recipe_finder/product/model/recipe_category/recipe_category.dart';
 import 'package:recipe_finder/product/widget/progress/recipe_progress.dart';
 import 'package:recipe_finder/product/widget/text_field/search_text_field.dart';
-
 import '../../../core/constant/design/color_constant.dart';
 import '../../../product/utils/constant/navigation_constant.dart';
 import '../../../core/init/navigation/navigation_service.dart';
@@ -22,7 +20,6 @@ import '../../../core/widget/text/locale_bold_text.dart';
 import '../../../product/widget/alert_dialog/question_alert_dialog.dart';
 import '../../../product/widget/card/discover_card.dart';
 import '../../../product/widget/list_view/category_list_view.dart';
-import '../../likes_page/cubit/likes_cubit.dart';
 
 class DiscoverView extends StatelessWidget {
   DiscoverView({Key? key}) : super(key: key);
@@ -32,12 +29,12 @@ class DiscoverView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<DiscoverCubit>(
-        init: (cubitRead) {
+        init: (cubitRead) async {
           // pagingController = PagingController(firstPageKey: 1);
           scrollController = ScrollController();
           controller = TextEditingController();
           cubitRead.setContext(context);
-          cubitRead.init();
+          await cubitRead.init();
           scrollController.addListener(() async {
             if (scrollController.offset ==
                     scrollController.position.maxScrollExtent &&
@@ -58,8 +55,8 @@ class DiscoverView extends StatelessWidget {
               body: SafeArea(
                 child: BlocConsumer<DiscoverCubit, DiscoverState>(
                   buildWhen: (prev,current){
-                   // return false;
-                  return  prev.isLoading!=current.isLoading || (prev.error!=null && (prev.error!.message.isNotEmpty || current.error!.message.isNotEmpty));
+                    //return true;
+                  return (prev.error!=null && (current.error!.message.isNotEmpty));
                   },
                   listener: (context, state) {
                     if (state.error != null &&
@@ -73,83 +70,88 @@ class DiscoverView extends StatelessWidget {
                   },
                   builder: (context, state) {
                     print("scaffold build oldu");
-                    return RecipeProgress(
-                      isLoading: state.isLoading,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: context.normalValue,
-                              right: context.normalValue),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const LocaleBoldText(
-                                text: LocaleKeys.findBestRecipesForCooking,
-                                maxLines: 2,
-                                fontSize: 24,
-                              ),
-                              context.normalSizedBox,
-                              SearchTextField(
-                                controller: controller,
-                                width: context.screenWidth,
-                              ),
-                              context.normalSizedBox,
-                              BlocBuilder<DiscoverCubit, DiscoverState>(
-                                buildWhen: (prev,current){
-                                if(prev.selectedCategory!=current.selectedCategory){
-                                  return true;
+                 
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: context.pagePadding,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const LocaleBoldText(
+                              text: LocaleKeys.findBestRecipesForCooking,
+                              maxLines: 2,
+                              fontSize: 24,
+                            ),
+                            context.normalSizedBox,
+                            SearchTextField(
+                              controller: controller,
+                              width: context.screenWidth,
+                            ),
+                            context.normalSizedBox,
+                            BlocBuilder<DiscoverCubit, DiscoverState>(
+                             /* buildWhen: (prev,current){
+                              if(prev.selectedCategory!=current.selectedCategory){
+                                return true;
+                              } else {
+                                return false;
+                              }
+                              },*/
+                              builder: (context, categoryState) {
+                                 print("category build oldu");
+                                if (categoryState.recipeCategoryList == null || (categoryState.recipeCategoryList != null && categoryState.recipeCategoryList!.isEmpty )) {
+                                  return const SizedBox.shrink();
                                 } else {
-                                  return false;
-                                }
-                                },
-                                builder: (context, categoryState) {
-                                   print("category build oldu");
-                                  if (categoryState.recipeCategoryList == null || (categoryState.recipeCategoryList != null && categoryState.recipeCategoryList!.isEmpty )) {
-                                    return const SizedBox.shrink();
-                                  } else {
-                                    return CategoryListView<RecipeCategory>(
-                                      initialSelectedCategory:
-                                          categoryState.recipeCategoryList?[0],
-                                      categoryList:
-                                          categoryState.recipeCategoryList ?? [],
-                                      onPressed: (selectedCategory) async {
-                                        
-                                        if (selectedCategory.id != null) {
-                                        cubitRead.changeSelectedCategory(selectedCategory);
-                                          await cubitRead
-                                              .fetchRecipeListByCategoryId(
-                                                  selectedCategory.id!);
-                                        }
-                                      },
-                                    );
-                                  }
-                                },
-                              ),
-                              context.normalSizedBox,
-                               BlocBuilder<DiscoverCubit, DiscoverState>(
-                                builder: (context, state) {
-                                   String categoryName = (context.locale == LanguageManager.instance.trLocale ? state.selectedCategory?.nameTR ?? '' : state.selectedCategory?.nameEN ?? '');
-                                  return LocaleBoldText(
-                                    text: categoryName,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
+                                  return CategoryListView<RecipeCategory>(
+                        
+                                        selectedCategory:categoryState.selectedCategory,
+                                    categoryList:
+                                        categoryState.recipeCategoryList ?? [],
+                                    onPressed: (selectedCategory) async {
+                                      
+                                      if (selectedCategory.id != null) {
+                                      cubitRead.changeSelectedCategory(selectedCategory);
+                                        await cubitRead
+                                            .fetchRecipeListByCategoryId(
+                                                selectedCategory.id!);
+                                      }
+                                    },
                                   );
-                                },
-                              ),
-                              context.lowSizedBox,
-                              BlocBuilder<DiscoverCubit, DiscoverState>(
-                                builder: (context, state) {
-                                  if (state.recipeCategoryList == null) {
-                                    return const SizedBox.shrink();
-                                  } else {
-                                    return buildTrendingNowGrid(
-                                        cubitRead, state);
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                                }
+                              },
+                            ),
+                            context.normalSizedBox,
+                             BlocBuilder<DiscoverCubit, DiscoverState>(
+                              buildWhen: (prev,curr){
+                                return true;
+                              // return prev.selectedCategory!=curr.selectedCategory;
+                              },
+                              builder: (context, state) {
+                                 String categoryName = (context.locale == LanguageManager.instance.trLocale ? state.selectedCategory?.nameTR ?? '' : state.selectedCategory?.nameEN ?? '');
+                                return LocaleBoldText(
+                                  text: categoryName,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                );
+                              },
+                            ),
+                            context.lowSizedBox,
+                            BlocBuilder<DiscoverCubit, DiscoverState>(
+                              buildWhen: (prev,curr){
+                                return true;
+                              },
+                              builder: (context, gridState) {
+                                print("grid build oldu");
+                                   print("isloading ${gridState.isLoading}");
+                                if (gridState.recipeCategoryList == null) {
+                                  return const SizedBox.shrink();
+                                } else {
+                                  return buildTrendingNowGrid(
+                                      cubitRead, gridState);
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -224,4 +226,5 @@ class DiscoverView extends StatelessWidget {
       ],
     ) : child;
   }
+
 }

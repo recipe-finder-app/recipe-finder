@@ -68,7 +68,7 @@ class LikesView extends StatelessWidget {
                         width: context.screenWidth,
                       ),
                       context.normalSizedBox,
-                      const CategoryListView(
+                       CategoryListView(                    
                         categoryList: [],
                       ),
                       context.normalSizedBox,

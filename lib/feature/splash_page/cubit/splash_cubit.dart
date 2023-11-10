@@ -8,6 +8,9 @@ import 'package:recipe_finder/product/utils/constant/navigation_constant.dart';
 import 'package:recipe_finder/core/init/navigation/navigation_service.dart';
 import 'package:recipe_finder/firebase_options.dart';
 
+import '../../../core/init/cache/hive_manager.dart';
+import '../../../product/utils/enum/hive_enum.dart';
+
 class SplashCubit extends Cubit<int> implements IBaseViewModel {
   SplashCubit() : super(0);
 
@@ -25,9 +28,23 @@ class SplashCubit extends Cubit<int> implements IBaseViewModel {
     Firebase.initializeApp(options:DefaultFirebaseOptions.currentPlatform);
     Hive..init('HiveDatabase');
     await Hive.initFlutter();
-    Future.delayed(const Duration(milliseconds: 4000)).then((value) => NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN));
+    Future.delayed(const Duration(milliseconds: 4000)).then((value) async {
+    await isFirstOpening().then((firstOpening){
+ if(firstOpening==true || firstOpening == null){
+       NavigationService.instance.navigateToPageClear(path: NavigationConstant.ONBOARD);
+    }
+    else{
+ NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
+    }
+    });   
+    });
   }
-
+  Future<bool?> isFirstOpening() async {
+     IHiveManager<bool> hiveManager = HiveManager<bool>(HiveBoxEnum.firstOpening);
+     
+ final isFirstOpening = await hiveManager.get(HiveKeyEnum.firstOpening);
+ return isFirstOpening;
+  }
   @override
   void setContext(BuildContext context) {
     this.context = context;

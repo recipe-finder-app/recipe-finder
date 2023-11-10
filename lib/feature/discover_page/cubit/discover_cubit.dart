@@ -48,6 +48,7 @@ final int pageLimit = 10;
   @override
   Future<void> init() async {
     commonService = CommonService();
+    try{
      changeIsLoadingState();
     await fetchRecipeCategoryList().then((value){
       if(state.selectedCategory!=null && state.selectedCategory!.id!=null){
@@ -55,6 +56,15 @@ final int pageLimit = 10;
       }
     });
     changeIsLoadingState();
+    }
+    catch(e) {
+       emit(state.copyWith(error: BaseError(message: LocaleKeys.anErrorOccured.locale)));
+      throw Exception(e.toString());
+    
+    }
+    finally{
+
+    }
   }
 
  
@@ -65,7 +75,7 @@ final int pageLimit = 10;
 
 Future<List<Recipe>> fetchRecipeListByCategoryId(String categoryId) async {
   try{
-    changeIsLoadingState();
+   // changeIsLoadingState();
   final allRecipeList = await fetchAllRecipeList();
   final List<Recipe> filteredRecipeList = [];
 
@@ -81,11 +91,12 @@ Future<List<Recipe>> fetchRecipeListByCategoryId(String categoryId) async {
 }
 catch (e) {
     
-    emit(state.copyWith(error: BaseError(message: e.toString())));
+    emit(state.copyWith(error: BaseError(message: LocaleKeys.anErrorOccured.locale)));
      return [];
+     
    
   } finally {
-changeIsLoadingState();
+//changeIsLoadingState();
   }
 }
 Future<void> addToLikedRecipeList(Recipe model) async {
@@ -136,7 +147,7 @@ Future<List<Recipe>> fetchAllRecipeList() async {
     return allRecipeList;
   } catch (e) {
     
-    emit(state.copyWith(error: BaseError(message: e.toString())));
+    emit(state.copyWith(error: BaseError(message: LocaleKeys.anErrorOccured.locale)));
      return [];
    
   } finally {
@@ -159,7 +170,7 @@ Future<List<RecipeCategory>> fetchRecipeCategoryList() async {
     return recipeCategoryList;
   } catch (e) {
     
-    emit(state.copyWith(error: BaseError(message: e.toString())));
+    emit(state.copyWith(error: BaseError(message: LocaleKeys.anErrorOccured.locale)));
      return [];
    
   } finally {
@@ -173,6 +184,7 @@ Future<List<RecipeCategory>> fetchRecipeCategoryList() async {
   void changeIsLoadingState() {
      final isLoading = state.isLoading ?? false;
     emit(state.copyWith(isLoading: !isLoading));
+    print("loading ${state.isLoading}");
   }
   /*Future<void> fetchRecipeCategoryList() async {
     try {

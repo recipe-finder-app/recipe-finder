@@ -63,6 +63,7 @@ class RecipeNavigationBarCubit extends Cubit<int> {
     emit(selectedPageIndex);
   }
   Future<bool> clearCache() async{
+    clear();
      final IHiveManager<UserModel> user = HiveManager<UserModel>(HiveBoxEnum.userModel);
                  await Future.wait([
                     user.clear(),
