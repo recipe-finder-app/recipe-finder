@@ -14,38 +14,41 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<SplashCubit>(
-      init: (cubitRead) {
-        cubitRead.init();
+      init: (cubitRead) async {
+       await cubitRead.init();
       },
       onPageBuilder: (context, cubitRead, watch) => Scaffold(
         backgroundColor: ColorConstants.instance.oriolesOrange,
-        body: SizedBox(
-          height: context.screenHeight,
-          width: context.screenWidth,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Lottie.asset(ImagePathConstant.splashAnimation.path, height: 275, width: 150),
-                context.lowSizedBox,
-               const Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
-                    BoldText(
-                      text: 'Tarifi',
-                      textColor: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    Text(
-                      'Bul',
-                      style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
-                    ),
-                  ],
-                ),
-              ],
+        body: WillPopScope(
+          onWillPop: () => Future.value(false),
+          child: SizedBox(
+            height: context.screenHeight,
+            width: context.screenWidth,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Lottie.asset(ImagePathConstant.splashAnimation.path, height: 275, width: 150),
+                  context.lowSizedBox,
+                 const Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:  [
+                      BoldText(
+                        text: 'Tarifi',
+                        textColor: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      Text(
+                        'Bul',
+                        style: TextStyle(fontWeight: FontWeight.w400, color: Colors.white, fontSize: 24),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

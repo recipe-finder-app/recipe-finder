@@ -27,7 +27,7 @@ class OnboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<OnboardCubit>(
-      init: (cubitRead) => cubitRead.init(),
+      init: (cubitRead) async => await cubitRead.init(),
       dispose: (cubitRead) {
         cubitRead.dispose();
         pageController.dispose();
@@ -139,9 +139,10 @@ class OnboardView extends StatelessWidget {
       children: [
         const LanguagePopupMenuButton(),
         index == cubitRead.onboardItems.length - 1
-            ? const SizedBox()
+            ? const SizedBox.shrink()
             : TextButton(
-                onPressed: () {
+                onPressed: () async {
+                  await cubitRead.setFirstOpening();
                   NavigationService.instance.navigateToPageClear(path: NavigationConstant.LOGIN);
                 },
                 child: LocaleBoldText(
@@ -234,7 +235,8 @@ class OnboardView extends StatelessWidget {
                                 text: LocaleKeys.getStarted,
                                 color: Colors.white,
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                 await cubitRead.setFirstOpening();
                                 NavigationService.instance.navigateToPage(path: NavigationConstant.LOGIN);
                               },
                             ),

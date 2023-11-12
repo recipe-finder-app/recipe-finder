@@ -26,9 +26,7 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
   @override
   Future<void> init() async {
     service = OnboardService();
-   await setFirstOpening();
     clear();
-    print('onboard init çalıştı');
   }
 
   void onCompleting() {
@@ -54,7 +52,8 @@ class OnboardCubit extends Cubit<IOnboardState> implements IBaseViewModel {
   }
  Future<void> setFirstOpening() async {
      IHiveManager<bool> hiveManager = HiveManager<bool>(HiveBoxEnum.firstOpening);
-     if(await hiveManager.get(HiveKeyEnum.firstOpening)==true){
+    final firstOpening =  await hiveManager.get(HiveKeyEnum.firstOpening);
+     if(firstOpening==true || firstOpening==null){
      await hiveManager.put(HiveKeyEnum.firstOpening, false);
      }
   }
